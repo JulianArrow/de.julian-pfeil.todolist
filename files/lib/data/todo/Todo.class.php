@@ -9,6 +9,7 @@ use wcf\system\request\LinkHandler;
 use wcf\system\WCF;
 use wcf\system\cache\runtime\UserProfileRuntimeCache;
 use wcf\data\user\UserProfile;
+use wcf\util\StringUtil;
 
 /**
  * Represents a todo.
@@ -17,10 +18,6 @@ use wcf\data\user\UserProfile;
  * @copyright   2022 Julian Pfeil Websites & Co.
  * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
  * @package WoltLabSuite\Core\Data\Todo
- *
- * @property-read   int     $todoID   unique id of the todo
- * @property-read   string  $firstName  first name of the todo
- * @property-read   string  $lastName   last name of the todo
  */
 class Todo extends DatabaseObject implements ITitledLinkObject
 {
@@ -52,6 +49,13 @@ class Todo extends DatabaseObject implements ITitledLinkObject
         return $this->todoName;
     }
 	
+	/**
+	 * @inheritDoc
+	 */
+	public function getExcerpt() {
+		return StringUtil::truncate($this->description);
+	}
+
 	/**
      * Returns `true` if the active user can delete this todo and `false` otherwise.
      */

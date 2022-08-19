@@ -101,7 +101,7 @@
 													{/if}
 													
 												
-													<a href="{$todo->getLink()}" title="{if $todo->description|strlen > 50}{$todo->description|substr:0:50|trim}...{else}{$todo->description}{/if}">{$todo->getTitle()}</a>
+													<a href="{$todo->getLink()}" title="{$todo->getExcerpt()}">{$todo->getTitle()}</a>
 												
 													<small class="separatorLeft">
 														<span class="icon icon16 fa-user"></span>
