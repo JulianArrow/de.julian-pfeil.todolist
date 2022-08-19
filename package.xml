@@ -60,9 +60,11 @@
 	
 	<instructions type="update" fromversion="1.3.0">
 		<instruction type="template" />
+		<instruction type="file" />
 	</instructions>
 	
 	<instructions type="update" fromversion="1.3.1">
 		<instruction type="template" />
+		<instruction type="file" />
 	</instructions>
 </package>

@@ -100,7 +100,7 @@
 
 			{hascontent}
 				<div class="section">
-					<ul class="todoButtons buttonGroup jsTodoInlineEditorContainer" data-todo-id="{@$todo->todoID}">
+					<ul class="todoButtons buttonList smallButtons jsTodoInlineEditorContainer" data-todo-id="{@$todo->todoID}">
 						{content}
 							{if $todo->canEdit()}
 								<li>
