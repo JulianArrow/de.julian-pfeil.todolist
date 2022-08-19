@@ -82,7 +82,9 @@
 
 	
 	{* Tab 1 *}
-	{if $tabMenu == 1}<div id="generalTab" class="tabMenuContent">{/if}
+	<div id="todoContent{if $tabMenu == 1} generalTab" class="tabMenuContent{/if}"
+		{event name='todoContentAttributes'}
+	>
 		<div class="section">
 			<div class="section">
 				<p class="todoTitle">
@@ -94,7 +96,8 @@
 				</p>
 			</div>
 
-			
+			{event name='beforeTodoButtons'}
+
 			{hascontent}
 				<div class="section">
 					<ul class="todoButtons buttonGroup jsTodoInlineEditorContainer" data-todo-id="{@$todo->todoID}">
@@ -107,6 +110,7 @@
 									</a>
 								</li>
 							{/if}
+							
 							{if $__wcf->session->getPermission('user.todolist.canAddTodos')}
 								<li>
 									<a href="{link application='todolist' controller='TodoAdd'}{/link}" class="small button" id="todoAddButton">
@@ -115,12 +119,14 @@
 									</a>
 								</li>
 							{/if}
+
+							{event name='todoButtons'}
 						{/content}
 					</ul>
 				</div>	
 			{/hascontent}
 		</div>
-	{if $tabMenu == 1}</div>{/if}
+	</div>
 	{* End - Tab 1 *}
 
 	{event name='tabMenuContents'}
