@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/5.4/menuItem.xsd">
+	<import>
+		<item identifier="de.julian-pfeil.todolist.TodoList">
+			<menu>com.woltlab.wcf.MainMenu</menu>
+			<title language="de">To-do-Liste</title>
+			<title language="en">To-do list</title>
+			<page>de.julian-pfeil.todolist.TodoList</page>
+		</item>
+		<item identifier="de.julian-pfeil.todolist.AddTodo">
+			<parent>de.julian-pfeil.todolist.TodoList</parent>
+			<title language="de">To-do hinzufügen</title>
+			<title language="en">Add To-do</title>
+			<page>de.julian-pfeil.todolist.AddTodo</page>
+		</item>
+	</import>
+</data>

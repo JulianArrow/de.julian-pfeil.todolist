@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/5.4/page.xsd">
+	<import>
+		<page identifier="de.julian-pfeil.todolist.TodoList">
+			<pageType>system</pageType>
+			<controller>todolist\page\TodoListPage</controller>
+			<name language="de">To-do-Liste</name>
+			<name language="en">To-do List</name>
+			
+			<content language="de">
+				<title>To-do-Liste</title>
+			</content>
+			<content language="en">
+				<title>To-do list</title>
+			</content>
+			
+			<permissions>user.todolist.canSeeTodos</permissions>
+		</page>
+		<page identifier="de.julian-pfeil.todolist.Todo">
+            <pageType>system</pageType>
+            <controller>todolist\page\TodoPage</controller>
+            <handler>todolist\system\page\handler\TodoPageHandler</handler>
+            <name language="de">To-do</name>
+            <name language="en">To-do</name>
+            <requireObjectID>1</requireObjectID>
+            <parent>de.julian-pfeil.todolist.TodoList</parent>
+			<permissions>user.todolist.canSeeTodos</permissions>
+        </page>
+		<page identifier="de.julian-pfeil.todolist.AddTodo">
+            <pageType>system</pageType>
+            <controller>todolist\form\TodoAddForm</controller>
+            <name language="de">To-do hinzufügen</name>
+            <name language="en">Add To-do</name>
+            <parent>de.julian-pfeil.todolist.TodoList</parent>
+			<permissions>user.todolist.canAddTodos</permissions>
+        </page>
+		<page identifier="de.julian-pfeil.todolist.EditTodo">
+            <pageType>system</pageType>
+            <controller>todolist\form\TodoEditForm</controller>
+            <name language="de">To-do bearbeiten</name>
+            <name language="en">Edit To-do</name>
+            <parent>de.julian-pfeil.todolist.TodoList</parent>
+        </page>
+	</import>
+</data>

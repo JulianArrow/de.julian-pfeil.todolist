@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/5.4/language.xsd" languagecode="de">
+	<category name="wcf.acp.group">
+		<item name="wcf.acp.group.option.category.user.todolist"><![CDATA[To-do-Liste]]></item>
+		<item name="wcf.acp.group.option.category.mod.todolist"><![CDATA[To-do-Liste]]></item>
+		<item name="wcf.acp.group.option.user.todolist.canSeeTodos"><![CDATA[Kann To-do-Liste sehen]]></item>
+		<item name="wcf.acp.group.option.user.todolist.canAddTodos"><![CDATA[Kann To-dos hinzufügen]]></item>
+		<item name="wcf.acp.group.option.user.todolist.canDeleteOwnTodos"><![CDATA[Kann eigene To-dos löschen]]></item>
+		<item name="wcf.acp.group.option.user.todolist.canEditOwnTodos"><![CDATA[Kann eigene To-dos bearbeiten]]></item>
+		<item name="wcf.acp.group.option.mod.todolist.canEditTodos"><![CDATA[Kann To-dos bearbeiten]]></item>
+		<item name="wcf.acp.group.option.mod.todolist.canDeleteTodos"><![CDATA[Kann To-dos löschen]]></item>
+	</category>
+	
+	<category name="todolist.action">
+		<item name="todolist.action.add"><![CDATA[To-do hinzufügen]]></item>
+		<item name="todolist.action.edit"><![CDATA[To-do bearbeiten]]></item>
+		<item name="todolist.action.markAsDone"><![CDATA[Als erledigt markieren]]></item>
+		<item name="todolist.action.markAsUndone"><![CDATA[Als unerledigt markieren]]></item>
+		<item name="todolist.action.confirmDelete"><![CDATA[{if LANGUAGE_USE_INFORMAL_VARIANT}Willst du{else}Wollen Sie{/if} dieses To-do wirklich löschen?]]></item>
+	</category>
+	
+	<category name="todolist.column">
+		<item name="todolist.column.todoName"><![CDATA[Titel]]></item>
+		<item name="todolist.column.creationDate"><![CDATA[Erstellungsdatum]]></item>
+		<item name="todolist.column.description"><![CDATA[Beschreibung]]></item>
+		<item name="todolist.column.done"><![CDATA[Erledigt?]]></item>
+	</category>
+	
+	<category name="todolist.general">
+		<item name="todolist.general.title"><![CDATA[Allgemein]]></item>
+		<item name="todolist.general.todo"><![CDATA[To-do: {$todo}]]></item>
+		<item name="todolist.general.list"><![CDATA[To-do-Liste]]></item>
+		<item name="todolist.general.done"><![CDATA[erledigt]]></item>
+		<item name="todolist.general.undone"><![CDATA[unerledigt]]></item>
+		<item name="todolist.general.copyright"><![CDATA[<a href="https://julian-pfeil.de" rel="nofollow"{if EXTERNAL_LINK_TARGET_BLANK} target="_blank"{/if}><strong>To-do-Liste{if SHOW_VERSION_NUMBER} {@PACKAGE_VERSION}{/if}</strong> (von <strong>julian-pfeil.de</strong>)</a>]]></item>
+	</category>
+	
+	<category name="wcf.page">
+		<item name="wcf.page.onlineLocation.de.julian-pfeil.todolist.Todo"><![CDATA[To-do {anchor object=$todo}]]></item>
+	</category>
+</language>
