@@ -10,6 +10,10 @@
 		<item name="wcf.acp.group.option.mod.todolist.canEditTodos"><![CDATA[Can edit to-dos]]></item>
 		<item name="wcf.acp.group.option.mod.todolist.canDeleteTodos"><![CDATA[Can delete to-dos]]></item>
 	</category>
+
+	<category name="wcf.user.notification">
+		<item name="wcf.user.notification.de.julian-pfeil.todolist"><![CDATA[To-do list]]></item>
+	</category>
 	
 	<category name="todolist.action">
 		<item name="todolist.action.add"><![CDATA[Add to-do]]></item>
