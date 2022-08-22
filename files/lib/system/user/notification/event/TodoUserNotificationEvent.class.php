@@ -46,7 +46,7 @@ class TodoUserNotificationEvent extends AbstractUserNotificationEvent {
 	public function getMessage() {
 		return $this->getLanguage()->getDynamicVariable('todolist.action.notification.message', [
 				'todo' => $this->userNotificationObject,
-				'author' => $this->author
+				'author' => $this->author,
 		]);
 	}
 	

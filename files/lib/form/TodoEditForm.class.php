@@ -4,6 +4,8 @@ namespace todolist\form;
 
 use todolist\data\todo\Todo;
 use wcf\system\exception\IllegalLinkException;
+use wcf\system\user\notification\UserNotificationHandler;
+use todolist\system\user\notification\object\TodoUserNotificationObject;
 use wcf\system\WCF;
 
 /**
