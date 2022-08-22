@@ -4,6 +4,7 @@ namespace todolist\form;
 
 use todolist\data\todo\Todo;
 use wcf\system\exception\IllegalLinkException;
+use wcf\system\WCF;
 
 /**
  * Shows the form to edit an existing todo.
