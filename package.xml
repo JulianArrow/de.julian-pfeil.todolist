@@ -36,6 +36,8 @@
 		<instruction type="page" />
 		<instruction type="menuItem" />
 		<instruction type="userGroupOption" />
+		<instruction type="objectType" />
+		<instruction type="userNotificationEvent" />
 	</instructions>
 	
 	<instructions type="update" fromversion="1.0.2">
@@ -44,27 +46,41 @@
 		<instruction type="language" />
 
 		<instruction type="templateListener" />
+		<instruction type="objectType" />
+		<instruction type="userNotificationEvent" />
 	</instructions>
 	
 	<instructions type="update" fromversion="1.1.0">
 		<instruction type="file" />
 		<instruction type="template" />
 		<instruction type="language" />
+
+		<instruction type="objectType" />
+		<instruction type="userNotificationEvent" />
 	</instructions>
 	
 	<instructions type="update" fromversion="1.2.0">
 		<instruction type="file" />
 		<instruction type="language" />
 		<instruction type="template" />
+		
+		<instruction type="objectType" />
+		<instruction type="userNotificationEvent" />
 	</instructions>
 	
 	<instructions type="update" fromversion="1.3.0">
 		<instruction type="template" />
 		<instruction type="file" />
+		
+		<instruction type="objectType" />
+		<instruction type="userNotificationEvent" />
 	</instructions>
 	
 	<instructions type="update" fromversion="1.3.1">
 		<instruction type="template" />
 		<instruction type="file" />
+		
+		<instruction type="objectType" />
+		<instruction type="userNotificationEvent" />
 	</instructions>
 </package>

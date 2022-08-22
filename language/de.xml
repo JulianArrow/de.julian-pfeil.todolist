@@ -21,6 +21,11 @@
 		<item name="todolist.action.markAsDone"><![CDATA[Als erledigt markieren]]></item>
 		<item name="todolist.action.markAsUndone"><![CDATA[Als unerledigt markieren]]></item>
 		<item name="todolist.action.confirmDelete"><![CDATA[{if LANGUAGE_USE_INFORMAL_VARIANT}Willst du{else}Wollen Sie{/if} dieses To-do wirklich löschen?]]></item>
+
+		<item name="todolist.action.notification.title"><![CDATA[To-do geändert]]></item>
+		<item name="todolist.action.notification.message"><![CDATA[<strong>{$author}</strong> hat das To-do <a href="{link application='todolist' controller='Todo' object=$todo}{/link}">{$todo->getTitle()}</a> geändert.]]></item>
+		<item name="todolist.action.notification.mail.plaintext"><![CDATA[{if $event->getAuthor()->userID}{@$event->getAuthor()->username} [URL:{link controller='User' object=$event->getAuthor() isEmail=true}{/link}]{else}ein Gast{/if} hat das To-do „{@$event->getUserNotificationObject()->getTitle()}“ [URL:{link application='todolist' controller='Todo' object=$event->getUserNotificationObject() isEmail=true}{/link}] geändert:]]></item>
+		<item name="todolist.action.notification.mail.html"><![CDATA[<p>{if $event->getAuthor()->userID}<a href="{link controller='User' object=$event->getAuthor() isHtmlEmail=true}{/link}">{$event->getAuthor()->username}</a>{else}ein Gast{/if} hat das To-do <a href="{link application='todolist' controller='Todo' object=$event->getUserNotificationObject() isHtmlEmail=true}{/link}">{$event->getUserNotificationObject()->getTitle()}</a> geändert:</p>]]></item>
 	</category>
 	
 	<category name="todolist.column">

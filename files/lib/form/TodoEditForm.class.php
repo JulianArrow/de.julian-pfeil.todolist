@@ -40,4 +40,24 @@ class TodoEditForm extends TodoAddForm
             }
         }
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function save()
+    {
+        parent::save();
+
+        if ($this->formAction == 'update' &&  WCF::getUser()->userID != $this->formObject->userID)
+        {
+
+            $recipientIDs = [$this->formObject->userID];
+            UserNotificationHandler::getInstance()->fireEvent(
+                'todo', // event name
+                'de.julian-pfeil.todolist.todo', // event object type name
+                new TodoUserNotificationObject(new Todo($this->formObject->todoID)),
+                $recipientIDs
+            );
+        }
+    }
 }

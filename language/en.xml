@@ -21,6 +21,11 @@
 		<item name="todolist.action.markAsDone"><![CDATA[Mark as done]]></item>
 		<item name="todolist.action.markAsUndone"><![CDATA[Mark as undone]]></item>
 		<item name="todolist.action.confirmDelete"><![CDATA[Do you confirm to delete this to-do?]]></item>
+		
+		<item name="todolist.action.notification.title"><![CDATA[To-do edited]]></item>
+		<item name="todolist.action.notification.message"><![CDATA[<strong>{$author}</strong> edited the to-do <a href="{link application='todolist' controller='Todo' object=$todo}{/link}">{$todo->getTitle()}</a>.]]></item>
+		<item name="todolist.action.notification.mail.plaintext"><![CDATA[{if $event->getAuthor()->userID}{@$event->getAuthor()->username} [URL:{link controller='User' object=$event->getAuthor() isEmail=true}{/link}]{else}a guest{/if} edited the to-do “{@$event->getUserNotificationObject()->getTitle()}” [URL:{link application='todolist' controller='Todo' object=$event->getUserNotificationObject() isEmail=true}{/link}]:]]></item>
+		<item name="todolist.action.notification.mail.html"><![CDATA[<p>{if $event->getAuthor()->userID}<a href="{link controller='User' object=$event->getAuthor() isHtmlEmail=true}{/link}">{$event->getAuthor()->username}</a>{else}a guest{/if} edited the to-do <a href="{link application='todolist' controller='Todo' object=$event->getUserNotificationObject() isHtmlEmail=true}{/link}">{$event->getUserNotificationObject()->getTitle()}</a>:</p>]]></item>
 	</category>
 	
 	<category name="todolist.column">
