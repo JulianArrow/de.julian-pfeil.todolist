@@ -82,7 +82,7 @@
 
 	
 	{* Tab 1 *}
-	<div id="generalTab" class="todoContent{if $tabMenu == 1} tabMenuContent{/if}"
+	<div id="generalTab" class="todoContent section{if $tabMenu == 1} tabMenuContent{/if}"
 		{event name='todoContentAttributes'}
 	>
 		<div class="section">
