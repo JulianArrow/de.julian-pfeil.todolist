@@ -8,6 +8,8 @@ use wcf\util\UserUtil;
 use wcf\system\request\LinkHandler;
 use wcf\system\exception\PermissionDeniedException;
 use wcf\system\exception\UserInputException;
+use wcf\system\user\notification\UserNotificationHandler;
+use todolist\system\user\notification\object\TodoUserNotificationObject;
 
 /**
  * Executes todo-related actions.
@@ -141,6 +143,14 @@ class TodoAction extends AbstractDatabaseObjectAction
 	public function markAsUndone() {
 		foreach ($this->getObjects() as $todoEditor) {
 			$todoEditor->update(['done' => 0]);
+
+			$recipientIDs = [$todoEditor->getDecoratedObject()->userID];
+            UserNotificationHandler::getInstance()->fireEvent(
+                'todo', // event name
+                'de.julian-pfeil.todolist.todo', // event object type name
+                new TodoUserNotificationObject(new Todo($todoEditor->getDecoratedObject()->todoID)),
+                $recipientIDs
+            );
 			
 			$this->addTodoData($todoEditor->getDecoratedObject(), 'done', 0);
 		}
