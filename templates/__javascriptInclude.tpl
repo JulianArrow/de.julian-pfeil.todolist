@@ -1,2 +1,1 @@
-{js application='todolist' file='Todolist' hasTiny=false}
-{js application='todolist' file='Notification/MarkAsDoneHandler' hasTiny=false}
+<script data-relocate="true" src="{@$__wcf->getPath('wcf')}js/Todolist{if !ENABLE_DEBUG_MODE}.min{/if}.js?t={@LAST_UPDATE_TIME}"></script>
