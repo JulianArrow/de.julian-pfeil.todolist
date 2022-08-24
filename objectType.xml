@@ -7,5 +7,9 @@
 			<classname>todolist\system\user\notification\object\type\TodoUserNotificationObjectType</classname>
 			<category>de.julian-pfeil.todolist</category>
 		</type>
+		<type>
+			<name>de.julian-pfeil.todolist.todo.content</name>
+			<definitionname>com.woltlab.wcf.message</definitionname>
+		</type>
 	</import>
 </data>
