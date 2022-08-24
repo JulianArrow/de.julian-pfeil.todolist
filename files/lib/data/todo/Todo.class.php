@@ -10,6 +10,7 @@ use wcf\system\WCF;
 use wcf\system\cache\runtime\UserProfileRuntimeCache;
 use wcf\data\user\UserProfile;
 use wcf\util\StringUtil;
+use wcf\system\html\output\HtmlOutputProcessor;
 
 /**
  * Represents a todo.
@@ -48,12 +49,43 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     {
         return $this->todoName;
     }
+
+    /**
+     * Returns the formatted message.
+     */
+     public function getFormattedMessage(): string
+    {
+        $processor = new HtmlOutputProcessor();
+        $processor->process($this->description, 'de.julian-pfeil.todolist.todo.content', $this->todoID);
+
+        return $processor->getHtml();
+    }
+
+    /**
+     * Returns a simplified version of the formatted message.
+     *
+     * @return	string
+     */
+    public function getSimplifiedFormattedMessage()
+    {
+        // remove [readmore] tag
+        $description = \str_replace('[readmore]', '', $this->getFormattedMessage());
+
+        // parse and return message
+        $processor = new HtmlOutputProcessor();
+        $processor->setOutputType('text/simplified-html');
+        $processor->process($description, 'de.julian-pfeil.todolist.todo.content', $this->todoID);
+
+        return $processor->getHtml();
+    }
 	
 	/**
 	 * @inheritDoc
 	 */
 	public function getExcerpt() {
-		return StringUtil::truncate($this->description);
+        $excerpt = StringUtil::truncateHTML($this->getSimplifiedFormattedMessage());
+        $excerpt = StringUtil::stripHTML($excerpt);
+		return $excerpt;
 	}
 
 	/**

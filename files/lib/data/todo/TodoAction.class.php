@@ -10,6 +10,7 @@ use wcf\system\exception\PermissionDeniedException;
 use wcf\system\exception\UserInputException;
 use wcf\system\user\notification\UserNotificationHandler;
 use todolist\system\user\notification\object\TodoUserNotificationObject;
+#use wcf\system\html\input\HtmlInputProcessor;
 
 /**
  * Executes todo-related actions.
@@ -46,9 +47,29 @@ class TodoAction extends AbstractDatabaseObjectAction
             unset($this->parameters['data']['ipAddress']);
         }
 
+        if (!empty($this->parameters['description_htmlInputProcessor'])) {
+            /** @var HtmlInputProcessor $htmlInputProcessor */
+            $htmlInputProcessor = $this->parameters['description_htmlInputProcessor'];
+            $this->parameters['data']['description'] = $htmlInputProcessor->getHtml();
+        }
+
         $object = parent::create();
 
         return $object;
+    }
+	
+	/**
+     * @inheritDoc
+     */
+    public function update()
+    {
+        if (!empty($this->parameters['description_htmlInputProcessor'])) {
+            /** @var HtmlInputProcessor $htmlInputProcessor */
+            $htmlInputProcessor = $this->parameters['description_htmlInputProcessor'];
+            $this->parameters['data']['description'] = $htmlInputProcessor->getHtml();
+        }
+
+        parent::update();
     }
     
 	/**
@@ -177,4 +198,22 @@ class TodoAction extends AbstractDatabaseObjectAction
 			'todoData' => $this->todoData
 		];
 	}
+
+	/**
+     * Sends todo-edit user notification
+     */
+    public function sendNotification()
+    {
+        if (WCF::getUser()->userID != $this->formObject->userID)
+        {
+
+            $recipientIDs = [$this->formObject->userID];
+            UserNotificationHandler::getInstance()->fireEvent(
+                'todo', // event name
+                'de.julian-pfeil.todolist.todo', // event object type name
+                new TodoUserNotificationObject(new Todo($this->formObject->todoID)),
+                $recipientIDs
+            );
+        }
+    }
 }

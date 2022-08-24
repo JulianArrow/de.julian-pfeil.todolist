@@ -6,7 +6,8 @@ use todolist\data\todo\TodoAction;
 use wcf\form\AbstractFormBuilderForm;
 use wcf\system\form\builder\container\FormContainer;
 use wcf\system\form\builder\field\TextFormField;
-use wcf\system\form\builder\field\MultilineTextFormField;
+#use wcf\system\form\builder\field\MultilineTextFormField;
+use wcf\system\form\builder\container\wysiwyg\WysiwygFormContainer;
 use wcf\system\form\builder\field\BooleanFormField;
 use wcf\system\WCF;
 use wcf\system\request\LinkHandler;
@@ -62,11 +63,17 @@ class TodoAddForm extends AbstractFormBuilderForm
                         ->required()
                         ->autoFocus()
                         ->maximumLength(255),
-						
-                    MultilineTextFormField::create('description')
+
+					WysiwygFormContainer::create('description')
                         ->label('todolist.column.description')
                         ->required()
-                        ->maximumLength(8192),
+                        ->messageObjectType('de.julian-pfeil.todolist.todo.content')
+                        ->supportSmilies(false)
+                        ->supportMentions(),
+                    /* MultilineTextFormField::create('description')
+                        ->label('todolist.column.description')
+                        ->required()
+                        ->maximumLength(8192),*/
 						
                     BooleanFormField::create('done')
                         ->label('todolist.column.done')

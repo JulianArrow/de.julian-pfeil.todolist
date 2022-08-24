@@ -194,6 +194,12 @@
 	});
 </script>
 
+<script data-relocate="true">
+  require(["JulianPfeil/ToDoList/Ui/MarkAsDoneNotification"], function(MarkAsDoneNotification) {
+    MarkAsDoneNotification.setup();
+  });
+</script>
+
 {event name='additionalJavascript'}
 
 {include file='footer'}

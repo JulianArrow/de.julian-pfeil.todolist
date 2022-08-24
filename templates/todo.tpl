@@ -91,8 +91,8 @@
 					{$todo->getTitle()}
 				</p>
 
-				<p class="todoDescription">
-					{$todo->description}
+				<p class="todoDescription htmlContent userMessage">
+					{@$todo->getFormattedMessage()}
 				</p>
 			</div>
 
@@ -166,6 +166,12 @@
 			canMarkAsDone:		{if $todo->canEdit()}1{else}0{/if}
 		});
 	});
+</script>
+
+<script data-relocate="true">
+  require(["JulianPfeil/ToDoList/Ui/MarkAsDoneNotification"], function(MarkAsDoneNotification) {
+    MarkAsDoneNotification.setup();
+  });
 </script>
 
 {event name='additionalJavascript'}
