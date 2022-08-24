@@ -27,6 +27,7 @@
 	
 	<instructions type="install">
 		<instruction type="file" />
+		<instruction type="file" application="wcf">files_wcf.tar</instruction>
 		<instruction type="database">acp/database/install_de.julian-pfeil.todolist.php</instruction>
 		<instruction type="template" />
 		<instruction type="language" />
@@ -79,6 +80,7 @@
 	<instructions type="update" fromversion="1.3.1">
 		<instruction type="template" />
 		<instruction type="file" />
+		<instruction type="file" application="wcf">files_wcf.tar</instruction>
 		
 		<instruction type="objectType" />
 		<instruction type="userNotificationEvent" />

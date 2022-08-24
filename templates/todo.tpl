@@ -34,7 +34,7 @@
 					<meta itemprop="operatingSystem" content="N/A">
 				</li>
 				
-				<li class="jsMarkAsDone">
+				<li class="jsMarkAsDone" data-object-id="{@$todo->todoID}">
 					{if $todo->isDone()}
 						<span class="icon icon16 fa-check-square-o" data-tooltip="{lang}todolist.general.done{/lang}" aria-label="{lang}todolist.general.done{/lang}"></span>
 						<span class="doneTitle">{lang}todolist.general.done{/lang}</span>

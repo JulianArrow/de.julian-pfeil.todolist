@@ -95,9 +95,9 @@
 											<div class="containerHeadline">
 												<h3>
 													{if $todo->isDone()}
-														<span class="icon icon16 jsMarkAsDone fa-check-square-o" data-tooltip="{lang}todolist.general.done{/lang}" aria-label="{lang}todolist.general.done{/lang}"></span>
+														<span class="icon icon16 jsMarkAsDone fa-check-square-o" data-object-id="{@$todo->todoID}" data-tooltip="{lang}todolist.general.done{/lang}" aria-label="{lang}todolist.general.done{/lang}"></span>
 													{else}
-														<span class="icon icon16 jsMarkAsDone fa-square-o" data-tooltip="{lang}todolist.general.undone{/lang}" aria-label="{lang}todolist.general.undone{/lang}"></span>
+														<span class="icon icon16 jsMarkAsDone fa-square-o" data-object-id="{@$todo->todoID}" data-tooltip="{lang}todolist.general.undone{/lang}" aria-label="{lang}todolist.general.undone{/lang}"></span>
 													{/if}
 													
 												

@@ -78,13 +78,30 @@ class Todo extends DatabaseObject implements ITitledLinkObject
 
         return $processor->getHtml();
     }
+
+    /**
+     * Returns a plain unformatted version of the message.
+     *
+     * @return	string
+     */
+    public function getPlainMessage()
+    {
+        // remove [readmore] tag
+        $description = \str_replace('[readmore]', '', $this->getFormattedMessage());
+
+        // parse and return message
+        $processor = new HtmlOutputProcessor();
+        $processor->setOutputType('text/plain');
+        $processor->process($description, 'de.julian-pfeil.todolist.todo.content', $this->todoID);
+
+        return $processor->getHtml();
+    }
 	
 	/**
 	 * @inheritDoc
 	 */
 	public function getExcerpt() {
-        $excerpt = StringUtil::truncateHTML($this->getSimplifiedFormattedMessage());
-        $excerpt = StringUtil::stripHTML($excerpt);
+        $excerpt = StringUtil::truncate($this->getPlainMessage());
 		return $excerpt;
 	}
 

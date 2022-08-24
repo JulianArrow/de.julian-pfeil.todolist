@@ -145,6 +145,17 @@ class TodoAction extends AbstractDatabaseObjectAction
 		foreach ($this->getObjects() as $todoEditor) {
 			$todoEditor->update(['done' => 1]);
 			
+            if (WCF::getUser()->userID != $todoEditor->getDecoratedObject()->userID)
+            {
+                $recipientIDs = [$todoEditor->getDecoratedObject()->userID];
+                UserNotificationHandler::getInstance()->fireEvent(
+                    'todo', // event name
+                    'de.julian-pfeil.todolist.todo', // event object type name
+                    new TodoUserNotificationObject(new Todo($todoEditor->getDecoratedObject()->todoID)),
+                    $recipientIDs
+                );
+            }
+
 			$this->addTodoData($todoEditor->getDecoratedObject(), 'done', 1);
 		}
 		
@@ -165,13 +176,16 @@ class TodoAction extends AbstractDatabaseObjectAction
 		foreach ($this->getObjects() as $todoEditor) {
 			$todoEditor->update(['done' => 0]);
 
-			$recipientIDs = [$todoEditor->getDecoratedObject()->userID];
-            UserNotificationHandler::getInstance()->fireEvent(
-                'todo', // event name
-                'de.julian-pfeil.todolist.todo', // event object type name
-                new TodoUserNotificationObject(new Todo($todoEditor->getDecoratedObject()->todoID)),
-                $recipientIDs
-            );
+            if (WCF::getUser()->userID != $todoEditor->getDecoratedObject()->userID)
+            {
+                $recipientIDs = [$todoEditor->getDecoratedObject()->userID];
+                UserNotificationHandler::getInstance()->fireEvent(
+                    'todo', // event name
+                    'de.julian-pfeil.todolist.todo', // event object type name
+                    new TodoUserNotificationObject(new Todo($todoEditor->getDecoratedObject()->todoID)),
+                    $recipientIDs
+                );
+            }
 			
 			$this->addTodoData($todoEditor->getDecoratedObject(), 'done', 0);
 		}
