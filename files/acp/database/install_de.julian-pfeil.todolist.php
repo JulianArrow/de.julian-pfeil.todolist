@@ -7,6 +7,8 @@ use wcf\system\database\table\column\NotNullInt10DatabaseTableColumn;
 use wcf\system\database\table\column\IntDatabaseTableColumn;
 use wcf\system\database\table\column\VarcharDatabaseTableColumn;
 use wcf\system\database\table\column\DefaultFalseBooleanDatabaseTableColumn;
+use wcf\system\database\table\column\SmallintDatabaseTableColumn;
+use wcf\system\database\table\column\DefaultTrueBooleanDatabaseTableColumn;
 use wcf\system\database\table\DatabaseTable;
 use wcf\system\database\table\index\DatabaseTableForeignKey;
 use wcf\system\database\table\index\DatabaseTablePrimaryIndex;
@@ -26,6 +28,15 @@ return [
                 ->notNull(true)
                 ->defaultValue(''),
             DefaultFalseBooleanDatabaseTableColumn::create('done'),
+            SmallintDatabaseTableColumn::create('comments')
+                ->length(5)
+                ->notNull()
+                ->defaultValue(0),
+            DefaultTrueBooleanDatabaseTableColumn::create('enableComments'),
+            SmallintDatabaseTableColumn::create('cumulativeLikes')
+                ->length(5)
+                ->notNull()
+                ->defaultValue(0),
         ])
         ->indices([
             DatabaseTablePrimaryIndex::create()

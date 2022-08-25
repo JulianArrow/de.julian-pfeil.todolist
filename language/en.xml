@@ -3,16 +3,50 @@
 	<category name="wcf.acp.group">
 		<item name="wcf.acp.group.option.category.user.todolist"><![CDATA[To-do list]]></item>
 		<item name="wcf.acp.group.option.category.mod.todolist"><![CDATA[To-do list]]></item>
-		<item name="wcf.acp.group.option.user.todolist.canSeeTodos"><![CDATA[Can see to-do list]]></item>
-		<item name="wcf.acp.group.option.user.todolist.canAddTodos"><![CDATA[Can add to-dos]]></item>
-		<item name="wcf.acp.group.option.user.todolist.canDeleteOwnTodos"><![CDATA[Can delete own to-dos]]></item>
-		<item name="wcf.acp.group.option.user.todolist.canEditOwnTodos"><![CDATA[Can edit own to-dos]]></item>
-		<item name="wcf.acp.group.option.mod.todolist.canEditTodos"><![CDATA[Can edit to-dos]]></item>
-		<item name="wcf.acp.group.option.mod.todolist.canDeleteTodos"><![CDATA[Can delete to-dos]]></item>
+		
+		<item name="wcf.acp.group.option.category.user.todolist.general"><![CDATA[General]]></item>
+		<item name="wcf.acp.group.option.category.mod.todolist.general"><![CDATA[General]]></item>
+		<item name="wcf.acp.group.option.user.todolist.general.canSeeTodos"><![CDATA[Can see to-do list]]></item>
+		<item name="wcf.acp.group.option.user.todolist.general.canAddTodos"><![CDATA[Can add to-dos]]></item>
+		<item name="wcf.acp.group.option.user.todolist.general.canDeleteOwnTodos"><![CDATA[Can delete own to-dos]]></item>
+		<item name="wcf.acp.group.option.user.todolist.general.canEditOwnTodos"><![CDATA[Can edit own to-dos]]></item>
+		<item name="wcf.acp.group.option.mod.todolist.general.canEditTodos"><![CDATA[Can edit to-dos]]></item>
+		<item name="wcf.acp.group.option.mod.todolist.general.canDeleteTodos"><![CDATA[Can delete to-dos]]></item>
+		
+		<item name="wcf.acp.group.option.category.user.todolist.comments"><![CDATA[Comments]]></item>
+		<item name="wcf.acp.group.option.category.mod.todolist.comments"><![CDATA[Comments]]></item>
+		<item name="wcf.acp.group.option.mod.todolist.comments.canDeleteComment"><![CDATA[Can delete comments]]></item>
+		<item name="wcf.acp.group.option.mod.todolist.comments.canEditComment"><![CDATA[Can edit comments]]></item>
+		<item name="wcf.acp.group.option.mod.todolist.comments.canModerateComment"><![CDATA[Can moderate comments]]></item>
+		<item name="wcf.acp.group.option.user.todolist.comments.canAddComment"><![CDATA[Can create comments]]></item>
+		<item name="wcf.acp.group.option.user.todolist.comments.canAddCommentWithoutModeration"><![CDATA[Can create comments without approval]]></item>
+		<item name="wcf.acp.group.option.user.todolist.comments.canDeleteComment"><![CDATA[Can delete their comments]]></item>
+		<item name="wcf.acp.group.option.user.todolist.comments.canEditComment"><![CDATA[Can edit their comments]]></item>
+	</category>
+
+	<category name="wcf.acp.option">
+		<item name="wcf.acp.option.module_todolist_reactions"><![CDATA[To-do list: Reactions]]></item>
+		<item name="wcf.acp.option.module_todolist_comments"><![CDATA[To-do list: Comments]]></item>
 	</category>
 
 	<category name="wcf.user.notification">
 		<item name="wcf.user.notification.de.julian-pfeil.todolist"><![CDATA[To-do list]]></item>
+
+		<item name="wcf.user.notification.de.julian-pfeil.todolist.todoComment.notification.comment"><![CDATA[Notify me of new comments on my to-dos]]></item>
+		<item name="wcf.user.notification.de.julian-pfeil.todolist.todoComment.response.notification.commentResponse"><![CDATA[Notify me of new replies to my comments]]></item>
+		<item name="wcf.user.notification.de.julian-pfeil.todolist.todoComment.response.notification.commentResponseOwner"><![CDATA[Notify me of new replies to comments on my to-dos]]></item>
+		<item name="wcf.user.notification.de.julian-pfeil.todolist.todoComment.like.notification.like"><![CDATA[Notify me when someone reacted to my comments]]></item>
+		<item name="wcf.user.notification.de.julian-pfeil.todolist.todoComment.response.like.notification.like"><![CDATA[Notify me when someone reacted to my replies to comments]]></item>
+		
+		<item name="wcf.user.notification.de.julian-pfeil.todolist.likeableTodo.notification.like"><![CDATA[Notify me when someone reacted to my to-dos]]></item>
+	</category>
+	
+	<category name="wcf.like">
+		<item name="wcf.like.title.de.julian-pfeil.todolist.likeableTodo"><![CDATA[Reacted with {@$like->render()} to the to-do <a href="{link application='todolist' controller='Todo' object=$todo}{/link}" class="todoLink" data-todo-id="{@$todo->todoID}">{$todo->getTitle()}</a>.]]></item>
+ 	</category>
+	
+	<category name="wcf.page">
+		<item name="wcf.page.onlineLocation.de.julian-pfeil.todolist.Todo"><![CDATA[To-do {anchor object=$todo}]]></item>
 	</category>
 	
 	<category name="todolist.action">
@@ -44,7 +78,50 @@
 		<item name="todolist.general.copyright"><![CDATA[<a href="https://julian-pfeil.de" rel="nofollow"{if EXTERNAL_LINK_TARGET_BLANK} target="_blank"{/if}><strong>To-do list{if SHOW_VERSION_NUMBER} {@PACKAGE_VERSION}{/if}</strong> (by <strong>julian-pfeil.de</strong>)</a>]]></item>
 	</category>
 	
-	<category name="wcf.page">
-		<item name="wcf.page.onlineLocation.de.julian-pfeil.todolist.Todo"><![CDATA[To-do {anchor object=$todo}]]></item>
+	<category name="todolist.comment">
+		<item name="todolist.comment.title"><![CDATA[To-do comment]]></item>
+		<item name="todolist.comment.response"><![CDATA[Reply to to-do comment]]></item>
+		<item name="todolist.comment.plural"><![CDATA[Comment]]></item>
+		<item name="todolist.comment.enable"><![CDATA[Enable comments]]></item>
+		<item name="todolist.comment.enable.description"><![CDATA[Allow users to comment on this to-do.]]></item>
+		<item name="todolist.comment.metaData"><![CDATA[{@$todo->comments|shortUnit} comment{if $todo->comments != 1}s{/if}]]></item>
+
+		<item name="todolist.comment.like.notification.title"><![CDATA[Reaction to a comment (To-do)]]></item>
+		<item name="todolist.comment.like.notification.title.stacked"><![CDATA[{#$count} users reacted to your comment (To-do)]]></item>
+		<item name="todolist.comment.like.notification.message"><![CDATA[<strong>{$author}</strong> reacted to your comment on the to-do <a href="{link application='todolist' controller='Todo' object=$todo}#comments/comment{@$commentID}{/link}">{$todo->getTitle()}</a> ({@$__wcf->getReactionHandler()->renderInlineList($reactions)}).]]></item>
+		<item name="todolist.comment.like.notification.message.stacked"><![CDATA[{if $count < 4}{@$authors[0]->getAnchorTag()}{if $count == 2} and {else}, {/if}{@$authors[1]->getAnchorTag()}{if $count == 3} and {@$authors[2]->getAnchorTag()}{/if}{else}{@$authors[0]->getAnchorTag()} and {#$others} others{/if} reacted to your comment on the to-do <a href="{link application='todolist' controller='Todo' object=$todo}#comments/comment{@$commentID}{/link}">{$todo->getTitle()}</a> ({@$__wcf->getReactionHandler()->renderInlineList($reactions)}).]]></item>
+	
+		<item name="todolist.comment.notification.title"><![CDATA[New Comment (To-do)]]></item>
+		<item name="todolist.comment.notification.title.stacked"><![CDATA[{#$timesTriggered} new Comments (To-do)]]></item>
+		<item name="todolist.comment.notification.message"><![CDATA[{if $author->userID}<strong>{$author}</strong>{else}A guest{/if} commented on your to-do <a href="{link application='todolist' controller='Todo' object=$todo}#comments/comment{@$commentID}{/link}">{$todo->getTitle()}</a>.]]></item>
+		<item name="todolist.comment.notification.message.stacked"><![CDATA[{if $count < 4}{@$authors[0]->getAnchorTag()}{if $count != 1}{if $count == 2 && !$guestTimesTriggered} and {else}, {/if}{@$authors[1]->getAnchorTag()}{if $count == 3}{if !$guestTimesTriggered} and {else}, {/if} {@$authors[2]->getAnchorTag()}{/if}{/if}{if $guestTimesTriggered} and {if $guestTimesTriggered == 1}a guest{else}guests{/if}{/if}{else}{@$authors[0]->getAnchorTag()}{if $guestTimesTriggered},{else} and{/if} {#$others} other users {if $guestTimesTriggered}and {if $guestTimesTriggered == 1}a guest{else}guests{/if}{/if}{/if} commented on your to-do <a href="{link application='todolist' controller='Todo' object=$todo}#comments{/link}">{$todo->getTitle()}</a>.]]></item>
+		<item name="todolist.comment.notification.mail.plaintext"><![CDATA[{@$authorList} commented on your to-do “{@$todo->getTitle()}” [URL:{link application='todolist' controller='Todo' object=$todo isEmail=true}#comments/comment{@$commentID}{/link}]{if $count == 1 && !$guestTimesTriggered}:{else}.{/if}]]></item>
+		<item name="todolist.comment.notification.mail.html"><![CDATA[<p>{@$authorList} commented on your to-do <a href="{link application='todolist' controller='Todo' object=$todo isHtmlEmail=true}#comments/comment{@$commentID}{/link}">{$todo->getTitle()}</a>:</p>]]></item>
+		
+		<item name="todolist.comment.response.like.notification.title"><![CDATA[Reaction to your reply to a comment (To-do)]]></item>
+		<item name="todolist.comment.response.like.notification.title.stacked"><![CDATA[{#$count} users reacted to your reply to a comment (To-do)]]></item>
+		<item name="todolist.comment.response.like.notification.message"><![CDATA[<strong>{$author}</strong> reacted to your reply to a comment on the to-do <a href="{link application='todolist' controller='Todo' object=$todo}#comments/comment{@$commentID}/response{@$responseID}{/link}">{$todo->getTitle()}</a> ({@$__wcf->getReactionHandler()->renderInlineList($reactions)}).]]></item>
+		<item name="todolist.comment.response.like.notification.message.stacked"><![CDATA[{if $count < 4}{@$authors[0]->getAnchorTag()}{if $count == 2} and {else}, {/if}{@$authors[1]->getAnchorTag()}{if $count == 3} and {@$authors[2]->getAnchorTag()}{/if}{else}{@$authors[0]->getAnchorTag()} and {#$others} other users{/if} reacted to your reply to a comment on the to-do <a href="{link application='todolist' controller='Todo' object=$todo}#comments/comment{@$commentID}/response{@$responseID}{/link}">{$todo->getTitle()}</a> ({@$__wcf->getReactionHandler()->renderInlineList($reactions)}).]]></item>
+		
+		<item name="todolist.comment.response.notification.title"><![CDATA[New Reply (To-do)]]></item>
+		<item name="todolist.comment.response.notification.title.stacked"><![CDATA[{#$timesTriggered} new Replies (To-do)]]></item>
+		<item name="todolist.comment.response.notification.message"><![CDATA[{if $author->userID}<strong>{$author}</strong>{else}A guest{/if} replied to your comment on the to-do <a href="{link application='todolist' controller='Todo' object=$todo}#comments/comment{@$commentID}/response{@$responseID}{/link}">{$todo->getTitle()}</a>.]]></item>
+		<item name="todolist.comment.response.notification.message.stacked"><![CDATA[{if $count < 4}{@$authors[0]->getAnchorTag()}{if $count != 1}{if $count == 2 && !$guestTimesTriggered} and {else}, {/if}{@$authors[1]->getAnchorTag()}{if $count == 3}{if !$guestTimesTriggered} and {else}, {/if} {@$authors[2]->getAnchorTag()}{/if}{/if}{if $guestTimesTriggered} and {if $guestTimesTriggered == 1}a guest{else}guests{/if}{/if}{else}{@$authors[0]->getAnchorTag()}{if $guestTimesTriggered},{else} and{/if} {#$others} other users {if $guestTimesTriggered}and {if $guestTimesTriggered == 1}a guest{else}guests{/if}{/if}{/if} replied to your comment on the to-do <a href="{link application='todolist' controller='Todo' object=$todo}#comments/comment{@$commentID}{/link}">{$todo->getTitle()}</a>.]]></item>
+		<item name="todolist.comment.response.notification.mail.plaintext"><![CDATA[{@$authorList} wrote {if $count == 1 && !$guestTimesTriggered}a reply{else}replies{/if} to your comment on the to-do “{@$todo->getTitle()}” [URL:{link application='todolist' controller='Todo' object=$todo isEmail=true}#comments/comment{@$commentID}/response{@$responseID}{/link}]{if $count == 1 && !$guestTimesTriggered}:{else}.{/if}]]></item>
+		<item name="todolist.comment.response.notification.mail.html"><![CDATA[<p>{@$authorList} wrote {if $count == 1 && !$guestTimesTriggered}a reply{else}replies{/if} to your comment on the to-do <a href="{link application='todolist' controller='Todo' object=$todo isHtmlEmail=true}#comments/comment{@$commentID}/response{@$responseID}{/link}">{$todo->getTitle()}</a>:</p>]]></item>
+		
+		<item name="todolist.comment.responseOwner.notification.title"><![CDATA[New Reply (To-do)]]></item>
+		<item name="todolist.comment.responseOwner.notification.title.stacked"><![CDATA[{#$timesTriggered} new Replies (To-do)]]></item>
+		<item name="todolist.comment.responseOwner.notification.message"><![CDATA[{if $author->userID}<strong>{$author}</strong>{else}A guest{/if} replied to a comment by {$commentAuthor->username} on your to-do <a href="{link application='todolist' controller='Todo' object=$todo}#comments/comment{@$commentID}/response{@$responseID}{/link}">{$todo->getTitle()}</a>.]]></item>
+		<item name="todolist.comment.responseOwner.notification.message.stacked"><![CDATA[{if $count < 4}{@$authors[0]->getAnchorTag()}{if $count != 1}{if $count == 2 && !$guestTimesTriggered} and {else}, {/if}{@$authors[1]->getAnchorTag()}{if $count == 3}{if !$guestTimesTriggered} and {else}, {/if} {@$authors[2]->getAnchorTag()}{/if}{/if}{if $guestTimesTriggered} and {if $guestTimesTriggered == 1}a guest{else}guests{/if}{/if}{else}{@$authors[0]->getAnchorTag()}{if $guestTimesTriggered},{else} and{/if} {#$others} other users {if $guestTimesTriggered}and {if $guestTimesTriggered == 1}a guest{else}guests{/if}{/if}{/if} replied to a comment by {if $author->userID}<a href="{link controller='User' object=$author}{/link}" class="userLink" data-user-id="{@$author->userID}">{$author->username}</a>{else}{$author->username}{/if} on your to-do <a href="{link application='todolist' controller='Todo' object=$todo}#comments/comment{@$commentID}{/link}">{$todo->getTitle()}</a>.]]></item>
+		<item name="todolist.comment.responseOwner.notification.mail.plaintext"><![CDATA[{@$authorList} wrote {if $count == 1 && !$guestTimesTriggered}a reply{else}replies{/if} to {@$notificationContent[variables][commentAuthor]->username}’s{if $notificationContent[variables][commentAuthor]->userID} [URL:{link controller='User' object=$notificationContent[variables][commentAuthor] isEmail=true}{/link}]{/if} comment on your to-do “{@$todo->getTitle()}” [URL:{link application='todolist' controller='Todo' object=$todo isEmail=true}#comments/comment{@$commentID}/response{@$responseID}{/link}]{if $count == 1 && !$guestTimesTriggered}:{else}.{/if}]]></item>
+		<item name="todolist.comment.responseOwner.notification.mail.html"><![CDATA[<p>{@$authorList} wrote {if $count == 1 && !$guestTimesTriggered}a reply{else}replies{/if} to {if $notificationContent[variables][commentAuthor]->userID}<a href="{link controller='User' object=$notificationContent[variables][commentAuthor] isHtmlEmail=true}{/link}">{$notificationContent[variables][commentAuthor]->username}</a>{else}{$notificationContent[variables][commentAuthor]->username}{/if}’s comment on your to-do <a href="{link application='todolist' controller='Todo' object=$todo isHtmlEmail=true}#comments/comment{@$commentID}/response{@$responseID}{/link}">{$todo->getTitle()}</a>:</p>]]></item>
+	</category>
+
+	<category name="todolist.like">
+		<item name="todolist.like.notification.title"><![CDATA[Reaction to your to-do]]></item>
+		<item name="todolist.like.notification.title.stacked"><![CDATA[{#$count} users reacted to your to-do]]></item>
+		<item name="todolist.like.notification.message"><![CDATA[<strong>{$author}</strong> reacted to your to-do <a href="{link application='todolist' controller='Todo' object=$todo}{/link}">{$todo->getTitle()}</a> ({@$__wcf->getReactionHandler()->renderInlineList($reactions)}).]]></item>
+		<item name="todolist.like.notification.message.stacked"><![CDATA[{if $count < 4}{@$authors[0]->getAnchorTag()}{if $count == 2} and {else}, {/if}{@$authors[1]->getAnchorTag()}{if $count == 3} and {@$authors[2]->getAnchorTag()}{/if}{else}{@$authors[0]->getAnchorTag()} and {#$others} other users{/if} reacted to your to-do <a href="{link application='todolist' controller='Todo' object=$todo}{/link}">{$todo->getTitle()}</a> ({@$__wcf->getReactionHandler()->renderInlineList($reactions)}).]]></item>
 	</category>
 </language>

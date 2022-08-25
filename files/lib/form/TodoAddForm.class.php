@@ -35,7 +35,7 @@ class TodoAddForm extends AbstractFormBuilderForm
     /**
      * @inheritDoc
      */
-    public $neededPermissions = ['user.todolist.canAddTodos'];
+    public $neededPermissions = ['user.todolist.general.canAddTodos'];
 
     /**
      * @inheritDoc
@@ -80,6 +80,16 @@ class TodoAddForm extends AbstractFormBuilderForm
                         ->value(false),
                 ])
         );
+
+        if (MODULE_TODOLIST_COMMENTS) {
+            $container = $this->form->getNodeById('data');
+            $container->appendChildren([
+                BooleanFormField::create('enableComments')
+                    ->label('todolist.comment.enable')
+                    ->description('todolist.comment.enable.description')
+                    ->value(true),
+            ]);
+        }
     }
 
     /**

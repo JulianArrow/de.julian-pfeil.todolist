@@ -113,12 +113,12 @@ class Todo extends DatabaseObject implements ITitledLinkObject
         if (
             WCF::getUser()->userID
             && WCF::getUser()->userID == $this->userID
-            && WCF::getSession()->getPermission('user.todolist.canDeleteOwnTodos')
+            && WCF::getSession()->getPermission('user.todolist.general.canDeleteOwnTodos')
         ) {
             return true;
         }
 
-        return WCF::getSession()->getPermission('mod.todolist.canDeleteTodos');
+        return WCF::getSession()->getPermission('mod.todolist.general.canDeleteTodos');
     }
 
     /**
@@ -129,12 +129,12 @@ class Todo extends DatabaseObject implements ITitledLinkObject
         if (
             WCF::getUser()->userID
             && WCF::getUser()->userID == $this->userID
-            && WCF::getSession()->getPermission('user.todolist.canEditOwnTodos')
+            && WCF::getSession()->getPermission('user.todolist.general.canEditOwnTodos')
         ) {
             return true;
         }
 
-        return WCF::getSession()->getPermission('mod.todolist.canEditTodos');
+        return WCF::getSession()->getPermission('mod.todolist.general.canEditTodos');
     }
 	
 	/**

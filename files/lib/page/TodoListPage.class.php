@@ -33,7 +33,7 @@ class TodoListPage extends SortablePage
     /**
      * @inheritDoc
      */
-    public $neededPermissions = ['user.todolist.canSeeTodos'];
+    public $neededPermissions = ['user.todolist.general.canSeeTodos'];
 
     /**
      * @inheritDoc

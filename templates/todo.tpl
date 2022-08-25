@@ -111,7 +111,7 @@
 								</li>
 							{/if}
 							
-							{if $__wcf->session->getPermission('user.todolist.canAddTodos')}
+							{if $__wcf->session->getPermission('user.todolist.general.canAddTodos')}
 								<li>
 									<a href="{link application='todolist' controller='TodoAdd'}{/link}" class="small button" id="todoAddButton">
 										<span class="icon icon16 fa-plus"></span>

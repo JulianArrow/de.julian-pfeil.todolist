@@ -16,7 +16,7 @@ class TodoUserNotificationEvent extends AbstractUserNotificationEvent {
 	 * @inheritDoc
 	 */
 	public function checkAccess() {
-		return WCF::getSession()->getPermission('user.todolist.canSeeTodos');
+		return WCF::getSession()->getPermission('user.todolist.general.canSeeTodos');
 	}
 	
 	/**

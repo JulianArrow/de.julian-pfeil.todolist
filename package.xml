@@ -2,11 +2,11 @@
 <package name="de.julian-pfeil.todolist" xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/5.4/package.xsd">
 	<packageinformation>
 		<packagename>To-do list</packagename>
-		<packagedescription>Simple to-do list for creating to-dos.</packagedescription>
+		<packagedescription>To-do list for creating to-dos with modules for reactions and comments.</packagedescription>
 		<packagename languagecode="de">To-do-Liste</packagename>
-		<packagedescription languagecode="de">Einfache To-do-Liste für das Erstellen von To-dos.</packagedescription>
+		<packagedescription languagecode="de">To-do-Liste für das Erstellen von To-dos mit Modulen für Reaktionen und Kommentare.</packagedescription>
 		<version>1.4.0</version>
-		<date>2022-08-24</date>
+		<date>2022-08-26</date>
 		<packageurl><![CDATA[https://julian-pfeil.de]]></packageurl>
 		<isapplication>1</isapplication>
 		<applicationdirectory>todolist</applicationdirectory>
@@ -31,6 +31,7 @@
 		<instruction type="database">acp/database/install_de.julian-pfeil.todolist.php</instruction>
 		<instruction type="template" />
 		<instruction type="language" />
+		<instruction type="option" />
 		
 		<instruction type="templateListener" />
 		<instruction type="eventListener" />
@@ -43,45 +44,75 @@
 	
 	<instructions type="update" fromversion="1.0.2">
 		<instruction type="file" />
+		<instruction type="file" application="wcf">files_wcf.tar</instruction>
+		<instruction type="database">acp/database/update_1.4.0_de.julian-pfeil.todolist.php</instruction>
 		<instruction type="template" />
 		<instruction type="language" />
-
+		<instruction type="option" />
+		
 		<instruction type="templateListener" />
+		<instruction type="page" />
+		<instruction type="userGroupOption" />
 		<instruction type="objectType" />
 		<instruction type="userNotificationEvent" />
 	</instructions>
 	
 	<instructions type="update" fromversion="1.1.0">
 		<instruction type="file" />
+		<instruction type="file" application="wcf">files_wcf.tar</instruction>
+		<instruction type="database">acp/database/update_1.4.0_de.julian-pfeil.todolist.php</instruction>
 		<instruction type="template" />
 		<instruction type="language" />
-
+		<instruction type="option" />
+		
+		<instruction type="templateListener" />
+		<instruction type="page" />
+		<instruction type="userGroupOption" />
 		<instruction type="objectType" />
 		<instruction type="userNotificationEvent" />
 	</instructions>
 	
 	<instructions type="update" fromversion="1.2.0">
 		<instruction type="file" />
-		<instruction type="language" />
+		<instruction type="file" application="wcf">files_wcf.tar</instruction>
+		<instruction type="database">acp/database/update_1.4.0_de.julian-pfeil.todolist.php</instruction>
 		<instruction type="template" />
+		<instruction type="language" />
+		<instruction type="option" />
 		
+		<instruction type="templateListener" />
+		<instruction type="page" />
+		<instruction type="userGroupOption" />
 		<instruction type="objectType" />
 		<instruction type="userNotificationEvent" />
 	</instructions>
 	
 	<instructions type="update" fromversion="1.3.0">
-		<instruction type="template" />
 		<instruction type="file" />
+		<instruction type="file" application="wcf">files_wcf.tar</instruction>
+		<instruction type="database">acp/database/update_1.4.0_de.julian-pfeil.todolist.php</instruction>
+		<instruction type="template" />
+		<instruction type="language" />
+		<instruction type="option" />
 		
+		<instruction type="templateListener" />
+		<instruction type="page" />
+		<instruction type="userGroupOption" />
 		<instruction type="objectType" />
 		<instruction type="userNotificationEvent" />
 	</instructions>
 	
 	<instructions type="update" fromversion="1.3.1">
-		<instruction type="template" />
 		<instruction type="file" />
 		<instruction type="file" application="wcf">files_wcf.tar</instruction>
+		<instruction type="database">acp/database/update_1.4.0_de.julian-pfeil.todolist.php</instruction>
+		<instruction type="template" />
+		<instruction type="language" />
+		<instruction type="option" />
 		
+		<instruction type="templateListener" />
+		<instruction type="page" />
+		<instruction type="userGroupOption" />
 		<instruction type="objectType" />
 		<instruction type="userNotificationEvent" />
 	</instructions>

@@ -14,7 +14,7 @@
 				<title>To-do list</title>
 			</content>
 			
-			<permissions>user.todolist.canSeeTodos</permissions>
+			<permissions>user.todolist.general.canSeeTodos</permissions>
 		</page>
 		<page identifier="de.julian-pfeil.todolist.Todo">
             <pageType>system</pageType>
@@ -24,7 +24,7 @@
             <name language="en">To-do</name>
             <requireObjectID>1</requireObjectID>
             <parent>de.julian-pfeil.todolist.TodoList</parent>
-			<permissions>user.todolist.canSeeTodos</permissions>
+			<permissions>user.todolist.general.canSeeTodos</permissions>
         </page>
 		<page identifier="de.julian-pfeil.todolist.AddTodo">
             <pageType>system</pageType>
@@ -32,7 +32,7 @@
             <name language="de">To-do hinzufügen</name>
             <name language="en">Add To-do</name>
             <parent>de.julian-pfeil.todolist.TodoList</parent>
-			<permissions>user.todolist.canAddTodos</permissions>
+			<permissions>user.todolist.general.canAddTodos</permissions>
         </page>
 		<page identifier="de.julian-pfeil.todolist.EditTodo">
             <pageType>system</pageType>

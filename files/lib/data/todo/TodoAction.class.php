@@ -6,6 +6,8 @@ use wcf\data\AbstractDatabaseObjectAction;
 use wcf\system\WCF;
 use wcf\util\UserUtil;
 use wcf\system\request\LinkHandler;
+use wcf\system\like\LikeHandler;
+use wcf\system\comment\CommentHandler;
 use wcf\system\exception\PermissionDeniedException;
 use wcf\system\exception\UserInputException;
 use wcf\system\user\notification\UserNotificationHandler;
@@ -119,6 +121,14 @@ class TodoAction extends AbstractDatabaseObjectAction
 			$todo->delete();
 			
 			$this->addTodoData($todo->getDecoratedObject(), 'deleted', LinkHandler::getInstance()->getLink('TodoList', ['application' => 'todolist']));
+		}
+        
+        if (!empty($todoIDs)) {
+            // delete like data
+			LikeHandler::getInstance()->removeLikes('de.julian-pfeil.todolist.likeableTodo', $todoIDs);
+			
+			// delete comments
+			CommentHandler::getInstance()->deleteObjects('de.julian-pfeil.todolist.todoComment', $todoIDs);
 		}
 		
 		return $this->getTodoData();
