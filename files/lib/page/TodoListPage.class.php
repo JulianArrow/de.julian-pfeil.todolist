@@ -59,6 +59,7 @@ class TodoListPage extends SortablePage
 
         WCF::getTPL()->assign([
             'done' => $this->doneParameter,
+            'validSortFields' => $this->validSortFields
         ]);
     }
 
@@ -72,6 +73,8 @@ class TodoListPage extends SortablePage
         if (isset($_REQUEST['done'])) {
             $this->doneParameter = \intval($_REQUEST['done']);
         }
+        
+        $this->checkSortFields();
     }
 
     /**
@@ -92,6 +95,21 @@ class TodoListPage extends SortablePage
         if ($this->doneParameter != '')
         {
             $this->objectList->getConditionBuilder()->add('done = ?', [$this->doneParameter]);
+        }
+    }
+
+    /**
+     * check additional valid sort-fields
+     */
+    protected function checkSortFields()
+    {
+        if (MODULE_TODOLIST_COMMENTS) 
+        {
+            $this->validSortFields[] = 'comments';
+        }
+        if (MODULE_TODOLIST_REACTIONS) 
+        {
+            $this->validSortFields[] = 'cumulativeLikes';
         }
     }
 }

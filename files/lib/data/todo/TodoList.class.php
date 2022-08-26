@@ -4,6 +4,7 @@ namespace todolist\data\todo;
 
 use wcf\data\DatabaseObjectList;
 use wcf\system\cache\runtime\UserProfileRuntimeCache;
+use wcf\system\reaction\ReactionHandler;
 
 /**
  * Represents a list of todos.
@@ -20,6 +21,23 @@ use wcf\system\cache\runtime\UserProfileRuntimeCache;
  */
 class TodoList extends DatabaseObjectList
 {
+    /**
+     * @inheritDoc
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        if (MODULE_TODOLIST_REACTIONS) {
+            // reactions
+            if (!empty($this->sqlSelects)) {
+                $this->sqlSelects .= ',';
+            }
+            $this->sqlSelects .= "like_object.cachedReactions";
+            $this->sqlJoins .= " LEFT JOIN wcf".WCF_N."_like_object like_object ON (like_object.objectTypeID = ".ReactionHandler::getInstance()->getObjectType('de.julian-pfeil.todolist.likeableTodo')->objectTypeID." AND like_object.objectID = todo.todoID)";
+        }
+    }
+
     public function readObjects()
     {
         parent::readObjects();

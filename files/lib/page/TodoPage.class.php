@@ -7,6 +7,7 @@ use todolist\data\todo\Todo;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\WCF;
 use wcf\system\reaction\ReactionHandler;
+use wcf\system\comment\CommentHandler;
 
 /**
  * Shows the details of a certain todo.

@@ -25,12 +25,16 @@
 	</category>
 
 	<category name="wcf.acp.option">
-		<item name="wcf.acp.option.module_todolist_reactions"><![CDATA[To-do-Liste: Reaktionen]]></item>
-		<item name="wcf.acp.option.module_todolist_comments"><![CDATA[To-do-Liste: Kommentare]]></item>
+		<item name="wcf.acp.option.category.module.community.todolist"><![CDATA[To-do-Liste]]></item>
+
+		<item name="wcf.acp.option.module_todolist_reactions"><![CDATA[Reaktionen]]></item>
+		<item name="wcf.acp.option.module_todolist_comments"><![CDATA[Kommentare]]></item>
 	</category>
 
 	<category name="wcf.user.notification">
 		<item name="wcf.user.notification.de.julian-pfeil.todolist"><![CDATA[To-do-Liste]]></item>
+
+		<item name="wcf.user.notification.de.julian-pfeil.todolist.todo.todo"><![CDATA[{if LANGUAGE_USE_INFORMAL_VARIANT}Dein{else}Ihr{/if} To-do wurde bearbeitet]]></item>
 		
 		<item name="wcf.user.notification.de.julian-pfeil.todolist.todoComment.notification.comment"><![CDATA[Neuer Kommentar zu {if LANGUAGE_USE_INFORMAL_VARIANT}deinem{else}Ihrem{/if} To-do]]></item>
 		<item name="wcf.user.notification.de.julian-pfeil.todolist.todoComment.response.notification.commentResponse"><![CDATA[Neue Antwort auf einen Kommentar von {if LANGUAGE_USE_INFORMAL_VARIANT}dir{else}Ihnen{/if}]]></item>
@@ -42,8 +46,13 @@
 	</category>
 	
 	<category name="wcf.like">
-		<item name="wcf.like.title.de.julian-pfeil.todolist.likeableTodo"><![CDATA[Hat mit {@$like->render()} auf das To-do <a href="{link application='todolist' controller='Todo' object=$todo}{/link}" class="tpdpLink" data-todo-id="{@$todo->todoID}">{$todo->getTitle()}</a> reagiert.]]></item>
- 	</category>
+		<item name="wcf.like.objectType.de.julian-pfeil.todolist.likeableTodo"><![CDATA[To-do]]></item>
+
+		<item name="wcf.like.title.de.julian-pfeil.todolist.likeableTodo"><![CDATA[Hat mit {@$like->render()} auf das To-do <a href="{link application='todolist' controller='Todo' object=$todo}{/link}" class="todoLink" data-todo-id="{@$todo->todoID}">{$todo->getTitle()}</a> reagiert.]]></item>
+
+		<item name="wcf.like.title.de.julian-pfeil.todolist.todoComment"><![CDATA[Hat mit {@$like->render()} auf den Kommentar {if $commentAuthor}von <a href="{link controller='User' object=$commentAuthor}{/link}">{$commentAuthor->username}</a>{else}eines Gasts{/if} zum To-do <a href="{$comment->getLink()}" class="todoLink" data-todo-id="{@$todo->todoID}">{$todo->getTitle()}</a> reagiert.]]></item>
+		<item name="wcf.like.title.de.julian-pfeil.todolist.todoComment.response"><![CDATA[Hat mit {@$like->render()} auf die Antwort {if $responseAuthor}von <a href="{link controller='User' object=$responseAuthor}{/link}">{$responseAuthor->username}</a>{else}eines Gasts{/if} zum Kommentar {if $commentAuthor}von <a href="{link controller='User' object=$commentAuthor}{/link}">{$commentAuthor->username}</a>{else}eines Gasts{/if} zum To-do <a href="{$response->getLink()}" class="todoLink" data-todo-id="{@$todo->todoID}">{$todo->getTitle()}</a> reagiert.]]></item>
+	</category>
 	
 	<category name="wcf.page">
 		<item name="wcf.page.onlineLocation.de.julian-pfeil.todolist.Todo"><![CDATA[To-do {anchor object=$todo}]]></item>

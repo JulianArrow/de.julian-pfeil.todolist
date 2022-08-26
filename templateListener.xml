@@ -42,6 +42,12 @@
             <eventname>containerHeadline</eventname>
             <templatecode><![CDATA[{if MODULE_TODOLIST_COMMENTS}{if $todo->enableComments}<small class="separatorLeft"><span class="icon icon16 fa-comments"></span> {lang}todolist.comment.metaData{/lang}</small>{/if}{/if}]]></templatecode>
         </templatelistener>
+        <templatelistener name="commentsSortField">
+            <environment>user</environment>
+            <templatename>todoList</templatename>
+            <eventname>sortField</eventname>
+            <templatecode><![CDATA[{if MODULE_TODOLIST_COMMENTS}<option value="comments"{if $sortField == 'comments'} selected{/if}>{lang}todolist.comment.plural{/lang}</option>{/if}]]></templatecode>
+        </templatelistener>
 
 		<!-- reactions / likes -->
         <templatelistener name="todoReactionDataAttributes">
@@ -67,6 +73,18 @@
             <templatename>todo</templatename>
             <eventname>todoButtons</eventname>
             <templatecode><![CDATA[{if MODULE_TODOLIST_REACTIONS}{include file='__reactButton' application='todolist'}{/if}]]></templatecode>
+        </templatelistener>
+        <templatelistener name="reactionsSortField">
+            <environment>user</environment>
+            <templatename>todoList</templatename>
+            <eventname>sortField</eventname>
+            <templatecode><![CDATA[{if MODULE_TODOLIST_REACTIONS}<option value="cumulativeLikes"{if $sortField == 'cumulativeLikes'} selected{/if}>{lang}wcf.like.cumulativeLikes{/lang}</option>{/if}]]></templatecode>
+        </templatelistener>
+        <templatelistener name="reactionsContainerHeadline">
+            <environment>user</environment>
+            <templatename>todoList</templatename>
+            <eventname>containerHeadline</eventname>
+            <templatecode><![CDATA[{if MODULE_TODOLIST_REACTIONS && $__wcf->getSession()->getPermission('user.like.canViewLike') && $todo->cumulativeLikes} <small class="separatorLeft">{include file='__topReaction' cachedReactions=$todo->cachedReactions render='tiny'}</small>{/if}]]></templatecode>
         </templatelistener>
 	</import>
 </data>

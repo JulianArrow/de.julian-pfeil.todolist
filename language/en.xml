@@ -25,12 +25,16 @@
 	</category>
 
 	<category name="wcf.acp.option">
+		<item name="wcf.acp.option.category.module.community.todolist"><![CDATA[To-do list]]></item>
+
 		<item name="wcf.acp.option.module_todolist_reactions"><![CDATA[To-do list: Reactions]]></item>
 		<item name="wcf.acp.option.module_todolist_comments"><![CDATA[To-do list: Comments]]></item>
 	</category>
 
 	<category name="wcf.user.notification">
 		<item name="wcf.user.notification.de.julian-pfeil.todolist"><![CDATA[To-do list]]></item>
+		
+		<item name="wcf.user.notification.de.julian-pfeil.todolist.todo.todo"><![CDATA[Notify me when someoned edited my to-do]]></item>
 
 		<item name="wcf.user.notification.de.julian-pfeil.todolist.todoComment.notification.comment"><![CDATA[Notify me of new comments on my to-dos]]></item>
 		<item name="wcf.user.notification.de.julian-pfeil.todolist.todoComment.response.notification.commentResponse"><![CDATA[Notify me of new replies to my comments]]></item>
@@ -42,8 +46,13 @@
 	</category>
 	
 	<category name="wcf.like">
+		<item name="wcf.like.objectType.de.julian-pfeil.todolist.likeableTodo"><![CDATA[To-do]]></item>
+	
 		<item name="wcf.like.title.de.julian-pfeil.todolist.likeableTodo"><![CDATA[Reacted with {@$like->render()} to the to-do <a href="{link application='todolist' controller='Todo' object=$todo}{/link}" class="todoLink" data-todo-id="{@$todo->todoID}">{$todo->getTitle()}</a>.]]></item>
- 	</category>
+		
+		<item name="wcf.like.title.de.julian-pfeil.todolist.todoComment"><![CDATA[Reacted with {@$like->render()} to the comment by {if $commentAuthor}<a href="{link controller='User' object=$commentAuthor}{/link}">{$commentAuthor->username}</a>{else}a guest{/if} on the to-do <a href="{$comment->getLink()}" class="todoLink" data-todo-id="{@$todo->todoID}">{$todo->getTitle()}</a>.]]></item>
+		<item name="wcf.like.title.de.julian-pfeil.todolist.todoComment.response"><![CDATA[Reacted with {@$like->render()} to the reply {if $responseAuthor}by <a href="{link controller='User' object=$responseAuthor}{/link}">{$responseAuthor->username}</a>{else}by a guest{/if} on the comment by {if $commentAuthor}<a href="{link controller='User' object=$commentAuthor}{/link}">{$commentAuthor->username}</a>{else}a guest{/if} on the to-do <a href="{$response->getLink()}" class="todoLink" data-todo-id="{@$todo->todoID}">{$todo->getTitle()}</a>.]]></item>
+	</category>
 	
 	<category name="wcf.page">
 		<item name="wcf.page.onlineLocation.de.julian-pfeil.todolist.Todo"><![CDATA[To-do {anchor object=$todo}]]></item>
