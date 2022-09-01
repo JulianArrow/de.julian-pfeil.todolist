@@ -45,8 +45,8 @@ class TodoPage extends AbstractPage
     public $commentList;
 
     /**
-     * person comment manager object
-     * @var PersonCommentManager
+     * todo comment manager object
+     * @var TodoCommentManager
      */
     public $commentManager;
 
