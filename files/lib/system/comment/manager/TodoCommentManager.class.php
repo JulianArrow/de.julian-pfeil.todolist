@@ -163,7 +163,7 @@ class TodoCommentManager extends AbstractCommentManager
 						$like->setIsAccessible();
 						
 						// short output
-						$text = WCF::getLanguage()->getDynamicVariable('wcf.like.title.com.uz.show.entryComment', [
+						$text = WCF::getLanguage()->getDynamicVariable('wcf.like.title.de.julian-pfeil.todolist.todoComment', [
 								'commentAuthor' => $comment->userID ? $users[$comment->userID] : null,
 								'comment' => $comment,
 								'entry' => $entrys[$comment->objectID],
@@ -186,7 +186,7 @@ class TodoCommentManager extends AbstractCommentManager
 						$like->setIsAccessible();
 						
 						// short output
-						$text = WCF::getLanguage()->getDynamicVariable('wcf.like.title.com.uz.show.entryComment.response', [
+						$text = WCF::getLanguage()->getDynamicVariable('wcf.like.title.de.julian-pfeil.todolist.todoComment.response', [
 								'responseAuthor' => $comment->userID ? $users[$response->userID] : null,
 								'response' => $response,
 								'commentAuthor' => $comment->userID ? $users[$comment->userID] : null,
