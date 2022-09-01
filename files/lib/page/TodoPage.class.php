@@ -51,7 +51,7 @@ class TodoPage extends AbstractPage
     public $commentManager;
 
     /**
-     * id of the person comment object type
+     * id of the todo comment object type
      * @var int
      */
     public $commentObjectTypeID = 0;
