@@ -29,13 +29,17 @@ class TodoCommentUserNotificationEvent extends AbstractSharedUserNotificationEve
 	 * @inheritDoc
 	 */
 	public function getEmailMessage($notificationType = 'instant') {
+		$todo = TodoDataHandler::getInstance()->getTodo($this->getUserNotificationObject()->objectID);
+		$messageID = '<de.julian-pfeil.todolist.todo/'.$todo->todoID.'@'.Email::getHost().'>';
+
 		return [
 				'message-id' => 'de.julian-pfeil.todolist.comment/'.$this->getUserNotificationObject()->commentID,
 				'template' => 'email_notification_comment',
+				'references' => [$messageID],
 				'application' => 'wcf',
 				'variables' => [
 						'commentID' => $this->getUserNotificationObject()->commentID,
-						'todo' => TodoDataHandler::getInstance()->getTodo($this->getUserNotificationObject()->objectID),
+						'todo' => $todo,
 						'languageVariablePrefix' => 'todolist.comment.notification'
 				]
 		];
