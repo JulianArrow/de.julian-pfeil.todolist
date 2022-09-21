@@ -1,1 +1,1 @@
-{js application='todolist' file='Todolist' hasTiny=false}}
+{js application='todolist' file='Todolist' hasTiny=false}
