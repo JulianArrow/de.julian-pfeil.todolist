@@ -42,16 +42,18 @@
 		<instruction type="userNotificationEvent" />
 	</instructions>
 
-	<instructions type="update" fromversion="1.3.1">
+	<instructions type="update" fromversion="*">
 		<instruction type="file" />
 		<instruction type="file" application="wcf">files_wcf.tar</instruction>
 		<instruction type="database">acp/database/install_de.julian-pfeil.todolist.php</instruction>
 		<instruction type="template" />
 		<instruction type="language" />
 		<instruction type="option" />
-		
+
 		<instruction type="templateListener" />
+		<instruction type="eventListener" />
 		<instruction type="page" />
+		<instruction type="menuItem" />
 		<instruction type="userGroupOption" />
 		<instruction type="objectType" />
 		<instruction type="userNotificationEvent" />
