@@ -5,9 +5,9 @@
 		<packagedescription>To-do list for creating to-dos with modules for reactions and comments.</packagedescription>
 		<packagename languagecode="de">To-do-Liste</packagename>
 		<packagedescription languagecode="de">To-do-Liste für das Erstellen von To-dos mit Modulen für Reaktionen und Kommentare.</packagedescription>
-		<version>1.4.0</version>
-		<date>2022-08-26</date>
-		<packageurl><![CDATA[https://julian-pfeil.de]]></packageurl>
+		<version>1.4.1</version>
+		<date>2022-09-25</date>
+		<packageurl><![CDATA[https://darkwood.design]]></packageurl>
 		<isapplication>1</isapplication>
 		<applicationdirectory>todolist</applicationdirectory>
 	</packageinformation>
