@@ -2,11 +2,11 @@
 <package name="de.julian-pfeil.todolist" xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/5.4/package.xsd">
 	<packageinformation>
 		<packagename>To-do list</packagename>
-		<packagedescription>To-do list for creating to-dos with modules for reactions and comments.</packagedescription>
+		<packagedescription>To-do list for creating to-dos.</packagedescription>
 		<packagename languagecode="de">To-do-Liste</packagename>
-		<packagedescription languagecode="de">To-do-Liste für das Erstellen von To-dos mit Modulen für Reaktionen und Kommentare.</packagedescription>
-		<version>1.4.1</version>
-		<date>2022-09-25</date>
+		<packagedescription languagecode="de">To-do-Liste für das Erstellen von To-dos.</packagedescription>
+		<version>2.0.0 dev 1</version>
+		<date>2022-09-26</date>
 		<packageurl><![CDATA[https://darkwood.design]]></packageurl>
 		<isapplication>1</isapplication>
 		<applicationdirectory>todolist</applicationdirectory>
@@ -46,6 +46,7 @@
 		<instruction type="file" />
 		<instruction type="file" application="wcf">files_wcf.tar</instruction>
 		<instruction type="database">acp/database/install_de.julian-pfeil.todolist.php</instruction>
+		<instruction type="database">acp/database/update_to_2.0.0_de.julian-pfeil.todolist.php</instruction>
 		<instruction type="template" />
 		<instruction type="language" />
 		<instruction type="option" />
