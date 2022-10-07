@@ -46,7 +46,7 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
      * @return        int
      * @throws SystemException
      */
-    public static function getAccessibleCategoryIDs(array $permissions = ['canViewCategory'])
+    public static function getAccessibleCategoryIDs(array $permissions = [''])
     {
         $categoryIDs = [];
         foreach (CategoryHandler::getInstance()->getCategories(self::OBJECT_TYPE_NAME) as $category) {
@@ -55,6 +55,8 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
             foreach ($permissions as $permission) {
                 $result = $result && $category->getPermission($permission);
             }
+
+            $result = $result && $category->canView();
 
             if ($result) {
                 $categoryIDs[] = $category->categoryID;
@@ -110,7 +112,7 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
     {
         return LinkHandler::getInstance()->getLink('TodoList', [
             'application' => 'todolist',
-            'categoryID' => $this->categoryID
+            'id' => $this->categoryID
         ]);
     }
 
@@ -133,8 +135,7 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
             return false;
         }
 
-        // check permissions
-        return $this->getPermission('canViewCategory', $user);
+        return true;
     }
 
     /**
@@ -146,23 +147,26 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
             return false;
         }
 
+        if (!$this->isAccessible()) {
+            return false;
+        }
+
+        if ($this->getPermission('canViewCategory', WCF::getUser())) {
+            return true;
+        }
+
         if (WCF::getSession()->getPermission('user.todolist.general.canViewEveryCategory')) {
             return true;
         }
 
-        // check permissions
-        if (WCF::getUser()) {
-            return $this->isAccessible(WCF::getUser());
-        }
-
-        return $this->isAccessible();
+        return $this->getPermission('canViewCategory');
     }
 
     /**
      * checks if user is logged in and checks the categories object type
      */
-    public function checkLogInAndObjectType() {
-        if (!WCF::getUser()->userID || $this->getObjectType()->objectType != self::OBJECT_TYPE_NAME) {
+    public function checkLogInAndAccess() {
+        if (!WCF::getUser()->userID || !$this->isAccessible()) {
             return false;
         }
 
@@ -174,7 +178,7 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
      */
     public function canEditTodo()
     {
-        if (!$this->checkLogInAndObjectType()) {
+        if (!$this->checkLogInAndAccess()) {
             return false;
         }
         
@@ -191,7 +195,7 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
      */
     public function canEditOwnTodo()
     {
-        if (!$this->checkLogInAndObjectType()) {
+        if (!$this->checkLogInAndAccess()) {
             return false;
         }
         
@@ -208,7 +212,7 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
      */
     public function canDeleteOwnTodo()
     {
-        if (!$this->checkLogInAndObjectType()) {
+        if (!$this->checkLogInAndAccess()) {
             return false;
         }
         
@@ -225,7 +229,7 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
      */
     public function canDeleteTodo()
     {
-        if (!$this->checkLogInAndObjectType()) {
+        if (!$this->checkLogInAndAccess()) {
             return false;
         }
         
@@ -242,7 +246,7 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
      */
     public function canAddTodo()
     {
-        if (!$this->checkLogInAndObjectType()) {
+        if (!$this->checkLogInAndAccess()) {
             return false;
         }
         

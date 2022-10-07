@@ -78,8 +78,8 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     public function getLink()
     {
         return LinkHandler::getInstance()->getControllerLink(TodoPage::class, [
-            'object' => $this,
-        ]);
+                'id' => $this->todoID
+            ]);
     }
 
     /**

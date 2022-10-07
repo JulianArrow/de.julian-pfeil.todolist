@@ -76,9 +76,10 @@ class TodoAddForm extends AbstractFormBuilderForm
    {
         parent::readParameters();
 
+        #categoryID
         if ($this->formAction == 'create') {
-            if (isset($_REQUEST['categoryID'])) {
-                $this->categoryID = \intval($_REQUEST['categoryID']);
+            if (isset($_REQUEST['id'])) {
+                $this->categoryID = \intval($_REQUEST['id']);
                 $this->category = TodoCategory::getCategory($this->categoryID);
 
                 if ($this->category === null) {
@@ -296,7 +297,7 @@ class TodoAddForm extends AbstractFormBuilderForm
         {
             WCF::getTPL()->assign([
                 'success' => true,
-                'objectEditLink' => LinkHandler::getInstance()->getControllerLink(TodoEditForm::class, ['todoID' => $this->objectAction->getReturnValues()['returnValues']->todoID])
+                'objectEditLink' => LinkHandler::getInstance()->getControllerLink(TodoEditForm::class, ['id' => $this->objectAction->getReturnValues()['returnValues']->todoID])
             ]);
         }
     }

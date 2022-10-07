@@ -69,8 +69,9 @@ class TodoLogPage extends SortablePage {
 	public function readParameters() {
         parent::readParameters();
 
-        if (isset($_REQUEST['todoID'])) {
-            $this->todoID = \intval($_REQUEST['todoID']);
+		#todoID
+        if (isset($_REQUEST['id'])) {
+            $this->todoID = \intval($_REQUEST['id']);
         }
         $this->todo = new Todo($this->todoID);
         if (!$this->todo->todoID) {

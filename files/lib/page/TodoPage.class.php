@@ -4,6 +4,7 @@ namespace todolist\page;
 
 use todolist\data\todo\Todo;
 use todolist\data\category\TodoCategoryNodeTree;
+use todolist\data\category\TodoCategory;
 use todolist\system\label\object\TodoLabelObjectHandler;
 
 use wcf\page\AbstractPage;
@@ -186,8 +187,9 @@ class TodoPage extends AbstractPage
     {
         parent::readParameters();
 
-        if (isset($_REQUEST['todoID'])) {
-            $this->todoID = \intval($_REQUEST['todoID']);
+        #todoID
+        if (isset($_REQUEST['id'])) {
+            $this->todoID = \intval($_REQUEST['id']);
         }
         $this->todo = new Todo($this->todoID);
         if (!$this->todo->todoID) {

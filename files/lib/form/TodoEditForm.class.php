@@ -38,8 +38,9 @@ class TodoEditForm extends TodoAddForm
         parent::readParameters();
 
         if ($this->formAction == 'update') {
-            if (isset($_REQUEST['todoID'])) {
-                $this->formObject = new Todo($_REQUEST['todoID']);
+            #todoID
+            if (isset($_REQUEST['id'])) {
+                $this->formObject = new Todo($_REQUEST['id']);
     
                 if (!$this->formObject->getObjectID()) {
                     throw new IllegalLinkException();

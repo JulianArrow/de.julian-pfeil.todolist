@@ -2,9 +2,9 @@
     <li>
         <a href="
         {if $todo|isset && $todo->category->canAddTodo()}
-            {link application='todolist' controller='TodoAdd' categoryID=$todo->categoryID}{/link}
+            {link application='todolist' controller='TodoAdd' id=$todo->categoryID}{/link}
         {elseif $category|isset && $category->canAddTodo()}
-            {link application='todolist' controller='TodoAdd' categoryID=$category->categoryID}{/link}
+            {link application='todolist' controller='TodoAdd' id=$category->categoryID}{/link}
         {else}
             {link application='todolist' controller='TodoAdd'}{/link}
         {/if}

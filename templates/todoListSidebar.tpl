@@ -95,8 +95,8 @@
             <dt></dt>
             <dd>
                 <select id="sortField" name="sortField">
-                    <option value="todoName"{if $sortField == 'todoName'} selected{/if}>{lang}todolist.column.todoName{/lang}</option>
                     <option value="time"{if $sortField == 'time'} selected{/if}>{lang}todolist.column.time{/lang}</option>
+                    <option value="todoName"{if $sortField == 'todoName'} selected{/if}>{lang}todolist.column.todoName{/lang}</option>
                     
                     {if MODULE_LIKE}
                         <option value="cumulativeLikes"{if $sortField == 'cumulativeLikes'} selected{/if}>{lang}wcf.like.cumulativeLikes{/lang}</option>
