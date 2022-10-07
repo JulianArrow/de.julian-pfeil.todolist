@@ -23,5 +23,5 @@
         {else}
             <p class="info">{lang}todolist.todo.log.noEntries{/lang}</p>
         {/if}
-	</div>
+    </div>
 </div>

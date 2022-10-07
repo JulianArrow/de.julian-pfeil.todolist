@@ -13,18 +13,18 @@ use wcf\system\user\notification\object\type\AbstractUserNotificationObjectType;
  * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
  */
 class TodoUserNotificationObjectType extends AbstractUserNotificationObjectType {
-	/**
-	 * @inheritDoc
-	 */
-	protected static $decoratorClassName = TodoUserNotificationObject::class;
-	
-	/**
-	 * @inheritDoc
-	 */
-	protected static $objectClassName = Todo::class;
-	
-	/**
-	 * @inheritDoc
-	 */
-	protected static $objectListClassName = TodoList::class;
+    /**
+     * @inheritDoc
+     */
+    protected static $decoratorClassName = TodoUserNotificationObject::class;
+    
+    /**
+     * @inheritDoc
+     */
+    protected static $objectClassName = Todo::class;
+    
+    /**
+     * @inheritDoc
+     */
+    protected static $objectListClassName = TodoList::class;
 }

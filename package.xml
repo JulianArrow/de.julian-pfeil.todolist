@@ -1,66 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package name="de.julian-pfeil.todolist" xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/5.4/package.xsd">
-	<packageinformation>
-		<packagename>To-do list</packagename>
-		<packagedescription>To-do list for creating to-dos.</packagedescription>
-		<packagename languagecode="de">To-do-Liste</packagename>
-		<packagedescription languagecode="de">To-do-Liste für das Erstellen von To-dos.</packagedescription>
-		<version>2.0.0</version>
-		<date>2022-10-07</date>
-		<packageurl><![CDATA[https://darkwood.design/store/user-file-list/1298-julian-pfeil/]]></packageurl>
-		<isapplication>1</isapplication>
-		<applicationdirectory>todolist</applicationdirectory>
-	</packageinformation>
-	
-	<authorinformation>
-		<author>Julian Pfeil</author>
-		<authorurl>https://julian-pfeil.de</authorurl>
-	</authorinformation>
-	
-	<requiredpackages>
-		<requiredpackage minversion="5.4.0">com.woltlab.wcf</requiredpackage>
-	</requiredpackages>
-	
-	<excludedpackages>
-		<excludedpackage version="6.0.0 Alpha 1">com.woltlab.wcf</excludedpackage>
-	</excludedpackages>
-	
-	<instructions type="install">
-		<instruction type="file" />
-		<instruction type="objectType" />
-		<instruction type="file" application="wcf">files_wcf.tar</instruction>
-		<instruction type="database">acp/database/install_de.julian-pfeil.todolist.php</instruction>
-		<instruction type="script">acp/install_de.julian-pfeil.todolist.php</instruction>
-		<instruction type="template" />
-		<instruction type="language" />
+    <packageinformation>
+        <packagename>To-do list</packagename>
+        <packagedescription>To-do list for creating to-dos.</packagedescription>
+        <packagename languagecode="de">To-do-Liste</packagename>
+        <packagedescription languagecode="de">To-do-Liste für das Erstellen von To-dos.</packagedescription>
+        <version>2.0.0</version>
+        <date>2022-10-07</date>
+        <packageurl><![CDATA[https://darkwood.design/store/user-file-list/1298-julian-pfeil/]]></packageurl>
+        <isapplication>1</isapplication>
+        <applicationdirectory>todolist</applicationdirectory>
+    </packageinformation>
+    
+    <authorinformation>
+        <author>Julian Pfeil</author>
+        <authorurl>https://julian-pfeil.de</authorurl>
+    </authorinformation>
+    
+    <requiredpackages>
+        <requiredpackage minversion="5.4.0">com.woltlab.wcf</requiredpackage>
+    </requiredpackages>
+    
+    <excludedpackages>
+        <excludedpackage version="6.0.0 Alpha 1">com.woltlab.wcf</excludedpackage>
+    </excludedpackages>
+    
+    <instructions type="install">
+        <instruction type="file" />
+        <instruction type="objectType" />
+        <instruction type="file" application="wcf">files_wcf.tar</instruction>
+        <instruction type="database">acp/database/install_de.julian-pfeil.todolist.php</instruction>
+        <instruction type="script">acp/install_de.julian-pfeil.todolist.php</instruction>
+        <instruction type="template" />
+        <instruction type="language" />
 
-		<instruction type="aclOption" />
-		<instruction type="templateListener" />
-		<instruction type="eventListener" />
-		<instruction type="page" />
-		<instruction type="menuItem" />
-		<instruction type="acpMenu" />
-		<instruction type="userGroupOption" />
-		<instruction type="userNotificationEvent" />
-	</instructions>
+        <instruction type="aclOption" />
+        <instruction type="templateListener" />
+        <instruction type="eventListener" />
+        <instruction type="page" />
+        <instruction type="menuItem" />
+        <instruction type="acpMenu" />
+        <instruction type="userGroupOption" />
+        <instruction type="userNotificationEvent" />
+    </instructions>
 
-	<instructions type="update" fromversion="*">
-		<instruction type="file" />
-		<instruction type="objectType" />
-		<instruction type="file" application="wcf">files_wcf.tar</instruction>
-		<instruction type="database">acp/database/update_to_2.0.0_de.julian-pfeil.todolist.php</instruction>
-		<instruction type="database">acp/database/install_de.julian-pfeil.todolist.php</instruction>
-		<instruction type="script">acp/install_de.julian-pfeil.todolist.php</instruction>
-		<instruction type="template" />
-		<instruction type="language" />
+    <instructions type="update" fromversion="*">
+        <instruction type="file" />
+        <instruction type="objectType" />
+        <instruction type="file" application="wcf">files_wcf.tar</instruction>
+        <instruction type="database">acp/database/update_to_2.0.0_de.julian-pfeil.todolist.php</instruction>
+        <instruction type="database">acp/database/install_de.julian-pfeil.todolist.php</instruction>
+        <instruction type="script">acp/install_de.julian-pfeil.todolist.php</instruction>
+        <instruction type="template" />
+        <instruction type="language" />
 
-		<instruction type="aclOption" />
-		<instruction type="templateListener" />
-		<instruction type="eventListener" />
-		<instruction type="page" />
-		<instruction type="menuItem" />
-		<instruction type="acpMenu" />
-		<instruction type="userGroupOption" />
-		<instruction type="userNotificationEvent" />
-	</instructions>
+        <instruction type="aclOption" />
+        <instruction type="templateListener" />
+        <instruction type="eventListener" />
+        <instruction type="page" />
+        <instruction type="menuItem" />
+        <instruction type="acpMenu" />
+        <instruction type="userGroupOption" />
+        <instruction type="userNotificationEvent" />
+    </instructions>
 </package>

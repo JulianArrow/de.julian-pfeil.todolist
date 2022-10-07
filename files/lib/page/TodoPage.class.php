@@ -126,8 +126,8 @@ class TodoPage extends AbstractPage
         /* reactions */
         if (MODULE_LIKE) {
             $objectType = ReactionHandler::getInstance()->getObjectType('de.julian-pfeil.todolist.likeableTodo');
-			ReactionHandler::getInstance()->loadLikeObjects($objectType, [$this->todoID]);
-			$this->todoLikeData = ReactionHandler::getInstance()->getLikeObjects($objectType);
+            ReactionHandler::getInstance()->loadLikeObjects($objectType, [$this->todoID]);
+            $this->todoLikeData = ReactionHandler::getInstance()->getLikeObjects($objectType);
         }
 
         /* comments */
@@ -168,8 +168,8 @@ class TodoPage extends AbstractPage
             }
         }
 
-		$this->todo->loadEmbeddedObjects();
-		MessageEmbeddedObjectManager::getInstance()->setActiveMessage('de.julian-pfeil.todolist.todo', $this->todoID);
+        $this->todo->loadEmbeddedObjects();
+        MessageEmbeddedObjectManager::getInstance()->setActiveMessage('de.julian-pfeil.todolist.todo', $this->todoID);
     }
 
     /**

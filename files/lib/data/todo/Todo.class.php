@@ -33,10 +33,10 @@ class Todo extends DatabaseObject implements ITitledLinkObject
      */
     public $category;
 
-	/**
-	 * true if embedded objects have already been loaded
-	 */
-	protected $embeddedObjectsLoaded = false;
+    /**
+     * true if embedded objects have already been loaded
+     */
+    protected $embeddedObjectsLoaded = false;
 
     /**
      * list of labels
@@ -62,15 +62,15 @@ class Todo extends DatabaseObject implements ITitledLinkObject
         return $this->getTitle();
     }
 
-	/**
-	 * Loads the embedded objects.
-	 */
-	public function loadEmbeddedObjects() {
-		if ($this->hasEmbeddedObjects && !$this->embeddedObjectsLoaded) {
-			MessageEmbeddedObjectManager::getInstance()->loadObjects('de.julian-pfeil.todolist.todo.content', [$this->todoID]);
-			$this->embeddedObjectsLoaded = true;
-		}
-	}
+    /**
+     * Loads the embedded objects.
+     */
+    public function loadEmbeddedObjects() {
+        if ($this->hasEmbeddedObjects && !$this->embeddedObjectsLoaded) {
+            MessageEmbeddedObjectManager::getInstance()->loadObjects('de.julian-pfeil.todolist.todo.content', [$this->todoID]);
+            $this->embeddedObjectsLoaded = true;
+        }
+    }
 
     /**
      * @inheritDoc
@@ -95,7 +95,7 @@ class Todo extends DatabaseObject implements ITitledLinkObject
      */
      public function getFormattedMessage(): string
     {
-		$this->loadEmbeddedObjects();
+        $this->loadEmbeddedObjects();
 
         $processor = new HtmlOutputProcessor();
         $processor->process($this->description, 'de.julian-pfeil.todolist.todo.content', $this->todoID);
@@ -138,25 +138,25 @@ class Todo extends DatabaseObject implements ITitledLinkObject
 
         return $processor->getHtml();
     }
-	
-	/**
-	 * Returns the todo object with the given id.
-	 */
-	public static function getTodo($todoID) {
-		$todoList = new TodoList();
-		$todoList->setObjectIDs([$todoID]);
-		$todoList->readObjects();
-		
-		return $todoList->search($todoID);
-	}
-	
-	/**
-	 * @inheritDoc
-	 */
-	public function getExcerpt() {
+    
+    /**
+     * Returns the todo object with the given id.
+     */
+    public static function getTodo($todoID) {
+        $todoList = new TodoList();
+        $todoList->setObjectIDs([$todoID]);
+        $todoList->readObjects();
+        
+        return $todoList->search($todoID);
+    }
+    
+    /**
+     * @inheritDoc
+     */
+    public function getExcerpt() {
         $excerpt = StringUtil::truncate($this->getPlainMessage());
-		return $excerpt;
-	}
+        return $excerpt;
+    }
     
     /**
      * Returns the category name
@@ -168,8 +168,8 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     {
         return TodoCategory::getCategory($this->categoryID);
     }
-	
-	/**
+    
+    /**
      * Returns the user profile of the user who added the todo.
      */
     public function getUserProfile(): UserProfile
@@ -193,7 +193,7 @@ class Todo extends DatabaseObject implements ITitledLinkObject
         }
     }
 
-	/**
+    /**
      * Returns `true` if the active user can delete this todo and `false` otherwise.
      */
     public function canDelete(): bool
@@ -236,11 +236,11 @@ class Todo extends DatabaseObject implements ITitledLinkObject
      */
     public function hasLabels(): bool
     {
-		if ($this->hasLabels == '1') {
-			return true;
-		}
-		
-		return false;
+        if ($this->hasLabels == '1') {
+            return true;
+        }
+        
+        return false;
     }
     
     /**
@@ -258,16 +258,16 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     {
         return $this->labels;
     }
-	
+    
     /**
      * Returns `true` if the todo is marked as done and `false` otherwise.
      */
     public function isDone(): bool
     {
-		if ($this->isDone == '1') {
-			return true;
-		}
-		
-		return false;
+        if ($this->isDone == '1') {
+            return true;
+        }
+        
+        return false;
     }
 }

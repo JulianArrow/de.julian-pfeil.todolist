@@ -22,7 +22,7 @@ return [
             NotNullInt10DatabaseTableColumn::create('categoryID'),
             NotNullInt10DatabaseTableColumn::create('time'),
             NotNullInt10DatabaseTableColumn::create('lastEditTime'),
-			IntDatabaseTableColumn::create('userID')
+            IntDatabaseTableColumn::create('userID')
                 ->length(10),
             NotNullVarchar255DatabaseTableColumn::create('username'),
             VarcharDatabaseTableColumn::create('ipAddress')
@@ -47,7 +47,7 @@ return [
                 ->defaultValue(0),
             NotNullInt10DatabaseTableColumn::create('lastCommentTime')
                 ->defaultValue(0),
-			IntDatabaseTableColumn::create('lastCommentUserID')
+            IntDatabaseTableColumn::create('lastCommentUserID')
                 ->defaultValue(NULL)
                 ->length(10),
             NotNullVarchar255DatabaseTableColumn::create('lastCommentUsername')

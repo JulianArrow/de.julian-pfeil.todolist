@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/5.4/userGroupOption.xsd">
     <import>
-		<categories>
-			<category name="user.todolist">
-				<parent>user</parent>
-			</category>
-			<category name="mod.todolist">
-				<parent>mod</parent>
-			</category>
-			<category name="admin.todolist">
-				<parent>admin</parent>
-			</category>
+        <categories>
+            <category name="user.todolist">
+                <parent>user</parent>
+            </category>
+            <category name="mod.todolist">
+                <parent>mod</parent>
+            </category>
+            <category name="admin.todolist">
+                <parent>admin</parent>
+            </category>
 
-			<category name="user.todolist.general">
-				<parent>user.todolist</parent>
-			</category>
-			<category name="mod.todolist.general">
-				<parent>mod.todolist</parent>
-			</category>
-			<category name="admin.todolist.general">
-				<parent>admin.todolist</parent>
-			</category>
+            <category name="user.todolist.general">
+                <parent>user.todolist</parent>
+            </category>
+            <category name="mod.todolist.general">
+                <parent>mod.todolist</parent>
+            </category>
+            <category name="admin.todolist.general">
+                <parent>admin.todolist</parent>
+            </category>
 
-			<category name="user.todolist.comments">
-				<parent>user.todolist</parent>
-			</category>
-			<category name="mod.todolist.comments">
-				<parent>mod.todolist</parent>
-			</category>
-		</categories>
+            <category name="user.todolist.comments">
+                <parent>user.todolist</parent>
+            </category>
+            <category name="mod.todolist.comments">
+                <parent>mod.todolist</parent>
+            </category>
+        </categories>
         <options>
             <option name="user.todolist.general.canAddTodoInEveryCategory">
                 <categoryname>user.todolist.general</categoryname>
@@ -70,7 +70,7 @@
                 <admindefaultvalue>1</admindefaultvalue>
                 <usersonly>1</usersonly>
             </option>
-			
+            
             <option name="mod.todolist.general.canEditTodoInEveryCategory">
                 <categoryname>mod.todolist.general</categoryname>
                 <optiontype>boolean</optiontype>
@@ -87,7 +87,7 @@
                 <admindefaultvalue>1</admindefaultvalue>
                 <usersonly>1</usersonly>
             </option>
-			
+            
             <option name="admin.todolist.general.canManageCategory">
                 <categoryname>admin.todolist.general</categoryname>
                 <optiontype>boolean</optiontype>
@@ -98,54 +98,54 @@
             </option>
 
             <!-- comments -->
-			<option name="mod.todolist.comment.canModerateComment">
-				<categoryname>mod.todolist.comment</categoryname>
-				<optiontype>boolean</optiontype>
-				<defaultvalue>0</defaultvalue>
-				<moddefaultvalue>1</moddefaultvalue>
-				<usersonly>1</usersonly>
-			</option>
-			<option name="mod.todolist.comment.canEditComment">
-				<categoryname>mod.todolist.comment</categoryname>
-				<optiontype>boolean</optiontype>
-				<defaultvalue>0</defaultvalue>
-				<moddefaultvalue>1</moddefaultvalue>
-				<usersonly>1</usersonly>
-			</option>
-			<option name="mod.todolist.comment.canDeleteComment">
-				<categoryname>mod.todolist.comment</categoryname>
-				<optiontype>boolean</optiontype>
-				<defaultvalue>0</defaultvalue>
-				<moddefaultvalue>1</moddefaultvalue>
-				<usersonly>1</usersonly>
-			</option>
+            <option name="mod.todolist.comment.canModerateComment">
+                <categoryname>mod.todolist.comment</categoryname>
+                <optiontype>boolean</optiontype>
+                <defaultvalue>0</defaultvalue>
+                <moddefaultvalue>1</moddefaultvalue>
+                <usersonly>1</usersonly>
+            </option>
+            <option name="mod.todolist.comment.canEditComment">
+                <categoryname>mod.todolist.comment</categoryname>
+                <optiontype>boolean</optiontype>
+                <defaultvalue>0</defaultvalue>
+                <moddefaultvalue>1</moddefaultvalue>
+                <usersonly>1</usersonly>
+            </option>
+            <option name="mod.todolist.comment.canDeleteComment">
+                <categoryname>mod.todolist.comment</categoryname>
+                <optiontype>boolean</optiontype>
+                <defaultvalue>0</defaultvalue>
+                <moddefaultvalue>1</moddefaultvalue>
+                <usersonly>1</usersonly>
+            </option>
 
-			<option name="user.todolist.comment.canAddComment">
-				<categoryname>user.todolist.comment</categoryname>
-				<optiontype>boolean</optiontype>
-				<defaultvalue>1</defaultvalue>
-				<enableoptions>user.todolist.comment.canAddCommentWithoutModeration</enableoptions>
-				<excludedInTinyBuild>1</excludedInTinyBuild>
-			</option>
-			<option name="user.todolist.comment.canAddCommentWithoutModeration">
-				<categoryname>user.todolist.comment</categoryname>
-				<optiontype>boolean</optiontype>
-				<defaultvalue>1</defaultvalue>
-				<excludedInTinyBuild>1</excludedInTinyBuild>
-			</option>
-			<option name="user.todolist.comment.canEditOwnComment">
-				<categoryname>user.todolist.comments</categoryname>
-				<optiontype>boolean</optiontype>
-				<defaultvalue>1</defaultvalue>
-				<usersonly>1</usersonly>
-			</option>
-			<option name="user.todolist.comment.canDeleteOwnComment">
-				<categoryname>user.todolist.comment</categoryname>
-				<optiontype>boolean</optiontype>
-				<defaultvalue>0</defaultvalue>
-				<admindefaultvalue>1</admindefaultvalue>
-				<usersonly>1</usersonly>
-			</option>
-		</options>
+            <option name="user.todolist.comment.canAddComment">
+                <categoryname>user.todolist.comment</categoryname>
+                <optiontype>boolean</optiontype>
+                <defaultvalue>1</defaultvalue>
+                <enableoptions>user.todolist.comment.canAddCommentWithoutModeration</enableoptions>
+                <excludedInTinyBuild>1</excludedInTinyBuild>
+            </option>
+            <option name="user.todolist.comment.canAddCommentWithoutModeration">
+                <categoryname>user.todolist.comment</categoryname>
+                <optiontype>boolean</optiontype>
+                <defaultvalue>1</defaultvalue>
+                <excludedInTinyBuild>1</excludedInTinyBuild>
+            </option>
+            <option name="user.todolist.comment.canEditOwnComment">
+                <categoryname>user.todolist.comments</categoryname>
+                <optiontype>boolean</optiontype>
+                <defaultvalue>1</defaultvalue>
+                <usersonly>1</usersonly>
+            </option>
+            <option name="user.todolist.comment.canDeleteOwnComment">
+                <categoryname>user.todolist.comment</categoryname>
+                <optiontype>boolean</optiontype>
+                <defaultvalue>0</defaultvalue>
+                <admindefaultvalue>1</admindefaultvalue>
+                <usersonly>1</usersonly>
+            </option>
+        </options>
     </import>
 </data>

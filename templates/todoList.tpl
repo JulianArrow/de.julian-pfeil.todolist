@@ -9,77 +9,77 @@
 {assign var=additionalLinkParameters value=$additionalLinkParameters|substr:0:-1}
 
 {capture assign='headContent'}
-	{if $pageNo < $pages}
-		<link rel="next" href="{link application='todolist' controller='TodoList'}pageNo={@$pageNo+1}{@$additionalLinkParameters}{/link}">
-	{/if}
-	{if $pageNo > 1}
-		<link rel="prev" href="{link application='todolist' controller='TodoList'}{if $pageNo > 2}pageNo={@$pageNo-1}{/if}{@$additionalLinkParameters}{/link}">
-	{/if}
-	<link rel="canonical" href="{link application='todolist' controller='TodoList'}{if $pageNo > 1}pageNo={@$pageNo}{/if}{@$additionalLinkParameters}{/link}">
+    {if $pageNo < $pages}
+        <link rel="next" href="{link application='todolist' controller='TodoList'}pageNo={@$pageNo+1}{@$additionalLinkParameters}{/link}">
+    {/if}
+    {if $pageNo > 1}
+        <link rel="prev" href="{link application='todolist' controller='TodoList'}{if $pageNo > 2}pageNo={@$pageNo-1}{/if}{@$additionalLinkParameters}{/link}">
+    {/if}
+    <link rel="canonical" href="{link application='todolist' controller='TodoList'}{if $pageNo > 1}pageNo={@$pageNo}{/if}{@$additionalLinkParameters}{/link}">
 {/capture}
 
 {capture assign='contentHeaderNavigation'}
-	{include file='todoAddButton' application='todolist'}
+    {include file='todoAddButton' application='todolist'}
 {/capture}
 
 {capture assign='sidebarRight'}
-	{include file='todoListSidebar' application='todolist'}
+    {include file='todoListSidebar' application='todolist'}
 {/capture}
 
 {include file='header'}
 
 {hascontent}
-	<div class="paginationTop">
-		{content}
-			{pages print=true assign=pagesLinks application='todolist' controller='TodoList' link="pageNo=%d$additionalLinkParameters"}
-		{/content}
-	</div>
+    <div class="paginationTop">
+        {content}
+            {pages print=true assign=pagesLinks application='todolist' controller='TodoList' link="pageNo=%d$additionalLinkParameters"}
+        {/content}
+    </div>
 {/hascontent}
 
 
 <div class="section">
-	{include file='todoListStructure' application='todolist'}
+    {include file='todoListStructure' application='todolist'}
 </div>
 
 <footer class="contentFooter">
-	{hascontent}
-		<div class="paginationBottom">
-			{content}{@$pagesLinks}{/content}
-		</div>
-	{/hascontent}
-	
-	{hascontent}
-		<nav class="contentFooterNavigation">
-			<ul>
-				{content}
-					{include file='todoAddButton' application='todolist'}
+    {hascontent}
+        <div class="paginationBottom">
+            {content}{@$pagesLinks}{/content}
+        </div>
+    {/hascontent}
+    
+    {hascontent}
+        <nav class="contentFooterNavigation">
+            <ul>
+                {content}
+                    {include file='todoAddButton' application='todolist'}
 
-					{event name='contentFooterNavigation'}
-				{/content}
-			</ul>
-		</nav>
-	{/hascontent}
+                    {event name='contentFooterNavigation'}
+                {/content}
+            </ul>
+        </nav>
+    {/hascontent}
 </footer>
 
 <script data-relocate="true">
-	$(function() {
-		WCF.Language.addObject({	
-			'todolist.general.done':						'{jslang}todolist.general.done{/jslang}',
-			'todolist.general.undone':						'{jslang}todolist.general.undone{/jslang}'
-		});
-		var $updateHandler = new Todolist.Todo.UpdateHandler.Todolist();
-		
-		new Todolist.Todo.MarkAsDone($updateHandler);
+    $(function() {
+        WCF.Language.addObject({	
+            'todolist.general.done':						'{jslang}todolist.general.done{/jslang}',
+            'todolist.general.undone':						'{jslang}todolist.general.undone{/jslang}'
+        });
+        var $updateHandler = new Todolist.Todo.UpdateHandler.Todolist();
+        
+        new Todolist.Todo.MarkAsDone($updateHandler);
 
-		{if !$labelGroups|empty}
-			WCF.Language.addObject({
-				'wcf.label.none': '{jslang}wcf.label.none{/jslang}',
-				'wcf.label.withoutSelection': '{jslang}wcf.label.withoutSelection{/jslang}'
-			});
-			
-			new WCF.Label.Chooser({ {implode from=$labelIDs key=groupID item=labelID}{@$groupID}: {@$labelID}{/implode} }, '#todolistLabelForm', undefined, true);
-		{/if}
-	});
+        {if !$labelGroups|empty}
+            WCF.Language.addObject({
+                'wcf.label.none': '{jslang}wcf.label.none{/jslang}',
+                'wcf.label.withoutSelection': '{jslang}wcf.label.withoutSelection{/jslang}'
+            });
+            
+            new WCF.Label.Chooser({ {implode from=$labelIDs key=groupID item=labelID}{@$groupID}: {@$labelID}{/implode} }, '#todolistLabelForm', undefined, true);
+        {/if}
+    });
 </script>
 
 {event name='additionalJavascript'}

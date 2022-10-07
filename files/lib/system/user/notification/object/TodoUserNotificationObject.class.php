@@ -13,24 +13,24 @@ use wcf\system\WCF;
  * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
  */
 class TodoUserNotificationObject extends DatabaseObjectDecorator implements IUserNotificationObject {
-	/**
-	 * @inheritDoc
-	 */
-	protected static $baseClass = Todo::class;
-	
-	/**
-	 * @inheritDoc
-	 */
-	public function getAuthorID() {
-		return WCF::getUser()->userID;
-	}
-	
-	/**
-	 * @inheritDoc
-	 */
-	public function getObjectID() {
-		return $this->todoID;
-	}
+    /**
+     * @inheritDoc
+     */
+    protected static $baseClass = Todo::class;
+    
+    /**
+     * @inheritDoc
+     */
+    public function getAuthorID() {
+        return WCF::getUser()->userID;
+    }
+    
+    /**
+     * @inheritDoc
+     */
+    public function getObjectID() {
+        return $this->todoID;
+    }
 
     /**
      * @inheritDoc

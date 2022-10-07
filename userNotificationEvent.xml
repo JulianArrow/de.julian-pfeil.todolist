@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/2019/userNotificationEvent.xsd">
-	<import>
-		<!-- todo-edit -->
-		<event>
-			<name>todo</name>
-			<objecttype>de.julian-pfeil.todolist.todo</objecttype>
-			<classname>todolist\system\user\notification\event\TodoUserNotificationEvent</classname>
-			<preset>1</preset>
-		</event>	
+    <import>
+        <!-- todo-edit -->
+        <event>
+            <name>todo</name>
+            <objecttype>de.julian-pfeil.todolist.todo</objecttype>
+            <classname>todolist\system\user\notification\event\TodoUserNotificationEvent</classname>
+            <preset>1</preset>
+        </event>	
 
-		<!-- comments -->
-		<event>
-			<name>comment</name>
-			<objecttype>de.julian-pfeil.todolist.todoComment.notification</objecttype>
-			<classname>todolist\system\user\notification\event\TodoCommentUserNotificationEvent</classname>
-			<preset>1</preset>
-			<options>module_todolist_comments</options>
-		</event>
-		<event>
-			<name>commentResponse</name>
-			<objecttype>de.julian-pfeil.todolist.todoComment.response.notification</objecttype>
-			<classname>todolist\system\user\notification\event\TodoCommentResponseUserNotificationEvent</classname>
-			<preset>1</preset>
-			<options>module_todolist_comments</options>
-		</event>
-		<event>
-			<name>commentResponseOwner</name>
-			<objecttype>de.julian-pfeil.todolist.todoComment.response.notification</objecttype>
-			<classname>todolist\system\user\notification\event\TodoCommentResponseOwnerUserNotificationEvent</classname>
-			<preset>1</preset>
-			<options>module_todolist_comments</options>
-		</event>
-		<event>
-			<name>like</name>
-			<objecttype>de.julian-pfeil.todolist.todoComment.like.notification</objecttype>
-			<classname>todolist\system\user\notification\event\TodoCommentLikeUserNotificationEvent</classname>
-			<preset>1</preset>
-			<options>module_like</options>
-		</event>
-		<event>
-			<name>like</name>
-			<objecttype>de.julian-pfeil.todolist.todoComment.response.like.notification</objecttype>
-			<classname>todolist\system\user\notification\event\TodoCommentResponseLikeUserNotificationEvent</classname>
-			<preset>1</preset>
-			<options>module_like</options>
-		</event>
+        <!-- comments -->
+        <event>
+            <name>comment</name>
+            <objecttype>de.julian-pfeil.todolist.todoComment.notification</objecttype>
+            <classname>todolist\system\user\notification\event\TodoCommentUserNotificationEvent</classname>
+            <preset>1</preset>
+            <options>module_todolist_comments</options>
+        </event>
+        <event>
+            <name>commentResponse</name>
+            <objecttype>de.julian-pfeil.todolist.todoComment.response.notification</objecttype>
+            <classname>todolist\system\user\notification\event\TodoCommentResponseUserNotificationEvent</classname>
+            <preset>1</preset>
+            <options>module_todolist_comments</options>
+        </event>
+        <event>
+            <name>commentResponseOwner</name>
+            <objecttype>de.julian-pfeil.todolist.todoComment.response.notification</objecttype>
+            <classname>todolist\system\user\notification\event\TodoCommentResponseOwnerUserNotificationEvent</classname>
+            <preset>1</preset>
+            <options>module_todolist_comments</options>
+        </event>
+        <event>
+            <name>like</name>
+            <objecttype>de.julian-pfeil.todolist.todoComment.like.notification</objecttype>
+            <classname>todolist\system\user\notification\event\TodoCommentLikeUserNotificationEvent</classname>
+            <preset>1</preset>
+            <options>module_like</options>
+        </event>
+        <event>
+            <name>like</name>
+            <objecttype>de.julian-pfeil.todolist.todoComment.response.like.notification</objecttype>
+            <classname>todolist\system\user\notification\event\TodoCommentResponseLikeUserNotificationEvent</classname>
+            <preset>1</preset>
+            <options>module_like</options>
+        </event>
 
-		<!-- reactions / likes -->
-		<event>
-			<name>like</name>
-			<objecttype>de.julian-pfeil.todolist.likeableTodo.notification</objecttype>
-			<classname>todolist\system\user\notification\event\TodoLikeUserNotificationEvent</classname>
-			<preset>1</preset>
-			<options>module_todolist_reactions</options>
-		</event>
+        <!-- reactions / likes -->
+        <event>
+            <name>like</name>
+            <objecttype>de.julian-pfeil.todolist.likeableTodo.notification</objecttype>
+            <classname>todolist\system\user\notification\event\TodoLikeUserNotificationEvent</classname>
+            <preset>1</preset>
+            <options>module_todolist_reactions</options>
+        </event>
     </import>
 </data>

@@ -11,13 +11,13 @@ use wcf\data\object\type\AbstractObjectTypeProvider;
  * @package WoltLabSuite\Core\Page
  */
 class TodoProvider extends AbstractObjectTypeProvider {
-	/**
-	 * @inheritDoc
-	 */
-	public $className = Todo::class;
-	
-	/**
-	 * @inheritDoc
-	 */
-	public $listClassName = TodoList::class;
+    /**
+     * @inheritDoc
+     */
+    public $className = Todo::class;
+    
+    /**
+     * @inheritDoc
+     */
+    public $listClassName = TodoList::class;
 }

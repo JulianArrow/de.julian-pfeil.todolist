@@ -1,5 +1,5 @@
 
-	
+    
 {* Tab 1 *}
 <div id="generalTab" class="todoContent section{if $tabMenu == 1} tabMenuContent{/if}" 
     {if MODULE_LIKE}

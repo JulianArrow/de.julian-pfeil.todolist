@@ -18,52 +18,52 @@ use wcf\system\WCF;
  * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
  */
 class TodoModificationLog extends DatabaseObjectDecorator implements IViewableModificationLog {
-	/**
-	 * @inheritDoc
-	 */
-	protected static $baseClass = ModificationLog::class;
-	
-	/**
-	 * Todo this modification log belongs to
-	 */
-	protected $todo;
-	
-	/**
-	 * user profile object
-	 */
-	protected $userProfile;
-	
-	/**
-	 * Returns readable representation of current log todo.
-	 */
-	public function __toString() {
-		return WCF::getLanguage()->getDynamicVariable('todolist.todo.log.todo.'.$this->action, ['additionalData' => $this->additionalData]);
-	}
-	
-	/**
-	 * Returns the user profile object.
-	 */
-	public function getUserProfile() {
-		if ($this->userProfile === null) {
-			$this->userProfile = new UserProfile(new User(null, $this->getDecoratedObject()->data));
-		}
-		
-		return $this->userProfile;
-	}
-	
-	/**
-	 * Sets the todo this modification log belongs to.
-	 */
-	public function setTodo(Todo $todo) {
-		if ($todo->todoID == $this->objectID) {
-			$this->todo = $todo;
-		}
-	}
-	
-	/**
-	 * @inheritDoc
-	 */
-	public function getAffectedObject() {
-		return $this->todo;
-	}
+    /**
+     * @inheritDoc
+     */
+    protected static $baseClass = ModificationLog::class;
+    
+    /**
+     * Todo this modification log belongs to
+     */
+    protected $todo;
+    
+    /**
+     * user profile object
+     */
+    protected $userProfile;
+    
+    /**
+     * Returns readable representation of current log todo.
+     */
+    public function __toString() {
+        return WCF::getLanguage()->getDynamicVariable('todolist.todo.log.todo.'.$this->action, ['additionalData' => $this->additionalData]);
+    }
+    
+    /**
+     * Returns the user profile object.
+     */
+    public function getUserProfile() {
+        if ($this->userProfile === null) {
+            $this->userProfile = new UserProfile(new User(null, $this->getDecoratedObject()->data));
+        }
+        
+        return $this->userProfile;
+    }
+    
+    /**
+     * Sets the todo this modification log belongs to.
+     */
+    public function setTodo(Todo $todo) {
+        if ($todo->todoID == $this->objectID) {
+            $this->todo = $todo;
+        }
+    }
+    
+    /**
+     * @inheritDoc
+     */
+    public function getAffectedObject() {
+        return $this->todo;
+    }
 }

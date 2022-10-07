@@ -13,18 +13,18 @@ use wcf\system\user\notification\object\CommentResponseUserNotificationObject;
  * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
  */
 class TodoCommentResponseUserNotificationObjectType extends AbstractUserNotificationObjectType {
-	/**
-	 * @inheritDoc
-	 */
-	protected static $decoratorClassName = CommentResponseUserNotificationObject::class;
-	
-	/**
-	 * @inheritDoc
-	 */
-	protected static $objectClassName = CommentResponse::class;
-	
-	/**
-	 * @inheritDoc
-	 */
-	protected static $objectListClassName = CommentResponseList::class;
+    /**
+     * @inheritDoc
+     */
+    protected static $decoratorClassName = CommentResponseUserNotificationObject::class;
+    
+    /**
+     * @inheritDoc
+     */
+    protected static $objectClassName = CommentResponse::class;
+    
+    /**
+     * @inheritDoc
+     */
+    protected static $objectListClassName = CommentResponseList::class;
 }

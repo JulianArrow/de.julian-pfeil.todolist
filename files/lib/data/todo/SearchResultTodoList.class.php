@@ -9,8 +9,8 @@ namespace todolist\data\todo;
  * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
  */
 class SearchResultTodoList extends TodoList {
-	/**
-	 * @inheritDoc
-	 */
-	public $decoratorClassName = SearchResultTodo::class;
+    /**
+     * @inheritDoc
+     */
+    public $decoratorClassName = SearchResultTodo::class;
 }
