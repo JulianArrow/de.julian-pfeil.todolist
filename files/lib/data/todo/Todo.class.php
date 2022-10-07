@@ -2,15 +2,20 @@
 
 namespace todolist\data\todo;
 
+use todolist\page\TodoPage;
+use todolist\data\category\TodoCategory;
+
 use wcf\data\DatabaseObject;
 use wcf\data\ITitledLinkObject;
-use todolist\page\TodoPage;
 use wcf\system\request\LinkHandler;
 use wcf\system\WCF;
 use wcf\system\cache\runtime\UserProfileRuntimeCache;
 use wcf\data\user\UserProfile;
+use wcf\data\label\Label;
 use wcf\util\StringUtil;
 use wcf\system\html\output\HtmlOutputProcessor;
+use wcf\system\message\embedded\object\MessageEmbeddedObjectManager;
+use wcf\system\category\CategoryHandler;
 
 /**
  * Represents a todo.
@@ -23,6 +28,30 @@ use wcf\system\html\output\HtmlOutputProcessor;
 class Todo extends DatabaseObject implements ITitledLinkObject
 {
     /**
+     * todos category
+     * @var Category
+     */
+    public $category;
+
+	/**
+	 * true if embedded objects have already been loaded
+	 */
+	protected $embeddedObjectsLoaded = false;
+
+    /**
+     * list of labels
+     */
+    protected $labels = [];
+
+    /**
+     * @inheritDoc
+     */
+    public function __construct()
+    {
+        $this->category = $this->getCategory();
+    }
+
+    /**
      * Returns the name of the todo if a todo object is treated as a string.
      *
      * @return  string
@@ -31,6 +60,16 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     {
         return $this->getTitle();
     }
+
+	/**
+	 * Loads the embedded objects.
+	 */
+	public function loadEmbeddedObjects() {
+		if ($this->hasEmbeddedObjects && !$this->embeddedObjectsLoaded) {
+			MessageEmbeddedObjectManager::getInstance()->loadObjects('de.julian-pfeil.todolist.todo', [$this->todoID]);
+			$this->embeddedObjectsLoaded = true;
+		}
+	}
 
     /**
      * @inheritDoc
@@ -55,6 +94,8 @@ class Todo extends DatabaseObject implements ITitledLinkObject
      */
      public function getFormattedMessage(): string
     {
+		$this->loadEmbeddedObjects();
+
         $processor = new HtmlOutputProcessor();
         $processor->process($this->description, 'de.julian-pfeil.todolist.todo.content', $this->todoID);
 
@@ -98,43 +139,33 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     }
 	
 	/**
+	 * Returns the todo object with the given id.
+	 */
+	public static function getTodo($todoID) {
+		$todoList = new TodoList();
+		$todoList->setObjectIDs([$todoID]);
+		$todoList->readObjects();
+		
+		return $todoList->search($todoID);
+	}
+	
+	/**
 	 * @inheritDoc
 	 */
 	public function getExcerpt() {
         $excerpt = StringUtil::truncate($this->getPlainMessage());
 		return $excerpt;
 	}
-
-	/**
-     * Returns `true` if the active user can delete this todo and `false` otherwise.
-     */
-    public function canDelete(): bool
-    {
-        if (
-            WCF::getUser()->userID
-            && WCF::getUser()->userID == $this->userID
-            && WCF::getSession()->getPermission('user.todolist.general.canDeleteOwnTodos')
-        ) {
-            return true;
-        }
-
-        return WCF::getSession()->getPermission('mod.todolist.general.canDeleteTodos');
-    }
-
+    
     /**
-     * Returns `true` if the active user can edit this todo and `false` otherwise.
+     * Returns the category name
+     *
+     * @return mixed
+     * @throws SystemException
      */
-    public function canEdit(): bool
+    public function getCategory()
     {
-        if (
-            WCF::getUser()->userID
-            && WCF::getUser()->userID == $this->userID
-            && WCF::getSession()->getPermission('user.todolist.general.canEditOwnTodos')
-        ) {
-            return true;
-        }
-
-        return WCF::getSession()->getPermission('mod.todolist.general.canEditTodos');
+        return TodoCategory::getCategory($this->categoryID);
     }
 	
 	/**
@@ -148,13 +179,91 @@ class Todo extends DatabaseObject implements ITitledLinkObject
             return UserProfile::getGuestUserProfile($this->username);
         }
     }
+
+    /**
+     * Returns the user profile of the user who last commented on the todo.
+     */
+    public function getLastCommentUserProfile()
+    {
+        if ($this->userID) {
+            return UserProfileRuntimeCache::getInstance()->getObject($this->lastCommentUserID);
+        } else {
+            return UserProfile::getGuestUserProfile($this->lastCommentUserID);
+        }
+    }
+
+	/**
+     * Returns `true` if the active user can delete this todo and `false` otherwise.
+     */
+    public function canDelete(): bool
+    {
+        if (
+            WCF::getUser()->userID == $this->userID
+            && $this->category->canDeleteOwnTodo()
+        ) {
+            return true;
+        }
+
+        return $this->category->canDeleteTodo();
+    }
+
+    /**
+     * Returns `true` if the active user can edit this todo and `false` otherwise.
+     */
+    public function canEdit(): bool
+    {
+        if (
+            WCF::getUser()->userID == $this->userID
+            && $this->category->canEditOwnTodo()
+        ) {
+            return true;
+        }
+
+        return $this->category->canEditTodo();
+    }
+
+    /**
+     * Returns `true` if the active user can read this todo and `false` otherwise.
+     */
+    public function canRead(): bool
+    {
+        return $this->category->canView();
+    }
+
+    /**
+     * Returns `true` if the todo has labels and `false` otherwise.
+     */
+    public function hasLabels(): bool
+    {
+		if ($this->hasLabels == '1') {
+			return true;
+		}
+		
+		return false;
+    }
+    
+    /**
+     * Adds a label.
+     */
+    public function addLabel(Label $label)
+    {
+        $this->labels[$label->labelID] = $label;
+    }
+
+    /**
+     * Returns a list of labels.
+     */
+    public function getLabels()
+    {
+        return $this->labels;
+    }
 	
     /**
-     * Returns true if the todo is marked as done
+     * Returns `true` if the todo is marked as done and `false` otherwise.
      */
-    public function isDone()
+    public function isDone(): bool
     {
-		if ($this->done == '1') {
+		if ($this->isDone == '1') {
 			return true;
 		}
 		

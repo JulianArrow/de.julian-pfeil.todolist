@@ -7,11 +7,5 @@
 			<title language="en">To-do list</title>
 			<page>de.julian-pfeil.todolist.TodoList</page>
 		</item>
-		<item identifier="de.julian-pfeil.todolist.AddTodo">
-			<parent>de.julian-pfeil.todolist.TodoList</parent>
-			<title language="de">To-do hinzufügen</title>
-			<title language="en">Add To-do</title>
-			<page>de.julian-pfeil.todolist.AddTodo</page>
-		</item>
 	</import>
 </data>

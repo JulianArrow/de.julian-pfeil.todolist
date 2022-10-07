@@ -3,9 +3,11 @@
 namespace todolist\form;
 
 use todolist\data\todo\Todo;
+use todolist\system\user\notification\object\TodoUserNotificationObject;
+use todolist\data\category\TodoCategory;
+
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\user\notification\UserNotificationHandler;
-use todolist\system\user\notification\object\TodoUserNotificationObject;
 use wcf\system\WCF;
 
 /**
@@ -35,11 +37,35 @@ class TodoEditForm extends TodoAddForm
     {
         parent::readParameters();
 
-        if (isset($_REQUEST['id'])) {
-            $this->formObject = new Todo($_REQUEST['id']);
+        if ($this->formAction == 'update') {
+            if (isset($_REQUEST['todoID'])) {
+                $this->formObject = new Todo($_REQUEST['todoID']);
+    
+                if (!$this->formObject->getObjectID()) {
+                    throw new IllegalLinkException();
+                }
 
-            if (!$this->formObject->getObjectID()) {
+                $this->categoryID = $this->formObject->categoryID;
+                $this->category = TodoCategory::getCategory($this->categoryID);
+
+                if ($this->category === null) {
+                    throw new IllegalLinkException();
+                }
+            } else {
                 throw new IllegalLinkException();
+            }
+        }
+    }
+
+    /**
+    * @inheritDoc
+    */
+    public function checkPermissions() {
+        parent::checkPermissions();
+
+        if ($this->formAction == 'update') {
+            if (!$this->formObject->canEdit()) {
+                throw new PermissionDeniedException();
             }
         }
     }

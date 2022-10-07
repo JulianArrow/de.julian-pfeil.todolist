@@ -2,6 +2,8 @@
 
 namespace todolist\data\todo;
 
+use todolist\system\label\object\TodoLabelObjectHandler;
+
 use wcf\data\DatabaseObjectList;
 use wcf\system\cache\runtime\UserProfileRuntimeCache;
 use wcf\system\reaction\ReactionHandler;
@@ -28,7 +30,7 @@ class TodoList extends DatabaseObjectList
     {
         parent::__construct();
 
-        if (MODULE_TODOLIST_REACTIONS) {
+        if (MODULE_LIKE) {
             // reactions
             if (!empty($this->sqlSelects)) {
                 $this->sqlSelects .= ',';
@@ -46,5 +48,24 @@ class TodoList extends DatabaseObjectList
             $this->objects,
             'userID'
         ))));
+
+        if (defined('TODOLIST_LABELS_PLUGIN')) {
+            $todoIDs = [];
+            foreach ($this->objects as $todo) {
+    
+                if ($todo->hasLabels) {
+                    $todoIDs[] = $todo->todoID;
+                }
+            }
+    
+            if (!empty($todoIDs)) {
+                $assignedLabels = TodoLabelObjectHandler::getInstance()->getAssignedLabels($todoIDs);
+                foreach ($assignedLabels as $todoID => $labels) {
+                    foreach ($labels as $label) {
+                        $this->objects[$todoID]->addLabel($label);
+                    }
+                }
+            }
+        }
     }
 }

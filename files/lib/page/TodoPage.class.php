@@ -2,12 +2,18 @@
 
 namespace todolist\page;
 
-use wcf\page\AbstractPage;
 use todolist\data\todo\Todo;
+use todolist\data\category\TodoCategoryNodeTree;
+use todolist\system\label\object\TodoLabelObjectHandler;
+
+use wcf\page\AbstractPage;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\WCF;
 use wcf\system\reaction\ReactionHandler;
 use wcf\system\comment\CommentHandler;
+use wcf\system\message\embedded\object\MessageEmbeddedObjectManager;
+use wcf\data\tag\Tag;
+use wcf\system\tagging\TagEngine;
 
 /**
  * Shows the details of a certain todo.
@@ -36,7 +42,7 @@ class TodoPage extends AbstractPage
     /**
      * @inheritDoc
      */
-    public $neededPermissions = ['user.todolist.general.canSeeTodos'];
+    public $neededPermissions = [];
 
     /**
      * list of comments
@@ -57,6 +63,11 @@ class TodoPage extends AbstractPage
     public $commentObjectTypeID = 0;
 
     /**
+     * list of tags
+     */
+    public $tags = [];
+
+    /**
      * @inheritDoc
      */
     public function assignVariables()
@@ -65,21 +76,28 @@ class TodoPage extends AbstractPage
 
         WCF::getTPL()->assign([
             'todo' => $this->todo,
+            'canAddTodoInAnyCategory' => $this->canAddTodoInAnyCategory,
         ]);
 
-        if (MODULE_TODOLIST_REACTIONS) {
+        if (MODULE_LIKE) {
             WCF::getTPL()->assign([
                 'todoLikeData' => $this->todoLikeData
             ]);
         }
 
-        if (MODULE_TODOLIST_COMMENTS) {
+        if (defined('TODOLIST_COMMENTS_PLUGIN')) {
             WCF::getTPL()->assign([
                 'commentCanAdd' => WCF::getSession()->getPermission('user.todolist.comments.canAddComments'),
                 'commentList' => $this->commentList,
                 'commentObjectTypeID' => $this->commentObjectTypeID,
                 'lastCommentTime' => $this->commentList ? $this->commentList->getMinCommentTime() : 0,
                 'likeData' => MODULE_LIKE && $this->commentList ? $this->commentList->getLikeData() : [],
+            ]);
+        }
+
+        if (defined('TODOLIST_TAGGING_PLUGIN')) {
+            WCF::getTPL()->assign([
+                'tags' => $this->tags
             ]);
         }
     }
@@ -90,14 +108,28 @@ class TodoPage extends AbstractPage
     public function readData()
     {
         parent::readData();
+
+        //set canAddTodoInAnyCategory
+        $categoryNodeTree = new TodoCategoryNodeTree(TodoCategory::OBJECT_TYPE_NAME, 0, false);
+        $categoryNodeTree->loadCategoryLists();
+    
+        $this->canAddTodoInAnyCategory = $categoryNodeTree->canAddTodoInAnyCategory();
+
+        // update view count
+        $todoEditor = new TodoEditor($this->todo->getDecoratedObject());
+        $todoEditor->updateCounters([
+            'views' => 1,
+        ]);
         
-        if (MODULE_TODOLIST_REACTIONS) {
+        /* reactions */
+        if (MODULE_LIKE) {
             $objectType = ReactionHandler::getInstance()->getObjectType('de.julian-pfeil.todolist.likeableTodo');
 			ReactionHandler::getInstance()->loadLikeObjects($objectType, [$this->todoID]);
 			$this->todoLikeData = ReactionHandler::getInstance()->getLikeObjects($objectType);
         }
 
-        if (MODULE_TODOLIST_COMMENTS) {
+        /* comments */
+        if (defined('TODOLIST_COMMENTS_PLUGIN')) {
             if ($this->todo->enableComments) {
                 $this->commentObjectTypeID = CommentHandler::getInstance()->getObjectTypeID(
                     'de.julian-pfeil.todolist.todoComment'
@@ -112,6 +144,39 @@ class TodoPage extends AbstractPage
                 );
             }
         }
+
+        /* tags */
+        if (MODULE_TAGGING && defined('TODOLIST_TAGGING_PLUGIN') && WCF::getSession()->getPermission('user.tag.canViewTag')) {
+            $this->tags = TagEngine::getInstance()->getObjectTags(
+                'de.julian-pfeil.todolist.tagging',
+                $this->todo->linkID,
+                [($this->todo->languageID === null ? LanguageFactory::getInstance()->getDefaultLanguageID() : "")]
+            );
+        }
+
+        /* labels */
+        if (defined('TODOLIST_LABELS_PLUGIN')) {
+            if ($this->todo->hasLabels) {
+                $assignedLabels = TodoLabelObjectHandler::getInstance()->getAssignedLabels([$this->todoID]);
+                if (isset($assignedLabels[$this->todoID])) {
+                    foreach ($assignedLabels[$this->todoID] as $label) {
+                        $this->todo->addLabel($label);
+                    }
+                }
+            }
+        }
+
+		$this->todo->loadEmbeddedObjects();
+		MessageEmbeddedObjectManager::getInstance()->setActiveMessage('de.julian-pfeil.todolist.todo', $this->todoID);
+    }
+
+    /**
+    * @inheritDoc
+    */
+    public function checkPermissions() {
+        if (!$this->todo->canRead()) {
+            throw new PermissionDeniedException();
+        }
     }
 
     /**
@@ -121,8 +186,8 @@ class TodoPage extends AbstractPage
     {
         parent::readParameters();
 
-        if (isset($_REQUEST['id'])) {
-            $this->todoID = \intval($_REQUEST['id']);
+        if (isset($_REQUEST['todoID'])) {
+            $this->todoID = \intval($_REQUEST['todoID']);
         }
         $this->todo = new Todo($this->todoID);
         if (!$this->todo->todoID) {

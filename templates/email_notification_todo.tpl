@@ -22,7 +22,7 @@
 							{$user->username}
 						{/if}
 						&#xb7;
-						<a href="{$todo->getLink()}"><small>{$todo->creationDate|plainTime}</small></a>
+						<a href="{$todo->getLink()}"><small>{$todo->time|plainTime}</small></a>
 					</h3>
 				</div>
 				<div>

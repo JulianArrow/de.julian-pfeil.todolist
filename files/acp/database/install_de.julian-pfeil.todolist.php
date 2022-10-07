@@ -19,7 +19,9 @@ return [
             ObjectIdDatabaseTableColumn::create('todoID'),
             NotNullVarchar255DatabaseTableColumn::create('todoName'),
             TextDatabaseTableColumn::create('description'),
-            NotNullInt10DatabaseTableColumn::create('creationDate'),
+            NotNullInt10DatabaseTableColumn::create('categoryID'),
+            NotNullInt10DatabaseTableColumn::create('time'),
+            NotNullInt10DatabaseTableColumn::create('lastEditTime'),
 			IntDatabaseTableColumn::create('userID')
                 ->length(10),
             NotNullVarchar255DatabaseTableColumn::create('username'),
@@ -27,16 +29,29 @@ return [
                 ->length(39)
                 ->notNull(true)
                 ->defaultValue(''),
-            DefaultFalseBooleanDatabaseTableColumn::create('done'),
-            SmallintDatabaseTableColumn::create('comments')
-                ->length(5)
-                ->notNull()
-                ->defaultValue(0),
-            DefaultTrueBooleanDatabaseTableColumn::create('enableComments'),
+            DefaultFalseBooleanDatabaseTableColumn::create('isDone'),
             SmallintDatabaseTableColumn::create('cumulativeLikes')
                 ->length(5)
                 ->notNull()
                 ->defaultValue(0),
+            DefaultFalseBooleanDatabaseTableColumn::create('hasLabels'),
+            DefaultFalseBooleanDatabaseTableColumn::create('hasEmbeddedObjects'),
+            SmallintDatabaseTableColumn::create('views')
+                ->length(5)
+                ->notNull()
+                ->defaultValue(0),
+            DefaultTrueBooleanDatabaseTableColumn::create('enableComments'),
+            SmallintDatabaseTableColumn::create('comments')
+                ->length(5)
+                ->notNull()
+                ->defaultValue(0),
+            NotNullInt10DatabaseTableColumn::create('lastCommentTime')
+                ->defaultValue(0),
+			IntDatabaseTableColumn::create('lastCommentUserID')
+                ->defaultValue(NULL)
+                ->length(10),
+            NotNullVarchar255DatabaseTableColumn::create('lastCommentUsername')
+                ->defaultValue(''),
         ])
         ->indices([
             DatabaseTablePrimaryIndex::create()
@@ -45,6 +60,11 @@ return [
         ->foreignKeys([
             DatabaseTableForeignKey::create()
                 ->columns(['userID'])
+                ->referencedTable('wcf1_user')
+                ->referencedColumns(['userID'])
+                ->onDelete('SET NULL'),
+            DatabaseTableForeignKey::create()
+                ->columns(['lastCommentUserID'])
                 ->referencedTable('wcf1_user')
                 ->referencedColumns(['userID'])
                 ->onDelete('SET NULL'),

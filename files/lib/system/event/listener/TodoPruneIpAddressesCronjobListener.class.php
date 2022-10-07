@@ -17,6 +17,6 @@ class TodoPruneIpAddressesCronjobListener extends AbstractEventListener
 {
     protected function onExecute(PruneIpAddressesCronjob $cronjob): void
     {
-        $cronjob->columns['todolist' . WCF_N . '_todo']['ipAddress'] = 'creationDate';
+        $cronjob->columns['todolist' . WCF_N . '_todo']['ipAddress'] = 'time';
     }
 }

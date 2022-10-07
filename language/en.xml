@@ -73,7 +73,7 @@
 	
 	<category name="todolist.column">
 		<item name="todolist.column.todoName"><![CDATA[Title]]></item>
-		<item name="todolist.column.creationDate"><![CDATA[Creation date]]></item>
+		<item name="todolist.column.time"><![CDATA[Creation date]]></item>
 		<item name="todolist.column.description"><![CDATA[Description]]></item>
 		<item name="todolist.column.done"><![CDATA[Done?]]></item>
 	</category>

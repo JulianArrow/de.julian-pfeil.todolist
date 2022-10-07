@@ -358,14 +358,14 @@ Todolist.Todo.UpdateHandler = Class.extend({
 	 * Sets an todo as featured.
 	 */
 	_markAsDone: function (todoID) {
-		this._todos[todoID].data('done', 1);
+		this._todos[todoID].data('isDone', 1);
 	},
 	
 	/**
 	 * Unsets as todo as featured.
 	 */
 	_markAsUndone: function (todoID) {
-		this._todos[todoID].data('done', 0);
+		this._todos[todoID].data('isDone', 0);
 	},
 	
 	/**
@@ -379,7 +379,7 @@ Todolist.Todo.UpdateHandler = Class.extend({
 		
 		switch (property) {
 			case 'isDone':
-				return this._todos[todoID].data('done');
+				return this._todos[todoID].data('isDone');
 				break;
 		}
 	}

@@ -6,8 +6,8 @@
 		<packagename languagecode="de">To-do-Liste</packagename>
 		<packagedescription languagecode="de">To-do-Liste für das Erstellen von To-dos.</packagedescription>
 		<version>2.0.0 dev 1</version>
-		<date>2022-09-26</date>
-		<packageurl><![CDATA[https://darkwood.design]]></packageurl>
+		<date>2022-10-03</date>
+		<packageurl><![CDATA[https://darkwood.design/store/user-file-list/1298-julian-pfeil/]]></packageurl>
 		<isapplication>1</isapplication>
 		<applicationdirectory>todolist</applicationdirectory>
 	</packageinformation>
@@ -31,14 +31,15 @@
 		<instruction type="database">acp/database/install_de.julian-pfeil.todolist.php</instruction>
 		<instruction type="template" />
 		<instruction type="language" />
-		<instruction type="option" />
+		<instruction type="objectType" />
 
+		<instruction type="aclOption" />
 		<instruction type="templateListener" />
 		<instruction type="eventListener" />
 		<instruction type="page" />
 		<instruction type="menuItem" />
+		<instruction type="acpMenu" />
 		<instruction type="userGroupOption" />
-		<instruction type="objectType" />
 		<instruction type="userNotificationEvent" />
 	</instructions>
 
@@ -47,16 +48,18 @@
 		<instruction type="file" application="wcf">files_wcf.tar</instruction>
 		<instruction type="database">acp/database/install_de.julian-pfeil.todolist.php</instruction>
 		<instruction type="database">acp/database/update_to_2.0.0_de.julian-pfeil.todolist.php</instruction>
+		<instruction type="script">acp/update_to_2.0.0_de.julian-pfeil.todolist.php</instruction>
 		<instruction type="template" />
 		<instruction type="language" />
-		<instruction type="option" />
+		<instruction type="objectType" />
 
+		<instruction type="aclOption" />
 		<instruction type="templateListener" />
 		<instruction type="eventListener" />
 		<instruction type="page" />
 		<instruction type="menuItem" />
+		<instruction type="acpMenu" />
 		<instruction type="userGroupOption" />
-		<instruction type="objectType" />
 		<instruction type="userNotificationEvent" />
 	</instructions>
 </package>

@@ -13,8 +13,6 @@
 			<content language="en">
 				<title>To-do list</title>
 			</content>
-			
-			<permissions>user.todolist.general.canSeeTodos</permissions>
 		</page>
 		<page identifier="de.julian-pfeil.todolist.Todo">
             <pageType>system</pageType>
@@ -24,22 +22,33 @@
             <name language="en">To-do</name>
             <requireObjectID>1</requireObjectID>
             <parent>de.julian-pfeil.todolist.TodoList</parent>
-			<permissions>user.todolist.general.canSeeTodos</permissions>
         </page>
+		<page identifier="de.julian-pfeil.todolist.TodoLog">
+			<pageType>system</pageType>
+			<controller>todolist\page\TodoLogPage</controller>
+			<name language="de">To-do-Änderungsprotokoll</name>
+			<name language="en">To-do Log</name>
+			<requireObjectID>1</requireObjectID>
+			<excludeFromLandingPage>1</excludeFromLandingPage>
+			<parent>de.julian-pfeil.todolist.Todo</parent>
+			<options>todolist_modification_log_plugin</options>
+		</page>
 		<page identifier="de.julian-pfeil.todolist.AddTodo">
             <pageType>system</pageType>
             <controller>todolist\form\TodoAddForm</controller>
             <name language="de">To-do hinzufügen</name>
             <name language="en">Add To-do</name>
+			<excludeFromLandingPage>1</excludeFromLandingPage>
             <parent>de.julian-pfeil.todolist.TodoList</parent>
-			<permissions>user.todolist.general.canAddTodos</permissions>
         </page>
 		<page identifier="de.julian-pfeil.todolist.EditTodo">
             <pageType>system</pageType>
             <controller>todolist\form\TodoEditForm</controller>
+			<requireObjectID>1</requireObjectID>
             <name language="de">To-do bearbeiten</name>
             <name language="en">Edit To-do</name>
-            <parent>de.julian-pfeil.todolist.TodoList</parent>
+			<excludeFromLandingPage>1</excludeFromLandingPage>
+            <parent>de.julian-pfeil.todolist.Todo</parent>
         </page>
 	</import>
 </data>

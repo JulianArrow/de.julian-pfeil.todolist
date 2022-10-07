@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/5.4/aclOption.xsd">
+	<import>
+        <categories>
+            <category name="user.todolist">
+                <objecttype>de.julian-pfeil.todolist.todo.category</objecttype>
+            </category>
+            <category name="mod.todolist">
+                <objecttype>de.julian-pfeil.todolist.todo.category</objecttype>
+            </category>
+        </categories>
+
+		<options>
+			<option name="canAddTodo">
+				<objecttype>de.julian-pfeil.todolist.todo.category</objecttype>
+                <categoryname>user.todolist</categoryname>
+			</option>
+			<option name="canViewCategory">
+				<objecttype>de.julian-pfeil.todolist.todo.category</objecttype>
+                <categoryname>user.todolist</categoryname>
+			</option>
+			<option name="canEditOwnTodo">
+				<objecttype>de.julian-pfeil.todolist.todo.category</objecttype>
+                <categoryname>user.todolist</categoryname>
+			</option>
+			<option name="canDeleteOwnTodo">
+				<objecttype>de.julian-pfeil.todolist.todo.category</objecttype>
+                <categoryname>user.todolist</categoryname>
+			</option>
+
+			<option name="canEditTodo">
+				<objecttype>de.julian-pfeil.todolist.todo.category</objecttype>
+                <categoryname>mod.todolist</categoryname>
+			</option>
+			<option name="canDeleteTodo">
+				<objecttype>de.julian-pfeil.todolist.todo.category</objecttype>
+                <categoryname>mod.todolist</categoryname>
+			</option>
+		</options>
+	</import>
+</data>
