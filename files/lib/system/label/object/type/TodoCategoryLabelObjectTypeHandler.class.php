@@ -6,6 +6,7 @@ use todolist\data\category\TodoCategoryNodeTree;
 use todolist\system\cache\builder\TodoCategoryLabelCacheBuilder;
 
 use wcf\system\label\object\type\LabelObjectTypeContainer;
+use wcf\system\label\object\type\AbstractLabelObjectTypeHandler;
 use wcf\system\label\object\type\LabelObjectType;
 
 /**
