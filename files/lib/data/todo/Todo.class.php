@@ -46,8 +46,9 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     /**
      * @inheritDoc
      */
-    public function __construct()
+    public function __construct($id, ?array $row = null, ?self $object = null)
     {
+        parent::__construct($id, $row, $object);
         $this->category = $this->getCategory();
     }
 

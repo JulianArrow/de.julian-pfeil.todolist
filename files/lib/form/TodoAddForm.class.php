@@ -72,7 +72,7 @@ class TodoAddForm extends AbstractFormBuilderForm
     /**
     * @inheritDoc
     */
- /*   public function readParameters()
+    public function readParameters()
    {
         parent::readParameters();
 
@@ -86,7 +86,7 @@ class TodoAddForm extends AbstractFormBuilderForm
                 }
             }
         } 
-    } */
+    }
 
     /**
     * @inheritDoc
@@ -267,7 +267,7 @@ class TodoAddForm extends AbstractFormBuilderForm
     /**
      * @inheritDoc
      */
-    /* protected function setFormAction()
+    protected function setFormAction()
     {
         $parameters = [];
         $parameters['categoryID'] = $this->categoryID;
@@ -283,7 +283,7 @@ class TodoAddForm extends AbstractFormBuilderForm
         }
 
         $this->form->action(LinkHandler::getInstance()->getControllerLink(static::class, $parameters));
-    } */
+    }
 
     /**
      * @inheritDoc
@@ -296,7 +296,7 @@ class TodoAddForm extends AbstractFormBuilderForm
         {
             WCF::getTPL()->assign([
                 'success' => true,
-                'objectEditLink' => LinkHandler::getInstance()->getControllerLink(TodoEditForm::class, ['id' => $this->objectAction->getReturnValues()['returnValues']->todoID])
+                'objectEditLink' => LinkHandler::getInstance()->getControllerLink(TodoEditForm::class, ['todoID' => $this->objectAction->getReturnValues()['returnValues']->todoID])
             ]);
         }
     }
