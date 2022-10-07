@@ -39,6 +39,19 @@
 					<meta itemprop="datePublished" content="{@$todo->time|date:'c'}">
 					<meta itemprop="operatingSystem" content="N/A">
 				</li>
+
+				{if $todo->time != $todo->lastEditTime}
+					<li class="jsTooltip" title="{lang}todolist.column.lastEditTime{/lang}">
+						<span class="icon icon16 fa-pencil"></span>
+						<span><a href="{link controller='Todo' object=$todo}{/link}" class="permalink">{@$todo->lastEditTime|time}</a></span>
+						<meta itemprop="dateModified" content="{@$todo->lastEditTime|date:'c'}">
+					</li>
+				{/if}
+
+				<li>
+					<span class="icon icon16 fa-eye"></span>
+					{$todo->views} {lang}todolist.column.views{/lang}
+				</li>
 				
 				<li class="jsMarkAsDone" data-object-id="{@$todo->todoID}">
 					{if $todo->isDone()}

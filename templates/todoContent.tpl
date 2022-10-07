@@ -9,10 +9,6 @@
 >
     <div class="section">
         <div class="section">
-            <p class="todoTitle">
-                {$todo->getTitle()}
-            </p>
-
             <p class="todoDescription htmlContent userMessage">
                 {@$todo->getFormattedMessage()}
             </p>
@@ -36,7 +32,7 @@
                     {content}
                         {if $todo->canEdit()}
                             <li>
-                                <a href="{link application='todolist' controller='TodoEdit' todoID=$todo->todoID}{/link}" class="small button jsTodoInlineEditor" id="todoEditButton">
+                                <a href="{link application='todolist' controller='TodoEdit' id=$todo->todoID}{/link}" class="small button jsTodoInlineEditor" id="todoEditButton">
                                     <span class="icon icon16 fa-pencil"></span>
                                     <span>{lang}wcf.global.button.edit{/lang}</span>
                                 </a>

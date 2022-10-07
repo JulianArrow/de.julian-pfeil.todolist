@@ -35,7 +35,7 @@
                 {/if}
 
                 {if "TODOLIST_MODIFICATION_LOG_PLUGIN"|defined}
-                    {if ($pageFrom == 'todo' && $todo->canEdit()) || !$pageFrom == 'todo'}
+                    {if $pageFrom == 'todo' && $todo->canEdit() || !$pageFrom == 'todo'}
                         <li>
                             <a href="
 							{if $pageFrom == 'todo'}

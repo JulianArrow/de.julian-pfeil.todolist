@@ -3,6 +3,7 @@
 namespace todolist\page;
 
 use todolist\data\todo\Todo;
+use todolist\data\todo\TodoEditor;
 use todolist\data\category\TodoCategoryNodeTree;
 use todolist\data\category\TodoCategory;
 use todolist\system\label\object\TodoLabelObjectHandler;
@@ -117,7 +118,7 @@ class TodoPage extends AbstractPage
         $this->canAddTodoInAnyCategory = $categoryNodeTree->canAddTodoInAnyCategory();
 
         // update view count
-        $todoEditor = new TodoEditor($this->todo->getDecoratedObject());
+        $todoEditor = new TodoEditor($this->todo);
         $todoEditor->updateCounters([
             'views' => 1,
         ]);

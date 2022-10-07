@@ -33,8 +33,13 @@
                                 </small>
                                 
                                 <small class="separatorLeft">
-                                    <span class="icon icon16 fa-clock-o"></span>
-                                    {@$todo->time|time}
+                                    {if $todo->time != $todo->lastEditTime}
+                                        <span class="icon icon16 fa-clock-o"></span>
+                                        {@$todo->time|time}
+                                    {else}
+                                        <span class="icon icon16 fa-pencil"></span>
+                                        {@$todo->lastEditTime|time}
+                                    {/if}}
                                 </small>
 
                                 {if MODULE_LIKE && $__wcf->getSession()->getPermission('user.like.canViewLike') && $todo->cumulativeLikes} 
@@ -44,12 +49,21 @@
                                 {/if}
 
                                 {if "TODOLIST_COMMENTS_PLUGIN"|defined}
-                                    {if $todo->enableComments}
-                                        <small class="separatorLeft">
+                                    {if $todo->enableComments && $commentList|count}
+                                        
                                             <span class="icon icon16 fa-comments"></span> 
                                             {lang}todolist.comment.metaData{/lang}
                                         </small>
                                     {/if}
+                                {/if}
+
+                                {if "TODOLIST_LABELS_PLUGIN"|defined && $todo->hasLabels()}
+                                    <small class="separatorLeft"></small>
+                                        <ul class="labelList">
+                                            {foreach from=$todo->getLabels() item=label}
+                                                <li>{@$todo->render()}</li>
+                                            {/foreach}
+                                        </ul>
                                 {/if}
                                 
                                 {event name='containerHeadline'}

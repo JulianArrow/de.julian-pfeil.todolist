@@ -279,7 +279,7 @@ class TodoAddForm extends AbstractFormBuilderForm
             } else {
                 $object = $this->formObject;
                 $this->todoID = $object->todoID;
-                $parameters['todoID'] = $object->todoID;
+                $parameters['id'] = $object->todoID;
             }
         }
 

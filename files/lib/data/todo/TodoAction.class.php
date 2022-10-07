@@ -82,7 +82,7 @@ class TodoAction extends AbstractDatabaseObjectAction
         return $todo;
     }
 	
-	/**
+/**
      * @inheritDoc
      */
     public function update()
@@ -96,18 +96,18 @@ class TodoAction extends AbstractDatabaseObjectAction
 
         // get ids
 		$objectIDs = [];
-		foreach ($this->getObjects() as $todo) {
-			$objectIDs[] = $todo->todoID;
+		foreach ($this->getObjects() as $todoEditor) {
+			$objectIDs[] = $todoEditor->todoID;
 
-            $todoEditor = new TodoEditor($todo);
+            $todo = new Todo($todoEditor->todoID);
             
             $this->setSearchIndex($todo);
 
 			// add log todo
-			TodoModificationLogHandler::getInstance()->edit($todo->getDecoratedObject(), (isset($this->parameters['editReason']) ? $this->parameters['editReason'] : ''));     
+			TodoModificationLogHandler::getInstance()->edit($todo, (isset($this->parameters['editReason']) ? $this->parameters['editReason'] : ''));     
             
             // save embedded objects
-            $this->saveEmbeddedObject($todoEditor, $todo);
+            $this->saveEmbeddedObjects($todoEditor, $todo);
 
 
             
@@ -129,10 +129,10 @@ class TodoAction extends AbstractDatabaseObjectAction
     }
 
     public function saveEmbeddedObjects(TodoEditor $todoEditor, Todo $todo) {
-        if (!empty($this->parameters['htmlInputProcessor'])) {
-			$this->parameters['htmlInputProcessor']->setObjectID($todo->todoID);
+        if (!empty($this->parameters['description_htmlInputProcessor'])) {
+			$this->parameters['description_htmlInputProcessor']->setObjectID($todo->todoID);
 
-            if ($todo->hasEmbeddedObjects != MessageEmbeddedObjectManager::getInstance()->registerObjects($this->parameters['htmlInputProcessor'])) {
+            if ($todo->hasEmbeddedObjects != MessageEmbeddedObjectManager::getInstance()->registerObjects($this->parameters['description_htmlInputProcessor'])) {
                 $todoEditor->update([
                     'hasEmbeddedObjects' => $todo->hasEmbeddedObjects ? 0 : 1
                 ]);

@@ -67,7 +67,7 @@ class Todo extends DatabaseObject implements ITitledLinkObject
 	 */
 	public function loadEmbeddedObjects() {
 		if ($this->hasEmbeddedObjects && !$this->embeddedObjectsLoaded) {
-			MessageEmbeddedObjectManager::getInstance()->loadObjects('de.julian-pfeil.todolist.todo', [$this->todoID]);
+			MessageEmbeddedObjectManager::getInstance()->loadObjects('de.julian-pfeil.todolist.todo.content', [$this->todoID]);
 			$this->embeddedObjectsLoaded = true;
 		}
 	}

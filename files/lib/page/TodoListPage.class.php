@@ -201,6 +201,8 @@ class TodoListPage extends SortablePage
                 $controllerParameters['categoryID'] = $this->categoryID;
             }
 
+            $controllerParameters = array_merge($controllerParameters, $_REQUEST);
+
             HeaderUtil::redirect(
                 LinkHandler::getInstance()->getLink(
                     'TodoList', 
