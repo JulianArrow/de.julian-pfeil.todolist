@@ -70,7 +70,12 @@ class TodoListPage extends SortablePage
     /**
      * @var TodoCategory[]
      */
-    public $accessibleCategoryList = [];
+    public $viewableCategoryList = [];
+
+    /**
+     * @var TodoCategory[]
+     */
+    public $canAddToCategoryList = [];
 
     /**
      * category object
@@ -100,7 +105,8 @@ class TodoListPage extends SortablePage
             'isDone' => $this->requestDone,
             'categoryID' => $this->categoryID,
             'validSortFields' => $this->validSortFields,
-            'categoryList' => $this->accessibleCategoryList,
+            'viewableCategoryList' => $this->viewableCategoryList,
+            'canAddToCategoryList' => $this->canAddToCategoryList,
             'labelGroups' => $this->labelGroups,
             'labelIDs' => $this->labelIDs,
             'canAddTodoInAnyCategory' => $this->categoryNodeTree->canAddTodoInAnyCategory()
@@ -134,7 +140,8 @@ class TodoListPage extends SortablePage
         $categoryNodeTree->loadCategoryLists();
         $this->categoryNodeTree = $categoryNodeTree;
 
-        $this->accessibleCategoryList = $categoryNodeTree->accessibleCategoryList;
+        $this->viewableCategoryList = $categoryNodeTree->viewableCategoryList;
+        $this->canAddToCategoryList = $categoryNodeTree->canAddToCategoryList;
     }
 
     /**

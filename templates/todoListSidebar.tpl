@@ -9,7 +9,7 @@
                 <select id="categoryID" name="categoryID">
                     <option value=""{if $categoryID == ''} selected{/if}>{lang}todolist.general.allCategories{/lang}</option>
                     
-                    {foreach from=$categoryList item=categoryItem}  
+                    {foreach from=$viewableCategoryList item=categoryItem}  
                         <option value="{@$categoryItem->categoryID}"{if $categoryID == $categoryItem->categoryID} selected{/if}>{$categoryItem->getTitle()}</option>
                     {/foreach}
                 </select>

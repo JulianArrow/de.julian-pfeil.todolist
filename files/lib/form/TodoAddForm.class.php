@@ -204,7 +204,7 @@ class TodoAddForm extends AbstractFormBuilderForm
                             'label' => $categoryNode->getTitle(),
                             'value' => $categoryNode->categoryID,
                             'depth' => $categoryNode->getDepth() - 1,
-                            'isSelectable' => $category->canView(),
+                            'isSelectable' => $category->canAddTodo(),
                         ];
                     }
                 }

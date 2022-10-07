@@ -27,7 +27,12 @@ class TodoCategoryNodeTree extends CategoryNodeTree
     /**
      * @var TodoCategory[]
      */
-    public $accessibleCategoryList = [];
+    public $viewableCategoryList = [];
+
+    /**
+     * @var TodoCategory[]
+     */
+    public $canAddToCategoryList = [];
 
     /**
      * @inheritDoc
@@ -50,12 +55,19 @@ class TodoCategoryNodeTree extends CategoryNodeTree
 
         $this->categoryList = iterator_to_array($this->categoryList);
 
-        $this->accessibleCategoryList = $this->categoryList;
+        $this->viewableCategoryList = $this->categoryList;
+        foreach ($this->viewableCategoryList as $categoryItem) {
+            if (!$categoryItem->canView()) {
+                $key = \array_search($categoryItem, $this->viewableCategoryList);
+                unset($this->viewableCategoryList[$key]);
+            }
+        }
 
-        foreach ($this->accessibleCategoryList as $categoryItem) {
+        $this->canAddToCategoryList = $this->categoryList;
+        foreach ($this->canAddToCategoryList as $categoryItem) {
             if (!$categoryItem->canAddTodo()) {
-                $key = \array_search($categoryItem, $this->accessibleCategoryList);
-                unset($this->accessibleCategoryList[$key]);
+                $key = \array_search($categoryItem, $this->canAddToCategoryList);
+                unset($this->canAddToCategoryList[$key]);
             }
         }
     }
