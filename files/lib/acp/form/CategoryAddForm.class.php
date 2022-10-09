@@ -3,7 +3,6 @@
 namespace todolist\acp\form;
 
 use todolist\data\category\TodoCategory;
-
 use wcf\acp\form\AbstractCategoryAddForm;
 
 /**

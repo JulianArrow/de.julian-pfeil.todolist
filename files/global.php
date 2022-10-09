@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author  Julian Pfeil <https://julian-pfeil.de>
  * @copyright   2022 Julian Pfeil Websites & Co.
@@ -6,12 +7,11 @@
  * @package Todolist/Core
  */
 
-/* 
+/*
  * include config
- * @noinspection PhpIncludeInspection 
+ * @noinspection PhpIncludeInspection
  */
 require_once dirname(__FILE__) . '/config.inc.php';
-
 /*
  * include wcf
  */

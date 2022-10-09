@@ -6,7 +6,6 @@ use todolist\system\log\modification\TodoModificationLogHandler;
 use todolist\system\user\notification\object\TodoUserNotificationObject;
 use todolist\system\label\object\TodoLabelObjectHandler;
 use todolist\data\category\TodoCategory;
-
 use wcf\data\AbstractDatabaseObjectAction;
 use wcf\system\WCF;
 use wcf\data\label\Label;
@@ -16,6 +15,7 @@ use wcf\util\UserUtil;
 use wcf\system\tagging\TagEngine;
 use wcf\system\request\LinkHandler;
 use wcf\system\label\LabelHandler;
+use wcf\system\user\activity\event\UserActivityEventHandler;
 use wcf\system\like\LikeHandler;
 use wcf\system\comment\CommentHandler;
 use wcf\system\search\SearchIndexManager;
@@ -52,6 +52,12 @@ class TodoAction extends AbstractDatabaseObjectAction
             $this->parameters['data']['username'] = WCF::getUser()->username;
         }
 
+        // update label status
+        $this->parameters['data']['hasLabels'] = 0;
+        if (isset($this->parameters['labels']) && \count($this->parameters['labels'])) {
+            $this->parameters['data']['hasLabels'] = 1;
+        }
+
         if (LOG_IP_ADDRESS) {
             if (!isset($this->parameters['data']['ipAddress'])) {
                 $this->parameters['data']['ipAddress'] = UserUtil::getIpAddress();
@@ -61,14 +67,18 @@ class TodoAction extends AbstractDatabaseObjectAction
         }
 
         $this->parameters['data']['description'] = $this->loadDescriptionHtmlInputProcessor($this->parameters['description_htmlInputProcessor']);
-        
+
         // create todo
         $todo = parent::create();
 
         $todoEditor = new TodoEditor($todo);
-        
+
+        // fire activity event
+        $languageID = (!isset($this->parameters['data']['languageID']) || ($this->parameters['data']['languageID'] === null)) ? LanguageFactory::getInstance()->getDefaultLanguageID() : $this->parameters['data']['languageID'];
+        UserActivityEventHandler::getInstance()->fireEvent('de.julian-pfeil.todolist.recentActivityEvent.todo', $todo->todoID, $languageID, $todo->userID, $todo->time);
+
         $this->setSearchIndex($todo);
-        
+
         // save embedded objects
         $this->saveEmbeddedObjects($todoEditor, $todo);
 
@@ -79,9 +89,16 @@ class TodoAction extends AbstractDatabaseObjectAction
             }
         }
 
+        if (defined('TODOLIST_LABELS_PLUGIN')) {
+            // set labels
+            if (isset($this->parameters['labels'])) {
+                TodoLabelObjectHandler::getInstance()->setLabels($this->parameters['labels'], $todo->todoID);
+            }
+        }
+
         return $todo;
     }
-    
+
 /**
      * @inheritDoc
      */
@@ -91,7 +108,7 @@ class TodoAction extends AbstractDatabaseObjectAction
         $this->parameters['data']['lastEditTime'] = TIME_NOW;
 
         $this->parameters['data']['description'] = $this->loadDescriptionHtmlInputProcessor($this->parameters['description_htmlInputProcessor']);
-        
+
         parent::update();
 
         // get ids
@@ -100,25 +117,26 @@ class TodoAction extends AbstractDatabaseObjectAction
             $objectIDs[] = $todoEditor->todoID;
 
             $todo = new Todo($todoEditor->todoID);
-            
+
             $this->setSearchIndex($todo);
 
-            // add log todo
-            TodoModificationLogHandler::getInstance()->edit($todo, (isset($this->parameters['editReason']) ? $this->parameters['editReason'] : ''));     
-            
+            // add log entry
+            TodoModificationLogHandler::getInstance()->edit($todo, (isset($this->parameters['editReason']) ? $this->parameters['editReason'] : ''));
+
             // save embedded objects
             $this->saveEmbeddedObjects($todoEditor, $todo);
 
 
-            
-        if (defined('TODOLIST_TAGGING_PLUGIN')) {
-            // save tags
-            $this->saveTags($todo);
-        }
+
+            if (defined('TODOLIST_TAGGING_PLUGIN')) {
+                // save tags
+                $this->saveTags($todo);
+            }
         }
     }
 
-    public function loadDescriptionHtmlInputProcessor($descriptionHtmlInputProcessor) {
+    public function loadDescriptionHtmlInputProcessor($descriptionHtmlInputProcessor)
+    {
         if (!empty($descriptionHtmlInputProcessor)) {
             /** @var HtmlInputProcessor $htmlInputProcessor */
             $htmlInputProcessor = $descriptionHtmlInputProcessor;
@@ -128,7 +146,8 @@ class TodoAction extends AbstractDatabaseObjectAction
         }
     }
 
-    public function saveEmbeddedObjects(TodoEditor $todoEditor, Todo $todo) {
+    public function saveEmbeddedObjects(TodoEditor $todoEditor, Todo $todo)
+    {
         if (!empty($this->parameters['description_htmlInputProcessor'])) {
             $this->parameters['description_htmlInputProcessor']->setObjectID($todo->todoID);
 
@@ -140,10 +159,13 @@ class TodoAction extends AbstractDatabaseObjectAction
         }
     }
 
-    public function setSearchIndex(Todo $todo) {
+    public function setSearchIndex(Todo $todo)
+    {
         $description = $todo->getPlainMessage();
 
-        if (mb_strlen($description) > 10000000) $description = substr($description, 0, 10000000);
+        if (mb_strlen($description) > 10000000) {
+            $description = substr($description, 0, 10000000);
+        }
 
         SearchIndexManager::getInstance()->set(
             'de.julian-pfeil.todolist.todo',
@@ -156,53 +178,55 @@ class TodoAction extends AbstractDatabaseObjectAction
         );
     }
 
-    public function saveTags(Todo $todo) {
-        if (isset($this->parameters['tags']) ) {
+    public function saveTags(Todo $todo)
+    {
+        if (isset($this->parameters['tags'])) {
             // set language id (cannot be zero)
             $languageID = (!isset($this->parameters['data']['languageID']) || ($this->parameters['data']['languageID'] === null)) ? LanguageFactory::getInstance()->getDefaultLanguageID() : $this->parameters['data']['languageID'];
-            
+
             TagEngine::getInstance()->addObjectTags('de.julian-pfeil.todolist.todo', $todo->todoID, $this->parameters['tags'], $languageID);
         }
     }
-    
+
     /**
      * Validates 'assignLabel' action.
      */
-    public function validateAssignLabel() {
+    public function validateAssignLabel()
+    {
         if (!defined('TODOLIST_LABELS_PLUGIN')) {
             throw new PermissionDeniedException();
         }
 
         $this->readInteger('categoryID');
-        
+
         $this->category = TodoCategory::getCategory($this->parameters['categoryID']);
         if ($this->category === null) {
             throw new UserInputException('category');
         }
-        
+
         if (!$this->category->canView()) {
             throw new PermissionDeniedException();
         }
-        
+
         // validate todos
         $this->readObjects();
         if (empty($this->objects)) {
             throw new UserInputException('objectIDs');
         }
-        
+
         // reload todos with assigned categories
         $todoList = new TodoList();
         $todoList->decoratorClassName = TodoEditor::class;
         $todoList->setObjectIDs($this->objectIDs);
         $todoList->readObjects();
         $this->objects = $todoList->getObjects();
-        
+
         foreach ($this->getObjects() as $todo) {
             if ($this->category->categoryID != $todo->categoryID) {
                 throw new UserInputException('objectIDs');
             }
         }
-        
+
         // validate label ids
         $this->parameters['labelIDs'] = empty($this->parameters['labelIDs']) ? [] : ArrayUtil::toIntegerArray($this->parameters['labelIDs']);
         if (!empty($this->parameters['labelIDs'])) {
@@ -210,7 +234,7 @@ class TodoAction extends AbstractDatabaseObjectAction
             if (empty($labelGroups)) {
                 throw new PermissionDeniedException();
             }
-            
+
             foreach ($this->parameters['labelIDs'] as $groupID => $labelID) {
                 if (!isset($labelGroups[$groupID]) || !$labelGroups[$groupID]->isValid($labelID)) {
                     throw new UserInputException('labelIDs');
@@ -222,32 +246,33 @@ class TodoAction extends AbstractDatabaseObjectAction
     /**
      * Assigns labels to todos and returns the updated list.
      */
-    public function assignLabel() {
+    public function assignLabel()
+    {
         $objectTypeID = LabelHandler::getInstance()->getObjectType('de.julian-pfeil.todolist.todo')->objectTypeID;
         $todoIDs = [];
         foreach ($this->getObjects() as $todo) {
             $todoIDs[] = $todo->todoID;
         }
-        
+
         // fetch old labels for modification log creation
         $oldLabels = LabelHandler::getInstance()->getAssignedLabels($objectTypeID, $todoIDs);
-        
+
         foreach ($this->getObjects() as $todo) {
             LabelHandler::getInstance()->setLabels($this->parameters['labelIDs'], $objectTypeID, $todo->todoID);
-            
+
             // update hasLabels flag
             $todo->update(['hasLabels' => !empty($this->parameters['labelIDs']) ? 1 : 0]);
         }
-        
+
         $assignedLabels = LabelHandler::getInstance()->getAssignedLabels($objectTypeID, $todoIDs);
-        
+
         $labels = [];
         if (!empty($assignedLabels)) {
             $tmp = [];
-            
+
             // get labels from first object
             $labelList = reset($assignedLabels);
-            
+
             // log adding new labels
             WCF::getDB()->beginTransaction();
             foreach ($this->getObjects() as $todo) {
@@ -255,21 +280,21 @@ class TodoAction extends AbstractDatabaseObjectAction
                 if (!empty($oldLabels[$todo->todoID])) {
                     $newLabels = array_diff_key($labelList, $oldLabels[$todo->todoID]);
                 }
-                
+
                 foreach ($newLabels as $label) {
-                    TodoModificationLogHandler::getInstance()->setLabel($todo->getDecoratedObject(), $label);
+                    TodoModificationLogHandler::getInstance()->setLabel($todo, $label);
                 }
             }
             WCF::getDB()->commitTransaction();
-            
+
             foreach ($labelList as $label) {
                 $tmp[$label->labelID] = [
                         'cssClassName' => $label->cssClassName,
                         'label' => $label->getTitle(),
-                        'link' => LinkHandler::getInstance()->getLink('TodoList', ['application' => 'todolist', 'object' => $this->category], 'labelIDs['.$label->groupID.']='.$label->labelID)
+                        'link' => LinkHandler::getInstance()->getLink('TodoList', ['application' => 'todolist', 'object' => $this->category], 'labelIDs[' . $label->groupID . ']=' . $label->labelID)
                 ];
             }
-            
+
             // sort labels by label group show order
             $labelGroups = TodoLabelObjectHandler::getInstance()->getLabelGroups();
             foreach ($labelGroups as $labelGroup) {
@@ -281,14 +306,15 @@ class TodoAction extends AbstractDatabaseObjectAction
                 }
             }
         }
-        
+
         return ['labels' => $labels];
     }
-    
+
     /**
      * Loads todos for given object ids.
      */
-    protected function loadTodos() {
+    protected function loadTodos()
+    {
         if (empty($this->objects)) {
             $this->readObjects();
 
@@ -297,7 +323,7 @@ class TodoAction extends AbstractDatabaseObjectAction
             }
         }
     }
-    
+
     /**
      * @inheritDoc
      */
@@ -312,149 +338,160 @@ class TodoAction extends AbstractDatabaseObjectAction
         }
     }
 
-    
-    
+
+
     /**
      * Deletes given todos.
      */
-    public function delete() {
+    public function delete()
+    {
         if (empty($this->objects)) {
             $this->readObjects();
         }
-        
-        $todoIDs = $todoData = $userCounters = [];
+
+        $todoIDs = $todoData = [];
         foreach ($this->getObjects() as $todo) {
             $todoIDs[] = $todo->todoID;
-            
-            
+
+
             $todoData[$todo->todoID] = $todo->userID;
         }
-        
+
         // remove user activity events
-        if (!empty($todoData)) {
-            $this->removeActivityEvents($todoData);
-        }
-        
+        UserActivityEventHandler::getInstance()->removeEvents('de.julian-pfeil.todolist.recentActivityEvent.todo', $todoIDs);
+
         foreach ($this->getObjects() as $todo) {
             $todoIDs[] = $todo->todoID;
-        
+
             $todo->delete();
-            
-            $this->addTodoData($todo->getDecoratedObject(), 'deleted', LinkHandler::getInstance()->getLink('TodoList', ['application' => 'todolist']));
-        
-            TodoModificationLogHandler::getInstance()->delete($todo->getDecoratedObject());
+
+            $this->addTodoData($todo, 'deleted', LinkHandler::getInstance()->getLink('TodoList', ['application' => 'todolist']));
         }
-        
+
         if (!empty($todoIDs)) {
             // delete like data
             LikeHandler::getInstance()->removeLikes('de.julian-pfeil.todolist.likeableTodo', $todoIDs);
-            
+
             // delete comments
             CommentHandler::getInstance()->deleteObjects('de.julian-pfeil.todolist.todoComment', $todoIDs);
-            
+
             // delete tag to object entries
             TagEngine::getInstance()->deleteObjects('de.julian-pfeil.todolist.todo', $todoIDs);
-            
+
             // delete todo from search index
             SearchIndexManager::getInstance()->delete('de.julian-pfeil.todolist.todo', $todoIDs);
-            
+
             // delete embedded objects
             MessageEmbeddedObjectManager::getInstance()->removeObjects('de.julian-pfeil.todolist.todo', $todoIDs);
-            
+
             // delete the log entries except for deleting the todo
-            TodoModificationLogHandler::getInstance()->deleteLogs($todoIDs, ['delete']);
+            TodoModificationLogHandler::getInstance()->deleteLogs($todoIDs);
         }
 
         // delete label assignments
         LabelHandler::getInstance()->removeLabels(LabelHandler::getInstance()->getObjectType('de.julian-pfeil.todolist.todo')->objectTypeID, $todoIDs);
-        
+
         return $this->getTodoData();
     }
 
     /**
      * Validates parameters to mark todos as done.
      */
-    public function validateMarkAsDone() {
+    public function validateMarkAsDone()
+    {
         $this->loadTodos();
-        
-        
+
+
         foreach ($this->getObjects() as $todoEditor) {
             if (!$todoEditor->canEdit()) {
                 throw new PermissionDeniedException();
             }
         }
     }
-    
+
     /**
      * Marks todos as done.
      */
-    public function markAsDone() {
+    public function markAsDone()
+    {
         foreach ($this->getObjects() as $todoEditor) {
             $todoEditor->update(['isDone' => 1]);
-            
-            if (WCF::getUser()->userID != $todoEditor->getDecoratedObject()->userID)
-            {
-                $recipientIDs = [$todoEditor->getDecoratedObject()->userID];
+
+            $todo = $todoEditor->getDecoratedObject();
+
+            if (WCF::getUser()->userID != $todo->userID) {
+                $recipientIDs = [$todo->userID];
                 UserNotificationHandler::getInstance()->fireEvent(
                     'todo', // event name
                     'de.julian-pfeil.todolist.todo', // event object type name
-                    new TodoUserNotificationObject(new Todo($todoEditor->getDecoratedObject()->todoID)),
+                    new TodoUserNotificationObject(new Todo($todo->todoID)),
                     $recipientIDs
                 );
             }
+
+            // add log entry
+            TodoModificationLogHandler::getInstance()->markAsDone(new Todo($todo->todoID));
 
             $this->addTodoData($todoEditor->getDecoratedObject(), 'isDone', 1);
         }
-        
+
         return $this->getTodoData();
     }
-    
+
     /**
      * Validates parameters to mark todos as undone.
      */
-    public function validateMarkAsUndone() {
+    public function validateMarkAsUndone()
+    {
         $this->validateMarkAsDone();
     }
-    
+
     /**
      * Marks todos as undone.
      */
-    public function markAsUndone() {
+    public function markAsUndone()
+    {
         foreach ($this->getObjects() as $todoEditor) {
             $todoEditor->update(['isDone' => 0]);
 
-            if (WCF::getUser()->userID != $todoEditor->getDecoratedObject()->userID)
-            {
-                $recipientIDs = [$todoEditor->getDecoratedObject()->userID];
+            $todo = $todoEditor->getDecoratedObject();
+
+            if (WCF::getUser()->userID != $todo->userID) {
+                $recipientIDs = [$todo->userID];
                 UserNotificationHandler::getInstance()->fireEvent(
                     'todo', // event name
                     'de.julian-pfeil.todolist.todo', // event object type name
-                    new TodoUserNotificationObject(new Todo($todoEditor->getDecoratedObject()->todoID)),
+                    new TodoUserNotificationObject(new Todo($todo->todoID)),
                     $recipientIDs
                 );
             }
-            
+
+            // add log entry
+            TodoModificationLogHandler::getInstance()->markAsUndone(new Todo($todo->todoID));
+
             $this->addTodoData($todoEditor->getDecoratedObject(), 'isDone', 0);
         }
-        
+
         return $this->getTodoData();
     }
-    
+
     /**
      * Adds todo data.
      */
-    protected function addTodoData(Todo $todo, $key, $value) {
+    protected function addTodoData(Todo $todo, $key, $value)
+    {
         if (!isset($this->todoData[$todo->todoID])) {
             $this->todoData[$todo->todoID] = [];
         }
-        
+
         $this->todoData[$todo->todoID][$key] = $value;
     }
-    
+
     /**
      * Returns stored todo data.
      */
-    protected function getTodoData() {
+    protected function getTodoData()
+    {
         return [
             'todoData' => $this->todoData
         ];
@@ -465,9 +502,7 @@ class TodoAction extends AbstractDatabaseObjectAction
      */
     public function sendNotification()
     {
-        if (WCF::getUser()->userID != $this->formObject->userID)
-        {
-
+        if (WCF::getUser()->userID != $this->formObject->userID) {
             $recipientIDs = [$this->formObject->userID];
             UserNotificationHandler::getInstance()->fireEvent(
                 'todo', // event name

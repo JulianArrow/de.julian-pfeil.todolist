@@ -48,9 +48,12 @@ return [
             NotNullInt10DatabaseTableColumn::create('lastCommentTime')
                 ->defaultValue(0),
             IntDatabaseTableColumn::create('lastCommentUserID')
-                ->defaultValue(NULL)
+                ->defaultValue(null)
                 ->length(10),
             NotNullVarchar255DatabaseTableColumn::create('lastCommentUsername')
+                ->defaultValue(''),
+            VarcharDatabaseTableColumn::create('editReason')
+                ->length(255)
                 ->defaultValue(''),
         ])
         ->indices([

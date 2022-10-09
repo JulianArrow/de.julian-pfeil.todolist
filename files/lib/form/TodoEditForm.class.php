@@ -5,10 +5,11 @@ namespace todolist\form;
 use todolist\data\todo\Todo;
 use todolist\system\user\notification\object\TodoUserNotificationObject;
 use todolist\data\category\TodoCategory;
-
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\user\notification\UserNotificationHandler;
 use wcf\system\WCF;
+use wcf\util\HeaderUtil;
+use wcf\system\request\LinkHandler;
 
 /**
  * Shows the form to edit an existing todo.
@@ -31,6 +32,13 @@ class TodoEditForm extends TodoAddForm
     public $formAction = 'update';
 
     /**
+      * todo id
+      *
+      * @var int;
+      */
+     public $todoID;
+
+    /**
      * @inheritDoc
      */
     public function readParameters()
@@ -41,7 +49,7 @@ class TodoEditForm extends TodoAddForm
             #todoID
             if (isset($_REQUEST['id'])) {
                 $this->formObject = new Todo($_REQUEST['id']);
-    
+
                 if (!$this->formObject->getObjectID()) {
                     throw new IllegalLinkException();
                 }
@@ -61,7 +69,8 @@ class TodoEditForm extends TodoAddForm
     /**
     * @inheritDoc
     */
-    public function checkPermissions() {
+    public function checkPermissions()
+    {
         parent::checkPermissions();
 
         if ($this->formAction == 'update') {
@@ -78,9 +87,7 @@ class TodoEditForm extends TodoAddForm
     {
         parent::save();
 
-        if ($this->formAction == 'update' &&  WCF::getUser()->userID != $this->formObject->userID)
-        {
-
+        if ($this->formAction == 'update' &&  WCF::getUser()->userID != $this->formObject->userID) {
             $recipientIDs = [$this->formObject->userID];
             UserNotificationHandler::getInstance()->fireEvent(
                 'todo', // event name
@@ -89,5 +96,21 @@ class TodoEditForm extends TodoAddForm
                 $recipientIDs
             );
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function saved()
+    {
+        parent::saved();
+
+        HeaderUtil::redirect(
+            LinkHandler::getInstance()->getLink('Todo', [
+                'application' => 'todolist',
+                'object' => $this->formObject
+            ])
+        );
+        exit;
     }
 }

@@ -4,7 +4,6 @@ namespace todolist\data\todo;
 
 use todolist\page\TodoPage;
 use todolist\data\category\TodoCategory;
-
 use wcf\data\DatabaseObject;
 use wcf\data\ITitledLinkObject;
 use wcf\system\request\LinkHandler;
@@ -15,7 +14,6 @@ use wcf\data\label\Label;
 use wcf\util\StringUtil;
 use wcf\system\html\output\HtmlOutputProcessor;
 use wcf\system\message\embedded\object\MessageEmbeddedObjectManager;
-use wcf\system\category\CategoryHandler;
 
 /**
  * Represents a todo.
@@ -65,7 +63,8 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     /**
      * Loads the embedded objects.
      */
-    public function loadEmbeddedObjects() {
+    public function loadEmbeddedObjects()
+    {
         if ($this->hasEmbeddedObjects && !$this->embeddedObjectsLoaded) {
             MessageEmbeddedObjectManager::getInstance()->loadObjects('de.julian-pfeil.todolist.todo.content', [$this->todoID]);
             $this->embeddedObjectsLoaded = true;
@@ -85,6 +84,16 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     /**
      * @inheritDoc
      */
+    public function getLogLink()
+    {
+        return LinkHandler::getInstance()->getControllerLink(TodoLogPage::class, [
+                'id' => $this->todoID
+            ]);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getTitle()
     {
         return $this->todoName;
@@ -93,7 +102,7 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     /**
      * Returns the formatted message.
      */
-     public function getFormattedMessage(): string
+    public function getFormattedMessage(): string
     {
         $this->loadEmbeddedObjects();
 
@@ -106,7 +115,7 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     /**
      * Returns a simplified version of the formatted message.
      *
-     * @return	string
+     * @return  string
      */
     public function getSimplifiedFormattedMessage()
     {
@@ -124,7 +133,7 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     /**
      * Returns a plain unformatted version of the message.
      *
-     * @return	string
+     * @return  string
      */
     public function getPlainMessage()
     {
@@ -138,26 +147,28 @@ class Todo extends DatabaseObject implements ITitledLinkObject
 
         return $processor->getHtml();
     }
-    
+
     /**
      * Returns the todo object with the given id.
      */
-    public static function getTodo($todoID) {
+    public static function getTodo($todoID)
+    {
         $todoList = new TodoList();
         $todoList->setObjectIDs([$todoID]);
         $todoList->readObjects();
-        
+
         return $todoList->search($todoID);
     }
-    
+
     /**
      * @inheritDoc
      */
-    public function getExcerpt() {
+    public function getExcerpt()
+    {
         $excerpt = StringUtil::truncate($this->getPlainMessage());
         return $excerpt;
     }
-    
+
     /**
      * Returns the category name
      *
@@ -168,7 +179,7 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     {
         return TodoCategory::getCategory($this->categoryID);
     }
-    
+
     /**
      * Returns the user profile of the user who added the todo.
      */
@@ -239,10 +250,10 @@ class Todo extends DatabaseObject implements ITitledLinkObject
         if ($this->hasLabels == '1') {
             return true;
         }
-        
+
         return false;
     }
-    
+
     /**
      * Adds a label.
      */
@@ -258,7 +269,7 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     {
         return $this->labels;
     }
-    
+
     /**
      * Returns `true` if the todo is marked as done and `false` otherwise.
      */
@@ -267,7 +278,7 @@ class Todo extends DatabaseObject implements ITitledLinkObject
         if ($this->isDone == '1') {
             return true;
         }
-        
+
         return false;
     }
 }

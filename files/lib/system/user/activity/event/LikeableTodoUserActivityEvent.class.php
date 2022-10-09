@@ -3,7 +3,6 @@
 namespace todolist\system\user\activity\event;
 
 use todolist\data\todo\TodoList;
-
 use wcf\system\SingletonFactory;
 use wcf\system\user\activity\event\IUserActivityEvent;
 use wcf\system\WCF;

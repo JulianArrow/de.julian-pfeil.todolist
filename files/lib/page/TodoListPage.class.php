@@ -5,7 +5,6 @@ namespace todolist\page;
 use todolist\data\category\TodoCategoryNodeTree;
 use todolist\data\category\TodoCategory;
 use todolist\data\todo\TodoList;
-
 use wcf\data\object\type\ObjectTypeCache;
 use wcf\page\SortablePage;
 use wcf\system\label\LabelHandler;
@@ -83,16 +82,16 @@ class TodoListPage extends SortablePage
      * @var        Category
      */
     public $category = null;
-    
+
     /**
     * label filter
     */
-   public $labelIDs = [];
-   
+    public $labelIDs = [];
+
    /**
     * list of available label groups
     */
-   public $labelGroups = [];
+    public $labelGroups = [];
 
     /**
      * @inheritDoc
@@ -165,7 +164,7 @@ class TodoListPage extends SortablePage
         } else {
             $this->requestDone = '0';
         }
-        
+
         $this->checkSortFields();
 
         $this->labelGroups = TodoCategory::getAccessibleLabelGroups('canViewLabel');
@@ -205,10 +204,12 @@ class TodoListPage extends SortablePage
 
             HeaderUtil::redirect(
                 LinkHandler::getInstance()->getLink(
-                    'TodoList', 
-                    $controllerParameters, 
-                    \rtrim($labelParameters, 
-                    '&')
+                    'TodoList',
+                    $controllerParameters,
+                    \rtrim(
+                        $labelParameters,
+                        '&'
+                    )
                 )
             );
 
@@ -219,7 +220,8 @@ class TodoListPage extends SortablePage
     /**
     * @inheritDoc
     */
-    public function checkPermissions() {
+    public function checkPermissions()
+    {
         parent::checkPermissions();
 
         if ($this->categoryID) {
@@ -244,13 +246,11 @@ class TodoListPage extends SortablePage
      */
     protected function applyFilters()
     {
-        if ($this->requestDone != '')
-        {
+        if ($this->requestDone != '') {
             $this->objectList->getConditionBuilder()->add('isDone = ?', [$this->requestDone]);
         }
 
-        if ($this->category !== null)
-        {
+        if ($this->category !== null) {
             $this->objectList->getConditionBuilder()->add('categoryID = ?', [$this->category->categoryID]);
         }
 
@@ -284,13 +284,11 @@ class TodoListPage extends SortablePage
      */
     protected function checkSortFields()
     {
-        if (MODULE_LIKE) 
-        {
-        $this->validSortFields[] = 'cumulativeLikes';
+        if (MODULE_LIKE) {
+            $this->validSortFields[] = 'cumulativeLikes';
         }
 
-        if (defined('TODOLIST_COMMENTS_PLUGIN')) 
-        {
+        if (defined('TODOLIST_COMMENTS_PLUGIN')) {
             $this->validSortFields[] = 'comments';
         }
     }

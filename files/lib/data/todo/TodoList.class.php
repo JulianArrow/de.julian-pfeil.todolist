@@ -3,7 +3,6 @@
 namespace todolist\data\todo;
 
 use todolist\system\label\object\TodoLabelObjectHandler;
-
 use wcf\data\DatabaseObjectList;
 use wcf\system\cache\runtime\UserProfileRuntimeCache;
 use wcf\system\reaction\ReactionHandler;
@@ -36,34 +35,40 @@ class TodoList extends DatabaseObjectList
                 $this->sqlSelects .= ',';
             }
             $this->sqlSelects .= "like_object.cachedReactions";
-            $this->sqlJoins .= " LEFT JOIN wcf".WCF_N."_like_object like_object ON (like_object.objectTypeID = ".ReactionHandler::getInstance()->getObjectType('de.julian-pfeil.todolist.likeableTodo')->objectTypeID." AND like_object.objectID = todo.todoID)";
+            $this->sqlJoins .= " LEFT JOIN wcf" . WCF_N . "_like_object like_object ON (like_object.objectTypeID = " . ReactionHandler::getInstance()->getObjectType('de.julian-pfeil.todolist.likeableTodo')->objectTypeID . " AND like_object.objectID = todo.todoID)";
         }
     }
 
     public function readObjects()
     {
+        if ($this->objectIDs === null) {
+            $this->readObjectIDs();
+        }
+
         parent::readObjects();
 
-        UserProfileRuntimeCache::getInstance()->cacheObjectIDs(\array_unique(\array_filter(\array_column(
-            $this->objects,
-            'userID'
-        ))));
+        $userIDs = $todoIDs = [];
+        foreach ($this->objects as $todo) {
+            if ($todo->userID) {
+                $userIDs[] = $todo->userID;
+            }
 
-        if (defined('TODOLIST_LABELS_PLUGIN')) {
-            $todoIDs = [];
-            foreach ($this->objects as $todo) {
-    
+            if (defined('TODOLIST_LABELS_PLUGIN')) {
                 if ($todo->hasLabels) {
                     $todoIDs[] = $todo->todoID;
                 }
             }
-    
-            if (!empty($todoIDs)) {
-                $assignedLabels = TodoLabelObjectHandler::getInstance()->getAssignedLabels($todoIDs);
-                foreach ($assignedLabels as $todoID => $labels) {
-                    foreach ($labels as $label) {
-                        $this->objects[$todoID]->addLabel($label);
-                    }
+        }
+
+        if (!empty($userIDs)) {
+            UserProfileRuntimeCache::getInstance()->cacheObjectIDs($userIDs);
+        }
+
+        if (!empty($todoIDs)) {
+            $assignedLabels = TodoLabelObjectHandler::getInstance()->getAssignedLabels($todoIDs);
+            foreach ($assignedLabels as $todoID => $labels) {
+                foreach ($labels as $label) {
+                    $this->objects[$todoID]->addLabel($label);
                 }
             }
         }

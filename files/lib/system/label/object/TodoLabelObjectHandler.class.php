@@ -3,8 +3,8 @@
 namespace todolist\system\label\object;
 
 use todolist\system\cache\builder\TodoCategoryLabelCacheBuilder;
-
 use wcf\system\label\LabelHandler;
+use wcf\system\label\object\AbstractLabelObjectHandler;
 
 /**
  * Label handler implementation for todos.

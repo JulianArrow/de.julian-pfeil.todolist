@@ -3,7 +3,6 @@
 namespace todolist\acp\page;
 
 use todolist\data\category\TodoCategory;
-
 use wcf\acp\page\AbstractCategoryListPage;
 
 /**

@@ -46,6 +46,18 @@
     });
 </script>
 
+{if "TODOLIST_MODIFICATION_LOG_PLUGIN"|defined}
+    <script data-relocate="true">
+    $(function() {
+        document.getElementById("todoLogLink").addEventListener("click", function () {
+            if (this.href) {
+                window.location.href = this.href;
+            }
+        });
+    });
+    </script>
+{/if}
+
 {if MODULE_LIKE && $__wcf->getUser()->userID && $__wcf->getSession()->getPermission('user.like.canViewLike')}
     <script data-relocate="true">
         require(['WoltLabSuite/Core/Ui/Reaction/Handler'], function(UiReactionHandler) {

@@ -1,10 +1,12 @@
 <?php
+
 namespace todolist\system\comment\manager;
 
 use todolist\data\todo\Todo;
 use todolist\data\todo\TodoEditor;
 use todolist\system\cache\runtime\TodoRuntimeCache;
 use wcf\system\comment\manager\AbstractCommentManager;
+use wcf\system\like\IViewableLikeProvider;
 use wcf\system\WCF;
 
 /**
@@ -15,44 +17,37 @@ use wcf\system\WCF;
  * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
  * @package WoltLabSuite\Core\System\Comment\Manager
  */
-class TodoCommentManager extends AbstractCommentManager
+class TodoCommentManager extends AbstractCommentManager implements IViewableLikeProvider
 {
     /**
      * @inheritDoc
      */
-    protected $permissionAdd = 'user.todolist.comments.canAddComments';
-
-    /**
+    protected $permissionAdd = 'user.todolist.comment.canAddComment';
+/**
      * @inheritDoc
      */
-    protected $permissionAddWithoutModeration = 'user.todolist.comments.canAddCommentsWithoutModeration';
-
-    /**
+    protected $permissionAddWithoutModeration = 'user.todolist.comment.canAddCommentWithoutModeration';
+/**
      * @inheritDoc
      */
-    protected $permissionCanModerate = 'mod.todolist.comments.canModerateComments';
-
-    /**
+    protected $permissionCanModerate = 'mod.todolist.comment.canModerateComment';
+/**
      * @inheritDoc
      */
-    protected $permissionDelete = 'user.todolist.comments.canDeleteComments';
-
-    /**
+    protected $permissionDelete = 'user.todolist.comment.canDeleteComment';
+/**
      * @inheritDoc
      */
-    protected $permissionEdit = 'user.todolist.comments.canEditComments';
-
-    /**
+    protected $permissionEdit = 'user.todolist.comment.canEditComment';
+/**
      * @inheritDoc
      */
-    protected $permissionModDelete = 'mod.todolist.comments.canDeleteComments';
-
-    /**
+    protected $permissionModDelete = 'mod.todolist.comment.canDeleteComment';
+/**
      * @inheritDoc
      */
-    protected $permissionModEdit = 'mod.todolist.comments.canEditComments';
-
-    /**
+    protected $permissionModEdit = 'mod.todolist.comment.canEditComment';
+/**
      * @inheritDoc
      */
     public function getLink($objectTypeID, $objectID)
@@ -88,27 +83,26 @@ class TodoCommentManager extends AbstractCommentManager
         (new TodoEditor(new Todo($objectID)))->updateCounters(['comments' => $value]);
     }
 
-    
+
     /**
      * @inheritdoc
      */
-    public function prepare(array $likes) {
+    public function prepare(array $likes)
+    {
         if (!WCF::getSession()->getPermission('user.todolist.general.canSeeTodos')) {
             return;
         }
-        
+
         $commentLikeObjectType = ObjectTypeCache::getInstance()->getObjectTypeByName('com.woltlab.wcf.like.likeableObject', 'com.woltlab.wcf.comment');
-         
         $commentIDs = $responseIDs = [];
         foreach ($likes as $like) {
             if ($like->objectTypeID == $commentLikeObjectType->objectTypeID) {
                 $commentIDs[] = $like->objectID;
-            }
-            else {
+            } else {
                 $responseIDs[] = $like->objectID;
             }
         }
-        
+
         // fetch response
         $userIDs = $responses = [];
         if (!empty($responseIDs)) {
@@ -116,7 +110,6 @@ class TodoCommentManager extends AbstractCommentManager
             $responseList->setObjectIDs($responseIDs);
             $responseList->readObjects();
             $responses = $responseList->getObjects();
-            
             foreach ($responses as $response) {
                 $commentIDs[] = $response->commentID;
                 if ($response->userID) {
@@ -124,14 +117,13 @@ class TodoCommentManager extends AbstractCommentManager
                 }
             }
         }
-        
+
         // fetch comments
         $commentList = new CommentList();
         $commentList->setObjectIDs($commentIDs);
         $commentList->readObjects();
         $comments = $commentList->getObjects();
-        
-        // fetch users
+// fetch users
         $users = [];
         $entryIDs = [];
         foreach ($comments as $comment) {
@@ -143,7 +135,7 @@ class TodoCommentManager extends AbstractCommentManager
         if (!empty($userIDs)) {
             $users = UserProfileRuntimeCache::getInstance()->getObjects(array_unique($userIDs));
         }
-        
+
         $entrys = [];
         if (!empty($entryIDs)) {
             $entryList = new ViewableEntryList();
@@ -151,18 +143,16 @@ class TodoCommentManager extends AbstractCommentManager
             $entryList->readObjects();
             $entrys = $entryList->getObjects();
         }
-        
+
         // set message
         foreach ($likes as $like) {
             if ($like->objectTypeID == $commentLikeObjectType->objectTypeID) {
-                // comment like
+            // comment like
                 if (isset($comments[$like->objectID])) {
                     $comment = $comments[$like->objectID];
-                    
                     if (isset($entrys[$comment->objectID]) && $entrys[$comment->objectID]->canRead()) {
                         $like->setIsAccessible();
-                        
-                        // short output
+                    // short output
                         $text = WCF::getLanguage()->getDynamicVariable('wcf.like.title.de.julian-pfeil.todolist.todoComment', [
                                 'commentAuthor' => $comment->userID ? $users[$comment->userID] : null,
                                 'comment' => $comment,
@@ -170,22 +160,18 @@ class TodoCommentManager extends AbstractCommentManager
                                 'like' => $like
                         ]);
                         $like->setTitle($text);
-                        
-                        // output
-                        $like->setDescription($comment->getExcerpt());
+                    // output
+                                            $like->setDescription($comment->getExcerpt());
                     }
                 }
-            }
-            else {
-                // response like
+            } else {
+            // response like
                 if (isset($responses[$like->objectID])) {
                     $response = $responses[$like->objectID];
                     $comment = $comments[$response->commentID];
-                    
                     if (isset($entrys[$comment->objectID]) && $entrys[$comment->objectID]->canRead()) {
                         $like->setIsAccessible();
-                        
-                        // short output
+                    // short output
                         $text = WCF::getLanguage()->getDynamicVariable('wcf.like.title.de.julian-pfeil.todolist.todoComment.response', [
                                 'responseAuthor' => $comment->userID ? $users[$response->userID] : null,
                                 'response' => $response,
@@ -194,9 +180,8 @@ class TodoCommentManager extends AbstractCommentManager
                                 'like' => $like
                         ]);
                         $like->setTitle($text);
-                        
-                        // output
-                        $like->setDescription($response->getExcerpt());
+                    // output
+                                            $like->setDescription($response->getExcerpt());
                     }
                 }
             }

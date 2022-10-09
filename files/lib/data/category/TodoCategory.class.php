@@ -3,7 +3,6 @@
 namespace todolist\data\category;
 
 use todolist\system\cache\builder\TodoCategoryLabelCacheBuilder;
-
 use wcf\system\label\LabelHandler;
 use wcf\data\category\AbstractDecoratedCategory;
 use wcf\data\IAccessibleObject;
@@ -46,7 +45,7 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
      * @return        int
      * @throws SystemException
      */
-    public static function getAccessibleCategoryIDs(array $permissions = [''])
+    public static function getAccessibleCategoryIDs(array $permissions = [])
     {
         $categoryIDs = [];
         foreach (CategoryHandler::getInstance()->getCategories(self::OBJECT_TYPE_NAME) as $category) {
@@ -65,7 +64,7 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
 
         return $categoryIDs;
     }
-    
+
     /**
      * Returns the label groups available for todos in the category.
      */
@@ -80,7 +79,7 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
 
         return $labelGroups;
     }
-    
+
     /**
      * Returns the label groups for all accessible categories.
      */
@@ -165,7 +164,8 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
     /**
      * checks if user is logged in and checks the categories object type
      */
-    public function checkLogInAndAccess() {
+    public function checkLogInAndAccess()
+    {
         if (!WCF::getUser()->userID || !$this->isAccessible()) {
             return false;
         }
@@ -181,7 +181,7 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
         if (!$this->checkLogInAndAccess()) {
             return false;
         }
-        
+
         if (WCF::getSession()->getPermission('mod.todolist.general.canEditTodoInEveryCategory')) {
             return true;
         }
@@ -198,7 +198,7 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
         if (!$this->checkLogInAndAccess()) {
             return false;
         }
-        
+
         if (WCF::getSession()->getPermission('user.todolist.general.canEditOwnTodoInEveryCategory')) {
             return true;
         }
@@ -215,7 +215,7 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
         if (!$this->checkLogInAndAccess()) {
             return false;
         }
-        
+
         if (WCF::getSession()->getPermission('user.todolist.general.canDeleteOwnTodoInEveryCategory')) {
             return true;
         }
@@ -232,7 +232,7 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
         if (!$this->checkLogInAndAccess()) {
             return false;
         }
-        
+
         if (WCF::getSession()->getPermission('mod.todolist.general.canDeleteTodoInEveryCategory')) {
             return true;
         }
@@ -249,11 +249,11 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
         if (!$this->checkLogInAndAccess()) {
             return false;
         }
-        
+
         if (WCF::getSession()->getPermission('user.todolist.general.canAddTodoInEveryCategory')) {
             return true;
         }
-        
+
         // check permissions
         return $this->getPermission('canAddTodo', WCF::getUser());
     }

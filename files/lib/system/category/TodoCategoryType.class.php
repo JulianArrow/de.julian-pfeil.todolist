@@ -1,10 +1,10 @@
 <?php
+
 namespace todolist\system\category;
 
 use todolist\data\category\TodoCategory;
 use todolist\data\todo\TodoAction;
 use todolist\data\todo\TodoList;
-
 use wcf\data\category\CategoryEditor;
 use wcf\system\category\AbstractCategoryType;
 use wcf\system\exception\SystemException;
@@ -23,23 +23,19 @@ class TodoCategoryType extends AbstractCategoryType
      * @inheritDoc
      */
     protected $langVarPrefix = 'todolist.todo.category';
-
-    /**
+/**
      * @inheritDoc
      */
     protected $forceDescription = false;
-
-    /**
+/**
      * @inheritDoc
      */
     protected $maximumNestingLevel = 0;
-
-    /**
+/**
      * @inheritDoc
      */
     protected $objectTypes = ['com.woltlab.wcf.acl' => TodoCategory::OBJECT_TYPE_NAME];
-
-    /**
+/**
      * @inheritDoc
      * @throws SystemException
      */
@@ -49,7 +45,6 @@ class TodoCategoryType extends AbstractCategoryType
         $todoList = new TodoList();
         $todoList->getConditionBuilder()->add("todo.categoryID IS NULL");
         $todoList->readObjects();
-
         if (count($todoList)) {
             $ticketAction = new TodoAction($todoList->getObjects(), 'delete');
             $ticketAction->executeAction();

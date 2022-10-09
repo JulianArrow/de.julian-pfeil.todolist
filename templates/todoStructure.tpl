@@ -1,59 +1,59 @@
 {assign var=tabMenu value='0'}
 
 {hascontent}
-{assign var=tabMenu value='1'}
+    {assign var=tabMenu value='1'}
 
-<div class="section tabMenuContainer">
+<div class="section{if $pageFrom == 'todo'} tabMenuContainer{/if}">
 
-    <nav class="tabMenu">
-        <ul>
-            <li><a href="
-            {if $pageFrom == 'todo'}
-                {@$__wcf->getAnchor('generalTab')}
-            {else}
-                {$todo->getLink()}#generalTab
-            {/if}
-            ">{lang}todolist.general.title{/lang}</a></li>
+        <nav class="tabMenu">
+            <ul>
+                <li><a href="
+                {if $pageFrom == 'todo'}
+                    {@$__wcf->getAnchor('generalTab')}
+                {else}
+                    {$todo->getLink()}#generalTab
+                {/if}
+                ">{lang}todolist.general.title{/lang}</a></li>
 
-            {content}
-                {if "TODOLIST_COMMENTS_PLUGIN"|defined}
-                    {if $todo->enableComments}
-                        {if $commentList|count || $commentCanAdd}
+                {content}
+                    {if "TODOLIST_COMMENTS_PLUGIN"|defined}
+                        {if $todo->enableComments}
+                            {if $commentList|count || $commentCanAdd}
+                                <li>
+                                    <a href="
+                                    {if $pageFrom == 'todo'}
+                                        {@$__wcf->getAnchor('commentsTab')}
+                                    {else}
+                                        {$todo->getLink()}#commentsTab
+                                    {/if}
+                                    ">
+                                    {lang}todolist.comment.plural{/lang}{if $todo->comments} <span class="badge">{#$todo->comments}</span>{/if}
+                                    </a>
+                                </li>
+                            {/if}
+                        {/if}
+                    {/if}
+
+                    {if "TODOLIST_MODIFICATION_LOG_PLUGIN"|defined}
+                        {if $pageFrom == 'todoLog'}
+                            <li class="active">
+                                <a href="#">
+                                    {lang}todolist.modLog.title{/lang}
+                                </a>
+                            </li>
+                        {elseif $pageFrom == 'todo' && $todo->canEdit()}
                             <li>
-                                <a href="
-                                {if $pageFrom == 'todo'}
-                                    {@$__wcf->getAnchor('commentsTab')}
-                                {else}
-                                    {$todo->getLink()}#commentsTab
-                                {/if}
-                                ">
-                                {lang}todolist.comment.plural{/lang}{if $todo->comments} <span class="badge">{#$todo->comments}</span>{/if}
+                                <a id="todoLogLink" href="{$todo->getLogLink()}">
+                                    {lang}todolist.modLog.title{/lang}
                                 </a>
                             </li>
                         {/if}
                     {/if}
-                {/if}
-
-                {if "TODOLIST_MODIFICATION_LOG_PLUGIN"|defined}
-                    {if $pageFrom == 'todo' && $todo->canEdit() || !$pageFrom == 'todo'}
-                        <li>
-                            <a href="
-                            {if $pageFrom == 'todo'}
-                                {link application='todolist' controller='TodoLog' todoID=$todo->todoID}
-                            {else}
-                                #
-                            {/if}
-                            ">
-                            {lang}todolist.modLog.title{/lang}
-                            </a>
-                        </li>
-                    {/if}
-                {/if}
-                
-                {event name='tabMenuTabs'}
-            {/content}
-        </ul>
-    </nav>
+                    
+                    {event name='tabMenuTabs'}
+                {/content}
+            </ul>
+        </nav>
 {/hascontent}
 
 {if $pageFrom == 'todo'}

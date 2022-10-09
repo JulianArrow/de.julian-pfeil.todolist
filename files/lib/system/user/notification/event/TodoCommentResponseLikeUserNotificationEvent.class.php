@@ -1,5 +1,7 @@
 <?php
+
 namespace todolist\system\user\notification\event;
+
 use todolist\system\todo\TodoDataHandler;
 use wcf\system\cache\runtime\UserProfileRuntimeCache;
 use wcf\system\user\notification\event\AbstractSharedUserNotificationEvent;
@@ -9,54 +11,62 @@ use wcf\system\WCF;
 
 /**
  * User notification event for todo comment response likes.
- * 
+ *
  * @author  Julian Pfeil <https://julian-pfeil.de>
  * @copyright   2022 Julian Pfeil Websites & Co.
  * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
  */
-class TodoCommentResponseLikeUserNotificationEvent extends AbstractSharedUserNotificationEvent  {
+class TodoCommentResponseLikeUserNotificationEvent extends AbstractSharedUserNotificationEvent
+{
     use TReactionUserNotificationEvent;
-    
+
     /**
      * @inheritDoc
      */
     protected $stackable = true;
-    
+
     /**
      * @inheritDoc
      */
-    public function checkAccess() {
+    public function checkAccess()
+    {
         return WCF::getSession()->getPermission('user.todolist.general.canSeeTodos');
     }
-    
+
     /**
      * @inheritDoc
      */
-    public function getEmailMessage($notificationType = 'instant') { /* not supported */ }
-    
+    public function getEmailMessage($notificationType = 'instant')
+    {
+ /* not supported */
+    }
+
     /**
      * @inheritDoc
      */
-    public function getEventHash() {
+    public function getEventHash()
+    {
         return sha1($this->eventID . '-' . $this->getUserNotificationObject()->objectID);
     }
-    
+
     /**
      * @inheritDoc
      */
-    public function getLink() {
+    public function getLink()
+    {
         $todo = TodoDataHandler::getInstance()->getTodo($this->additionalData['objectID']);
-        
+
         return LinkHandler::getInstance()->getLink('Todo', [
                 'application' => 'todolist',
                 'object' => $todo
         ], '#comments/comment' . $this->additionalData['commentID'] . '/response' . $this->getUserNotificationObject()->objectID);
     }
-    
+
     /**
      * @inheritDoc
      */
-    public function getMessage() {
+    public function getMessage()
+    {
         $todo = TodoDataHandler::getInstance()->getTodo($this->additionalData['objectID']);
         $authors = array_values($this->getAuthors());
         $count = count($authors);
@@ -64,7 +74,7 @@ class TodoCommentResponseLikeUserNotificationEvent extends AbstractSharedUserNot
         if ($this->additionalData['commentUserID'] != WCF::getUser()->userID) {
             $commentUser = UserProfileRuntimeCache::getInstance()->getObject($this->additionalData['commentUserID']);
         }
-        
+
         if ($count > 1) {
             return $this->getLanguage()->getDynamicVariable('todolist.todo.comment.response.like.notification.message.stacked', [
                     'author' => $this->author,
@@ -78,7 +88,7 @@ class TodoCommentResponseLikeUserNotificationEvent extends AbstractSharedUserNot
                     'reactions' => $this->getReactionsForAuthors()
             ]);
         }
-        
+
         return $this->getLanguage()->getDynamicVariable('todolist.comment.response.like.notification.message', [
                 'author' => $this->author,
                 'commentID' => $this->additionalData['commentID'],
@@ -87,11 +97,12 @@ class TodoCommentResponseLikeUserNotificationEvent extends AbstractSharedUserNot
                 'reactions' => $this->getReactionsForAuthors()
         ]);
     }
-    
+
     /**
      * @inheritDoc
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         $count = count($this->getAuthors());
         if ($count > 1) {
             return $this->getLanguage()->getDynamicVariable('todolist.todo.comment.response.like.notification.title.stacked', [
@@ -99,22 +110,24 @@ class TodoCommentResponseLikeUserNotificationEvent extends AbstractSharedUserNot
                     'timesTriggered' => $this->notification->timesTriggered
             ]);
         }
-        
+
         return $this->getLanguage()->get('todolist.todo.comment.response.like.notification.title');
     }
-    
+
     /**
      * @inheritDoc
      */
-    protected function prepare() {
+    protected function prepare()
+    {
         TodoDataHandler::getInstance()->cacheTodoID($this->additionalData['objectID']);
         UserProfileRuntimeCache::getInstance()->cacheObjectID($this->additionalData['commentUserID']);
     }
-    
+
     /**
      * @inheritDoc
      */
-    public function supportsEmailNotification() {
+    public function supportsEmailNotification()
+    {
         return false;
     }
 }

@@ -7,7 +7,6 @@ use todolist\data\todo\TodoEditor;
 use todolist\data\category\TodoCategoryNodeTree;
 use todolist\data\category\TodoCategory;
 use todolist\system\label\object\TodoLabelObjectHandler;
-
 use wcf\page\AbstractPage;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\WCF;
@@ -16,6 +15,7 @@ use wcf\system\comment\CommentHandler;
 use wcf\system\message\embedded\object\MessageEmbeddedObjectManager;
 use wcf\data\tag\Tag;
 use wcf\system\tagging\TagEngine;
+use wcf\system\language\LanguageFactory;
 
 /**
  * Shows the details of a certain todo.
@@ -27,8 +27,6 @@ use wcf\system\tagging\TagEngine;
  */
 class TodoPage extends AbstractPage
 {
-
-
     /**
      * shown todo
      * @var Todo
@@ -89,7 +87,7 @@ class TodoPage extends AbstractPage
 
         if (defined('TODOLIST_COMMENTS_PLUGIN')) {
             WCF::getTPL()->assign([
-                'commentCanAdd' => WCF::getSession()->getPermission('user.todolist.comments.canAddComments'),
+                'commentCanAdd' => WCF::getSession()->getPermission('user.todolist.comment.canAddComment'),
                 'commentList' => $this->commentList,
                 'commentObjectTypeID' => $this->commentObjectTypeID,
                 'lastCommentTime' => $this->commentList ? $this->commentList->getMinCommentTime() : 0,
@@ -114,7 +112,7 @@ class TodoPage extends AbstractPage
         //set canAddTodoInAnyCategory
         $categoryNodeTree = new TodoCategoryNodeTree(TodoCategory::OBJECT_TYPE_NAME, 0, false);
         $categoryNodeTree->loadCategoryLists();
-    
+
         $this->canAddTodoInAnyCategory = $categoryNodeTree->canAddTodoInAnyCategory();
 
         // update view count
@@ -122,7 +120,7 @@ class TodoPage extends AbstractPage
         $todoEditor->updateCounters([
             'views' => 1,
         ]);
-        
+
         /* reactions */
         if (MODULE_LIKE) {
             $objectType = ReactionHandler::getInstance()->getObjectType('de.julian-pfeil.todolist.likeableTodo');
@@ -150,8 +148,8 @@ class TodoPage extends AbstractPage
         /* tags */
         if (MODULE_TAGGING && defined('TODOLIST_TAGGING_PLUGIN') && WCF::getSession()->getPermission('user.tag.canViewTag')) {
             $this->tags = TagEngine::getInstance()->getObjectTags(
-                'de.julian-pfeil.todolist.tagging',
-                $this->todo->linkID,
+                'de.julian-pfeil.todolist.todo',
+                $this->todo->todoID,
                 [($this->todo->languageID === null ? LanguageFactory::getInstance()->getDefaultLanguageID() : "")]
             );
         }
@@ -175,7 +173,8 @@ class TodoPage extends AbstractPage
     /**
     * @inheritDoc
     */
-    public function checkPermissions() {
+    public function checkPermissions()
+    {
         if (!$this->todo->canRead()) {
             throw new PermissionDeniedException();
         }

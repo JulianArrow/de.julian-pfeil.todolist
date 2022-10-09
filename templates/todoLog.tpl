@@ -8,7 +8,7 @@
     </div>
 {/hascontent}
 
-{include file='todoStructure' application='todolist' pageFrom='todo'}
+{include file='todoStructure' application='todolist' pageFrom='todoLog'}
 
 <footer class="contentFooter">
     {hascontent}

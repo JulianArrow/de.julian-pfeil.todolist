@@ -16,7 +16,7 @@
                         <span class="icon icon16 fa-tags"></span>
                         <ul class="labelList">
                             {foreach from=$todo->getLabels() item=label}
-                                <li>{@$todo->render()}</li>
+                                <li>{@$label->render()}</li>
                             {/foreach}
                         </ul>
                     </li>

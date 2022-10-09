@@ -3,7 +3,6 @@
 namespace todolist\data\category;
 
 use todolist\data\todo\Todo;
-
 use wcf\system\category\CategoryHandler;
 use wcf\system\SingletonFactory;
 use wcf\system\WCF;

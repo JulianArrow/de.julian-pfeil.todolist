@@ -1,5 +1,7 @@
 <?php
+
 namespace todolist\data\todo;
+
 use wcf\data\like\object\AbstractLikeObject;
 use wcf\data\like\Like;
 use wcf\data\reaction\object\IReactionObject;
@@ -10,75 +12,77 @@ use wcf\system\WCF;
 
 /**
  * Likeable object implementation for todos.
- * 
+ *
  * @author  Julian Pfeil <https://julian-pfeil.de>
  * @copyright   2022 Julian Pfeil Websites & Co.
  * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
  */
-class LikeableTodo extends AbstractLikeObject implements IReactionObject {
+class LikeableTodo extends AbstractLikeObject implements IReactionObject
+{
     /**
      * @inheritDoc
      */
     protected static $baseClass = Todo::class;
-    
+
     /**
      * @inheritDoc
      */
-    public function getLanguageID() {
+    public function getLanguageID()
+    {
         return $this->getDecoratedObject()->languageID;
     }
-    
+
     /**
      * @inheritDoc
      */
-    public function getObjectID() {
+    public function getObjectID()
+    {
         return $this->todoID;
     }
-    
+
     /**
      * @inheritDoc
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->getSubject();
     }
-    
+
     /**
      * @inheritDoc
      */
-    public function getURL() {
+    public function getURL()
+    {
         return LinkHandler::getInstance()->getLink('Todo', [
                 'application' => 'todolist',
                 'object' => $this->getDecoratedObject()
         ]);
     }
-    
+
     /**
      * @inheritDoc
      */
-    public function getUserID() {
+    public function getUserID()
+    {
         return $this->userID;
     }
-    
+
     /**
      * @inheritDoc
      */
-    public function sendNotification(Like $like) {
+    public function sendNotification(Like $like)
+    {
         if ($this->getDecoratedObject()->userID != WCF::getUser()->userID) {
             $notificationObject = new LikeUserNotificationObject($like);
-            UserNotificationHandler::getInstance()->fireEvent(
-                'like',
-                'de.julian-pfeil.todolist.likeableTodo.notification',
-                $notificationObject,
-                [$this->getDecoratedObject()->userID],
-                    ['objectID' => $this->getDecoratedObject()->todoID]
-            );
+            UserNotificationHandler::getInstance()->fireEvent('like', 'de.julian-pfeil.todolist.likeableTodo.notification', $notificationObject, [$this->getDecoratedObject()->userID], ['objectID' => $this->getDecoratedObject()->todoID]);
         }
     }
-    
+
     /**
      * @inheritDoc
      */
-    public function updateLikeCounter($cumulativeLikes) {
+    public function updateLikeCounter($cumulativeLikes)
+    {
         $editor = new TodoEditor($this->getDecoratedObject());
         $editor->update(['cumulativeLikes' => $cumulativeLikes]);
     }

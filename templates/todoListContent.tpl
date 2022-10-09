@@ -33,13 +33,13 @@
                                 </small>
                                 
                                 <small class="separatorLeft">
-                                    {if $todo->time != $todo->lastEditTime}
+                                    {if $todo->time == $todo->lastEditTime}
                                         <span class="icon icon16 fa-clock-o"></span>
                                         {@$todo->time|time}
                                     {else}
                                         <span class="icon icon16 fa-pencil"></span>
                                         {@$todo->lastEditTime|time}
-                                    {/if}}
+                                    {/if}
                                 </small>
 
                                 {if MODULE_LIKE && $__wcf->getSession()->getPermission('user.like.canViewLike') && $todo->cumulativeLikes} 
@@ -49,8 +49,8 @@
                                 {/if}
 
                                 {if "TODOLIST_COMMENTS_PLUGIN"|defined}
-                                    {if $todo->enableComments && $commentList|count}
-                                        
+                                    {if $todo->enableComments && $todo->comments > 0}
+                                        <small class="separatorLeft">
                                             <span class="icon icon16 fa-comments"></span> 
                                             {lang}todolist.comment.metaData{/lang}
                                         </small>
@@ -61,7 +61,7 @@
                                     <small class="separatorLeft"></small>
                                         <ul class="labelList">
                                             {foreach from=$todo->getLabels() item=label}
-                                                <li>{@$todo->render()}</li>
+                                                <li>{@$label->render()}</li>
                                             {/foreach}
                                         </ul>
                                 {/if}

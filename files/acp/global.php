@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author  Julian Pfeil <https://julian-pfeil.de>
  * @copyright   2022 Julian Pfeil Websites & Co.
@@ -8,13 +9,11 @@
 
 // define paths
 define('RELATIVE_TODOLIST_DIR', '../');
-
-/* 
+/*
  * include config
- * @noinspection PhpIncludeInspection 
+ * @noinspection PhpIncludeInspection
  */
 require_once dirname(__FILE__, 2) . '/config.inc.php';
-
 /*
  * include wcf
  */

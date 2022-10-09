@@ -3,7 +3,6 @@
 namespace todolist\system\tagging;
 
 use todolist\data\todo\TaggedTodoList;
-
 use wcf\system\tagging\AbstractCombinedTaggable;
 
 /**
