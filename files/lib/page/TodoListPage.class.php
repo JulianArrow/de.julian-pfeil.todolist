@@ -167,53 +167,55 @@ class TodoListPage extends SortablePage
 
         $this->checkSortFields();
 
-        $this->labelGroups = TodoCategory::getAccessibleLabelGroups('canViewLabel');
-        if (!empty($this->labelGroups) && isset($_REQUEST['labelIDs']) && \is_array($_REQUEST['labelIDs'])) {
-            $this->labelIDs = $_REQUEST['labelIDs'];
+        if (defined('TODOLIST_LABELS_PLUGIN')) {
+            $this->labelGroups = TodoCategory::getAccessibleLabelGroups('canViewLabel');
+            if (!empty($this->labelGroups) && isset($_REQUEST['labelIDs']) && \is_array($_REQUEST['labelIDs'])) {
+                $this->labelIDs = $_REQUEST['labelIDs'];
 
-            foreach ($this->labelIDs as $groupID => $labelID) {
-                $isValid = false;
+                foreach ($this->labelIDs as $groupID => $labelID) {
+                    $isValid = false;
 
-                // ignore zero-values
-                if (!\is_array($labelID) && $labelID) {
-                    if (isset($this->labelGroups[$groupID]) && ($labelID == -1 || $this->labelGroups[$groupID]->isValid($labelID))) {
-                        $isValid = true;
+                    // ignore zero-values
+                    if (!\is_array($labelID) && $labelID) {
+                        if (isset($this->labelGroups[$groupID]) && ($labelID == -1 || $this->labelGroups[$groupID]->isValid($labelID))) {
+                            $isValid = true;
+                        }
+                    }
+
+                    if (!$isValid) {
+                        unset($this->labelIDs[$groupID]);
+                    }
+                }
+            }
+
+            if (!empty($_POST)) {
+                $labelParameters = '';
+                if (!empty($this->labelIDs)) {
+                    foreach ($this->labelIDs as $groupID => $labelID) {
+                        $labelParameters .= 'labelIDs[' . $groupID . ']=' . $labelID . '&';
                     }
                 }
 
-                if (!$isValid) {
-                    unset($this->labelIDs[$groupID]);
+                $controllerParameters = ['application' => 'todolist'];
+                if ($this->categoryID) {
+                    $controllerParameters['categoryID'] = $this->categoryID;
                 }
-            }
-        }
 
-        if (!empty($_POST)) {
-            $labelParameters = '';
-            if (!empty($this->labelIDs)) {
-                foreach ($this->labelIDs as $groupID => $labelID) {
-                    $labelParameters .= 'labelIDs[' . $groupID . ']=' . $labelID . '&';
-                }
-            }
+                $controllerParameters = array_merge($controllerParameters, $_REQUEST);
 
-            $controllerParameters = ['application' => 'todolist'];
-            if ($this->categoryID) {
-                $controllerParameters['categoryID'] = $this->categoryID;
-            }
-
-            $controllerParameters = array_merge($controllerParameters, $_REQUEST);
-
-            HeaderUtil::redirect(
-                LinkHandler::getInstance()->getLink(
-                    'TodoList',
-                    $controllerParameters,
-                    \rtrim(
-                        $labelParameters,
-                        '&'
+                HeaderUtil::redirect(
+                    LinkHandler::getInstance()->getLink(
+                        'TodoList',
+                        $controllerParameters,
+                        \rtrim(
+                            $labelParameters,
+                            '&'
+                        )
                     )
-                )
-            );
+                );
 
-            exit;
+                exit;
+            }
         }
     }
 
@@ -254,26 +256,28 @@ class TodoListPage extends SortablePage
             $this->objectList->getConditionBuilder()->add('categoryID = ?', [$this->category->categoryID]);
         }
 
-        // filter by label
-        if (!empty($this->labelIDs)) {
-            $objectTypeID = ObjectTypeCache::getInstance()->getObjectTypeByName('com.woltlab.wcf.label.object', 'de.julian-pfeil.todolist.todo')->objectTypeID;
-
-            foreach ($this->labelIDs as $groupID => $labelID) {
-                if ($labelID == -1) {
-                    $groupLabelIDs = LabelHandler::getInstance()->getLabelGroup($groupID)->getLabelIDs();
-
-                    if (!empty($groupLabelIDs)) {
-                        $this->objectList->getConditionBuilder()->add('links.linkID NOT IN (SELECT objectID FROM wcf' . WCF_N . '_label_object WHERE objectTypeID = ? AND labelID IN (?))', [
+        if (defined('TODOLIST_LABELS_PLUGIN')) {
+            // filter by label
+            if (!empty($this->labelIDs)) {
+                $objectTypeID = ObjectTypeCache::getInstance()->getObjectTypeByName('com.woltlab.wcf.label.object', 'de.julian-pfeil.todolist.todo')->objectTypeID;
+    
+                foreach ($this->labelIDs as $groupID => $labelID) {
+                    if ($labelID == -1) {
+                        $groupLabelIDs = LabelHandler::getInstance()->getLabelGroup($groupID)->getLabelIDs();
+    
+                        if (!empty($groupLabelIDs)) {
+                            $this->objectList->getConditionBuilder()->add('links.linkID NOT IN (SELECT objectID FROM wcf' . WCF_N . '_label_object WHERE objectTypeID = ? AND labelID IN (?))', [
+                                $objectTypeID,
+                                $groupLabelIDs,
+                            ]);
+                        }
+                    } else {
+                        $this->labelID = $labelID;
+                        $this->objectList->getConditionBuilder()->add('links.linkID IN (SELECT objectID FROM wcf' . WCF_N . '_label_object WHERE objectTypeID = ? AND labelID = ?)', [
                             $objectTypeID,
-                            $groupLabelIDs,
+                            $labelID,
                         ]);
                     }
-                } else {
-                    $this->labelID = $labelID;
-                    $this->objectList->getConditionBuilder()->add('links.linkID IN (SELECT objectID FROM wcf' . WCF_N . '_label_object WHERE objectTypeID = ? AND labelID = ?)', [
-                        $objectTypeID,
-                        $labelID,
-                    ]);
                 }
             }
         }
