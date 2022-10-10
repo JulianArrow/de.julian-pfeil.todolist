@@ -96,56 +96,6 @@
                 <admindefaultvalue>1</admindefaultvalue>
                 <usersonly>1</usersonly>
             </option>
-
-            <!-- comments -->
-            <option name="mod.todolist.comment.canModerateComment">
-                <categoryname>mod.todolist.comment</categoryname>
-                <optiontype>boolean</optiontype>
-                <defaultvalue>0</defaultvalue>
-                <moddefaultvalue>1</moddefaultvalue>
-                <usersonly>1</usersonly>
-            </option>
-            <option name="mod.todolist.comment.canEditComment">
-                <categoryname>mod.todolist.comment</categoryname>
-                <optiontype>boolean</optiontype>
-                <defaultvalue>0</defaultvalue>
-                <moddefaultvalue>1</moddefaultvalue>
-                <usersonly>1</usersonly>
-            </option>
-            <option name="mod.todolist.comment.canDeleteComment">
-                <categoryname>mod.todolist.comment</categoryname>
-                <optiontype>boolean</optiontype>
-                <defaultvalue>0</defaultvalue>
-                <moddefaultvalue>1</moddefaultvalue>
-                <usersonly>1</usersonly>
-            </option>
-
-            <option name="user.todolist.comment.canAddComment">
-                <categoryname>user.todolist.comment</categoryname>
-                <optiontype>boolean</optiontype>
-                <defaultvalue>1</defaultvalue>
-                <enableoptions>user.todolist.comment.canAddCommentWithoutModeration</enableoptions>
-                <excludedInTinyBuild>1</excludedInTinyBuild>
-            </option>
-            <option name="user.todolist.comment.canAddCommentWithoutModeration">
-                <categoryname>user.todolist.comment</categoryname>
-                <optiontype>boolean</optiontype>
-                <defaultvalue>1</defaultvalue>
-                <excludedInTinyBuild>1</excludedInTinyBuild>
-            </option>
-            <option name="user.todolist.comment.canEditOwnComment">
-                <categoryname>user.todolist.comments</categoryname>
-                <optiontype>boolean</optiontype>
-                <defaultvalue>1</defaultvalue>
-                <usersonly>1</usersonly>
-            </option>
-            <option name="user.todolist.comment.canDeleteOwnComment">
-                <categoryname>user.todolist.comment</categoryname>
-                <optiontype>boolean</optiontype>
-                <defaultvalue>0</defaultvalue>
-                <admindefaultvalue>1</admindefaultvalue>
-                <usersonly>1</usersonly>
-            </option>
         </options>
     </import>
 </data>

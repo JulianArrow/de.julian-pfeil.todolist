@@ -23,16 +23,6 @@
             <requireObjectID>1</requireObjectID>
             <parent>de.julian-pfeil.todolist.TodoList</parent>
         </page>
-        <page identifier="de.julian-pfeil.todolist.TodoLog">
-            <pageType>system</pageType>
-            <controller>todolist\page\TodoLogPage</controller>
-            <name language="de">To-do-Änderungsprotokoll</name>
-            <name language="en">To-do Log</name>
-            <requireObjectID>1</requireObjectID>
-            <excludeFromLandingPage>1</excludeFromLandingPage>
-            <parent>de.julian-pfeil.todolist.Todo</parent>
-            <options>todolist_modification_log_plugin</options>
-        </page>
         <page identifier="de.julian-pfeil.todolist.AddTodo">
             <pageType>system</pageType>
             <controller>todolist\form\TodoAddForm</controller>

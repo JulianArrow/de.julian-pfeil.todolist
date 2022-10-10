@@ -120,9 +120,11 @@ class TodoAction extends AbstractDatabaseObjectAction
 
             $this->setSearchIndex($todo);
 
-            // add log entry
-            TodoModificationLogHandler::getInstance()->edit($todo, (isset($this->parameters['editReason']) ? $this->parameters['editReason'] : ''));
-
+            if (defined('TODOLIST_MODIFICATION_LOG_PLUGIN')) {
+                // add log entry
+                TodoModificationLogHandler::getInstance()->edit($todo, (isset($this->parameters['editReason']) ? $this->parameters['editReason'] : ''));
+            }
+            
             // save embedded objects
             $this->saveEmbeddedObjects($todoEditor, $todo);
 
@@ -272,20 +274,22 @@ class TodoAction extends AbstractDatabaseObjectAction
 
             // get labels from first object
             $labelList = reset($assignedLabels);
+            
+            if (defined('TODOLIST_MODIFICATION_LOG_PLUGIN')) {
+                // log adding new labels
+                WCF::getDB()->beginTransaction();
+                foreach ($this->getObjects() as $todo) {
+                    $newLabels = $labelList;
+                    if (!empty($oldLabels[$todo->todoID])) {
+                        $newLabels = array_diff_key($labelList, $oldLabels[$todo->todoID]);
+                    }
 
-            // log adding new labels
-            WCF::getDB()->beginTransaction();
-            foreach ($this->getObjects() as $todo) {
-                $newLabels = $labelList;
-                if (!empty($oldLabels[$todo->todoID])) {
-                    $newLabels = array_diff_key($labelList, $oldLabels[$todo->todoID]);
+                    foreach ($newLabels as $label) {
+                        TodoModificationLogHandler::getInstance()->setLabel($todo, $label);
+                    }
                 }
-
-                foreach ($newLabels as $label) {
-                    TodoModificationLogHandler::getInstance()->setLabel($todo, $label);
-                }
+                WCF::getDB()->commitTransaction();
             }
-            WCF::getDB()->commitTransaction();
 
             foreach ($labelList as $label) {
                 $tmp[$label->labelID] = [
@@ -384,8 +388,11 @@ class TodoAction extends AbstractDatabaseObjectAction
             // delete embedded objects
             MessageEmbeddedObjectManager::getInstance()->removeObjects('de.julian-pfeil.todolist.todo', $todoIDs);
 
-            // delete the log entries except for deleting the todo
-            TodoModificationLogHandler::getInstance()->deleteLogs($todoIDs);
+            
+             if (defined('TODOLIST_MODIFICATION_LOG_PLUGIN')) {
+                // delete the log entries except for deleting the todo
+                TodoModificationLogHandler::getInstance()->deleteLogs($todoIDs);
+            }
         }
 
         // delete label assignments
@@ -429,8 +436,11 @@ class TodoAction extends AbstractDatabaseObjectAction
                 );
             }
 
-            // add log entry
-            TodoModificationLogHandler::getInstance()->markAsDone(new Todo($todo->todoID));
+            
+            if (defined('TODOLIST_MODIFICATION_LOG_PLUGIN')) {
+                // add log entry
+                TodoModificationLogHandler::getInstance()->markAsDone(new Todo($todo->todoID));
+            }
 
             $this->addTodoData($todoEditor->getDecoratedObject(), 'isDone', 1);
         }
@@ -466,9 +476,12 @@ class TodoAction extends AbstractDatabaseObjectAction
                 );
             }
 
-            // add log entry
-            TodoModificationLogHandler::getInstance()->markAsUndone(new Todo($todo->todoID));
-
+            
+            if (defined('TODOLIST_MODIFICATION_LOG_PLUGIN')) {
+                // add log entry
+                TodoModificationLogHandler::getInstance()->markAsUndone(new Todo($todo->todoID));
+            }
+            
             $this->addTodoData($todoEditor->getDecoratedObject(), 'isDone', 0);
         }
 

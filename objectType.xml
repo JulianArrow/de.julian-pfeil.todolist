@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/2019/objectType.xsd">
     <import>
-
         <!--todo notification-->
         <type>
             <name>de.julian-pfeil.todolist.todo</name>
@@ -58,49 +57,6 @@
             <definitionname>com.woltlab.wcf.acl</definitionname>
         </type>
 
-        <!-- comments -->
-        <type>
-            <name>de.julian-pfeil.todolist.todoComment</name>
-            <definitionname>com.woltlab.wcf.comment.commentableContent</definitionname>
-            <classname>todolist\system\comment\manager\TodoCommentManager</classname>
-        </type>
-        <type>
-            <name>de.julian-pfeil.todolist.todoComment.notification</name>
-            <definitionname>com.woltlab.wcf.notification.objectType</definitionname>
-            <classname>todolist\system\user\notification\object\type\TodoCommentUserNotificationObjectType</classname>
-            <category>de.julian-pfeil.todolist</category>
-        </type>
-        <type>
-            <name>de.julian-pfeil.todolist.todoComment.response.notification</name>
-            <definitionname>com.woltlab.wcf.notification.objectType</definitionname>
-            <classname>todolist\system\user\notification\object\type\TodoCommentResponseUserNotificationObjectType</classname>
-            <category>de.julian-pfeil.todolist</category>
-        </type>
-        <type>
-            <name>de.julian-pfeil.todolist.todoComment.like.notification</name>
-            <definitionname>com.woltlab.wcf.notification.objectType</definitionname>
-            <classname>wcf\system\user\notification\object\type\LikeUserNotificationObjectType</classname>
-            <category>de.julian-pfeil.todolist</category>
-            <supportsReactions>1</supportsReactions>
-        </type>
-        <type>
-            <name>de.julian-pfeil.todolist.todoComment.response.like.notification</name>
-            <definitionname>com.woltlab.wcf.notification.objectType</definitionname>
-            <classname>wcf\system\user\notification\object\type\LikeUserNotificationObjectType</classname>
-            <category>de.julian-pfeil.todolist</category>
-            <supportsReactions>1</supportsReactions>
-        </type>
-        <type>
-            <name>de.julian-pfeil.todolist.todoComment.recentActivityEvent</name>
-            <definitionname>com.woltlab.wcf.user.recentActivityEvent</definitionname>
-            <classname>todolist\system\user\activity\event\TodoCommentUserActivityEvent</classname>
-        </type>
-        <type>
-            <name>de.julian-pfeil.todolist.todoComment.response.recentActivityEvent</name>
-            <definitionname>com.woltlab.wcf.user.recentActivityEvent</definitionname>
-            <classname>todolist\system\user\activity\event\TodoCommentResponseUserActivityEvent</classname>
-        </type>
-
         <!-- reactions / likes -->
         <type>
             <name>de.julian-pfeil.todolist.likeableTodo</name>
@@ -118,32 +74,6 @@
             <name>de.julian-pfeil.todolist.likeableTodo.recentActivityEvent</name>
             <definitionname>com.woltlab.wcf.user.recentActivityEvent</definitionname>
             <classname>todolist\system\user\activity\event\LikeableTodoUserActivityEvent</classname>
-        </type>
-        
-        <!-- tagging -->
-        <type>
-            <name>de.julian-pfeil.todolist.todo</name>
-            <definitionname>com.woltlab.wcf.tagging.taggableObject</definitionname>
-            <classname>todolist\system\tagging\TaggableTodo</classname>
-        </type>
-        
-        <!-- modification log -->
-        <type>
-            <name>de.julian-pfeil.todolist.todo</name>
-            <definitionname>com.woltlab.wcf.modifiableContent</definitionname>
-            <classname>todolist\system\log\modification\TodoModificationLogHandler</classname>
-        </type>
-        
-        <!-- label -->
-        <type>
-            <name>de.julian-pfeil.todolist.todo</name>
-            <definitionname>com.woltlab.wcf.label.object</definitionname>
-            <classname>todolist\system\label\object\TodoLabelObjectHandler</classname>
-        </type>
-        <type>
-            <name>de.julian-pfeil.todolist.todo.category</name>
-            <definitionname>com.woltlab.wcf.label.objectType</definitionname>
-            <classname>todolist\system\label\object\type\TodoCategoryLabelObjectTypeHandler</classname>
         </type>
     </import>
 </data>
