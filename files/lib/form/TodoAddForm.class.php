@@ -2,8 +2,8 @@
 
 namespace todolist\form;
 
-use todolist\data\category\TodoCategory;
-use todolist\data\category\TodoCategoryNodeTree;
+use todolist\data\todo\category\TodoCategory;
+use todolist\data\todo\category\TodoCategoryNodeTree;
 use todolist\data\todo\TodoAction;
 use todolist\system\cache\builder\TodoCategoryLabelCacheBuilder;
 use todolist\system\form\builder\container\wysiwyg\TodoWysiwygFormContainer;
@@ -15,7 +15,6 @@ use wcf\system\form\builder\field\dependency\ValueFormFieldDependency;
 use wcf\system\form\builder\field\label\LabelFormField;
 use wcf\system\form\builder\field\SingleSelectionFormField;
 use wcf\system\form\builder\field\tag\TagFormField;
-use wcf\system\category\CategoryHandler;
 use wcf\system\exception\PermissionDeniedException;
 use wcf\system\WCF;
 use wcf\system\request\LinkHandler;
@@ -23,10 +22,13 @@ use wcf\system\request\LinkHandler;
 /**
  * Shows the form to create a new todo.
  *
- * @author  Julian Pfeil <https://julian-pfeil.de>
+ * @author     Julian Pfeil <https://julian-pfeil.de>
+ * @link    https://darkwood.design/store/user-file-list/1298-julian-pfeil/
  * @copyright   2022 Julian Pfeil Websites & Co.
  * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
- * @package WoltLabSuite\Core\Form
+ *
+ * @package    de.julian-pfeil.todolist
+ * @subpackage form
  */
 class TodoAddForm extends AbstractFormBuilderForm
 {

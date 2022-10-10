@@ -3,7 +3,7 @@
 namespace todolist\system\worker;
 
 use todolist\data\todo\TodoEditor;
-use todolist\data\todo\TodoList;
+use todolist\data\todo\list\TodoList;
 use wcf\data\object\type\ObjectTypeCache;
 use wcf\system\database\util\PreparedStatementConditionBuilder;
 use wcf\system\html\input\HtmlInputProcessor;
@@ -15,9 +15,13 @@ use wcf\system\WCF;
 /**
  * Worker implementation for updating todo.
  *
- * @author  Julian Pfeil <https://julian-pfeil.de>
+ * @author     Julian Pfeil <https://julian-pfeil.de>
+ * @link    https://darkwood.design/store/user-file-list/1298-julian-pfeil/
  * @copyright   2022 Julian Pfeil Websites & Co.
  * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
+ *
+ * @package    de.julian-pfeil.todolist
+ * @subpackage system.worker
  */
 
 class TodolistRebuildDataWorker extends AbstractRebuildDataWorker

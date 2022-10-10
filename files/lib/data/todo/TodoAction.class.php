@@ -5,7 +5,7 @@ namespace todolist\data\todo;
 use todolist\system\log\modification\TodoModificationLogHandler;
 use todolist\system\user\notification\object\TodoUserNotificationObject;
 use todolist\system\label\object\TodoLabelObjectHandler;
-use todolist\data\category\TodoCategory;
+use todolist\data\todo\category\TodoCategory;
 use wcf\data\AbstractDatabaseObjectAction;
 use wcf\system\WCF;
 use wcf\data\label\Label;
@@ -26,14 +26,13 @@ use wcf\system\user\notification\UserNotificationHandler;
 /**
  * Executes todo-related actions.
  *
- * @author  Julian Pfeil <https://julian-pfeil.de>
+ * @author     Julian Pfeil <https://julian-pfeil.de>
+ * @link    https://darkwood.design/store/user-file-list/1298-julian-pfeil/
  * @copyright   2022 Julian Pfeil Websites & Co.
  * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
- * @package WoltLabSuite\Core\Data\Todo
  *
- * @method  Todo      create()
- * @method  TodoEditor[]  getObjects()
- * @method  TodoEditor    getSingleObject()
+ * @package    de.julian-pfeil.todolist
+ * @subpackage data.todo
  */
 class TodoAction extends AbstractDatabaseObjectAction
 {
@@ -124,7 +123,7 @@ class TodoAction extends AbstractDatabaseObjectAction
                 // add log entry
                 TodoModificationLogHandler::getInstance()->edit($todo, (isset($this->parameters['editReason']) ? $this->parameters['editReason'] : ''));
             }
-            
+
             // save embedded objects
             $this->saveEmbeddedObjects($todoEditor, $todo);
 
@@ -274,7 +273,7 @@ class TodoAction extends AbstractDatabaseObjectAction
 
             // get labels from first object
             $labelList = reset($assignedLabels);
-            
+
             if (defined('TODOLIST_MODIFICATION_LOG_PLUGIN')) {
                 // log adding new labels
                 WCF::getDB()->beginTransaction();
@@ -388,8 +387,8 @@ class TodoAction extends AbstractDatabaseObjectAction
             // delete embedded objects
             MessageEmbeddedObjectManager::getInstance()->removeObjects('de.julian-pfeil.todolist.todo', $todoIDs);
 
-            
-             if (defined('TODOLIST_MODIFICATION_LOG_PLUGIN')) {
+
+            if (defined('TODOLIST_MODIFICATION_LOG_PLUGIN')) {
                 // delete the log entries except for deleting the todo
                 TodoModificationLogHandler::getInstance()->deleteLogs($todoIDs);
             }
@@ -436,7 +435,7 @@ class TodoAction extends AbstractDatabaseObjectAction
                 );
             }
 
-            
+
             if (defined('TODOLIST_MODIFICATION_LOG_PLUGIN')) {
                 // add log entry
                 TodoModificationLogHandler::getInstance()->markAsDone(new Todo($todo->todoID));
@@ -476,12 +475,12 @@ class TodoAction extends AbstractDatabaseObjectAction
                 );
             }
 
-            
+
             if (defined('TODOLIST_MODIFICATION_LOG_PLUGIN')) {
                 // add log entry
                 TodoModificationLogHandler::getInstance()->markAsUndone(new Todo($todo->todoID));
             }
-            
+
             $this->addTodoData($todoEditor->getDecoratedObject(), 'isDone', 0);
         }
 

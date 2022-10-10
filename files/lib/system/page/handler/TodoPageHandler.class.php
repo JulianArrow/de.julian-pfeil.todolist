@@ -6,19 +6,22 @@ use wcf\system\page\handler\AbstractLookupPageHandler;
 use wcf\system\page\handler\IOnlineLocationPageHandler;
 use wcf\system\page\handler\TOnlineLocationPageHandler;
 use wcf\data\page\Page;
-use todolist\data\todo\TodoList;
+use todolist\data\todo\list\ViewableTodoList;
 use wcf\data\user\online\UserOnline;
-use todolist\system\cache\runtime\TodoRuntimeCache;
+use todolist\system\cache\runtime\ViewableTodoRuntimeCache;
 use wcf\system\database\util\PreparedStatementConditionBuilder;
 use wcf\system\WCF;
 
 /**
  * Page handler implementation for todo page.
  *
- * @author  Julian Pfeil <https://julian-pfeil.de>
+ * @author     Julian Pfeil <https://julian-pfeil.de>
+ * @link    https://darkwood.design/store/user-file-list/1298-julian-pfeil/
  * @copyright   2022 Julian Pfeil Websites & Co.
  * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
- * @package WoltLabSuite\Core\System\Page\Handler
+ *
+ * @package    de.julian-pfeil.todolist
+ * @subpackage system.page.handler
  */
 class TodoPageHandler extends AbstractLookupPageHandler implements IOnlineLocationPageHandler
 {
@@ -29,7 +32,7 @@ class TodoPageHandler extends AbstractLookupPageHandler implements IOnlineLocati
      */
     public function getLink($objectID)
     {
-        return TodoRuntimeCache::getInstance()->getObject($objectID)->getLink();
+        return ViewableTodoRuntimeCache::getInstance()->getObject($objectID)->getLink();
     }
 
     /**
@@ -47,7 +50,7 @@ class TodoPageHandler extends AbstractLookupPageHandler implements IOnlineLocati
             return '';
         }
 
-        $todo = TodoRuntimeCache::getInstance()->getObject($user->pageObjectID);
+        $todo = ViewableTodoRuntimeCache::getInstance()->getObject($user->pageObjectID);
         if ($todo === null) {
             return '';
         }
@@ -60,7 +63,7 @@ class TodoPageHandler extends AbstractLookupPageHandler implements IOnlineLocati
      */
     public function isValid($objectID = null)
     {
-        return TodoRuntimeCache::getInstance()->getObject($objectID) !== null;
+        return ViewableTodoRuntimeCache::getInstance()->getObject($objectID) !== null;
     }
 
     /**
@@ -72,7 +75,7 @@ class TodoPageHandler extends AbstractLookupPageHandler implements IOnlineLocati
         $conditionBuilder->add('todo.todoName LIKE ?', ['%' . $searchString . '%']);
         $conditionBuilder->add('todo.description LIKE ?', ['%' . $searchString . '%']);
 
-        $todoList = new TodoList();
+        $todoList = new ViewableTodoList();
         $todoList->getConditionBuilder()->add($conditionBuilder, $conditionBuilder->getParameters());
         $todoList->readObjects();
 
@@ -101,7 +104,7 @@ class TodoPageHandler extends AbstractLookupPageHandler implements IOnlineLocati
     public function prepareOnlineLocation(Page $page, UserOnline $user)
     {
         if ($user->pageObjectID !== null) {
-            TodoRuntimeCache::getInstance()->cacheObjectID($user->pageObjectID);
+            ViewableTodoRuntimeCache::getInstance()->cacheObjectID($user->pageObjectID);
         }
     }
 }

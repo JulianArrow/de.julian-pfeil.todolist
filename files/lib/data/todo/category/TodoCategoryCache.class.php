@@ -1,6 +1,6 @@
 <?php
 
-namespace todolist\data\category;
+namespace todolist\data\todo\category;
 
 use todolist\data\todo\Todo;
 use wcf\system\category\CategoryHandler;
@@ -10,9 +10,13 @@ use wcf\system\WCF;
 /**
  * Manages the category cache for the to-do list.
  *
- * @author  Julian Pfeil <https://julian-pfeil.de>
+ * @author     Julian Pfeil <https://julian-pfeil.de>
+ * @link    https://darkwood.design/store/user-file-list/1298-julian-pfeil/
  * @copyright   2022 Julian Pfeil Websites & Co.
  * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
+ *
+ * @package    de.julian-pfeil.todolist
+ * @subpackage data.todo.category
  */
 class TodoCategoryCache extends SingletonFactory
 {

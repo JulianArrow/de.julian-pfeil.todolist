@@ -2,15 +2,19 @@
 
 namespace todolist\acp\page;
 
-use todolist\data\category\TodoCategory;
+use todolist\data\todo\category\TodoCategory;
 use wcf\acp\page\AbstractCategoryListPage;
 
 /**
  * Class CategoryListPage
  *
- * @author  Julian Pfeil <https://julian-pfeil.de>
+ * @author     Julian Pfeil <https://julian-pfeil.de>
+ * @link    https://darkwood.design/store/user-file-list/1298-julian-pfeil/
  * @copyright   2022 Julian Pfeil Websites & Co.
  * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
+ *
+ * @package    de.julian-pfeil.todolist
+ * @subpackage acp.page
  */
 class CategoryListPage extends AbstractCategoryListPage
 {

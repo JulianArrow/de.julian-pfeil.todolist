@@ -2,10 +2,10 @@
 
 namespace todolist\page;
 
-use todolist\data\todo\Todo;
+use todolist\data\todo\ViewableTodo;
 use todolist\data\todo\TodoEditor;
-use todolist\data\category\TodoCategoryNodeTree;
-use todolist\data\category\TodoCategory;
+use todolist\data\todo\category\TodoCategoryNodeTree;
+use todolist\data\todo\category\TodoCategory;
 use todolist\system\label\object\TodoLabelObjectHandler;
 use wcf\page\AbstractPage;
 use wcf\system\exception\IllegalLinkException;
@@ -20,16 +20,19 @@ use wcf\system\language\LanguageFactory;
 /**
  * Shows the details of a certain todo.
  *
- * @author  Julian Pfeil <https://julian-pfeil.de>
+ * @author     Julian Pfeil <https://julian-pfeil.de>
+ * @link    https://darkwood.design/store/user-file-list/1298-julian-pfeil/
  * @copyright   2022 Julian Pfeil Websites & Co.
  * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
- * @package WoltLabSuite\Core\Page
+ *
+ * @package    de.julian-pfeil.todolist
+ * @subpackage page
  */
 class TodoPage extends AbstractPage
 {
     /**
      * shown todo
-     * @var Todo
+     * @var ViewableTodo
      */
     public $todo;
 
@@ -191,7 +194,7 @@ class TodoPage extends AbstractPage
         if (isset($_REQUEST['id'])) {
             $this->todoID = \intval($_REQUEST['id']);
         }
-        $this->todo = new Todo($this->todoID);
+        $this->todo = new ViewableTodo($this->todoID);
         if (!$this->todo->todoID) {
             throw new IllegalLinkException();
         }

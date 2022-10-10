@@ -3,7 +3,7 @@
 namespace todolist\data\todo;
 
 use todolist\page\TodoPage;
-use todolist\data\category\TodoCategory;
+use todolist\data\todo\category\TodoCategory;
 use wcf\data\DatabaseObject;
 use wcf\data\ITitledLinkObject;
 use wcf\system\request\LinkHandler;
@@ -18,13 +18,26 @@ use wcf\system\message\embedded\object\MessageEmbeddedObjectManager;
 /**
  * Represents a todo.
  *
- * @author  Julian Pfeil <https://julian-pfeil.de>
+ * @author     Julian Pfeil <https://julian-pfeil.de>
+ * @link    https://darkwood.design/store/user-file-list/1298-julian-pfeil/
  * @copyright   2022 Julian Pfeil Websites & Co.
  * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
- * @package WoltLabSuite\Core\Data\Todo
+ *
+ * @package    de.julian-pfeil.todolist
+ * @subpackage data.todo
  */
 class Todo extends DatabaseObject implements ITitledLinkObject
 {
+    /**
+     * @inheritDoc
+     */
+    protected static $databaseTableName = 'todo';
+
+    /**
+     * @inheritDoc
+     */
+    protected static $databaseTableIndexName = 'todoID';
+
     /**
      * todos category
      * @var Category
@@ -47,7 +60,8 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     public function __construct($id, ?array $row = null, ?self $object = null)
     {
         parent::__construct($id, $row, $object);
-        $this->category = $this->getCategory();
+
+        $this->getCategory();
     }
 
     /**
@@ -61,12 +75,38 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     }
 
     /**
+     * Returns the todo object with the given id.
+     */
+    public static function getTodo($todoID)
+    {
+        if ($this->todo === null) {
+            $this->todo = new self($this->todoID);
+        }
+
+        return $this->todo;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getObjectID()
+    {
+        return $this->todoID;
+    }
+
+    /**
      * Loads the embedded objects.
      */
     public function loadEmbeddedObjects()
     {
-        if ($this->hasEmbeddedObjects && !$this->embeddedObjectsLoaded) {
-            MessageEmbeddedObjectManager::getInstance()->loadObjects('de.julian-pfeil.todolist.todo.content', [$this->todoID]);
+
+        if (!$this->embeddedObjectsLoaded) {
+            MessageEmbeddedObjectManager::getInstance()->setActiveMessage('de.julian-pfeil.todolist.todo.content', $this->todoID);
+
+            if ($this->hasEmbeddedObjects) {
+                MessageEmbeddedObjectManager::getInstance()->loadObjects('de.julian-pfeil.todolist.todo.content', [$this->todoID]);
+            }
+
             $this->embeddedObjectsLoaded = true;
         }
     }
@@ -77,7 +117,8 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     public function getLink()
     {
         return LinkHandler::getInstance()->getControllerLink(TodoPage::class, [
-                'id' => $this->todoID
+                'id' => $this->todoID,
+                'forceFrontend' => true
             ]);
     }
 
@@ -88,6 +129,7 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     {
         return LinkHandler::getInstance()->getControllerLink(TodoLogPage::class, [
                 'id' => $this->todoID
+                'forceFrontend' => true
             ]);
     }
 
@@ -97,6 +139,14 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     public function getTitle()
     {
         return $this->todoName;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getMessage()
+    {
+        return $this->description;
     }
 
     /**
@@ -149,18 +199,6 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     }
 
     /**
-     * Returns the todo object with the given id.
-     */
-    public static function getTodo($todoID)
-    {
-        $todoList = new TodoList();
-        $todoList->setObjectIDs([$todoID]);
-        $todoList->readObjects();
-
-        return $todoList->search($todoID);
-    }
-
-    /**
      * @inheritDoc
      */
     public function getExcerpt()
@@ -170,14 +208,15 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     }
 
     /**
-     * Returns the category name
-     *
-     * @return mixed
-     * @throws SystemException
+     * Returns the category of this todo.
      */
     public function getCategory()
     {
-        return TodoCategory::getCategory($this->categoryID);
+        if ($this->category === null && $this->categoryID) {
+            $this->category = TodoCategory::getCategory($this->categoryID);
+        }
+
+        return $this->category;
     }
 
     /**
@@ -243,42 +282,10 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     }
 
     /**
-     * Returns `true` if the todo has labels and `false` otherwise.
+     * @inheritdoc
      */
-    public function hasLabels(): bool
+    public function isVisible()
     {
-        if ($this->hasLabels == '1') {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Adds a label.
-     */
-    public function addLabel(Label $label)
-    {
-        $this->labels[$label->labelID] = $label;
-    }
-
-    /**
-     * Returns a list of labels.
-     */
-    public function getLabels()
-    {
-        return $this->labels;
-    }
-
-    /**
-     * Returns `true` if the todo is marked as done and `false` otherwise.
-     */
-    public function isDone(): bool
-    {
-        if ($this->isDone == '1') {
-            return true;
-        }
-
-        return false;
+        return $this->canRead();
     }
 }

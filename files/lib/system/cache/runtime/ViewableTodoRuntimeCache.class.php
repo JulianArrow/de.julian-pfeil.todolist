@@ -1,11 +1,12 @@
 <?php
 
-namespace todolist\system\event\listener;
+namespace todolist\system\cache\runtime;
 
-use wcf\system\event\listener\AbstractUserActionRenameListener;
+use todolist\data\todo\list\ViewableTodoList;
+use wcf\system\cache\runtime\AbstractRuntimeCache;
 
 /**
- * Updates todo information during user renaming.
+ * Runtime cache implementation for todos.
  *
  * @author     Julian Pfeil <https://julian-pfeil.de>
  * @link    https://darkwood.design/store/user-file-list/1298-julian-pfeil/
@@ -13,14 +14,12 @@ use wcf\system\event\listener\AbstractUserActionRenameListener;
  * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
  *
  * @package    de.julian-pfeil.todolist
- * @subpackage system.event.listener
+ * @subpackage system.cache.runtime
  */
-class TodoUserActionRenameListener extends AbstractUserActionRenameListener
+class ViewableTodoRuntimeCache extends AbstractRuntimeCache
 {
     /**
      * @inheritDoc
      */
-    protected $databaseTables = [
-        'todolist{WCF_N}_todo',
-    ];
+    protected $listClassName = ViewableTodoList::class;
 }

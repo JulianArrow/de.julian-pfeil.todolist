@@ -2,7 +2,7 @@
 
 namespace todolist\system\message\embedded\object;
 
-use todolist\data\todo\TodoList;
+use todolist\data\todo\list\AccessibleTodoList;
 use wcf\system\html\input\HtmlInputProcessor;
 use wcf\system\message\embedded\object\AbstractMessageEmbeddedObjectHandler;
 use wcf\util\ArrayUtil;
@@ -10,9 +10,13 @@ use wcf\util\ArrayUtil;
 /**
  * Message embedded object handler implementation for todos.
  *
- * @author  Julian Pfeil <https://julian-pfeil.de>
+ * @author     Julian Pfeil <https://julian-pfeil.de>
+ * @link    https://darkwood.design/store/user-file-list/1298-julian-pfeil/
  * @copyright   2022 Julian Pfeil Websites & Co.
  * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
+ *
+ * @package    de.julian-pfeil.todolist
+ * @subpackage system.message.object
  */
 class TodoMessageEmbeddedObjectHandler extends AbstractMessageEmbeddedObjectHandler
 {
@@ -21,7 +25,7 @@ class TodoMessageEmbeddedObjectHandler extends AbstractMessageEmbeddedObjectHand
      */
     public function loadObjects(array $objectIDs)
     {
-        $todoList = new TodoList();
+        $todoList = new AccessibleTodoList();
         $todoList->getConditionBuilder()->add('todo.todoID IN (?)', [$objectIDs]);
         $todoList->readObjects();
         return $todoList->getObjects();

@@ -2,9 +2,9 @@
 
 namespace todolist\page;
 
-use todolist\data\category\TodoCategoryNodeTree;
-use todolist\data\category\TodoCategory;
-use todolist\data\todo\TodoList;
+use todolist\data\todo\category\TodoCategoryNodeTree;
+use todolist\data\todo\category\TodoCategory;
+use todolist\data\todo\AccessibleTodoList;
 use wcf\data\object\type\ObjectTypeCache;
 use wcf\page\SortablePage;
 use wcf\system\label\LabelHandler;
@@ -15,10 +15,13 @@ use wcf\system\request\LinkHandler;
 /**
  * Shows the list of todos.
  *
- * @author  Julian Pfeil <https://julian-pfeil.de>
+ * @author     Julian Pfeil <https://julian-pfeil.de>
+ * @link    https://darkwood.design/store/user-file-list/1298-julian-pfeil/
  * @copyright   2022 Julian Pfeil Websites & Co.
  * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
- * @package WoltLabSuite\Core\Page
+ *
+ * @package    de.julian-pfeil.todolist
+ * @subpackage page
  */
 class TodoListPage extends SortablePage
 {
@@ -44,7 +47,7 @@ class TodoListPage extends SortablePage
     /**
      * @inheritDoc
      */
-    public $objectListClassName = TodoList::class;
+    public $objectListClassName = AccessibleTodoList::class;
 
     /**
      * @inheritDoc
@@ -260,11 +263,11 @@ class TodoListPage extends SortablePage
             // filter by label
             if (!empty($this->labelIDs)) {
                 $objectTypeID = ObjectTypeCache::getInstance()->getObjectTypeByName('com.woltlab.wcf.label.object', 'de.julian-pfeil.todolist.todo')->objectTypeID;
-    
+
                 foreach ($this->labelIDs as $groupID => $labelID) {
                     if ($labelID == -1) {
                         $groupLabelIDs = LabelHandler::getInstance()->getLabelGroup($groupID)->getLabelIDs();
-    
+
                         if (!empty($groupLabelIDs)) {
                             $this->objectList->getConditionBuilder()->add('links.linkID NOT IN (SELECT objectID FROM wcf' . WCF_N . '_label_object WHERE objectTypeID = ? AND labelID IN (?))', [
                                 $objectTypeID,

@@ -2,6 +2,7 @@
 
 namespace todolist\data\todo;
 
+use todolist\data\todo\list\ViewableTodoList;
 use wcf\data\like\object\ILikeObject;
 use wcf\data\like\ILikeObjectTypeProvider;
 use wcf\system\like\IViewableLikeProvider;
@@ -10,9 +11,13 @@ use wcf\system\WCF;
 /**
  * Object type provider for todos.
  *
- * @author  Julian Pfeil <https://julian-pfeil.de>
+ * @author     Julian Pfeil <https://julian-pfeil.de>
+ * @link    https://darkwood.design/store/user-file-list/1298-julian-pfeil/
  * @copyright   2022 Julian Pfeil Websites & Co.
  * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
+ *
+ * @package    de.julian-pfeil.todolist
+ * @subpackage data.todo
  */
 class LikeableTodoProvider extends TodoProvider implements ILikeObjectTypeProvider, IViewableLikeProvider
 {
@@ -22,11 +27,32 @@ class LikeableTodoProvider extends TodoProvider implements ILikeObjectTypeProvid
     public $decoratorClassName = LikeableTodo::class;
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     public function checkPermissions(ILikeObject $object)
     {
-        return $object->todoID && WCF::getSession()->getPermission('user.todolist.general.canSeeTodos');
+        $todo = new Todo($object->getObjectID());
+        if (!$todo->todoID) {
+            return false;
+        }
+
+        return $todo->canRead();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function canLike(ILikeObject $object)
+    {
+        return $this->canViewLikes($object);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function canViewLikes(ILikeObject $object)
+    {
+        return $object->todoID && $object->canRead();
     }
 
     /**
@@ -40,16 +66,17 @@ class LikeableTodoProvider extends TodoProvider implements ILikeObjectTypeProvid
         }
 
         // get todos
-        $todoList = new TodoList();
+        $todoList = new ViewableTodoList();
         $todoList->setObjectIDs($todoIDs);
         $todoList->readObjects();
         $todos = $todoList->getObjects();
-// set message
+
+        // set message
         foreach ($likes as $like) {
             if (isset($todos[$like->objectID])) {
                 $todo = $todos[$like->objectID];
             // check permissions
-                if (!WCF::getSession()->getPermission('user.todolist.general.canSeeTodos')) {
+                if (!WCF::getSession()->getPermission('user.todolist.general.canViewTodoList')) {
                     continue;
                 }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace todolist\data\category;
+namespace todolist\data\todo\category;
 
 use wcf\data\category\CategoryNode;
 use wcf\data\category\CategoryNodeTree;
@@ -8,9 +8,13 @@ use wcf\data\category\CategoryNodeTree;
 /**
  * Class TodoCategoryNodeTree
  *
- * @author  Julian Pfeil <https://julian-pfeil.de>
+ * @author     Julian Pfeil <https://julian-pfeil.de>
+ * @link    https://darkwood.design/store/user-file-list/1298-julian-pfeil/
  * @copyright   2022 Julian Pfeil Websites & Co.
  * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
+ *
+ * @package    de.julian-pfeil.todolist
+ * @subpackage data.todo.category
  */
 class TodoCategoryNodeTree extends CategoryNodeTree
 {

@@ -7,14 +7,13 @@ use wcf\data\DatabaseObjectEditor;
 /**
  * Provides functions to edit todos.
  *
- * @author  Julian Pfeil <https://julian-pfeil.de>
+ * @author     Julian Pfeil <https://julian-pfeil.de>
+ * @link    https://darkwood.design/store/user-file-list/1298-julian-pfeil/
  * @copyright   2022 Julian Pfeil Websites & Co.
  * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
- * @package WoltLabSuite\Core\Data\Todo
  *
- * @method static   Todo  create(array $parameters = [])
- * @method      Todo  getDecoratedObject()
- * @mixin       Todo
+ * @package    de.julian-pfeil.todolist
+ * @subpackage data.todo
  */
 class TodoEditor extends DatabaseObjectEditor
 {
