@@ -33,7 +33,7 @@ class TodoLikeUserNotificationEvent extends AbstractSharedUserNotificationEvent
      */
     public function checkAccess()
     {
-        return WCF::getSession()->getPermission('user.todolist.general.canSeeTodos');
+        return WCF::getSession()->getPermission('user.todolist.general.canViewTodoList');
     }
 
     /**
