@@ -26,6 +26,21 @@
     {include file='todoListSidebar' application='todolist'}
 {/capture}
 
+{capture assign='contentInteractionButtons'}
+    {if $__wcf->user->userID && $categoryID|isset && $categoryID > 0}
+        <a href="#" class="contentInteractionButton jsSubscribeButton jsOnly button small{if $category->isSubscribed()} active{/if}" data-object-type="de.julian-pfeil.todolist.todo.category" data-object-id="{@$category->categoryID}"><span class="icon icon16 fa-bookmark{if !$category->isSubscribed()}-o{/if}"></span> <span>{lang}wcf.user.objectWatch.button.subscribe{/lang}</span></a>
+        <script data-relocate="true">
+            $(function() {
+                WCF.Language.addObject({
+                    'wcf.user.objectWatch.manageSubscription': '{jslang}wcf.user.objectWatch.manageSubscription{/jslang}'
+                });
+                
+                new WCF.User.ObjectWatch.Subscribe();
+            });
+        </script>
+    {/if}
+{/capture}
+
 {include file='header'}
 
 {hascontent}
@@ -35,7 +50,6 @@
         {/content}
     </div>
 {/hascontent}
-
 
 <div class="section">
     {include file='todoListStructure' application='todolist'}

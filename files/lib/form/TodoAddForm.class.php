@@ -22,10 +22,10 @@ use wcf\system\request\LinkHandler;
 /**
  * Shows the form to create a new todo.
  *
- * @author     Julian Pfeil <https://julian-pfeil.de>
- * @link    https://darkwood.design/store/user-file-list/1298-julian-pfeil/
+ * @author      Julian Pfeil <https://julian-pfeil.de>
+ * @link        https://darkwood.design/store/user-file-list/1298-julian-pfeil/
  * @copyright   2022 Julian Pfeil Websites & Co.
- * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
+ * @license     Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
  *
  * @package    de.julian-pfeil.todolist
  * @subpackage form
@@ -181,14 +181,14 @@ class TodoAddForm extends AbstractFormBuilderForm
             /* tags */
             $infoContainer->appendChild(
                 TagFormField::create('tags')
-                    ->objectType('de.pehbeh.links.linkEntry')
+                    ->objectType('de.julian-pfeil.todolist.todo')
                     ->available(MODULE_TAGGING)
             );
         }
 
         /* category selection */
         $categoryField = SingleSelectionFormField::create('categoryID')
-            ->label('todolist.column.category')
+            ->label('todolist.category.title')
             ->filterable()
             ->required()
             ->options(static function () {

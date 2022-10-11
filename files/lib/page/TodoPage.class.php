@@ -20,10 +20,10 @@ use wcf\system\language\LanguageFactory;
 /**
  * Shows the details of a certain todo.
  *
- * @author     Julian Pfeil <https://julian-pfeil.de>
- * @link    https://darkwood.design/store/user-file-list/1298-julian-pfeil/
+ * @author      Julian Pfeil <https://julian-pfeil.de>
+ * @link        https://darkwood.design/store/user-file-list/1298-julian-pfeil/
  * @copyright   2022 Julian Pfeil Websites & Co.
- * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
+ * @license     Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
  *
  * @package    de.julian-pfeil.todolist
  * @subpackage page
@@ -71,6 +71,11 @@ class TodoPage extends AbstractPage
     public $tags = [];
 
     /**
+     * category
+     */
+    public $category;
+
+    /**
      * @inheritDoc
      */
     public function assignVariables()
@@ -79,6 +84,7 @@ class TodoPage extends AbstractPage
 
         WCF::getTPL()->assign([
             'todo' => $this->todo,
+            'category' => $this->category,
             'canAddTodoInAnyCategory' => $this->canAddTodoInAnyCategory,
         ]);
 
@@ -106,6 +112,36 @@ class TodoPage extends AbstractPage
     }
 
     /**
+    * @inheritDoc
+    */
+    public function checkPermissions()
+    {
+        if (!$this->todo->canRead()) {
+            throw new PermissionDeniedException();
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function readParameters()
+    {
+        parent::readParameters();
+
+        #todoID
+        if (isset($_REQUEST['id'])) {
+            $this->todoID = \intval($_REQUEST['id']);
+        }
+        $this->todo = ViewableTodo::getTodo($this->todoID);
+        if (!$this->todo->todoID) {
+            throw new IllegalLinkException();
+        }
+
+        // set category for category box controller
+        $this->category = $this->todo->getCategory();
+    }
+
+    /**
      * @inheritDoc
      */
     public function readData()
@@ -119,7 +155,7 @@ class TodoPage extends AbstractPage
         $this->canAddTodoInAnyCategory = $categoryNodeTree->canAddTodoInAnyCategory();
 
         // update view count
-        $todoEditor = new TodoEditor($this->todo);
+        $todoEditor = new TodoEditor($this->todo->getDecoratedObject());
         $todoEditor->updateCounters([
             'views' => 1,
         ]);
@@ -171,32 +207,5 @@ class TodoPage extends AbstractPage
 
         $this->todo->loadEmbeddedObjects();
         MessageEmbeddedObjectManager::getInstance()->setActiveMessage('de.julian-pfeil.todolist.todo', $this->todoID);
-    }
-
-    /**
-    * @inheritDoc
-    */
-    public function checkPermissions()
-    {
-        if (!$this->todo->canRead()) {
-            throw new PermissionDeniedException();
-        }
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function readParameters()
-    {
-        parent::readParameters();
-
-        #todoID
-        if (isset($_REQUEST['id'])) {
-            $this->todoID = \intval($_REQUEST['id']);
-        }
-        $this->todo = new ViewableTodo($this->todoID);
-        if (!$this->todo->todoID) {
-            throw new IllegalLinkException();
-        }
     }
 }

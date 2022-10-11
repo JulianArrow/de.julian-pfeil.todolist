@@ -11,10 +11,10 @@ use wcf\system\message\embedded\object\MessageEmbeddedObjectManager;
 /**
  * Represents a viewable list of todos.
  *
- * @author     Julian Pfeil <https://julian-pfeil.de>
- * @link    https://darkwood.design/store/user-file-list/1298-julian-pfeil/
+ * @author      Julian Pfeil <https://julian-pfeil.de>
+ * @link        https://darkwood.design/store/user-file-list/1298-julian-pfeil/
  * @copyright   2022 Julian Pfeil Websites & Co.
- * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
+ * @license     Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
  *
  * @package    de.julian-pfeil.todolist
  * @subpackage data.todo.list
@@ -39,7 +39,7 @@ class ViewableTodoList extends TodoList
             $this->sqlSelects .= ',';
         }
         $this->sqlSelects .= "user_avatar.*, user_table.*";
-        $this->sqlJoins .= " LEFT JOIN wcf" . WCF_N . "_user user_table ON (user_table.userID = links.userID)";
+        $this->sqlJoins .= " LEFT JOIN wcf" . WCF_N . "_user user_table ON (user_table.userID = todo.userID)";
         $this->sqlJoins .= " LEFT JOIN wcf" . WCF_N . "_user_avatar user_avatar ON (user_avatar.avatarID = user_table.avatarID)";
 
         if (MODULE_LIKE) {
@@ -47,7 +47,7 @@ class ViewableTodoList extends TodoList
                 $this->sqlSelects .= ',';
             }
             $this->sqlSelects .= "like_object.cachedReactions";
-            $this->sqlJoins .= " LEFT JOIN wcf" . WCF_N . "_like_object like_object ON (like_object.objectTypeID = " . ReactionHandler::getInstance()->getObjectType('de.julian-pfeil.todolist.likableTodo')->objectTypeID . " AND like_object.objectID = todo.todoID)";
+            $this->sqlJoins .= " LEFT JOIN wcf" . WCF_N . "_like_object like_object ON (like_object.objectTypeID = " . ReactionHandler::getInstance()->getObjectType('de.julian-pfeil.todolist.likeableTodo')->objectTypeID . " AND like_object.objectID = todo.todoID)";
         }
     }
 
@@ -92,7 +92,7 @@ class ViewableTodoList extends TodoList
     {
         if (!empty($this->embeddedObjectIDs)) {
             // load embedded objects
-            MessageEmbeddedObjectManager::getInstance()->loadObjects('de.pehbeh.links.linkEntry', $this->embeddedObjectIDs);
+            MessageEmbeddedObjectManager::getInstance()->loadObjects('de.julian-pfeil.todolist.todo', $this->embeddedObjectIDs);
         }
     }
 }

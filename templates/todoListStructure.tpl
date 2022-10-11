@@ -18,5 +18,5 @@
         </div>
     </div>
 {else}
-    <p class="info">{lang}todolist.general.noCategories{/lang}</p>
+    <p class="info">{lang}todolist.category.info.noCategories{/lang}</p>
 {/if}

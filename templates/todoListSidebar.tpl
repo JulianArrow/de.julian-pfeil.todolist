@@ -1,13 +1,13 @@
 <section class="box">
 <form method="post" action="{link application='todolist' controller='TodoList'}{/link}">
-    <h2 class="boxTitle">{lang}todolist.general.filter{/lang}</h2>
+    <h2 class="boxTitle">{lang}todolist.category.title{/lang}</h2>
     
     <div class="boxContent">
         <dl>
             <dt></dt>
             <dd>
                 <select id="categoryID" name="categoryID">
-                    <option value=""{if $categoryID == ''} selected{/if}>{lang}todolist.general.allCategories{/lang}</option>
+                    <option value=""{if $categoryID == ''} selected{/if}>{lang}todolist.category.all{/lang}</option>
                     
                     {foreach from=$viewableCategoryList item=categoryItem}  
                         <option value="{@$categoryItem->categoryID}"{if $categoryID == $categoryItem->categoryID} selected{/if}>{$categoryItem->getTitle()}</option>

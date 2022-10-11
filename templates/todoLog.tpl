@@ -1,3 +1,5 @@
+{capture assign='contentTitle'}{lang}todolist.modLog.contentTitle{/lang}{/capture}
+    
 {include file='header'}
 
 {hascontent}

@@ -2,9 +2,12 @@
 
 namespace todolist\data\todo;
 
+use todolist\data\todo\list\ViewableTodoList;
 use wcf\data\DatabaseObjectDecorator;
+use wcf\data\DatabaseObject;
 use wcf\data\user\UserProfile;
 use wcf\data\label\Label;
+use wcf\data\user\User;
 
 /**
  * Represents viewable a todo.
@@ -30,11 +33,6 @@ class ViewableTodo extends DatabaseObjectDecorator
     protected $userProfile;
 
     /**
-     * visit time
-     */
-    protected $effectiveVisitTime;
-
-    /**
      * list of labels
      */
     protected $labels = [];
@@ -43,6 +41,32 @@ class ViewableTodo extends DatabaseObjectDecorator
      * content
      */
     protected $content;
+
+    /**
+     * todos category
+     * @var Category
+     */
+    public $category;
+
+    /**
+     * @inheritDoc
+     */
+    public function __construct(DatabaseObject $object)
+    {
+        parent::__construct($object);
+
+        $this->getDecoratedObject()->getCategory();
+    }
+
+    /**
+     * Returns the name of the todo if a todo object is treated as a string.
+     *
+     * @return  string
+     */
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 
     /**
      * Returns the user profile object

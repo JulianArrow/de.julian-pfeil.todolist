@@ -52,6 +52,15 @@
                     <span class="icon icon16 fa-eye"></span>
                     {$todo->views} {lang}todolist.column.views{/lang}
                 </li>
+
+                {if "TODOLIST_COMMENTS_PLUGIN"|defined}
+                    {if $todo->enableComments}
+                        <li>
+                            <span class="icon icon16 fa-comments"></span> 
+                            {lang}todolist.comment.metaData{/lang}
+                        </li>
+                    {/if}
+                {/if}
                 
                 <li class="jsMarkAsDone" data-object-id="{@$todo->todoID}">
                     {if $todo->isDone()}
@@ -62,15 +71,6 @@
                         <span class="doneTitle">{lang}todolist.general.undone{/lang}</span>
                     {/if}
                 </li>
-
-                {if "TODOLIST_COMMENTS_PLUGIN"|defined}
-                    {if $todo->enableComments}
-                        <li>
-                            <span class="icon icon16 fa-comments"></span> 
-                            {lang}todolist.comment.metaData{/lang}
-                        </li>
-                    {/if}
-                {/if}
                 
                 {event name='afterMetaData'}
             </ul>

@@ -9,6 +9,14 @@
             <preset>1</preset>
         </event>
 
+        <!-- subscribed category -->
+		<event>
+			<name>category</name>
+			<objecttype>de.julian-pfeil.todolist.todo</objecttype>
+			<classname>todolist\system\user\notification\event\TodoCategoryUserNotificationEvent</classname>
+			<preset>1</preset>
+		</event>
+
         <!-- reactions / likes -->
         <event>
             <name>like</name>

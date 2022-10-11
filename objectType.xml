@@ -50,6 +50,13 @@
             <definitionname>com.woltlab.wcf.category</definitionname>
             <classname>todolist\system\category\TodoCategoryType</classname>
         </type>
+
+        <!-- object watch -->
+		<type>
+			<name>de.julian-pfeil.todolist.todo.category</name>
+			<definitionname>com.woltlab.wcf.user.objectWatch</definitionname>
+			<classname>todolist\system\user\object\watch\TodoCategoryUserObjectWatch</classname>
+		</type>
         
         <!-- acl -->
         <type>

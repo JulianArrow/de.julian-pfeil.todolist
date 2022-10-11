@@ -22,14 +22,15 @@ use wcf\system\search\SearchIndexManager;
 use wcf\system\exception\PermissionDeniedException;
 use wcf\system\exception\UserInputException;
 use wcf\system\user\notification\UserNotificationHandler;
+use wcf\system\user\object\watch\UserObjectWatchHandler;
 
 /**
  * Executes todo-related actions.
  *
- * @author     Julian Pfeil <https://julian-pfeil.de>
- * @link    https://darkwood.design/store/user-file-list/1298-julian-pfeil/
+ * @author      Julian Pfeil <https://julian-pfeil.de>
+ * @link        https://darkwood.design/store/user-file-list/1298-julian-pfeil/
  * @copyright   2022 Julian Pfeil Websites & Co.
- * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
+ * @license     Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
  *
  * @package    de.julian-pfeil.todolist
  * @subpackage data.todo
@@ -80,6 +81,16 @@ class TodoAction extends AbstractDatabaseObjectAction
 
         // save embedded objects
         $this->saveEmbeddedObjects($todoEditor, $todo);
+
+        // update watched objects
+        $category = $todo->getCategory();
+        UserObjectWatchHandler::getInstance()->updateObject(
+            'de.julian-pfeil.todolist.todo.category',
+            $category->categoryID,
+            'category',
+            'de.julian-pfeil.todolist.todo',
+            new TodoUserNotificationObject($todo)
+        );
 
         if (defined('TODOLIST_TAGGING_PLUGIN')) {
             // save tags
@@ -369,6 +380,7 @@ class TodoAction extends AbstractDatabaseObjectAction
             $todo->delete();
 
             $this->addTodoData($todo, 'deleted', LinkHandler::getInstance()->getLink('TodoList', ['application' => 'todolist']));
+            TodoModificationLogHandler::getInstance()->delete($todo->getDecoratedObject());
         }
 
         if (!empty($todoIDs)) {
@@ -390,7 +402,7 @@ class TodoAction extends AbstractDatabaseObjectAction
 
             if (defined('TODOLIST_MODIFICATION_LOG_PLUGIN')) {
                 // delete the log entries except for deleting the todo
-                TodoModificationLogHandler::getInstance()->deleteLogs($todoIDs);
+                TodoModificationLogHandler::getInstance()->deleteLogs($todoIDs, ['delete']);
             }
         }
 

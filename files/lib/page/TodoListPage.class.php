@@ -4,7 +4,7 @@ namespace todolist\page;
 
 use todolist\data\todo\category\TodoCategoryNodeTree;
 use todolist\data\todo\category\TodoCategory;
-use todolist\data\todo\AccessibleTodoList;
+use todolist\data\todo\list\AccessibleTodoList;
 use wcf\data\object\type\ObjectTypeCache;
 use wcf\page\SortablePage;
 use wcf\system\label\LabelHandler;
@@ -15,10 +15,10 @@ use wcf\system\request\LinkHandler;
 /**
  * Shows the list of todos.
  *
- * @author     Julian Pfeil <https://julian-pfeil.de>
- * @link    https://darkwood.design/store/user-file-list/1298-julian-pfeil/
+ * @author      Julian Pfeil <https://julian-pfeil.de>
+ * @link        https://darkwood.design/store/user-file-list/1298-julian-pfeil/
  * @copyright   2022 Julian Pfeil Websites & Co.
- * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
+ * @license     Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
  *
  * @package    de.julian-pfeil.todolist
  * @subpackage page
@@ -269,14 +269,14 @@ class TodoListPage extends SortablePage
                         $groupLabelIDs = LabelHandler::getInstance()->getLabelGroup($groupID)->getLabelIDs();
 
                         if (!empty($groupLabelIDs)) {
-                            $this->objectList->getConditionBuilder()->add('links.linkID NOT IN (SELECT objectID FROM wcf' . WCF_N . '_label_object WHERE objectTypeID = ? AND labelID IN (?))', [
+                            $this->objectList->getConditionBuilder()->add('todo.todoID NOT IN (SELECT objectID FROM wcf' . WCF_N . '_label_object WHERE objectTypeID = ? AND labelID IN (?))', [
                                 $objectTypeID,
                                 $groupLabelIDs,
                             ]);
                         }
                     } else {
                         $this->labelID = $labelID;
-                        $this->objectList->getConditionBuilder()->add('links.linkID IN (SELECT objectID FROM wcf' . WCF_N . '_label_object WHERE objectTypeID = ? AND labelID = ?)', [
+                        $this->objectList->getConditionBuilder()->add('todo.todoID IN (SELECT objectID FROM wcf' . WCF_N . '_label_object WHERE objectTypeID = ? AND labelID = ?)', [
                             $objectTypeID,
                             $labelID,
                         ]);

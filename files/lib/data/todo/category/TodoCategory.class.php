@@ -11,21 +11,22 @@ use wcf\data\user\User;
 use wcf\system\category\CategoryHandler;
 use wcf\system\exception\SystemException;
 use wcf\system\request\LinkHandler;
+use wcf\system\user\object\watch\UserObjectWatchHandler;
+use wcf\system\user\storage\UserStorageHandler;
 use wcf\system\WCF;
 
 /**
  * Class TodoCategory
  *
- * @author     Julian Pfeil <https://julian-pfeil.de>
- * @link    https://darkwood.design/store/user-file-list/1298-julian-pfeil/
+ * @author      Julian Pfeil <https://julian-pfeil.de>
+ * @link        https://darkwood.design/store/user-file-list/1298-julian-pfeil/
  * @copyright   2022 Julian Pfeil Websites & Co.
- * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
+ * @license     Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
  *
  * @package    de.julian-pfeil.todolist
  * @subpackage data.todo.category
  */
 
- *  /
 class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObject, ITitledLinkObject
 {
     /**
@@ -41,6 +42,11 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
      * @var        array
      */
     protected $userPermissions = [];
+	
+	/**
+	 * ids of subscribed todo categories
+	 */
+	protected static $subscribedCategories = null;
 
     /**
      * Returns a list with ids of accessible categories.
@@ -105,6 +111,39 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
 
         return LabelHandler::getInstance()->getLabelGroups(\array_unique($groupIDs), true, $permission);
     }
+	
+	/**
+	 * Returns subscribed category IDs.
+	 */
+	public static function getSubscribedCategoryIDs() {
+		if (self::$subscribedCategories === null) {
+			self::$subscribedCategories = [];
+			
+			if (WCF::getUser()->userID) {
+				$data = UserStorageHandler::getInstance()->getField('showSubscribedCategories');
+				
+				// cache does not exist or is outdated
+				if ($data === null) {
+					$objectTypeID = UserObjectWatchHandler::getInstance()->getObjectTypeID('de.julian-pfeil.todolist.todo.category');
+					
+					$sql = "SELECT	objectID
+							FROM	wcf".WCF_N."_user_object_watch
+							WHERE	objectTypeID = ? AND userID = ?";
+					$statement = WCF::getDB()->prepareStatement($sql);
+					$statement->execute([$objectTypeID, WCF::getUser()->userID]);
+					self::$subscribedCategories = $statement->fetchAll(\PDO::FETCH_COLUMN);
+					
+					// update storage data
+					UserStorageHandler::getInstance()->update(WCF::getUser()->userID, 'showSubscribedCategories', serialize(self::$subscribedCategories));
+				}
+				else {
+					self::$subscribedCategories = unserialize($data);
+				}
+			}
+		}
+		
+		return self::$subscribedCategories;
+	}
 
     /**
      * Returns the link to the object.
@@ -129,6 +168,13 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
     {
         return WCF::getLanguage()->get($this->title);
     }
+	
+	/**
+	 * Returns true if the active user has subscribed to this category.
+	 */
+	public function isSubscribed() {
+		return in_array($this->categoryID, self::getSubscribedCategoryIDs());
+	}
 
     /**
      * @inheritDoc
