@@ -28,8 +28,8 @@
             'todolist.action.markAsDone':					'{jslang}todolist.action.markAsDone{/jslang}',
             'todolist.action.markAsUndone':					'{jslang}todolist.action.markAsUndone{/jslang}',
             'todolist.action.confirmDelete':				'{jslang}todolist.action.confirmDelete{/jslang}',
-            'todolist.general.done':						'{jslang}todolist.general.done{/jslang}',
-            'todolist.general.undone':						'{jslang}todolist.general.undone{/jslang}'
+            'todolist.general.isDone':						'{jslang}todolist.general.isDone{/jslang}',
+            'todolist.general.isUndone':						'{jslang}todolist.general.isUndone{/jslang}'
         });
         
         var $updateHandler = new Todolist.Todo.UpdateHandler.Todo();

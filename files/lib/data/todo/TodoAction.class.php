@@ -119,6 +119,12 @@ class TodoAction extends AbstractDatabaseObjectAction
 
         $this->parameters['data']['description'] = $this->loadDescriptionHtmlInputProcessor($this->parameters['description_htmlInputProcessor']);
 
+        // update label status
+        $this->parameters['data']['hasLabels'] = 0;
+        if (isset($this->parameters['labels']) && \count($this->parameters['labels'])) {
+            $this->parameters['data']['hasLabels'] = 1;
+        }
+
         parent::update();
 
         // get ids
@@ -143,6 +149,13 @@ class TodoAction extends AbstractDatabaseObjectAction
             if (defined('TODOLIST_TAGGING_PLUGIN')) {
                 // save tags
                 $this->saveTags($todo);
+            }
+        }
+
+        if (defined('TODOLIST_LABELS_PLUGIN')) {
+            // set labels
+            if (isset($this->parameters['labels'])) {
+                TodoLabelObjectHandler::getInstance()->setLabels($this->parameters['labels'], $todo->todoID);
             }
         }
     }

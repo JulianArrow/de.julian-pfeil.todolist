@@ -78,8 +78,8 @@
 <script data-relocate="true">
     $(function() {
         WCF.Language.addObject({	
-            'todolist.general.done':						'{jslang}todolist.general.done{/jslang}',
-            'todolist.general.undone':						'{jslang}todolist.general.undone{/jslang}'
+            'todolist.general.isDone':						'{jslang}todolist.general.isDone{/jslang}',
+            'todolist.general.isUndone':						'{jslang}todolist.general.isUndone{/jslang}'
         });
         var $updateHandler = new Todolist.Todo.UpdateHandler.Todolist();
         

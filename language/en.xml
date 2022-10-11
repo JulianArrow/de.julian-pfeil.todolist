@@ -82,8 +82,8 @@
         <item name="todolist.general.title"><![CDATA[General]]></item>
         <item name="todolist.general.todo"><![CDATA[To-do: {$todo}]]></item>
         <item name="todolist.general.list"><![CDATA[To-do list]]></item>
-        <item name="todolist.general.done"><![CDATA[done]]></item>
-        <item name="todolist.general.undone"><![CDATA[undone]]></item>
+        <item name="todolist.general.isDone"><![CDATA[done]]></item>
+        <item name="todolist.general.isUndone"><![CDATA[undone]]></item>
         <item name="todolist.general.copyright"><![CDATA[<a href="https://julian-pfeil.de" rel="nofollow"{if EXTERNAL_LINK_TARGET_BLANK} target="_blank"{/if}><strong>To-do list{if SHOW_VERSION_NUMBER} {@PACKAGE_VERSION}{/if}</strong> (by <strong>julian-pfeil.de</strong>)</a>]]></item>
     </category>
     

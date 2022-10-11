@@ -9,6 +9,7 @@
         <item name="wcf.acp.group.option.category.mod.todolist.general"><![CDATA[Allgemein]]></item>
         <item name="wcf.acp.group.option.category.admin.todolist.general"><![CDATA[Allgemein]]></item>
         <item name="wcf.acp.group.option.user.todolist.general.canViewTodoList"><![CDATA[Kann To-do-Liste sehen]]></item>
+        <item name="wcf.acp.group.option.user.todolist.general.canViewTodoInEveryCategory"><![CDATA[Kann To-dos in jeder Kategorie sehen]]></item>
         <item name="wcf.acp.group.option.user.todolist.general.canAddTodoInEveryCategory"><![CDATA[Kann To-dos in jeder Kategorie hinzufügen]]></item>
         <item name="wcf.acp.group.option.user.todolist.general.canDeleteOwnTodoInEveryCategory"><![CDATA[Kann eigene To-dos in jeder Kategorie löschen]]></item>
         <item name="wcf.acp.group.option.user.todolist.general.canEditOwnTodoInEveryCategory"><![CDATA[Kann eigene To-dos in jeder Kategorie bearbeiten]]></item>
@@ -28,7 +29,12 @@
     </category>
 
     <category name="wcf.acp.label">
-        <item name="wcf.acp.label.container.de.julian-pfeil.todolist.todo.category"><![CDATA[To-do-Kategorie]]></item>
+        <item name="wcf.acp.label.container.de.julian-pfeil.todolist.todo.category"><![CDATA[To-do-Liste]]></item>
+    </category>
+
+    <category name="wcf.tagging">
+        <item name="wcf.tagging.taggedObjects.de.julian-pfeil.todolist.todo"><![CDATA[To-dos mit dem Tag „{$tag->name}“]]></item>
+        <item name="wcf.tagging.objectType.de.julian-pfeil.todolist.todo"><![CDATA[To-do-Liste]]></item>
     </category>
 
     <category name="wcf.acl.option">
@@ -75,7 +81,7 @@
 	<category name="wcf.user.objectWatch">
 		<item name="wcf.user.objectWatch.subscribe.de.julian-pfeil.todolist.todo.category"><![CDATA[Kategorie abonnieren]]></item>
 		<item name="wcf.user.objectWatch.enableNotification.de.julian-pfeil.todolist.todo.category"><![CDATA[Benachrichtigung über neue To-dos in dieser Kategorie aktivieren]]></item>
-		<item name="wcf.user.objectWatch.unsubscrib.de.julian-pfeil.todolist.todo.category"><![CDATA[Kategorie nicht abonnieren]]></item>
+		<item name="wcf.user.objectWatch.unsubscribe.de.julian-pfeil.todolist.todo.category"><![CDATA[Kategorie nicht abonnieren]]></item>
 	</category>
     
     <category name="wcf.like">
@@ -118,14 +124,19 @@
     <category name="todolist.modLog">
         <item name="todolist.modLog.title"><![CDATA[Änderungsprotokoll]]></item>
         <item name="todolist.modLog.contentTitle"><![CDATA[Änderungsprotokoll für To-do "{$todo}"]]></item>
+        <item name="todolist.modLog.edit"><![CDATA[To-do wurde bearbeitet]]></item>
+        <item name="todolist.modLog.markAsDone"><![CDATA[To-do wurde als erledigt markiert]]></item>
+        <item name="todolist.modLog.markAsUndone"><![CDATA[To-do wurde als unerledigt markiert]]></item>
+        <item name="todolist.modLog.delete"><![CDATA[To-do wurde gelöscht]]></item>
+        <item name="todolist.modLog.setLabel"><![CDATA[Labels des To-dos wurden verändert]]></item>
     </category>
 
     <category name="todolist.column">
         <item name="todolist.column.todoName"><![CDATA[Titel]]></item>
         <item name="todolist.column.time"><![CDATA[Erstellungsdatum]]></item>
         <item name="todolist.column.description"><![CDATA[Beschreibung]]></item>
-        <item name="todolist.column.done"><![CDATA[Erledigt?]]></item>
-        <item name="todolist.column.views"><![CDATA[Aufrufe]]></item>
+        <item name="todolist.column.isDone"><![CDATA[Erledigt?]]></item>
+        <item name="todolist.column.views"><![CDATA[{plural value=$todo->views 1='Aufruf' other='Aufrufe'}]]></item>
         <item name="todolist.column.lastEditTime"><![CDATA[Zuletzt geändert]]></item>
     </category>
     
@@ -133,9 +144,9 @@
         <item name="todolist.category.title"><![CDATA[Kategorie]]></item>
         <item name="todolist.category.all"><![CDATA[Alle Kategorien]]></item>
         <item name="todolist.category.notification.title"><![CDATA[Neues To-do]]></item>
-		<item name="todolist.category.notification.message"><![CDATA[<strong>{$author}</strong> hat das To-do <a href="{link application='todolist' controller='Todo' object=$todo}{/link}">{$todo->getSubject()}</a> hinzugefügt.]]></item>
-		<item name="todolist.category.notification.mail.plaintext"><![CDATA[{if $event->getAuthor()->userID}{@$event->getAuthor()->username} [URL:{link controller='User' object=$event->getAuthor() isEmail=true}{/link}]{else}ein Gast{/if} hat das To-do „{@$event->getUserNotificationObject()->getSubject()}“ [URL:{link application='todolist' controller='Todo' object=$event->getUserNotificationObject() isEmail=true}{/link}] hinzugefügt:]]></item>
-		<item name="todolist.category.notification.mail.html"><![CDATA[<p>{if $event->getAuthor()->userID}<a href="{link controller='User' object=$event->getAuthor() isHtmlEmail=true}{/link}">{$event->getAuthor()->username}</a>{else}ein Gast{/if} hat das To-do <a href="{link application='todolist' controller='Todo' object=$event->getUserNotificationObject() isHtmlEmail=true}{/link}">{$event->getUserNotificationObject()->getSubject()}</a> hinzugefügt:</p>]]></item>
+		<item name="todolist.category.notification.message"><![CDATA[<strong>{$author}</strong> hat das To-do <a href="{link application='todolist' controller='Todo' object=$todo}{/link}">{$todo->getTitle()}</a> hinzugefügt.]]></item>
+		<item name="todolist.category.notification.mail.plaintext"><![CDATA[{if $event->getAuthor()->userID}{@$event->getAuthor()->username} [URL:{link controller='User' object=$event->getAuthor() isEmail=true}{/link}]{else}ein Gast{/if} hat das To-do „{@$event->getUserNotificationObject()->getTitle()}“ [URL:{link application='todolist' controller='Todo' object=$event->getUserNotificationObject() isEmail=true}{/link}] hinzugefügt:]]></item>
+		<item name="todolist.category.notification.mail.html"><![CDATA[<p>{if $event->getAuthor()->userID}<a href="{link controller='User' object=$event->getAuthor() isHtmlEmail=true}{/link}">{$event->getAuthor()->username}</a>{else}ein Gast{/if} hat das To-do <a href="{link application='todolist' controller='Todo' object=$event->getUserNotificationObject() isHtmlEmail=true}{/link}">{$event->getUserNotificationObject()->getTitle()}</a> hinzugefügt:</p>]]></item>
         <item name="todolist.category.info.noCategories"><![CDATA[{if LANGUAGE_USE_INFORMAL_VARIANT}Du musst{else}Sie müssen{/if} zuerst mindestens eine <a href="{link controller='TodoCategoryAdd' isACP=true}{/link}">Kategorie anlegen</a>, um To-dos erstellen zu können.]]></item>
     </category>
     
@@ -147,7 +158,7 @@
         <item name="todolist.general.recentActivity.todo"><![CDATA[Hat das To-do {if $todo->hasLabels()}<ul class="labelList">{foreach from=$todo->getLabels() item=label}<li>{@$label->render()}</li>{/foreach}</ul> {/if}{anchor object=$todo} hinzugefügt.]]></item>
         <item name="todolist.general.isDone"><![CDATA[erledigt]]></item>
         <item name="todolist.general.isUndone"><![CDATA[unerledigt]]></item>
-        <item name="todolist.general.copyright"><![CDATA[<a href="https://julian-pfeil.de" rel="nofollow"{if EXTERNAL_LINK_TARGET_BLANK} target="_blank"{/if}><strong>To-do-Liste{if TODOLIST_VERSION_NUMBER} {@PACKAGE_VERSION}{/if}</strong> (von <strong>julian-pfeil.de</strong>)</a>]]></item>
+        <item name="todolist.general.copyright"><![CDATA[<a href="https://julian-pfeil.de" rel="nofollow"{if EXTERNAL_LINK_TARGET_BLANK} target="_blank"{/if}><strong>To-do-Liste{if SHOW_VERSION_NUMBER} {@PACKAGE_VERSION}{/if}</strong> (von <strong>julian-pfeil.de</strong>)</a>]]></item>
     </category>
     
     <category name="todolist.comment">

@@ -6,7 +6,7 @@
         <packagename languagecode="de">To-do-Liste</packagename>
         <packagedescription languagecode="de">To-do-Liste für das Erstellen von To-dos.</packagedescription>
         <version>2.0.0</version>
-        <date>2022-10-07</date>
+        <date>2022-10-11</date>
         <packageurl><![CDATA[https://darkwood.design/store/user-file-list/1298-julian-pfeil/]]></packageurl>
         <isapplication>1</isapplication>
         <applicationdirectory>todolist</applicationdirectory>

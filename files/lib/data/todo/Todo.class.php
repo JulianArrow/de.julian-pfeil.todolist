@@ -169,13 +169,10 @@ class Todo extends DatabaseObject implements ITitledLinkObject
      */
     public function getSimplifiedFormattedMessage()
     {
-        // remove [readmore] tag
-        $description = \str_replace('[readmore]', '', $this->getFormattedMessage());
-
-        // parse and return message
+    // parse and return message
         $processor = new HtmlOutputProcessor();
         $processor->setOutputType('text/simplified-html');
-        $processor->process($description, 'de.julian-pfeil.todolist.todo.content', $this->todoID);
+        $processor->process($this->description, 'de.julian-pfeil.todolist.todo.content', $this->todoID);
 
         return $processor->getHtml();
     }
@@ -203,7 +200,7 @@ class Todo extends DatabaseObject implements ITitledLinkObject
      */
     public function getExcerpt()
     {
-        $excerpt = StringUtil::truncate($this->getPlainMessage());
+        $excerpt = StringUtil::truncateHTML($this->getSimplifiedFormattedMessage());
         return $excerpt;
     }
 

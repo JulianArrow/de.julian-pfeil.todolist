@@ -409,12 +409,12 @@ Todolist.Todo.UpdateHandler = Class.extend({
     _markAsUndone: function (todoID) {
         this._super(todoID);
 
-        $('.jsMarkAsDone .doneTitle').text(WCF.Language.get('todolist.general.undone'));
+        $('.jsMarkAsDone .doneTitle').text(WCF.Language.get('todolist.general.isUndone'));
         $('.jsMarkAsDone .icon')
             .removeClass('fa-check-square-o')
             .addClass('fa-square-o')
-            .attr('aria-label', WCF.Language.get('todolist.general.undone'))
-            .attr('data-tooltip', WCF.Language.get('todolist.general.undone'));
+            .attr('aria-label', WCF.Language.get('todolist.general.isUndone'))
+            .attr('data-tooltip', WCF.Language.get('todolist.general.isUndone'));
     },
     
     /**
@@ -423,12 +423,12 @@ Todolist.Todo.UpdateHandler = Class.extend({
     _markAsDone: function (todoID) {
         this._super(todoID);
 
-        $('.jsMarkAsDone .doneTitle').text(WCF.Language.get('todolist.general.done'));
+        $('.jsMarkAsDone .doneTitle').text(WCF.Language.get('todolist.general.isDone'));
         $('.jsMarkAsDone .icon')
             .addClass('fa-check-square-o')
             .removeClass('fa-square-o')
-            .attr('aria-label', WCF.Language.get('todolist.general.done'))
-            .attr('data-tooltip', WCF.Language.get('todolist.general.done'));
+            .attr('aria-label', WCF.Language.get('todolist.general.isDone'))
+            .attr('data-tooltip', WCF.Language.get('todolist.general.isDone'));
     },
 });
 
@@ -446,8 +446,8 @@ Todolist.Todo.UpdateHandler = Class.extend({
         $('[data-todo-id=' + todoID + '] .jsMarkAsDone.icon')
             .removeClass('fa-check-square-o')
             .addClass('fa-square-o')
-            .attr('aria-label', WCF.Language.get('todolist.general.undone'))
-            .attr('data-tooltip', WCF.Language.get('todolist.general.undone'));
+            .attr('aria-label', WCF.Language.get('todolist.general.isUndone'))
+            .attr('data-tooltip', WCF.Language.get('todolist.general.isUndone'));
     },
     
     /**
@@ -459,8 +459,8 @@ Todolist.Todo.UpdateHandler = Class.extend({
         $('[data-todo-id=' + todoID + '] .jsMarkAsDone.icon')
             .addClass('fa-check-square-o')
             .removeClass('fa-square-o')
-            .attr('aria-label', WCF.Language.get('todolist.general.done'))
-            .attr('data-tooltip', WCF.Language.get('todolist.general.done'));
+            .attr('aria-label', WCF.Language.get('todolist.general.isDone'))
+            .attr('data-tooltip', WCF.Language.get('todolist.general.isDone'));
     },
 });
 

@@ -174,7 +174,7 @@ class TodoAddForm extends AbstractFormBuilderForm
 
         /* infoContainer */
         $infoContainer = FormContainer::create('info')
-            ->label('todo.general.info');
+            ->label('todolist.general.info');
 
 
         if (defined('TODOLIST_TAGGING_PLUGIN')) {

@@ -2,7 +2,7 @@
 
 namespace todolist\system\user\activity\event;
 
-use todolist\data\todo\list\TodoList;
+use todolist\data\todo\list\ViewableTodoList;
 use wcf\system\SingletonFactory;
 use wcf\system\user\activity\event\IUserActivityEvent;
 use wcf\system\WCF;
@@ -31,7 +31,7 @@ class TodoUserActivityEvent extends SingletonFactory implements IUserActivityEve
         }
 
         // fetch entries
-        $todoList = new TodoList();
+        $todoList = new ViewableTodoList();
         $todoList->setObjectIDs($objectIDs);
         $todoList->readObjects();
         $entries = $todoList->getObjects();
