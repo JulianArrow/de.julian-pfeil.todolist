@@ -85,7 +85,7 @@
 	</category>
     
     <category name="wcf.like">
-        <item name="wcf.like.objectType.de.julian-pfeil.todolist.likeableTodo"><![CDATA[To-do]]></item>
+        <item name="wcf.like.objectType.de.julian-pfeil.todolist.likeableThowodo"><![CDATA[To-do]]></item>
 
         <item name="wcf.like.title.de.julian-pfeil.todolist.likeableTodo"><![CDATA[Hat mit {@$like->render()} auf das To-do <a href="{link application='todolist' controller='Todo' object=$todo}{/link}" class="todoLink" data-todo-id="{@$todo->todoID}">{$todo->getTitle()}</a> reagiert.]]></item>
 
@@ -117,7 +117,7 @@
     
     <category name="todolist.acp">
         <item name="todolist.acp.menu.link.todo.category.add"><![CDATA[Kategorie hinzufügen]]></item>
-        <item name="todolist.acp.menu.link.todo.category"><![CDATA[Kategorie]]></item>
+        <item name="todolist.acp.menu.link.todo.category"><![CDATA[Kategorien]]></item>
         <item name="todolist.acp.menu.link"><![CDATA[To-do-Liste]]></item>
     </category>
     
@@ -159,7 +159,7 @@
         <item name="todolist.general.recentActivity.todo"><![CDATA[Hat das To-do {if $todo->hasLabels()}<ul class="labelList">{foreach from=$todo->getLabels() item=label}<li>{@$label->render()}</li>{/foreach}</ul> {/if}{anchor object=$todo} hinzugefügt.]]></item>
         <item name="todolist.general.isDone"><![CDATA[erledigt]]></item>
         <item name="todolist.general.isUndone"><![CDATA[unerledigt]]></item>
-        <item name="todolist.general.copyright"><![CDATA[<a href="https://julian-pfeil.de" rel="nofollow"{if EXTERNAL_LINK_TARGET_BLANK} target="_blank"{/if}><strong>To-do-Liste{if SHOW_VERSION_NUMBER} {@PACKAGE_VERSION}{/if}</strong> (von <strong>julian-pfeil.de</strong>)</a>]]></item>
+        <item name="todolist.general.copyright"><![CDATA[<a href="https://julian-pfeil.de" rel="nofollow"{if EXTERNAL_LINK_TARGET_BLANK} target="_blank"{/if}><strong>To-do-Liste{if TODOLIST_VERSION_NUMBER} {@PACKAGE_VERSION}{/if}</strong> (von <strong>julian-pfeil.de</strong>)</a>]]></item>
     </category>
     
     <category name="todolist.comment">
