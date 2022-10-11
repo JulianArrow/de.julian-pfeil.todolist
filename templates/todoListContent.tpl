@@ -33,7 +33,7 @@
                                 </small>
                                 
                                 <small class="separatorLeft">
-                                    {if $todo->time == $todo->lastEditTime}
+                                    {if $todo->time < $todo->lastEditTime}
                                         <span class="icon icon16 fa-clock-o"></span>
                                         {@$todo->time|time}
                                     {else}
