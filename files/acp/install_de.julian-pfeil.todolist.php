@@ -38,3 +38,9 @@ $sql = "UPDATE  todolist" . WCF_N . "_todo todo
         SET     todo.categoryID = ?";
 $statement = WCF::getDB()->prepareStatement($sql);
 $statement->execute([$categoryID]);
+
+// set lastEditTime = time
+$sql = "UPDATE  todolist" . WCF_N . "_todo todo
+        SET     todo.lastEditTime = todo.time";
+$statement = WCF::getDB()->prepareStatement($sql);
+$statement->execute();
