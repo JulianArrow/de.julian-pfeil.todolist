@@ -159,7 +159,7 @@
         <item name="todolist.general.recentActivity.todo"><![CDATA[Hat das To-do {if $todo->hasLabels()}<ul class="labelList">{foreach from=$todo->getLabels() item=label}<li>{@$label->render()}</li>{/foreach}</ul> {/if}{anchor object=$todo} hinzugefügt.]]></item>
         <item name="todolist.general.isDone"><![CDATA[erledigt]]></item>
         <item name="todolist.general.isUndone"><![CDATA[unerledigt]]></item>
-        <item name="todolist.general.copyright"><![CDATA[<a href="https://julian-pfeil.de" rel="nofollow"{if EXTERNAL_LINK_TARGET_BLANK} target="_blank"{/if}><strong>To-do-Liste{if TODOLIST_VERSION_NUMBER} {@PACKAGE_VERSION}{/if}</strong> (von <strong>julian-pfeil.de</strong>)</a>]]></item>
+        <item name="todolist.general.copyright"><![CDATA[<a href="https://julian-pfeil.de" rel="nofollow"{if EXTERNAL_LINK_TARGET_BLANK} target="_blank"{/if}><strong>To-do-Liste{if SHOW_VERSION_NUMBER} {@PACKAGE_VERSION}{/if}</strong> (von <strong>julian-pfeil.de</strong>)</a>]]></item>
     </category>
     
     <category name="todolist.comment">
