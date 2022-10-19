@@ -2,15 +2,15 @@
 
 namespace todolist\page;
 
-use todolist\data\todo\ViewableTodo;
-use todolist\data\todo\TodoEditor;
-use todolist\data\todo\category\TodoCategoryNodeTree;
 use todolist\data\todo\category\TodoCategory;
+use todolist\data\todo\category\TodoCategoryNodeTree;
+use todolist\data\todo\TodoEditor;
+use todolist\data\todo\ViewableTodo;
 use wcf\page\AbstractPage;
 use wcf\system\exception\IllegalLinkException;
-use wcf\system\WCF;
-use wcf\system\reaction\ReactionHandler;
 use wcf\system\message\embedded\object\MessageEmbeddedObjectManager;
+use wcf\system\reaction\ReactionHandler;
+use wcf\system\WCF;
 
 /**
  * Shows the details of a certain todo.
@@ -62,7 +62,7 @@ class TodoPage extends AbstractPage
 
         if (MODULE_LIKE) {
             WCF::getTPL()->assign([
-                'todoLikeData' => $this->todoLikeData
+                'todoLikeData' => $this->todoLikeData,
             ]);
         }
     }
@@ -84,7 +84,7 @@ class TodoPage extends AbstractPage
     {
         parent::readParameters();
 
-        #todoID
+        //todoID
         if (isset($_REQUEST['id'])) {
             $this->todoID = \intval($_REQUEST['id']);
         }

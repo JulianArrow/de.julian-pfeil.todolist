@@ -19,7 +19,8 @@ class TodoProvider extends AbstractObjectTypeProvider
      * @inheritDoc
      */
     public $className = Todo::class;
-/**
+
+    /**
      * @inheritDoc
      */
     public $listClassName = TodoList::class;

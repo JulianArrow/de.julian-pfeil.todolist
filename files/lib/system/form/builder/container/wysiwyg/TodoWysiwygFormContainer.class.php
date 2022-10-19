@@ -24,6 +24,6 @@ class TodoWysiwygFormContainer extends WysiwygFormContainer
     {
         parent::populate();
 
-        $this->getNodeById($this->wysiwygId . 'SettingsTab')->available(count($this->settingsNodes));
+        $this->getNodeById($this->wysiwygId . 'SettingsTab')->available(\count($this->settingsNodes));
     }
 }

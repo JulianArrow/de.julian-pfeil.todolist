@@ -2,8 +2,8 @@
 
 namespace todolist\page;
 
-use todolist\data\todo\category\TodoCategoryNodeTree;
 use todolist\data\todo\category\TodoCategory;
+use todolist\data\todo\category\TodoCategoryNodeTree;
 use todolist\data\todo\list\AccessibleTodoList;
 use wcf\page\SortablePage;
 use wcf\system\WCF;
@@ -25,6 +25,7 @@ class TodoListPage extends SortablePage
      * @inheritDoc
      */
     public $defaultSortField = 'time';
+
     /**
      * @inheritDoc
      */
@@ -80,7 +81,7 @@ class TodoListPage extends SortablePage
      *
      * @var        Category
      */
-    public $category = null;
+    public $category;
 
     /**
      * @inheritDoc
@@ -95,7 +96,7 @@ class TodoListPage extends SortablePage
             'validSortFields' => $this->validSortFields,
             'viewableCategoryList' => $this->viewableCategoryList,
             'canAddToCategoryList' => $this->canAddToCategoryList,
-            'canAddTodoInAnyCategory' => $this->categoryNodeTree->canAddTodoInAnyCategory()
+            'canAddTodoInAnyCategory' => $this->categoryNodeTree->canAddTodoInAnyCategory(),
         ]);
 
         if (!empty($this->category)) {

@@ -7,13 +7,13 @@ use todolist\data\todo\category\TodoCategoryNodeTree;
 use todolist\data\todo\TodoAction;
 use todolist\system\form\builder\container\wysiwyg\TodoWysiwygFormContainer;
 use wcf\form\AbstractFormBuilderForm;
+use wcf\system\exception\PermissionDeniedException;
 use wcf\system\form\builder\container\FormContainer;
-use wcf\system\form\builder\field\TextFormField;
 use wcf\system\form\builder\field\BooleanFormField;
 use wcf\system\form\builder\field\SingleSelectionFormField;
-use wcf\system\exception\PermissionDeniedException;
-use wcf\system\WCF;
+use wcf\system\form\builder\field\TextFormField;
 use wcf\system\request\LinkHandler;
+use wcf\system\WCF;
 
 /**
  * Shows the form to create a new todo.
@@ -58,7 +58,7 @@ class TodoAddForm extends AbstractFormBuilderForm
      *
      * @var        Category
      */
-    public $category = null;
+    public $category;
 
     /**
      * category id
@@ -72,7 +72,7 @@ class TodoAddForm extends AbstractFormBuilderForm
     {
         parent::readParameters();
 
-        #categoryID
+        //categoryID
         if ($this->formAction == 'create') {
             if (isset($_REQUEST['id'])) {
                 $this->categoryID = \intval($_REQUEST['id']);
@@ -129,30 +129,29 @@ class TodoAddForm extends AbstractFormBuilderForm
 
         /* wysiwygContainer */
         $wysiwygContainer = TodoWysiwygFormContainer::create('description')
-        ->label('todolist.column.description')
-        ->required()
-        ->messageObjectType('de.julian-pfeil.todolist.todo.content')
-        ->supportMentions(true)
-        ->addSettingsNode(
-            /* isDone settingsNode */
-            BooleanFormField::create('isDone')
-                ->label('todolist.column.isDone')
-                ->value(false)
-        );
+            ->label('todolist.column.description')
+            ->required()
+            ->messageObjectType('de.julian-pfeil.todolist.todo.content')
+            ->supportMentions(true)
+            ->addSettingsNode(
+                /* isDone settingsNode */
+                BooleanFormField::create('isDone')
+                    ->label('todolist.column.isDone')
+                    ->value(false)
+            );
 
         /* append to dataContainer */
         $dataContainer->appendChild(
             TextFormField::create('todoName')
-            ->label('todolist.column.todoName')
-            ->required()
-            ->autoFocus()
-            ->maximumLength(255)
+                ->label('todolist.column.todoName')
+                ->required()
+                ->autoFocus()
+                ->maximumLength(255)
         );
 
         /* infoContainer */
         $infoContainer = FormContainer::create('info')
             ->label('todolist.general.info');
-
 
         /* category selection */
         $categoryField = SingleSelectionFormField::create('categoryID')
@@ -188,14 +187,12 @@ class TodoAddForm extends AbstractFormBuilderForm
             $categoryField->value($this->categoryID);
         }
 
-
-
         /* append data, info & categorySelection to form */
         $this->form->appendChildren([
             $dataContainer,
             $infoContainer,
             FormContainer::create('categorySelection')
-                ->appendChildren([$categoryField])
+                ->appendChildren([$categoryField]),
         ]);
 
         /* append wysiwygContainer to form*/
@@ -233,7 +230,7 @@ class TodoAddForm extends AbstractFormBuilderForm
         if ($this->formAction == 'create') {
             WCF::getTPL()->assign([
                 'success' => true,
-                'objectEditLink' => LinkHandler::getInstance()->getControllerLink(TodoEditForm::class, ['id' => $this->objectAction->getReturnValues()['returnValues']->todoID])
+                'objectEditLink' => LinkHandler::getInstance()->getControllerLink(TodoEditForm::class, ['id' => $this->objectAction->getReturnValues()['returnValues']->todoID]),
             ]);
         }
     }

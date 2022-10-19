@@ -3,10 +3,10 @@
 namespace todolist\data\todo;
 
 use todolist\data\todo\list\ViewableTodoList;
-use wcf\data\DatabaseObjectDecorator;
 use wcf\data\DatabaseObject;
-use wcf\data\user\UserProfile;
+use wcf\data\DatabaseObjectDecorator;
 use wcf\data\user\User;
+use wcf\data\user\UserProfile;
 
 /**
  * Represents a viewable todo.

@@ -4,8 +4,8 @@ namespace todolist\data\todo\list;
 
 use todolist\data\todo\ViewableTodo;
 use wcf\system\cache\runtime\UserProfileRuntimeCache;
-use wcf\system\reaction\ReactionHandler;
 use wcf\system\message\embedded\object\MessageEmbeddedObjectManager;
+use wcf\system\reaction\ReactionHandler;
 
 /**
  * Represents a viewable list of todos.
@@ -31,7 +31,6 @@ class ViewableTodoList extends TodoList
     public function __construct()
     {
         parent::__construct();
-
 
         // get avatars
         if (!empty($this->sqlSelects)) {

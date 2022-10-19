@@ -2,8 +2,8 @@
 
 namespace todolist\system;
 
-use wcf\system\application\AbstractApplication;
 use todolist\page\TodoListPage;
+use wcf\system\application\AbstractApplication;
 
 /**
  * This is the core class for the todolist extending the wcf-own core class.

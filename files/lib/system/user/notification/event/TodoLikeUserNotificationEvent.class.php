@@ -53,7 +53,7 @@ class TodoLikeUserNotificationEvent extends AbstractSharedUserNotificationEvent
 
         return LinkHandler::getInstance()->getLink('Todo', [
             'application' => 'todolist',
-            'object' => $todo
+            'object' => $todo,
         ]);
     }
 
@@ -73,14 +73,14 @@ class TodoLikeUserNotificationEvent extends AbstractSharedUserNotificationEvent
                 'count' => $count,
                 'others' => $count - 1,
                 'todo' => $todo,
-                'reactions' => $this->getReactionsForAuthors()
+                'reactions' => $this->getReactionsForAuthors(),
             ]);
         }
 
         return $this->getLanguage()->getDynamicVariable('todolist.like.notification.message', [
             'author' => $this->author,
             'todo' => $todo,
-            'reactions' => $this->getReactionsForAuthors()
+            'reactions' => $this->getReactionsForAuthors(),
         ]);
     }
 
@@ -93,7 +93,7 @@ class TodoLikeUserNotificationEvent extends AbstractSharedUserNotificationEvent
         if ($count > 1) {
             return $this->getLanguage()->getDynamicVariable('todolist.like.notification.title.stacked', [
                 'count' => $count,
-                'timesTriggered' => $this->notification->timesTriggered
+                'timesTriggered' => $this->notification->timesTriggered,
             ]);
         }
 

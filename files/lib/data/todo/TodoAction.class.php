@@ -4,18 +4,18 @@ namespace todolist\data\todo;
 
 use todolist\system\user\notification\object\TodoUserNotificationObject;
 use wcf\data\AbstractDatabaseObjectAction;
-use wcf\system\WCF;
-use wcf\system\language\LanguageFactory;
-use wcf\system\message\embedded\object\MessageEmbeddedObjectManager;
-use wcf\util\UserUtil;
-use wcf\system\request\LinkHandler;
-use wcf\system\user\activity\event\UserActivityEventHandler;
-use wcf\system\like\LikeHandler;
-use wcf\system\search\SearchIndexManager;
 use wcf\system\exception\PermissionDeniedException;
 use wcf\system\exception\UserInputException;
+use wcf\system\language\LanguageFactory;
+use wcf\system\like\LikeHandler;
+use wcf\system\message\embedded\object\MessageEmbeddedObjectManager;
+use wcf\system\request\LinkHandler;
+use wcf\system\search\SearchIndexManager;
+use wcf\system\user\activity\event\UserActivityEventHandler;
 use wcf\system\user\notification\UserNotificationHandler;
 use wcf\system\user\object\watch\UserObjectWatchHandler;
+use wcf\system\WCF;
+use wcf\util\UserUtil;
 
 /**
  * Executes todo-related actions.
@@ -116,6 +116,7 @@ class TodoAction extends AbstractDatabaseObjectAction
         if (!empty($descriptionHtmlInputProcessor)) {
             /** @var HtmlInputProcessor $htmlInputProcessor */
             $htmlInputProcessor = $descriptionHtmlInputProcessor;
+
             return $htmlInputProcessor->getHtml();
         } else {
             return $this->parameters['data']['description'];
@@ -129,7 +130,7 @@ class TodoAction extends AbstractDatabaseObjectAction
 
             if ($todo->hasEmbeddedObjects != MessageEmbeddedObjectManager::getInstance()->registerObjects($this->parameters['description_htmlInputProcessor'])) {
                 $todoEditor->update([
-                    'hasEmbeddedObjects' => $todo->hasEmbeddedObjects ? 0 : 1
+                    'hasEmbeddedObjects' => $todo->hasEmbeddedObjects ? 0 : 1,
                 ]);
             }
         }
@@ -139,8 +140,8 @@ class TodoAction extends AbstractDatabaseObjectAction
     {
         $description = $todo->getPlainMessage();
 
-        if (mb_strlen($description) > 10000000) {
-            $description = substr($description, 0, 10000000);
+        if (\mb_strlen($description) > 10000000) {
+            $description = \substr($description, 0, 10000000);
         }
 
         SearchIndexManager::getInstance()->set(
@@ -153,7 +154,6 @@ class TodoAction extends AbstractDatabaseObjectAction
             $todo->username
         );
     }
-
 
     /**
      * Loads todos for given object ids.
@@ -182,8 +182,6 @@ class TodoAction extends AbstractDatabaseObjectAction
             }
         }
     }
-
-
 
     /**
      * Deletes given todos.
@@ -228,7 +226,6 @@ class TodoAction extends AbstractDatabaseObjectAction
     public function validateMarkAsDone()
     {
         $this->loadTodos();
-
 
         foreach ($this->getObjects() as $todoEditor) {
             if (!$todoEditor->canEdit()) {
@@ -315,7 +312,7 @@ class TodoAction extends AbstractDatabaseObjectAction
     protected function getTodoData()
     {
         return [
-            'todoData' => $this->todoData
+            'todoData' => $this->todoData,
         ];
     }
 

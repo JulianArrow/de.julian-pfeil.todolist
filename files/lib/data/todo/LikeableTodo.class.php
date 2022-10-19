@@ -2,8 +2,8 @@
 
 namespace todolist\data\todo;
 
-use wcf\data\like\object\AbstractLikeObject;
 use wcf\data\like\Like;
+use wcf\data\like\object\AbstractLikeObject;
 use wcf\data\reaction\object\IReactionObject;
 use wcf\system\request\LinkHandler;
 use wcf\system\user\notification\object\LikeUserNotificationObject;
@@ -58,8 +58,8 @@ class LikeableTodo extends AbstractLikeObject implements IReactionObject
     public function getURL()
     {
         return LinkHandler::getInstance()->getLink('Todo', [
-                'application' => 'todolist',
-                'object' => $this->getDecoratedObject()
+            'application' => 'todolist',
+            'object' => $this->getDecoratedObject(),
         ]);
     }
 

@@ -35,7 +35,7 @@ class TodoUserNotificationEvent extends AbstractUserNotificationEvent
         return [
             'message-id' => 'de.julian-pfeil.todolist.todo/' . $this->getUserNotificationObject()->todoID,
             'template' => 'email_notification_todo',
-            'application' => 'todolist'
+            'application' => 'todolist',
         ];
     }
 
@@ -46,7 +46,7 @@ class TodoUserNotificationEvent extends AbstractUserNotificationEvent
     {
         return LinkHandler::getInstance()->getLink('Todo', [
             'application' => 'todolist',
-            'object' => $this->getUserNotificationObject()
+            'object' => $this->getUserNotificationObject(),
         ]);
     }
 

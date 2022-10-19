@@ -57,7 +57,7 @@ class TodoCategoryNodeTree extends CategoryNodeTree
         $this->categoryList = $categoryList->getIterator();
         $this->categoryList->setMaxDepth(0);
 
-        $this->categoryList = iterator_to_array($this->categoryList);
+        $this->categoryList = \iterator_to_array($this->categoryList);
 
         $this->viewableCategoryList = $this->categoryList;
         foreach ($this->viewableCategoryList as $categoryItem) {

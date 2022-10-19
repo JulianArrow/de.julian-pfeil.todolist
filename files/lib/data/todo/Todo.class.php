@@ -2,17 +2,17 @@
 
 namespace todolist\data\todo;
 
-use todolist\page\TodoPage;
 use todolist\data\todo\category\TodoCategory;
+use todolist\page\TodoPage;
 use wcf\data\DatabaseObject;
 use wcf\data\ITitledLinkObject;
-use wcf\system\request\LinkHandler;
-use wcf\system\WCF;
-use wcf\system\cache\runtime\UserProfileRuntimeCache;
 use wcf\data\user\UserProfile;
-use wcf\util\StringUtil;
+use wcf\system\cache\runtime\UserProfileRuntimeCache;
 use wcf\system\html\output\HtmlOutputProcessor;
 use wcf\system\message\embedded\object\MessageEmbeddedObjectManager;
+use wcf\system\request\LinkHandler;
+use wcf\system\WCF;
+use wcf\util\StringUtil;
 
 /**
  * Represents a todo.
@@ -93,7 +93,6 @@ class Todo extends DatabaseObject implements ITitledLinkObject
      */
     public function loadEmbeddedObjects()
     {
-
         if (!$this->embeddedObjectsLoaded) {
             MessageEmbeddedObjectManager::getInstance()->setActiveMessage('de.julian-pfeil.todolist.todo.content', $this->todoID);
 
@@ -111,9 +110,9 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     public function getLink()
     {
         return LinkHandler::getInstance()->getControllerLink(TodoPage::class, [
-                'id' => $this->todoID,
-                'forceFrontend' => true
-            ]);
+            'id' => $this->todoID,
+            'forceFrontend' => true,
+        ]);
     }
 
     /**
@@ -152,7 +151,7 @@ class Todo extends DatabaseObject implements ITitledLinkObject
      */
     public function getSimplifiedFormattedMessage()
     {
-    // parse and return message
+        // parse and return message
         $processor = new HtmlOutputProcessor();
         $processor->setOutputType('text/simplified-html');
         $processor->process($this->description, 'de.julian-pfeil.todolist.todo.content', $this->todoID);
@@ -183,8 +182,7 @@ class Todo extends DatabaseObject implements ITitledLinkObject
      */
     public function getExcerpt()
     {
-        $excerpt = StringUtil::truncateHTML($this->getSimplifiedFormattedMessage());
-        return $excerpt;
+        return StringUtil::truncateHTML($this->getSimplifiedFormattedMessage());
     }
 
     /**

@@ -3,8 +3,8 @@
 namespace todolist\system\user\notification\event;
 
 use todolist\system\todo\TodoDataHandler;
-use wcf\system\user\notification\event\AbstractSharedUserNotificationEvent;
 use wcf\system\request\LinkHandler;
+use wcf\system\user\notification\event\AbstractSharedUserNotificationEvent;
 
 /**
  * User notification event for subscribed categories.
@@ -35,7 +35,7 @@ class TodoCategoryUserNotificationEvent extends AbstractSharedUserNotificationEv
         return [
             'message-id' => 'de.julian-pfeil.todolist.todo/' . $this->getUserNotificationObject()->entryID,
             'template' => 'email_notification_category',
-            'application' => 'todolist'
+            'application' => 'todolist',
         ];
     }
 
@@ -46,7 +46,7 @@ class TodoCategoryUserNotificationEvent extends AbstractSharedUserNotificationEv
     {
         return LinkHandler::getInstance()->getLink('Todo', [
             'application' => 'todolist',
-            'object' => $this->getUserNotificationObject()
+            'object' => $this->getUserNotificationObject(),
         ]);
     }
 
@@ -57,7 +57,7 @@ class TodoCategoryUserNotificationEvent extends AbstractSharedUserNotificationEv
     {
         return $this->getLanguage()->getDynamicVariable('todolist.category.notification.message', [
             'todo' => $this->userNotificationObject,
-            'author' => $this->author
+            'author' => $this->author,
         ]);
     }
 

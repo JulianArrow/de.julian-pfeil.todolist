@@ -3,8 +3,8 @@
 namespace todolist\data\todo;
 
 use todolist\data\todo\list\ViewableTodoList;
-use wcf\data\like\object\ILikeObject;
 use wcf\data\like\ILikeObjectTypeProvider;
+use wcf\data\like\object\ILikeObject;
 use wcf\system\like\IViewableLikeProvider;
 use wcf\system\WCF;
 
@@ -75,16 +75,16 @@ class LikeableTodoProvider extends TodoProvider implements ILikeObjectTypeProvid
         foreach ($likes as $like) {
             if (isset($todos[$like->objectID])) {
                 $todo = $todos[$like->objectID];
-            // check permissions
+                // check permissions
                 if (!WCF::getSession()->getPermission('user.todolist.general.canViewTodoList')) {
                     continue;
                 }
 
                 $like->setIsAccessible();
-            // short output
+                // short output
                 $text = WCF::getLanguage()->getDynamicVariable('wcf.like.title.de.julian-pfeil.todolist.likeableTodo', ['todo' => $todo, 'like' => $like]);
                 $like->setTitle($text);
-            // output
+                // output
                 $like->setDescription($todo->getExcerpt());
             }
         }

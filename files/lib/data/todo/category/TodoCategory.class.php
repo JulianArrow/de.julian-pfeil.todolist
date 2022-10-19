@@ -44,7 +44,7 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
     /**
      * ids of subscribed todo categories
      */
-    protected static $subscribedCategories = null;
+    protected static $subscribedCategories;
 
     /**
      * Returns a list with ids of accessible categories.
@@ -97,9 +97,9 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
                     self::$subscribedCategories = $statement->fetchAll(\PDO::FETCH_COLUMN);
 
                     // update storage data
-                    UserStorageHandler::getInstance()->update(WCF::getUser()->userID, 'showSubscribedCategories', serialize(self::$subscribedCategories));
+                    UserStorageHandler::getInstance()->update(WCF::getUser()->userID, 'showSubscribedCategories', \serialize(self::$subscribedCategories));
                 } else {
-                    self::$subscribedCategories = unserialize($data);
+                    self::$subscribedCategories = \unserialize($data);
                 }
             }
         }
@@ -117,7 +117,7 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
     {
         return LinkHandler::getInstance()->getLink('TodoList', [
             'application' => 'todolist',
-            'id' => $this->categoryID
+            'id' => $this->categoryID,
         ]);
     }
 
@@ -136,13 +136,13 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
      */
     public function isSubscribed()
     {
-        return in_array($this->categoryID, self::getSubscribedCategoryIDs());
+        return \in_array($this->categoryID, self::getSubscribedCategoryIDs());
     }
 
     /**
      * @inheritDoc
      */
-    public function isAccessible(User $user = null)
+    public function isAccessible(?User $user = null)
     {
         if ($this->getObjectType()->objectType != self::OBJECT_TYPE_NAME) {
             return false;

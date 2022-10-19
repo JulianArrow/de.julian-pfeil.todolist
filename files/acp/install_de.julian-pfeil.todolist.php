@@ -9,10 +9,10 @@
  * @package    de.julian-pfeil.todolist
  */
 
-use wcf\system\WCF;
 use wcf\data\category\CategoryEditor;
 use wcf\data\object\type\ObjectTypeCache;
 use wcf\system\database\util\PreparedStatementConditionBuilder;
+use wcf\system\WCF;
 
 // add default todo category
 $categoryObjectTypeID = ObjectTypeCache::getInstance()->getObjectTypeIDByName('com.woltlab.wcf.category', 'de.julian-pfeil.todolist.todo.category');

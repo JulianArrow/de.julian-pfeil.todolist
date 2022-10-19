@@ -2,14 +2,14 @@
 
 namespace todolist\form;
 
+use todolist\data\todo\category\TodoCategory;
 use todolist\data\todo\Todo;
 use todolist\system\user\notification\object\TodoUserNotificationObject;
-use todolist\data\todo\category\TodoCategory;
 use wcf\system\exception\IllegalLinkException;
+use wcf\system\request\LinkHandler;
 use wcf\system\user\notification\UserNotificationHandler;
 use wcf\system\WCF;
 use wcf\util\HeaderUtil;
-use wcf\system\request\LinkHandler;
 
 /**
  * Shows the form to edit an existing todo.
@@ -39,7 +39,7 @@ class TodoEditForm extends TodoAddForm
       *
       * @var int;
       */
-     public $todoID;
+    public $todoID;
 
     /**
      * @inheritDoc
@@ -49,7 +49,7 @@ class TodoEditForm extends TodoAddForm
         parent::readParameters();
 
         if ($this->formAction == 'update') {
-            #todoID
+            //todoID
             if (isset($_REQUEST['id'])) {
                 $this->formObject = new Todo($_REQUEST['id']);
 
@@ -90,7 +90,7 @@ class TodoEditForm extends TodoAddForm
     {
         parent::save();
 
-        if ($this->formAction == 'update' &&  WCF::getUser()->userID != $this->formObject->userID) {
+        if ($this->formAction == 'update' && WCF::getUser()->userID != $this->formObject->userID) {
             $recipientIDs = [$this->formObject->userID];
             UserNotificationHandler::getInstance()->fireEvent(
                 'todo', // event name
@@ -111,9 +111,10 @@ class TodoEditForm extends TodoAddForm
         HeaderUtil::redirect(
             LinkHandler::getInstance()->getLink('Todo', [
                 'application' => 'todolist',
-                'object' => $this->formObject
+                'object' => $this->formObject,
             ])
         );
+
         exit;
     }
 }

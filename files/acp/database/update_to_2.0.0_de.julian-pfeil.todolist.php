@@ -9,9 +9,9 @@
  * @package    de.julian-pfeil.todolist
  */
 
-use wcf\system\database\table\PartialDatabaseTable;
-use wcf\system\database\table\column\NotNullInt10DatabaseTableColumn;
 use wcf\system\database\table\column\DefaultFalseBooleanDatabaseTableColumn;
+use wcf\system\database\table\column\NotNullInt10DatabaseTableColumn;
+use wcf\system\database\table\PartialDatabaseTable;
 
 return [
     PartialDatabaseTable::create('todolist1_todo')
@@ -23,6 +23,6 @@ return [
             SmallintDatabaseTableColumn::create('comments')
                 ->drop(),
             DefaultTrueBooleanDatabaseTableColumn::create('enableComments')
-                ->drop()
+                ->drop(),
         ]),
 ];
