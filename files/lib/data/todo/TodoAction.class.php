@@ -203,8 +203,6 @@ class TodoAction extends AbstractDatabaseObjectAction
             $this->addTodoData($todo, 'deleted', LinkHandler::getInstance()->getLink('TodoList', ['application' => 'todolist']));
         }
 
-        // remove user activity events
-        UserActivityEventHandler::getInstance()->removeEvents('de.julian-pfeil.todolist.recentActivityEvent.todo', $todoIDs);
 
         if (!empty($todoIDs)) {
             // delete like data
@@ -215,6 +213,13 @@ class TodoAction extends AbstractDatabaseObjectAction
 
             // delete embedded objects
             MessageEmbeddedObjectManager::getInstance()->removeObjects('de.julian-pfeil.todolist.todo', $todoIDs);
+
+            // remove user activity events
+            UserActivityEventHandler::getInstance()->removeEvents('de.julian-pfeil.todolist.recentActivityEvent.todo', $todoIDs);
+
+            // delete todo notifications
+            UserNotificationHandler::getInstance()->markAsConfirmed('entry', 'de.julian-pfeil.todolist.todo', [], $todoIDs);
+
         }
 
         return $this->getTodoData();
