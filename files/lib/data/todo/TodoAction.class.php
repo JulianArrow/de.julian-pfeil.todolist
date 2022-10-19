@@ -58,6 +58,10 @@ class TodoAction extends AbstractDatabaseObjectAction
         // create todo
         $todo = parent::create();
 
+        if (empty($this->object)) {
+            $this->setObjects([$todo]);
+        }
+
         $todoEditor = new TodoEditor($todo);
 
         // fire activity event
