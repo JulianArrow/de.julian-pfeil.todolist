@@ -28,6 +28,7 @@ final class TodoSearch extends AbstractSearchProvider
      * data
      */
     private $todoCategoryID = 0;
+
     private $messageCache = [];
 
     /**
@@ -77,6 +78,7 @@ final class TodoSearch extends AbstractSearchProvider
         $this->initCategoryCondition($conditionBuilder);
         $this->initMiscConditions($conditionBuilder);
         $this->initLanguageCondition($conditionBuilder);
+        
         return $conditionBuilder;
     }
 
@@ -85,7 +87,7 @@ final class TodoSearch extends AbstractSearchProvider
         $selectedCategoryIDs = $this->getTodoCategoryIDs($this->todoCategoryID);
         $accessibleCategoryIDs = TodoCategory::getAccessibleCategoryIDs();
         if (!empty($selectedCategoryIDs)) {
-            $selectedCategoryIDs = array_intersect($selectedCategoryIDs, $accessibleCategoryIDs);
+            $selectedCategoryIDs = \array_intersect($selectedCategoryIDs, $accessibleCategoryIDs);
         } else {
             $selectedCategoryIDs = $accessibleCategoryIDs;
         }
@@ -120,7 +122,7 @@ final class TodoSearch extends AbstractSearchProvider
 
     private function initLanguageCondition(PreparedStatementConditionBuilder $conditionBuilder): void
     {
-        if (LanguageFactory::getInstance()->multilingualismEnabled() && count(WCF::getUser()->getLanguageIDs())) {
+        if (LanguageFactory::getInstance()->multilingualismEnabled() && \count(WCF::getUser()->getLanguageIDs())) {
             $conditionBuilder->add('(' . $this->getTableName() . '.languageID IN (?) OR ' . $this->getTableName() . '.languageID IS NULL)', [WCF::getUser()->getLanguageIDs()]);
         }
     }
@@ -147,7 +149,7 @@ final class TodoSearch extends AbstractSearchProvider
     public function assignVariables(): void
     {
         WCF::getTPL()->assign([
-                'todoCategoryList' => (new TodoCategoryNodeTree('de.julian-pfeil.todolist.todo.category'))->getIterator(),
+            'todoCategoryList' => (new TodoCategoryNodeTree('de.julian-pfeil.todolist.todo.category'))->getIterator(),
         ]);
     }
 
@@ -156,19 +158,20 @@ final class TodoSearch extends AbstractSearchProvider
      */
     public function isAccessible(): bool
     {
-
         if ($this->todoCategoryID == 0) {
             if (!empty($parameters['todoCategoryID'])) {
-                $this->todoCategoryID = intval($parameters['todoCategoryID']);
+                $this->todoCategoryID = \intval($parameters['todoCategoryID']);
             }
         }
 
         if ($this->todoCategoryID != 0) {
             $category = TodoCategory::getCategory($this->todoCategoryID);
+            
             return $category->canView();
         } else {
             $categoryNodeTree = new TodoCategoryNodeTree(TodoCategory::OBJECT_TYPE_NAME, 0, false);
             $categoryNodeTree->loadCategoryLists();
+            
             return $categoryNodeTree->canAddTodoInAnyCategory();
         }
     }
@@ -176,7 +179,7 @@ final class TodoSearch extends AbstractSearchProvider
     private function readParameters(array $parameters): void
     {
         if (!empty($parameters['todoCategoryID'])) {
-            $this->todoCategoryID = intval($parameters['todoCategoryID']);
+            $this->todoCategoryID = \intval($parameters['todoCategoryID']);
         }
     }
 }

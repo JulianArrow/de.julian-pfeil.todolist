@@ -28,6 +28,7 @@ class TodoMessageEmbeddedObjectHandler extends AbstractMessageEmbeddedObjectHand
         $todoList = new AccessibleTodoList();
         $todoList->getConditionBuilder()->add('todo.todoID IN (?)', [$objectIDs]);
         $todoList->readObjects();
+        
         return $todoList->getObjects();
     }
 
@@ -40,15 +41,16 @@ class TodoMessageEmbeddedObjectHandler extends AbstractMessageEmbeddedObjectHand
             $parsedTodoIDs = [];
             foreach ($embeddedData['todo'] as $attributes) {
                 if (!empty($attributes[0])) {
-                    $parsedTodoIDs = array_merge($parsedTodoIDs, ArrayUtil::toIntegerArray(explode(',', $attributes[0])));
+                    $parsedTodoIDs = \array_merge($parsedTodoIDs, ArrayUtil::toIntegerArray(\explode(',', $attributes[0])));
                 }
             }
 
-            $todoIDs = array_unique(array_filter($parsedTodoIDs));
+            $todoIDs = \array_unique(\array_filter($parsedTodoIDs));
             if (!empty($todoIDs)) {
                 $todoList = new TodoList();
                 $todoList->getConditionBuilder()->add('todo.todoID IN (?)', [$todoIDs]);
                 $todoList->readObjectIDs();
+                
                 return $todoList->getObjectIDs();
             }
         }

@@ -2,8 +2,8 @@
 
 namespace todolist\system\user\notification\object\type;
 
-use todolist\data\todo\Todo;
 use todolist\data\todo\list\TodoList;
+use todolist\data\todo\Todo;
 use todolist\system\user\notification\object\TodoUserNotificationObject;
 use wcf\system\user\notification\object\type\AbstractUserNotificationObjectType;
 

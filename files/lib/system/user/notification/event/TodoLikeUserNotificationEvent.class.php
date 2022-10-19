@@ -41,7 +41,7 @@ class TodoLikeUserNotificationEvent extends AbstractSharedUserNotificationEvent
      */
     public function getEventHash()
     {
-        return sha1($this->eventID . '-' . $this->additionalData['objectID']);
+        return \sha1($this->eventID . '-' . $this->additionalData['objectID']);
     }
 
     /**
@@ -52,8 +52,8 @@ class TodoLikeUserNotificationEvent extends AbstractSharedUserNotificationEvent
         $todo = TodoDataHandler::getInstance()->getTodo($this->additionalData['objectID']);
 
         return LinkHandler::getInstance()->getLink('Todo', [
-                'application' => 'todolist',
-                'object' => $todo
+            'application' => 'todolist',
+            'object' => $todo
         ]);
     }
 
@@ -63,24 +63,24 @@ class TodoLikeUserNotificationEvent extends AbstractSharedUserNotificationEvent
     public function getMessage()
     {
         $todo = TodoDataHandler::getInstance()->getTodo($this->additionalData['objectID']);
-        $authors = array_values($this->getAuthors());
-        $count = count($authors);
+        $authors = \array_values($this->getAuthors());
+        $count = \count($authors);
 
         if ($count > 1) {
             return $this->getLanguage()->getDynamicVariable('todolist.like.notification.message.stacked', [
-                    'author' => $this->author,
-                    'authors' => $authors,
-                    'count' => $count,
-                    'others' => $count - 1,
-                    'todo' => $todo,
-                    'reactions' => $this->getReactionsForAuthors()
+                'author' => $this->author,
+                'authors' => $authors,
+                'count' => $count,
+                'others' => $count - 1,
+                'todo' => $todo,
+                'reactions' => $this->getReactionsForAuthors()
             ]);
         }
 
         return $this->getLanguage()->getDynamicVariable('todolist.like.notification.message', [
             'author' => $this->author,
-                'todo' => $todo,
-                'reactions' => $this->getReactionsForAuthors()
+            'todo' => $todo,
+            'reactions' => $this->getReactionsForAuthors()
         ]);
     }
 
@@ -89,11 +89,11 @@ class TodoLikeUserNotificationEvent extends AbstractSharedUserNotificationEvent
      */
     public function getTitle()
     {
-        $count = count($this->getAuthors());
+        $count = \count($this->getAuthors());
         if ($count > 1) {
             return $this->getLanguage()->getDynamicVariable('todolist.like.notification.title.stacked', [
-                    'count' => $count,
-                    'timesTriggered' => $this->notification->timesTriggered
+                'count' => $count,
+                'timesTriggered' => $this->notification->timesTriggered
             ]);
         }
 

@@ -22,6 +22,7 @@ class TodoDataHandler extends SingletonFactory
      * list of cached todos
      */
     protected $todoIDs = [];
+
     protected $todos = [];
 
     /**
@@ -29,7 +30,7 @@ class TodoDataHandler extends SingletonFactory
      */
     public function cacheTodoID($todoID)
     {
-        if (!in_array($todoID, $this->todoIDs)) {
+        if (!\in_array($todoID, $this->todoIDs)) {
             $this->todoIDs[] = $todoID;
         }
     }
@@ -40,7 +41,7 @@ class TodoDataHandler extends SingletonFactory
     public function getTodo($todoID)
     {
         if (!empty($this->todoIDs)) {
-            $this->todoIDs = array_diff($this->todoIDs, array_keys($this->todos));
+            $this->todoIDs = \array_diff($this->todoIDs, \array_keys($this->todos));
 
             if (!empty($this->todoIDs)) {
                 $todoList = new TodoList();

@@ -2,8 +2,8 @@
 
 namespace todolist\system\event\listener;
 
-use wcf\system\event\listener\AbstractEventListener;
 use wcf\system\cronjob\PruneIpAddressesCronjob;
+use wcf\system\event\listener\AbstractEventListener;
 
 /**
  * Prunes old ip addresses.

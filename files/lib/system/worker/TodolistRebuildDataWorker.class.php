@@ -2,15 +2,15 @@
 
 namespace todolist\system\worker;
 
-use todolist\data\todo\TodoEditor;
 use todolist\data\todo\list\TodoList;
+use todolist\data\todo\TodoEditor;
 use wcf\data\object\type\ObjectTypeCache;
 use wcf\system\database\util\PreparedStatementConditionBuilder;
 use wcf\system\html\input\HtmlInputProcessor;
 use wcf\system\message\embedded\object\MessageEmbeddedObjectManager;
 use wcf\system\search\SearchIndexManager;
-use wcf\system\worker\AbstractRebuildDataWorker;
 use wcf\system\WCF;
+use wcf\system\worker\AbstractRebuildDataWorker;
 
 /**
  * Worker implementation for updating todo.
@@ -30,11 +30,13 @@ class TodolistRebuildDataWorker extends AbstractRebuildDataWorker
      * @var HtmlInputProcessor
      */
     protected $htmlInputProcessor;
-/**
+    
+    /**
      * @inheritDoc
      */
     protected $limit = 100;
-/**
+    
+    /**
      * @inheritDoc
      */
     protected $objectListClassName = TodoList::class;
@@ -50,7 +52,7 @@ class TodolistRebuildDataWorker extends AbstractRebuildDataWorker
             SearchIndexManager::getInstance()->reset('de.julian-pfeil.todolist.todo');
         }
 
-        if (!count($this->objectList)) {
+        if (!\count($this->objectList)) {
             return;
         }
 
@@ -70,7 +72,7 @@ class TodolistRebuildDataWorker extends AbstractRebuildDataWorker
             $data = [];
 
             // update cumulative likes
-            $data['cumulativeLikes'] = isset($cumulativeLikes[$todo->todoID]) ? $cumulativeLikes[$todo->todoID] : 0;
+            $data['cumulativeLikes'] = $cumulativeLikes[$todo->todoID] ?? 0;
 
             // update description
             $this->getHtmlInputProcessor()->reprocess($todo->message, 'de.julian-pfeil.todolist.todo', $todo->todoID);
@@ -83,8 +85,8 @@ class TodolistRebuildDataWorker extends AbstractRebuildDataWorker
 
             $editor->update($data);
             $description = $todo->getPlainMessage();
-            if (mb_strlen($description) > 10000000) {
-                $description = substr($description, 0, 10000000);
+            if (\mb_strlen($description) > 10000000) {
+                $description = \substr($description, 0, 10000000);
             }
 
             SearchIndexManager::getInstance()->set('de.julian-pfeil.todolist.todo', $todo->todoID, $description, $todo->subject, $todo->time, $todo->userID, $todo->username, $todo->languageID);
@@ -96,7 +98,6 @@ class TodolistRebuildDataWorker extends AbstractRebuildDataWorker
      */
     protected function getHtmlInputProcessor()
     {
-
         if ($this->htmlInputProcessor === null) {
             $this->htmlInputProcessor = new HtmlInputProcessor();
         }
@@ -109,7 +110,6 @@ class TodolistRebuildDataWorker extends AbstractRebuildDataWorker
      */
     protected function initObjectList()
     {
-
         parent::initObjectList();
         $this->objectList->sqlOrderBy = 'todo.todoID';
     }

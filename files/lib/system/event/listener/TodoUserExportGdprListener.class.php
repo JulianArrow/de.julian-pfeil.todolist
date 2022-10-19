@@ -2,8 +2,8 @@
 
 namespace todolist\system\event\listener;
 
-use wcf\system\event\listener\AbstractEventListener;
 use wcf\acp\action\UserExportGdprAction;
+use wcf\system\event\listener\AbstractEventListener;
 
 /**
  * Adds the ip addresses stored with the todo during user data export.

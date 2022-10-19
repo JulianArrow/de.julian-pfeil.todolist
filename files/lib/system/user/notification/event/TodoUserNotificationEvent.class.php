@@ -33,9 +33,9 @@ class TodoUserNotificationEvent extends AbstractUserNotificationEvent
     public function getEmailMessage($notificationType = 'instant')
     {
         return [
-                'message-id' => 'de.julian-pfeil.todolist.todo/' . $this->getUserNotificationObject()->todoID,
-                'template' => 'email_notification_todo',
-                'application' => 'todolist'
+            'message-id' => 'de.julian-pfeil.todolist.todo/' . $this->getUserNotificationObject()->todoID,
+            'template' => 'email_notification_todo',
+            'application' => 'todolist'
         ];
     }
 
@@ -45,8 +45,8 @@ class TodoUserNotificationEvent extends AbstractUserNotificationEvent
     public function getLink()
     {
         return LinkHandler::getInstance()->getLink('Todo', [
-                'application' => 'todolist',
-                'object' => $this->getUserNotificationObject()
+            'application' => 'todolist',
+            'object' => $this->getUserNotificationObject()
         ]);
     }
 
@@ -56,8 +56,8 @@ class TodoUserNotificationEvent extends AbstractUserNotificationEvent
     public function getMessage()
     {
         return $this->getLanguage()->getDynamicVariable('todolist.action.notification.message', [
-                'todo' => $this->userNotificationObject,
-                'author' => $this->author,
+            'todo' => $this->userNotificationObject,
+            'author' => $this->author,
         ]);
     }
 
