@@ -41,7 +41,7 @@ class TodoPage extends AbstractPage
      * @inheritDoc
      */
     public $neededPermissions = [];
-    
+
     /**
      * category
      */

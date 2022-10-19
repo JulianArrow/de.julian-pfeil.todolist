@@ -1,4 +1,5 @@
 <?php
+
 namespace todolist\system\user\object\watch;
 
 use todolist\data\todo\category\TodoCategory;
@@ -10,7 +11,7 @@ use wcf\system\user\storage\UserStorageHandler;
 
 /**
  * Implementation of IUserObjectWatch for watched categories.
- * 
+ *
  * @author      Julian Pfeil <https://julian-pfeil.de>
  * @link        https://darkwood.design/store/user-file-list/1298-julian-pfeil/
  * @copyright   2022 Julian Pfeil Websites & Co.
@@ -19,24 +20,27 @@ use wcf\system\user\storage\UserStorageHandler;
  * @package    de.julian-pfeil.todolist
  * @subpackage data.todo.category
  */
-class TodoCategoryUserObjectWatch extends AbstractObjectTypeProcessor implements IUserObjectWatch {
-	/**
-	 * @inheritDoc
-	 */
-	public function validateObjectID($objectID) {
-		$category = TodoCategory::getCategory($objectID);
-		if ($category === null) {
-			throw new IllegalLinkException();
-		}
-		if (!$category->isAccessible()) {
-			throw new PermissionDeniedException();
-		}
-	}
-	
-	/**
-	 * @inheritDoc
-	 */
-	public function resetUserStorage(array $userIDs) {
-		UserStorageHandler::getInstance()->reset($userIDs, 'showSubscribedCategories');
-	}
+class TodoCategoryUserObjectWatch extends AbstractObjectTypeProcessor implements IUserObjectWatch
+{
+    /**
+     * @inheritDoc
+     */
+    public function validateObjectID($objectID)
+    {
+        $category = TodoCategory::getCategory($objectID);
+        if ($category === null) {
+            throw new IllegalLinkException();
+        }
+        if (!$category->isAccessible()) {
+            throw new PermissionDeniedException();
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function resetUserStorage(array $userIDs)
+    {
+        UserStorageHandler::getInstance()->reset($userIDs, 'showSubscribedCategories');
+    }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace todolist\system\user\notification\event;
 
 use todolist\system\todo\TodoDataHandler;
@@ -16,56 +17,63 @@ use wcf\system\request\LinkHandler;
  * @package    de.julian-pfeil.todolist
  * @subpackage system.user.notification.event
  */
-class TodoCategoryUserNotificationEvent extends AbstractSharedUserNotificationEvent {
-	/**
-	 * @inheritDoc
-	 */
-	public function checkAccess() {
-		return $this->getUserNotificationObject()->canRead();
-	}
-	
-	/**
-	 * @inheritDoc
-	 */
-	public function getEmailMessage($notificationType = 'instant') {
-		return [
-				'message-id' => 'de.julian-pfeil.todolist.todo/'.$this->getUserNotificationObject()->entryID,
-				'template' => 'email_notification_category',
-				'application' => 'todolist'
-		];
-	}
-	
-	/**
-	 * @inheritDoc
-	 */
-	public function getLink() {
-		return LinkHandler::getInstance()->getLink('Todo', [
-				'application' => 'todolist',
-				'object' => $this->getUserNotificationObject()
-		]);
-	}
-	
-	/**
-	 * @inheritDoc
-	 */
-	public function getMessage() {
-		return $this->getLanguage()->getDynamicVariable('todolist.category.notification.message', [
-				'todo' => $this->userNotificationObject,
-				'author' => $this->author
-		]);
-	}
-	
-	/**
-	 * @inheritDoc
-	 */
-	public function getTitle() {
-		return $this->getLanguage()->get('todolist.category.notification.title');
-	}
-	
-	/**
-	 * @inheritDoc
-	 */
-	protected function prepare() {
-		TodoDataHandler::getInstance()->cacheTodoID($this->getUserNotificationObject()->entryID);
-	}
+class TodoCategoryUserNotificationEvent extends AbstractSharedUserNotificationEvent
+{
+    /**
+     * @inheritDoc
+     */
+    public function checkAccess()
+    {
+        return $this->getUserNotificationObject()->canRead();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getEmailMessage($notificationType = 'instant')
+    {
+        return [
+                'message-id' => 'de.julian-pfeil.todolist.todo/' . $this->getUserNotificationObject()->entryID,
+                'template' => 'email_notification_category',
+                'application' => 'todolist'
+        ];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getLink()
+    {
+        return LinkHandler::getInstance()->getLink('Todo', [
+                'application' => 'todolist',
+                'object' => $this->getUserNotificationObject()
+        ]);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getMessage()
+    {
+        return $this->getLanguage()->getDynamicVariable('todolist.category.notification.message', [
+                'todo' => $this->userNotificationObject,
+                'author' => $this->author
+        ]);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getTitle()
+    {
+        return $this->getLanguage()->get('todolist.category.notification.title');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function prepare()
+    {
+        TodoDataHandler::getInstance()->cacheTodoID($this->getUserNotificationObject()->entryID);
+    }
 }
