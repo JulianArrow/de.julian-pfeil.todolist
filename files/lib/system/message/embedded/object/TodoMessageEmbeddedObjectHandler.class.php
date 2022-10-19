@@ -28,7 +28,7 @@ class TodoMessageEmbeddedObjectHandler extends AbstractMessageEmbeddedObjectHand
         $todoList = new AccessibleTodoList();
         $todoList->getConditionBuilder()->add('todo.todoID IN (?)', [$objectIDs]);
         $todoList->readObjects();
-        
+
         return $todoList->getObjects();
     }
 
@@ -50,7 +50,7 @@ class TodoMessageEmbeddedObjectHandler extends AbstractMessageEmbeddedObjectHand
                 $todoList = new TodoList();
                 $todoList->getConditionBuilder()->add('todo.todoID IN (?)', [$todoIDs]);
                 $todoList->readObjectIDs();
-                
+
                 return $todoList->getObjectIDs();
             }
         }

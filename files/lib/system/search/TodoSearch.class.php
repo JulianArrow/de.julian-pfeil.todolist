@@ -78,7 +78,7 @@ final class TodoSearch extends AbstractSearchProvider
         $this->initCategoryCondition($conditionBuilder);
         $this->initMiscConditions($conditionBuilder);
         $this->initLanguageCondition($conditionBuilder);
-        
+
         return $conditionBuilder;
     }
 
@@ -166,12 +166,12 @@ final class TodoSearch extends AbstractSearchProvider
 
         if ($this->todoCategoryID != 0) {
             $category = TodoCategory::getCategory($this->todoCategoryID);
-            
+
             return $category->canView();
         } else {
             $categoryNodeTree = new TodoCategoryNodeTree(TodoCategory::OBJECT_TYPE_NAME, 0, false);
             $categoryNodeTree->loadCategoryLists();
-            
+
             return $categoryNodeTree->canAddTodoInAnyCategory();
         }
     }

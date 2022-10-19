@@ -30,12 +30,12 @@ class TodolistRebuildDataWorker extends AbstractRebuildDataWorker
      * @var HtmlInputProcessor
      */
     protected $htmlInputProcessor;
-    
+
     /**
      * @inheritDoc
      */
     protected $limit = 100;
-    
+
     /**
      * @inheritDoc
      */
