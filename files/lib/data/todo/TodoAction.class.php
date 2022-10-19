@@ -194,24 +194,19 @@ class TodoAction extends AbstractDatabaseObjectAction
             $this->readObjects();
         }
 
-        $todoIDs = $todoData = [];
-        foreach ($this->getObjects() as $todo) {
-            $todoIDs[] = $todo->todoID;
+        $todoIDs = [];
+        foreach ($this->getObjects() as $todoEditor) {
+            $todoIDs[] = $todoEditor->todoID;
 
+            $todoEditor->delete();
 
-            $todoData[$todo->todoID] = $todo->userID;
+            $todo = new Todo($todoEditor->todoID);
+
+            $this->addTodoData($todo, 'deleted', LinkHandler::getInstance()->getLink('TodoList', ['application' => 'todolist']));
         }
 
         // remove user activity events
         UserActivityEventHandler::getInstance()->removeEvents('de.julian-pfeil.todolist.recentActivityEvent.todo', $todoIDs);
-
-        foreach ($this->getObjects() as $todo) {
-            $todoIDs[] = $todo->todoID;
-
-            $todo->delete();
-
-            $this->addTodoData($todo, 'deleted', LinkHandler::getInstance()->getLink('TodoList', ['application' => 'todolist']));
-        }
 
         if (!empty($todoIDs)) {
             // delete like data
