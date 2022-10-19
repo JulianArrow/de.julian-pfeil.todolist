@@ -18,6 +18,11 @@
         <item name="wcf.acp.group.option.admin.todolist.general.canManageCategory"><![CDATA[Can manage categories]]></item>
     </category>
 
+    <category name="wcf.acl.rebuildData">
+        <item name="wcf.acp.rebuildData.de.julian-pfeil.todolist.todo"><![CDATA[Rebuild to-dos]]></item>
+        <item name="wcf.acp.rebuildData.de.julian-pfeil.todolist.todo.description"><![CDATA[Rebuilds to-do data]]></item>
+    </category>
+
     <category name="wcf.acl.option">
         <item name="wcf.acl.option.de.julian-pfeil.todolist.todo.category.canAddTodo"><![CDATA[Can add to-dos]]></item>
         <item name="wcf.acl.option.de.julian-pfeil.todolist.todo.category.canViewCategory"><![CDATA[Can see to-dos]]></item>
