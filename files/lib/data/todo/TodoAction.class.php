@@ -58,11 +58,11 @@ class TodoAction extends AbstractDatabaseObjectAction
         // create todo
         $todo = parent::create();
 
-        if (empty($this->object)) {
-            $this->setObjects([$todo]);
-        }
-
         $todoEditor = new TodoEditor($todo);
+
+        if (empty($this->object)) {
+            $this->setObjects([$todoEditor]);
+        }
 
         // fire activity event
         $languageID = (!isset($this->parameters['data']['languageID']) || ($this->parameters['data']['languageID'] === null)) ? LanguageFactory::getInstance()->getDefaultLanguageID() : $this->parameters['data']['languageID'];
