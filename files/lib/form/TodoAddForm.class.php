@@ -5,16 +5,12 @@ namespace todolist\form;
 use todolist\data\todo\category\TodoCategory;
 use todolist\data\todo\category\TodoCategoryNodeTree;
 use todolist\data\todo\TodoAction;
-use todolist\system\cache\builder\TodoCategoryLabelCacheBuilder;
 use todolist\system\form\builder\container\wysiwyg\TodoWysiwygFormContainer;
 use wcf\form\AbstractFormBuilderForm;
 use wcf\system\form\builder\container\FormContainer;
 use wcf\system\form\builder\field\TextFormField;
 use wcf\system\form\builder\field\BooleanFormField;
-use wcf\system\form\builder\field\dependency\ValueFormFieldDependency;
-use wcf\system\form\builder\field\label\LabelFormField;
 use wcf\system\form\builder\field\SingleSelectionFormField;
-use wcf\system\form\builder\field\tag\TagFormField;
 use wcf\system\exception\PermissionDeniedException;
 use wcf\system\WCF;
 use wcf\system\request\LinkHandler;
@@ -144,25 +140,6 @@ class TodoAddForm extends AbstractFormBuilderForm
                 ->value(false)
         );
 
-        /* enableComments settingsNode */
-        if (defined('TODOLIST_COMMENTS_PLUGIN')) {
-            $wysiwygContainer->addSettingsNode(
-                BooleanFormField::create('enableComments')
-                    ->label('todolist.comment.enable')
-                    ->description('todolist.comment.enable.description')
-                    ->value(true),
-            );
-        }
-
-        /* editReason settingsNode */
-        if (defined('TODOLIST_MODIFICATION_LOG_PLUGIN') && $this->formAction == 'update') {
-            $wysiwygContainer->addSettingsNode(
-                TextFormField::create('editReason')
-                    ->label('todolist.column.editReason')
-                    ->maximumLength(255),
-            );
-        }
-
         /* append to dataContainer */
         $dataContainer->appendChild(
             TextFormField::create('todoName')
@@ -176,15 +153,6 @@ class TodoAddForm extends AbstractFormBuilderForm
         $infoContainer = FormContainer::create('info')
             ->label('todolist.general.info');
 
-
-        if (defined('TODOLIST_TAGGING_PLUGIN')) {
-            /* tags */
-            $infoContainer->appendChild(
-                TagFormField::create('tags')
-                    ->objectType('de.julian-pfeil.todolist.todo')
-                    ->available(MODULE_TAGGING)
-            );
-        }
 
         /* category selection */
         $categoryField = SingleSelectionFormField::create('categoryID')
@@ -218,38 +186,6 @@ class TodoAddForm extends AbstractFormBuilderForm
             && \in_array($this->categoryID, \array_keys($categoryField->getOptions()))
         ) {
             $categoryField->value($this->categoryID);
-        }
-
-        if (defined('TODOLIST_LABELS_PLUGIN')) {
-            /* labels */
-            $assignableLabelGroups = TodoCategory::getAccessibleLabelGroups();
-            if (\count($assignableLabelGroups)) {
-                $infoContainer->appendChildren(
-                    LabelFormField::createFields('de.julian-pfeil.todolist.todo', $assignableLabelGroups, 'labels')
-                );
-
-
-                $labelGroupsToCategories = [];
-                foreach (TodoCategoryLabelCacheBuilder::getInstance()->getData() as $categoryID => $labelGroupIDs) {
-                    foreach ($labelGroupIDs as $labelGroupID) {
-                        if (!isset($labelGroupsToCategories[$labelGroupID])) {
-                            $labelGroupsToCategories[$labelGroupID] = [];
-                        }
-                        $labelGroupsToCategories[$labelGroupID][] = $categoryID;
-                    }
-                }
-
-                foreach ($assignableLabelGroups as $labelGroup) {
-                    if (isset($labelGroupsToCategories[$labelGroup->groupID])) {
-                        $labelField = $infoContainer->getNodeById('labels' . $labelGroup->groupID);
-                        $labelField->addDependency(
-                            ValueFormFieldDependency::create('labels' . $labelGroup->groupID)
-                                ->fieldId('categoryID')
-                                ->values($labelGroupsToCategories[$labelGroup->groupID])
-                        );
-                    }
-                }
-            }
         }
 
 
@@ -293,8 +229,6 @@ class TodoAddForm extends AbstractFormBuilderForm
     public function save()
     {
         parent::save();
-
-
 
         if ($this->formAction == 'create') {
             WCF::getTPL()->assign([

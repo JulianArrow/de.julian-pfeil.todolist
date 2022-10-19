@@ -20,5 +20,9 @@ return [
                 ->renameTo('isDone'),
             NotNullInt10DatabaseTableColumn::create('creationDate')
                 ->renameTo('time'),
+            SmallintDatabaseTableColumn::create('comments')
+                ->drop(),
+            DefaultTrueBooleanDatabaseTableColumn::create('enableComments')
+                ->drop()
         ]),
 ];

@@ -10,7 +10,6 @@ use wcf\system\request\LinkHandler;
 use wcf\system\WCF;
 use wcf\system\cache\runtime\UserProfileRuntimeCache;
 use wcf\data\user\UserProfile;
-use wcf\data\label\Label;
 use wcf\util\StringUtil;
 use wcf\system\html\output\HtmlOutputProcessor;
 use wcf\system\message\embedded\object\MessageEmbeddedObjectManager;
@@ -48,11 +47,6 @@ class Todo extends DatabaseObject implements ITitledLinkObject
      * true if embedded objects have already been loaded
      */
     protected $embeddedObjectsLoaded = false;
-
-    /**
-     * list of labels
-     */
-    protected $labels = [];
 
     /**
      * @inheritDoc
@@ -117,17 +111,6 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     public function getLink()
     {
         return LinkHandler::getInstance()->getControllerLink(TodoPage::class, [
-                'id' => $this->todoID,
-                'forceFrontend' => true
-            ]);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getLogLink()
-    {
-        return LinkHandler::getInstance()->getControllerLink(TodoLogPage::class, [
                 'id' => $this->todoID,
                 'forceFrontend' => true
             ]);
@@ -225,18 +208,6 @@ class Todo extends DatabaseObject implements ITitledLinkObject
             return UserProfileRuntimeCache::getInstance()->getObject($this->userID);
         } else {
             return UserProfile::getGuestUserProfile($this->username);
-        }
-    }
-
-    /**
-     * Returns the user profile of the user who last commented on the todo.
-     */
-    public function getLastCommentUserProfile()
-    {
-        if ($this->userID) {
-            return UserProfileRuntimeCache::getInstance()->getObject($this->lastCommentUserID);
-        } else {
-            return UserProfile::getGuestUserProfile($this->lastCommentUserID);
         }
     }
 

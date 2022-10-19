@@ -5,7 +5,7 @@
 {if $isDone}{capture append='additionalLinkParameters'}isDone={$isDone}&{/capture}{/if}
 {if $sortField}{capture append='additionalLinkParameters'}sortField={$sortField}&{/capture}{/if}
 {if $sortOrder}{capture append='additionalLinkParameters'}sortOrder={$sortOrder}&{/capture}{/if}
-{if $labelIDs|count}{capture append='additionalLinkParameters'}{foreach from=$labelIDs key=labelGroupID item=labelID}labelIDs[{@$labelGroupID}]={@$labelID}&{/foreach}{/capture}{/if}
+{event name='additionalLinkParameters'}
 {assign var=additionalLinkParameters value=$additionalLinkParameters|substr:0:-1}
 
 {capture assign='headContent'}
@@ -84,15 +84,6 @@
         var $updateHandler = new Todolist.Todo.UpdateHandler.Todolist();
         
         new Todolist.Todo.MarkAsDone($updateHandler);
-
-        {if !$labelGroups|empty}
-            WCF.Language.addObject({
-                'wcf.label.none': '{jslang}wcf.label.none{/jslang}',
-                'wcf.label.withoutSelection': '{jslang}wcf.label.withoutSelection{/jslang}'
-            });
-            
-            new WCF.Label.Chooser({ {implode from=$labelIDs key=groupID item=labelID}{@$groupID}: {@$labelID}{/implode} }, '#todolistLabelForm', undefined, true);
-        {/if}
     });
 </script>
 

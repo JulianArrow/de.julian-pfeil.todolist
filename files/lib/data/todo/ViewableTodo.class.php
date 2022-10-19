@@ -6,11 +6,10 @@ use todolist\data\todo\list\ViewableTodoList;
 use wcf\data\DatabaseObjectDecorator;
 use wcf\data\DatabaseObject;
 use wcf\data\user\UserProfile;
-use wcf\data\label\Label;
 use wcf\data\user\User;
 
 /**
- * Represents viewable a todo.
+ * Represents a viewable todo.
  *
  * @author     Julian Pfeil <https://julian-pfeil.de>
  * @todo    https://darkwood.design/store/user-file-list/1298-julian-pfeil/
@@ -31,11 +30,6 @@ class ViewableTodo extends DatabaseObjectDecorator
      * user profile object
      */
     protected $userProfile;
-
-    /**
-     * list of labels
-     */
-    protected $labels = [];
 
     /**
      * content
@@ -95,30 +89,6 @@ class ViewableTodo extends DatabaseObjectDecorator
         }
 
         return null;
-    }
-
-    /**
-     * Adds a label.
-     */
-    public function addLabel(Label $label)
-    {
-        $this->labels[$label->labelID] = $label;
-    }
-
-    /**
-     * Returns a list of labels.
-     */
-    public function getLabels()
-    {
-        return $this->labels;
-    }
-
-    /**
-     * Returns true, if one or more labels are assigned to this todo entry.
-     */
-    public function hasLabels()
-    {
-        return !empty($this->labels);
     }
 
     /**

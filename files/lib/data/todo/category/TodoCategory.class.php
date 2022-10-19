@@ -2,8 +2,6 @@
 
 namespace todolist\data\todo\category;
 
-use todolist\system\cache\builder\TodoCategoryLabelCacheBuilder;
-use wcf\system\label\LabelHandler;
 use wcf\data\category\AbstractDecoratedCategory;
 use wcf\data\IAccessibleObject;
 use wcf\data\ITitledLinkObject;
@@ -74,42 +72,6 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
         }
 
         return $categoryIDs;
-    }
-
-    /**
-     * Returns the label groups available for todos in the category.
-     */
-    public function getLabelGroups($permission = 'canViewLabel')
-    {
-        $labelGroups = [];
-
-        $labelGroupsToCategories = TodoCategoryLabelCacheBuilder::getInstance()->getData();
-        if (isset($labelGroupsToCategories[$this->categoryID])) {
-            $labelGroups = LabelHandler::getInstance()->getLabelGroups($labelGroupsToCategories[$this->categoryID], true, $permission);
-        }
-
-        return $labelGroups;
-    }
-
-    /**
-     * Returns the label groups for all accessible categories.
-     */
-    public static function getAccessibleLabelGroups($permission = 'canViewLabel')
-    {
-        $labelGroupsToCategories = TodoCategoryLabelCacheBuilder::getInstance()->getData();
-        $accessibleCategoryIDs = self::getAccessibleCategoryIDs();
-
-        $groupIDs = [];
-        foreach ($labelGroupsToCategories as $categoryID => $__groupIDs) {
-            if (\in_array($categoryID, $accessibleCategoryIDs)) {
-                $groupIDs = \array_merge($groupIDs, $__groupIDs);
-            }
-        }
-        if (empty($groupIDs)) {
-            return [];
-        }
-
-        return LabelHandler::getInstance()->getLabelGroups(\array_unique($groupIDs), true, $permission);
     }
 	
 	/**

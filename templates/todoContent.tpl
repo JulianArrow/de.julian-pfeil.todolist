@@ -13,14 +13,8 @@
                 {@$todo->getFormattedMessage()}
             </p>
         </div>
-
-        {if "TODOLIST_TAGGING_PLUGIN"|defined && !$tags|empty}
-            <ul class="tagList section">
-                {foreach from=$tags item=tag}
-                    <li><a href="{link controller='Tagged' object=$tag}objectType=de.julian-pfeil.todolist.todo{/link}" class="tag jsTooltip" title="{lang}wcf.tagging.taggedObjects.de.julian-pfeil.todolist.todo{/lang}">{$tag->name}</a></li>
-                {/foreach}
-            </ul>
-        {/if}
+        
+        {event name='afterTodoDescription'}
 
         {include file='todoReactionSummary' application='todolist'}
 
@@ -53,9 +47,5 @@
     </div>
 </div>
 {* End - Tab 1 *}
-
-{if "TODOLIST_COMMENTS_PLUGIN"|defined}
-    {include file='todoComments' application='todolist'}
-{/if}
 
 {event name='tabMenuContents'}

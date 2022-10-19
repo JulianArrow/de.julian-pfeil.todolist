@@ -6,16 +6,11 @@ use todolist\data\todo\ViewableTodo;
 use todolist\data\todo\TodoEditor;
 use todolist\data\todo\category\TodoCategoryNodeTree;
 use todolist\data\todo\category\TodoCategory;
-use todolist\system\label\object\TodoLabelObjectHandler;
 use wcf\page\AbstractPage;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\WCF;
 use wcf\system\reaction\ReactionHandler;
-use wcf\system\comment\CommentHandler;
 use wcf\system\message\embedded\object\MessageEmbeddedObjectManager;
-use wcf\data\tag\Tag;
-use wcf\system\tagging\TagEngine;
-use wcf\system\language\LanguageFactory;
 
 /**
  * Shows the details of a certain todo.
@@ -46,30 +41,7 @@ class TodoPage extends AbstractPage
      * @inheritDoc
      */
     public $neededPermissions = [];
-
-    /**
-     * list of comments
-     * @var StructuredCommentList
-     */
-    public $commentList;
-
-    /**
-     * todo comment manager object
-     * @var TodoCommentManager
-     */
-    public $commentManager;
-
-    /**
-     * id of the todo comment object type
-     * @var int
-     */
-    public $commentObjectTypeID = 0;
-
-    /**
-     * list of tags
-     */
-    public $tags = [];
-
+    
     /**
      * category
      */
@@ -91,22 +63,6 @@ class TodoPage extends AbstractPage
         if (MODULE_LIKE) {
             WCF::getTPL()->assign([
                 'todoLikeData' => $this->todoLikeData
-            ]);
-        }
-
-        if (defined('TODOLIST_COMMENTS_PLUGIN')) {
-            WCF::getTPL()->assign([
-                'commentCanAdd' => WCF::getSession()->getPermission('user.todolist.comment.canAddComment'),
-                'commentList' => $this->commentList,
-                'commentObjectTypeID' => $this->commentObjectTypeID,
-                'lastCommentTime' => $this->commentList ? $this->commentList->getMinCommentTime() : 0,
-                'likeData' => MODULE_LIKE && $this->commentList ? $this->commentList->getLikeData() : [],
-            ]);
-        }
-
-        if (defined('TODOLIST_TAGGING_PLUGIN')) {
-            WCF::getTPL()->assign([
-                'tags' => $this->tags
             ]);
         }
     }
@@ -137,7 +93,7 @@ class TodoPage extends AbstractPage
             throw new IllegalLinkException();
         }
 
-        // set category for category box controller
+        // set category
         $this->category = $this->todo->getCategory();
     }
 
@@ -165,44 +121,6 @@ class TodoPage extends AbstractPage
             $objectType = ReactionHandler::getInstance()->getObjectType('de.julian-pfeil.todolist.likeableTodo');
             ReactionHandler::getInstance()->loadLikeObjects($objectType, [$this->todoID]);
             $this->todoLikeData = ReactionHandler::getInstance()->getLikeObjects($objectType);
-        }
-
-        /* comments */
-        if (defined('TODOLIST_COMMENTS_PLUGIN')) {
-            if ($this->todo->enableComments) {
-                $this->commentObjectTypeID = CommentHandler::getInstance()->getObjectTypeID(
-                    'de.julian-pfeil.todolist.todoComment'
-                );
-                $this->commentManager = CommentHandler::getInstance()->getObjectType(
-                    $this->commentObjectTypeID
-                )->getProcessor();
-                $this->commentList = CommentHandler::getInstance()->getCommentList(
-                    $this->commentManager,
-                    $this->commentObjectTypeID,
-                    $this->todo->todoID
-                );
-            }
-        }
-
-        /* tags */
-        if (MODULE_TAGGING && defined('TODOLIST_TAGGING_PLUGIN') && WCF::getSession()->getPermission('user.tag.canViewTag')) {
-            $this->tags = TagEngine::getInstance()->getObjectTags(
-                'de.julian-pfeil.todolist.todo',
-                $this->todo->todoID,
-                [($this->todo->languageID === null ? LanguageFactory::getInstance()->getDefaultLanguageID() : "")]
-            );
-        }
-
-        /* labels */
-        if (defined('TODOLIST_LABELS_PLUGIN')) {
-            if ($this->todo->hasLabels) {
-                $assignedLabels = TodoLabelObjectHandler::getInstance()->getAssignedLabels([$this->todoID]);
-                if (isset($assignedLabels[$this->todoID])) {
-                    foreach ($assignedLabels[$this->todoID] as $label) {
-                        $this->todo->addLabel($label);
-                    }
-                }
-            }
         }
 
         $this->todo->loadEmbeddedObjects();

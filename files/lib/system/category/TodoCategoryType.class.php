@@ -50,8 +50,8 @@ class TodoCategoryType extends AbstractCategoryType
         $todoList->getConditionBuilder()->add("todo.categoryID IS NULL");
         $todoList->readObjects();
         if (count($todoList)) {
-            $ticketAction = new TodoAction($todoList->getObjects(), 'delete');
-            $ticketAction->executeAction();
+            $todoAction = new TodoAction($todoList->getObjects(), 'delete');
+            $todoAction->executeAction();
         }
     }
 

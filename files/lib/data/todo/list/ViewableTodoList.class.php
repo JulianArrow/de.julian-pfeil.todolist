@@ -2,7 +2,6 @@
 
 namespace todolist\data\todo\list;
 
-use todolist\system\label\object\TodoLabelObjectHandler;
 use todolist\data\todo\ViewableTodo;
 use wcf\system\cache\runtime\UserProfileRuntimeCache;
 use wcf\system\reaction\ReactionHandler;
@@ -58,30 +57,15 @@ class ViewableTodoList extends TodoList
     {
         parent::readObjects();
 
-        $userIDs = $todoIDs = [];
+        $userIDs = [];
         foreach ($this->objects as $todo) {
             if ($todo->userID) {
                 $userIDs[] = $todo->userID;
-            }
-
-            if (defined('TODOLIST_LABELS_PLUGIN')) {
-                if ($todo->hasLabels) {
-                    $todoIDs[] = $todo->todoID;
-                }
             }
         }
 
         if (!empty($userIDs)) {
             UserProfileRuntimeCache::getInstance()->cacheObjectIDs($userIDs);
-        }
-
-        if (defined('TODOLIST_LABELS_PLUGIN') && !empty($todoIDs)) {
-            $assignedLabels = TodoLabelObjectHandler::getInstance()->getAssignedLabels($todoIDs);
-            foreach ($assignedLabels as $todoID => $labels) {
-                foreach ($labels as $label) {
-                    $this->objects[$todoID]->addLabel($label);
-                }
-            }
         }
     }
 

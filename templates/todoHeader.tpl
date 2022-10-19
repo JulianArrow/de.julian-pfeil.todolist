@@ -10,17 +10,6 @@
             
             <ul class="inlineList contentHeaderMetaData">
                 {event name='beforeMetaData'}
-
-                {if "TODOLIST_LABELS_PLUGIN"|defined && $todo->hasLabels()}
-                    <li>
-                        <span class="icon icon16 fa-tags"></span>
-                        <ul class="labelList">
-                            {foreach from=$todo->getLabels() item=label}
-                                <li>{@$label->render()}</li>
-                            {/foreach}
-                        </ul>
-                    </li>
-                {/if}
                 
                 <li itemprop="author" itemscope itemtype="http://schema.org/Person">
                     <span class="icon icon16 fa-user"></span>
@@ -52,15 +41,8 @@
                     <span class="icon icon16 fa-eye"></span>
                     {$todo->views} {lang}todolist.column.views{/lang}
                 </li>
-
-                {if "TODOLIST_COMMENTS_PLUGIN"|defined}
-                    {if $todo->enableComments}
-                        <li>
-                            <span class="icon icon16 fa-comments"></span> 
-                            {lang}todolist.comment.metaData{/lang}
-                        </li>
-                    {/if}
-                {/if}
+                
+                {event name='afterMetaData'}
                 
                 <li class="jsMarkAsDone" data-object-id="{@$todo->todoID}">
                     {if $todo->isDone()}
@@ -71,8 +53,6 @@
                         <span class="doneTitle">{lang}todolist.general.isUndone{/lang}</span>
                     {/if}
                 </li>
-                
-                {event name='afterMetaData'}
             </ul>
         </div>
         

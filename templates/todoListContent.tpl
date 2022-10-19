@@ -47,24 +47,6 @@
                                         {include file='__topReaction' cachedReactions=$todo->cachedReactions render='tiny'}
                                     </small>
                                 {/if}
-
-                                {if "TODOLIST_COMMENTS_PLUGIN"|defined}
-                                    {if $todo->enableComments && $todo->comments > 0}
-                                        <small class="separatorLeft">
-                                            <span class="icon icon16 fa-comments"></span> 
-                                            {lang}todolist.comment.metaData{/lang}
-                                        </small>
-                                    {/if}
-                                {/if}
-
-                                {if "TODOLIST_LABELS_PLUGIN"|defined && $todo->hasLabels()}
-                                    <small class="separatorLeft"></small>
-                                        <ul class="labelList">
-                                            {foreach from=$todo->getLabels() item=label}
-                                                <li>{@$label->render()}</li>
-                                            {/foreach}
-                                        </ul>
-                                {/if}
                                 
                                 {event name='containerHeadline'}
                             </h3>

@@ -5,12 +5,8 @@ namespace todolist\page;
 use todolist\data\todo\category\TodoCategoryNodeTree;
 use todolist\data\todo\category\TodoCategory;
 use todolist\data\todo\list\AccessibleTodoList;
-use wcf\data\object\type\ObjectTypeCache;
 use wcf\page\SortablePage;
-use wcf\system\label\LabelHandler;
 use wcf\system\WCF;
-use wcf\util\HeaderUtil;
-use wcf\system\request\LinkHandler;
 
 /**
  * Shows the list of todos.
@@ -87,16 +83,6 @@ class TodoListPage extends SortablePage
     public $category = null;
 
     /**
-    * label filter
-    */
-    public $labelIDs = [];
-
-   /**
-    * list of available label groups
-    */
-    public $labelGroups = [];
-
-    /**
      * @inheritDoc
      */
     public function assignVariables()
@@ -109,8 +95,6 @@ class TodoListPage extends SortablePage
             'validSortFields' => $this->validSortFields,
             'viewableCategoryList' => $this->viewableCategoryList,
             'canAddToCategoryList' => $this->canAddToCategoryList,
-            'labelGroups' => $this->labelGroups,
-            'labelIDs' => $this->labelIDs,
             'canAddTodoInAnyCategory' => $this->categoryNodeTree->canAddTodoInAnyCategory()
         ]);
 
@@ -169,57 +153,6 @@ class TodoListPage extends SortablePage
         }
 
         $this->checkSortFields();
-
-        if (defined('TODOLIST_LABELS_PLUGIN')) {
-            $this->labelGroups = TodoCategory::getAccessibleLabelGroups('canViewLabel');
-            if (!empty($this->labelGroups) && isset($_REQUEST['labelIDs']) && \is_array($_REQUEST['labelIDs'])) {
-                $this->labelIDs = $_REQUEST['labelIDs'];
-
-                foreach ($this->labelIDs as $groupID => $labelID) {
-                    $isValid = false;
-
-                    // ignore zero-values
-                    if (!\is_array($labelID) && $labelID) {
-                        if (isset($this->labelGroups[$groupID]) && ($labelID == -1 || $this->labelGroups[$groupID]->isValid($labelID))) {
-                            $isValid = true;
-                        }
-                    }
-
-                    if (!$isValid) {
-                        unset($this->labelIDs[$groupID]);
-                    }
-                }
-            }
-
-            if (!empty($_POST)) {
-                $labelParameters = '';
-                if (!empty($this->labelIDs)) {
-                    foreach ($this->labelIDs as $groupID => $labelID) {
-                        $labelParameters .= 'labelIDs[' . $groupID . ']=' . $labelID . '&';
-                    }
-                }
-
-                $controllerParameters = ['application' => 'todolist'];
-                if ($this->categoryID) {
-                    $controllerParameters['categoryID'] = $this->categoryID;
-                }
-
-                $controllerParameters = array_merge($controllerParameters, $_REQUEST);
-
-                HeaderUtil::redirect(
-                    LinkHandler::getInstance()->getLink(
-                        'TodoList',
-                        $controllerParameters,
-                        \rtrim(
-                            $labelParameters,
-                            '&'
-                        )
-                    )
-                );
-
-                exit;
-            }
-        }
     }
 
     /**
@@ -258,32 +191,6 @@ class TodoListPage extends SortablePage
         if ($this->category !== null) {
             $this->objectList->getConditionBuilder()->add('categoryID = ?', [$this->category->categoryID]);
         }
-
-        if (defined('TODOLIST_LABELS_PLUGIN')) {
-            // filter by label
-            if (!empty($this->labelIDs)) {
-                $objectTypeID = ObjectTypeCache::getInstance()->getObjectTypeByName('com.woltlab.wcf.label.object', 'de.julian-pfeil.todolist.todo')->objectTypeID;
-
-                foreach ($this->labelIDs as $groupID => $labelID) {
-                    if ($labelID == -1) {
-                        $groupLabelIDs = LabelHandler::getInstance()->getLabelGroup($groupID)->getLabelIDs();
-
-                        if (!empty($groupLabelIDs)) {
-                            $this->objectList->getConditionBuilder()->add('todo.todoID NOT IN (SELECT objectID FROM wcf' . WCF_N . '_label_object WHERE objectTypeID = ? AND labelID IN (?))', [
-                                $objectTypeID,
-                                $groupLabelIDs,
-                            ]);
-                        }
-                    } else {
-                        $this->labelID = $labelID;
-                        $this->objectList->getConditionBuilder()->add('todo.todoID IN (SELECT objectID FROM wcf' . WCF_N . '_label_object WHERE objectTypeID = ? AND labelID = ?)', [
-                            $objectTypeID,
-                            $labelID,
-                        ]);
-                    }
-                }
-            }
-        }
     }
 
     /**
@@ -293,10 +200,6 @@ class TodoListPage extends SortablePage
     {
         if (MODULE_LIKE) {
             $this->validSortFields[] = 'cumulativeLikes';
-        }
-
-        if (defined('TODOLIST_COMMENTS_PLUGIN')) {
-            $this->validSortFields[] = 'comments';
         }
     }
 }
