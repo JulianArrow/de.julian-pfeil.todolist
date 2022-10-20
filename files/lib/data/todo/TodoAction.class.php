@@ -203,7 +203,6 @@ class TodoAction extends AbstractDatabaseObjectAction
             $this->addTodoData($todo, 'deleted', LinkHandler::getInstance()->getLink('TodoList', ['application' => 'todolist']));
         }
 
-
         if (!empty($todoIDs)) {
             // delete like data
             LikeHandler::getInstance()->removeLikes('de.julian-pfeil.todolist.likeableTodo', $todoIDs);
@@ -219,7 +218,6 @@ class TodoAction extends AbstractDatabaseObjectAction
 
             // delete todo notifications
             UserNotificationHandler::getInstance()->markAsConfirmed('entry', 'de.julian-pfeil.todolist.todo', [], $todoIDs);
-
         }
 
         return $this->getTodoData();
