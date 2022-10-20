@@ -10,7 +10,9 @@
  */
 
 use wcf\system\database\table\column\DefaultFalseBooleanDatabaseTableColumn;
+use wcf\system\database\table\column\DefaultTrueBooleanDatabaseTableColumn;
 use wcf\system\database\table\column\NotNullInt10DatabaseTableColumn;
+use wcf\system\database\table\column\SmallintDatabaseTableColumn;
 use wcf\system\database\table\PartialDatabaseTable;
 
 return [
