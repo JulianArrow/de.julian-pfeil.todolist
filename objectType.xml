@@ -83,4 +83,21 @@
             <classname>todolist\system\user\activity\event\LikeableTodoUserActivityEvent</classname>
         </type>
     </import>
+	<delete>
+        <type name="de.julian-pfeil.todolist.todoComment">
+            <definitionname>com.woltlab.wcf.comment.commentableContent</definitionname>
+        </type>
+		<type name="de.julian-pfeil.todolist.todoComment.notification">
+			<definitionname>com.woltlab.wcf.notification.objectType</definitionname>
+		</type>
+		<type name="de.julian-pfeil.todolist.todoComment.response.notification">
+			<definitionname>com.woltlab.wcf.notification.objectType</definitionname>
+		</type>
+		<type name="de.julian-pfeil.todolist.todoComment.like.notification">
+			<definitionname>com.woltlab.wcf.notification.objectType</definitionname>
+		</type>
+		<type name="de.julian-pfeil.todolist.todoComment.response.like.notification">
+			<definitionname>com.woltlab.wcf.notification.objectType</definitionname>
+		</type>
+	</delete>
 </data>
