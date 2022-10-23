@@ -10,9 +10,7 @@
  */
 
 use wcf\system\database\table\column\DefaultFalseBooleanDatabaseTableColumn;
-use wcf\system\database\table\column\DefaultTrueBooleanDatabaseTableColumn;
 use wcf\system\database\table\column\NotNullInt10DatabaseTableColumn;
-use wcf\system\database\table\column\SmallintDatabaseTableColumn;
 use wcf\system\database\table\PartialDatabaseTable;
 
 return [
@@ -22,9 +20,5 @@ return [
                 ->renameTo('isDone'),
             NotNullInt10DatabaseTableColumn::create('creationDate')
                 ->renameTo('time'),
-            SmallintDatabaseTableColumn::create('comments')
-                ->drop(),
-            DefaultTrueBooleanDatabaseTableColumn::create('enableComments')
-                ->drop(),
         ]),
 ];

@@ -1,127 +1,225 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/5.4/language.xsd" languagecode="de">
-    <category name="wcf.acp.group">
-        <item name="wcf.acp.group.option.category.user.todolist"><![CDATA[To-do-Liste]]></item>
-        <item name="wcf.acp.group.option.category.mod.todolist"><![CDATA[To-do-Liste]]></item>
-        <item name="wcf.acp.group.option.category.admin.todolist"><![CDATA[To-do-Liste]]></item>
+    <import>
+        <category name="wcf.acp.group">
+            <item name="wcf.acp.group.option.category.user.todolist"><![CDATA[To-do-Liste]]></item>
+            <item name="wcf.acp.group.option.category.mod.todolist"><![CDATA[To-do-Liste]]></item>
+            <item name="wcf.acp.group.option.category.admin.todolist"><![CDATA[To-do-Liste]]></item>
+            
+            <item name="wcf.acp.group.option.category.user.todolist.general"><![CDATA[Allgemein]]></item>
+            <item name="wcf.acp.group.option.category.mod.todolist.general"><![CDATA[Allgemein]]></item>
+            <item name="wcf.acp.group.option.category.admin.todolist.general"><![CDATA[Allgemein]]></item>
+            <item name="wcf.acp.group.option.user.todolist.general.canViewTodoList"><![CDATA[Kann To-do-Liste sehen]]></item>
+            <item name="wcf.acp.group.option.user.todolist.general.canViewTodoInEveryCategory"><![CDATA[Kann To-dos in jeder Kategorie sehen]]></item>
+            <item name="wcf.acp.group.option.user.todolist.general.canAddTodoInEveryCategory"><![CDATA[Kann To-dos in jeder Kategorie hinzufügen]]></item>
+            <item name="wcf.acp.group.option.user.todolist.general.canDeleteOwnTodoInEveryCategory"><![CDATA[Kann eigene To-dos in jeder Kategorie löschen]]></item>
+            <item name="wcf.acp.group.option.user.todolist.general.canEditOwnTodoInEveryCategory"><![CDATA[Kann eigene To-dos in jeder Kategorie bearbeiten]]></item>
+            <item name="wcf.acp.group.option.mod.todolist.general.canEditTodoInEveryCategory"><![CDATA[Kann To-dos in jeder Kategorie bearbeiten]]></item>
+            <item name="wcf.acp.group.option.mod.todolist.general.canDeleteTodoInEveryCategory"><![CDATA[Kann To-dos in jeder Kategorie löschen]]></item>
+            <item name="wcf.acp.group.option.admin.todolist.general.canManageCategory"><![CDATA[Kann Kategorien verwalten]]></item>
+        </category>
+
+        <category name="wcf.acp.rebuildData">
+            <item name="wcf.acp.rebuildData.de.julian-pfeil.todolist.todo"><![CDATA[To-dos aktualisieren]]></item>
+            <item name="wcf.acp.rebuildData.de.julian-pfeil.todolist.todo.description"><![CDATA[Aktualisiert To-dos]]></item>
+        </category>
+
+        <category name="wcf.acl.option">
+            <item name="wcf.acl.option.de.julian-pfeil.todolist.todo.category.canAddTodo"><![CDATA[Kann To-dos hinzufügen]]></item>
+            <item name="wcf.acl.option.de.julian-pfeil.todolist.todo.category.canViewCategory"><![CDATA[Kann To-dos sehen]]></item>
+            <item name="wcf.acl.option.de.julian-pfeil.todolist.todo.category.canEditOwnTodo"><![CDATA[Kann eigene To-dos bearbeiten]]></item>
+            <item name="wcf.acl.option.de.julian-pfeil.todolist.todo.category.canDeleteOwnTodo"><![CDATA[Kann eigene To-dos löschen]]></item>
+            <item name="wcf.acl.option.de.julian-pfeil.todolist.todo.category.canEditTodo"><![CDATA[Kann alle To-dos bearbeiten]]></item>
+            <item name="wcf.acl.option.de.julian-pfeil.todolist.todo.category.canDeleteTodo"><![CDATA[Kann alle To-dos löschen]]></item>
+            <item name="wcf.acl.option.category.de.julian-pfeil.todolist.todo.category.user.todolist"><![CDATA[Allgemeine Rechte]]></item>
+            <item name="wcf.acl.option.category.de.julian-pfeil.todolist.todo.category.mod.todolist"><![CDATA[Moderative Rechte]]></item>
+        </category>
+
+        <category name="wcf.user.notification">
+            <item name="wcf.user.notification.de.julian-pfeil.todolist"><![CDATA[To-do-Liste]]></item>
+
+            <item name="wcf.user.notification.de.julian-pfeil.todolist.todo.todo"><![CDATA[{if LANGUAGE_USE_INFORMAL_VARIANT}Dein{else}Ihr{/if} To-do wurde bearbeitet]]></item>
+            <item name="wcf.user.notification.de.julian-pfeil.todolist.todo.category"><![CDATA[Neues To-do in abonnierter Kategorie]]></item>
+
+            <item name="wcf.user.notification.de.julian-pfeil.todolist.likeableTodo.notification.like"><![CDATA[Reaktion auf {if LANGUAGE_USE_INFORMAL_VARIANT}deinen{else}Ihren{/if} To-do]]></item>
+        </category>
+
+        <category name="wcf.user.recentActivity">
+            <item name="wcf.user.recentActivity.de.julian-pfeil.todolist.recentActivityEvent.todo"><![CDATA[To-do]]></item>
+            <item name="wcf.user.recentActivity.de.julian-pfeil.todolist.likeableTodo.recentActivityEvent"><![CDATA[Reaktion (To-do)]]></item>
+        </category>
+
+        <category name="wcf.user.objectWatch">
+            <item name="wcf.user.objectWatch.subscribe.de.julian-pfeil.todolist.todo.category"><![CDATA[Kategorie abonnieren]]></item>
+            <item name="wcf.user.objectWatch.enableNotification.de.julian-pfeil.todolist.todo.category"><![CDATA[Benachrichtigung über neue To-dos in dieser Kategorie aktivieren]]></item>
+            <item name="wcf.user.objectWatch.unsubscribe.de.julian-pfeil.todolist.todo.category"><![CDATA[Kategorie nicht abonnieren]]></item>
+        </category>
         
-        <item name="wcf.acp.group.option.category.user.todolist.general"><![CDATA[Allgemein]]></item>
-        <item name="wcf.acp.group.option.category.mod.todolist.general"><![CDATA[Allgemein]]></item>
-        <item name="wcf.acp.group.option.category.admin.todolist.general"><![CDATA[Allgemein]]></item>
-        <item name="wcf.acp.group.option.user.todolist.general.canViewTodoList"><![CDATA[Kann To-do-Liste sehen]]></item>
-        <item name="wcf.acp.group.option.user.todolist.general.canViewTodoInEveryCategory"><![CDATA[Kann To-dos in jeder Kategorie sehen]]></item>
-        <item name="wcf.acp.group.option.user.todolist.general.canAddTodoInEveryCategory"><![CDATA[Kann To-dos in jeder Kategorie hinzufügen]]></item>
-        <item name="wcf.acp.group.option.user.todolist.general.canDeleteOwnTodoInEveryCategory"><![CDATA[Kann eigene To-dos in jeder Kategorie löschen]]></item>
-        <item name="wcf.acp.group.option.user.todolist.general.canEditOwnTodoInEveryCategory"><![CDATA[Kann eigene To-dos in jeder Kategorie bearbeiten]]></item>
-        <item name="wcf.acp.group.option.mod.todolist.general.canEditTodoInEveryCategory"><![CDATA[Kann To-dos in jeder Kategorie bearbeiten]]></item>
-        <item name="wcf.acp.group.option.mod.todolist.general.canDeleteTodoInEveryCategory"><![CDATA[Kann To-dos in jeder Kategorie löschen]]></item>
-        <item name="wcf.acp.group.option.admin.todolist.general.canManageCategory"><![CDATA[Kann Kategorien verwalten]]></item>
-    </category>
+        <category name="wcf.like">
+            <item name="wcf.like.objectType.de.julian-pfeil.todolist.likeableThowodo"><![CDATA[To-do]]></item>
 
-    <category name="wcf.acl.rebuildData">
-        <item name="wcf.acp.rebuildData.de.julian-pfeil.todolist.todo"><![CDATA[To-dos aktualisieren]]></item>
-        <item name="wcf.acp.rebuildData.de.julian-pfeil.todolist.todo.description"><![CDATA[Aktualisiert To-dos]]></item>
-    </category>
+            <item name="wcf.like.title.de.julian-pfeil.todolist.likeableTodo"><![CDATA[Hat mit {@$like->render()} auf das To-do <a href="{link application='todolist' controller='Todo' object=$todo}{/link}" class="todoLink" data-todo-id="{@$todo->todoID}">{$todo->getTitle()}</a> reagiert.]]></item>
+        </category>
+        
+        <category name="wcf.page">
+            <item name="wcf.page.onlineLocation.de.julian-pfeil.todolist.Todo"><![CDATA[To-do {anchor object=$todo}]]></item>
+        </category>
+        
+        <category name="wcf.search">
+            <item name="wcf.search.type.de.julian-pfeil.todolist.todo"><![CDATA[To-dos]]></item>
+            <item name="wcf.search.object.de.julian-pfeil.todolist.todo"><![CDATA[To-do]]></item>
+        </category>
+        
+        <category name="todolist.action">
+            <item name="todolist.action.add"><![CDATA[To-do hinzufügen]]></item>
+            <item name="todolist.action.edit"><![CDATA[To-do bearbeiten]]></item>
+            <item name="todolist.action.markAsDone"><![CDATA[Als erledigt markieren]]></item>
+            <item name="todolist.action.markAsUndone"><![CDATA[Als unerledigt markieren]]></item>
+            <item name="todolist.action.confirmDelete"><![CDATA[{if LANGUAGE_USE_INFORMAL_VARIANT}Willst du{else}Wollen Sie{/if} dieses To-do wirklich löschen?]]></item>
 
-    <category name="wcf.acl.option">
-        <item name="wcf.acl.option.de.julian-pfeil.todolist.todo.category.canAddTodo"><![CDATA[Kann To-dos hinzufügen]]></item>
-        <item name="wcf.acl.option.de.julian-pfeil.todolist.todo.category.canViewCategory"><![CDATA[Kann To-dos sehen]]></item>
-        <item name="wcf.acl.option.de.julian-pfeil.todolist.todo.category.canEditOwnTodo"><![CDATA[Kann eigene To-dos bearbeiten]]></item>
-        <item name="wcf.acl.option.de.julian-pfeil.todolist.todo.category.canDeleteOwnTodo"><![CDATA[Kann eigene To-dos löschen]]></item>
-        <item name="wcf.acl.option.de.julian-pfeil.todolist.todo.category.canEditTodo"><![CDATA[Kann alle To-dos bearbeiten]]></item>
-        <item name="wcf.acl.option.de.julian-pfeil.todolist.todo.category.canDeleteTodo"><![CDATA[Kann alle To-dos löschen]]></item>
-        <item name="wcf.acl.option.category.de.julian-pfeil.todolist.todo.category.user.todolist"><![CDATA[Allgemeine Rechte]]></item>
-        <item name="wcf.acl.option.category.de.julian-pfeil.todolist.todo.category.mod.todolist"><![CDATA[Moderative Rechte]]></item>
-    </category>
+            <item name="todolist.action.notification.title"><![CDATA[To-do geändert]]></item>
+            <item name="todolist.action.notification.message"><![CDATA[<strong>{$author}</strong> hat das To-do <a href="{link application='todolist' controller='Todo' object=$todo}{/link}">{$todo->getTitle()}</a> geändert.]]></item>
+            <item name="todolist.action.notification.mail.plaintext"><![CDATA[{if $event->getAuthor()->userID}{@$event->getAuthor()->username} [URL:{link controller='User' object=$event->getAuthor() isEmail=true}{/link}]{else}ein Gast{/if} hat das To-do „{@$event->getUserNotificationObject()->getTitle()}“ [URL:{link application='todolist' controller='Todo' object=$event->getUserNotificationObject() isEmail=true}{/link}] geändert:]]></item>
+            <item name="todolist.action.notification.mail.html"><![CDATA[<p>{if $event->getAuthor()->userID}<a href="{link controller='User' object=$event->getAuthor() isHtmlEmail=true}{/link}">{$event->getAuthor()->username}</a>{else}ein Gast{/if} hat das To-do <a href="{link application='todolist' controller='Todo' object=$event->getUserNotificationObject() isHtmlEmail=true}{/link}">{$event->getUserNotificationObject()->getTitle()}</a> geändert:</p>]]></item>
+        </category>
+        
+        <category name="todolist.acp">
+            <item name="todolist.acp.menu.link.todo.category.add"><![CDATA[Kategorie hinzufügen]]></item>
+            <item name="todolist.acp.menu.link.todo.category"><![CDATA[Kategorien]]></item>
+            <item name="todolist.acp.menu.link"><![CDATA[To-do-Liste]]></item>
+        </category>
 
-    <category name="wcf.user.notification">
-        <item name="wcf.user.notification.de.julian-pfeil.todolist"><![CDATA[To-do-Liste]]></item>
+        <category name="todolist.column">
+            <item name="todolist.column.todoName"><![CDATA[Titel]]></item>
+            <item name="todolist.column.time"><![CDATA[Erstellungsdatum]]></item>
+            <item name="todolist.column.description"><![CDATA[Beschreibung]]></item>
+            <item name="todolist.column.isDone"><![CDATA[Erledigt?]]></item>
+            <item name="todolist.column.views"><![CDATA[{plural value=$todo->views 1='Aufruf' other='Aufrufe'}]]></item>
+            <item name="todolist.column.lastEditTime"><![CDATA[Zuletzt geändert]]></item>
+        </category>
+        
+        <category name="todolist.category">
+            <item name="todolist.category.title"><![CDATA[Kategorie]]></item>
+            <item name="todolist.category.all"><![CDATA[Alle Kategorien]]></item>
+            <item name="todolist.category.notification.title"><![CDATA[Neues To-do]]></item>
+            <item name="todolist.category.notification.message"><![CDATA[<strong>{$author}</strong> hat das To-do <a href="{link application='todolist' controller='Todo' object=$todo}{/link}">{$todo->getTitle()}</a> hinzugefügt.]]></item>
+            <item name="todolist.category.notification.mail.plaintext"><![CDATA[{if $event->getAuthor()->userID}{@$event->getAuthor()->username} [URL:{link controller='User' object=$event->getAuthor() isEmail=true}{/link}]{else}ein Gast{/if} hat das To-do „{@$event->getUserNotificationObject()->getTitle()}“ [URL:{link application='todolist' controller='Todo' object=$event->getUserNotificationObject() isEmail=true}{/link}] hinzugefügt:]]></item>
+            <item name="todolist.category.notification.mail.html"><![CDATA[<p>{if $event->getAuthor()->userID}<a href="{link controller='User' object=$event->getAuthor() isHtmlEmail=true}{/link}">{$event->getAuthor()->username}</a>{else}ein Gast{/if} hat das To-do <a href="{link application='todolist' controller='Todo' object=$event->getUserNotificationObject() isHtmlEmail=true}{/link}">{$event->getUserNotificationObject()->getTitle()}</a> hinzugefügt:</p>]]></item>
+            <item name="todolist.category.info.noCategories"><![CDATA[{if LANGUAGE_USE_INFORMAL_VARIANT}Du musst{else}Sie müssen{/if} zuerst mindestens eine <a href="{link controller='TodoCategoryAdd' isACP=true}{/link}">Kategorie anlegen</a>, um To-dos erstellen zu können.]]></item>
+        </category>
+        
+        <category name="todolist.general">
+            <item name="todolist.general.title"><![CDATA[Allgemein]]></item>
+            <item name="todolist.general.todo"><![CDATA[To-do: {$todo}]]></item>
+            <item name="todolist.general.list"><![CDATA[To-do-Liste]]></item>
+            <item name="todolist.general.info"><![CDATA[Informationen]]></item>
+            <item name="todolist.general.recentActivity.todo"><![CDATA[Hat das To-do {anchor object=$todo} hinzugefügt.]]></item>
+            <item name="todolist.general.isDone"><![CDATA[erledigt]]></item>
+            <item name="todolist.general.isUndone"><![CDATA[unerledigt]]></item>
+            <item name="todolist.general.copyright"><![CDATA[<a href="https://julian-pfeil.de" rel="nofollow"{if EXTERNAL_LINK_TARGET_BLANK} target="_blank"{/if}><strong>To-do-Liste{if SHOW_VERSION_NUMBER} {@PACKAGE_VERSION}{/if}</strong> (von <strong>julian-pfeil.de</strong>)</a>]]></item>
+        </category>
+        
+        <category name="todolist.like">
+            <item name="todolist.like.notification.title"><![CDATA[Reaktion auf {if LANGUAGE_USE_INFORMAL_VARIANT}dein{else}Ihr{/if} To-do]]></item>
+            <item name="todolist.like.notification.title.stacked"><![CDATA[{#$count} Benutzer haben auf {if LANGUAGE_USE_INFORMAL_VARIANT}dein{else}Ihr{/if} To-do reagiert]]></item>
+            <item name="todolist.like.notification.message"><![CDATA[<strong>{$author}</strong> hat auf {if LANGUAGE_USE_INFORMAL_VARIANT}dein{else}Ihr{/if} To-do <a href="{link application='todolist' controller='Todo' object=$todo}{/link}">{$todo->getTitle()}</a> reagiert ({@$__wcf->getReactionHandler()->renderInlineList($reactions)}).]]></item>
+            <item name="todolist.like.notification.message.stacked"><![CDATA[{if $count < 4}{@$authors[0]->getAnchorTag()}{if $count == 2} und {else}, {/if}{@$authors[1]->getAnchorTag()}{if $count == 3} und {@$authors[2]->getAnchorTag()}{/if}{else}{@$authors[0]->getAnchorTag()} und {#$others} weitere{/if} haben auf {if LANGUAGE_USE_INFORMAL_VARIANT}dein{else}Ihr{/if} To-do <a href="{link application='todolist' controller='Todo' object=$todo}{/link}">{$todo->getTitle()}</a> reagiert ({@$__wcf->getReactionHandler()->renderInlineList($reactions)}).]]></item>
+        </category>
 
-        <item name="wcf.user.notification.de.julian-pfeil.todolist.todo.todo"><![CDATA[{if LANGUAGE_USE_INFORMAL_VARIANT}Dein{else}Ihr{/if} To-do wurde bearbeitet]]></item>
-        <item name="wcf.user.notification.de.julian-pfeil.todolist.todo.category"><![CDATA[Neues To-do in abonnierter Kategorie]]></item>
-
-        <item name="wcf.user.notification.de.julian-pfeil.todolist.likeableTodo.notification.like"><![CDATA[Reaktion auf {if LANGUAGE_USE_INFORMAL_VARIANT}deinen{else}Ihren{/if} To-do]]></item>
-    </category>
-
-    <category name="wcf.user.recentActivity">
-        <item name="wcf.user.recentActivity.de.julian-pfeil.todolist.recentActivityEvent.todo"><![CDATA[To-do]]></item>
-    	<item name="wcf.user.recentActivity.de.julian-pfeil.todolist.likeableTodo.recentActivityEvent"><![CDATA[Reaktion (To-do)]]></item>
-    </category>
-
-	<category name="wcf.user.objectWatch">
-		<item name="wcf.user.objectWatch.subscribe.de.julian-pfeil.todolist.todo.category"><![CDATA[Kategorie abonnieren]]></item>
-		<item name="wcf.user.objectWatch.enableNotification.de.julian-pfeil.todolist.todo.category"><![CDATA[Benachrichtigung über neue To-dos in dieser Kategorie aktivieren]]></item>
-		<item name="wcf.user.objectWatch.unsubscribe.de.julian-pfeil.todolist.todo.category"><![CDATA[Kategorie nicht abonnieren]]></item>
-	</category>
+        <!-- comments-->
+        <category name="todolist.comment">
+            <item name="todolist.comment.title"><![CDATA[To-do-Kommentar]]></item>
+            <item name="todolist.comment.response"><![CDATA[Antwort auf To-do-Kommentar]]></item>
+            <item name="todolist.comment.plural"><![CDATA[Kommentare]]></item>
+            <item name="todolist.comment.enable"><![CDATA[Kommentare aktivieren]]></item>
+            <item name="todolist.comment.enable.description"><![CDATA[Erlaubt es Benutzern dieses To-do zu kommentieren.]]></item>
+            <item name="todolist.comment.metaData"><![CDATA[{@$todo->comments|shortUnit} Kommentar{if $todo->comments != 1}e{/if}]]></item>
+            
+            <item name="todolist.comment.like.notification.title"><![CDATA[Reaktion auf einen Kommentar (To-do)]]></item>
+            <item name="todolist.comment.like.notification.title.stacked"><![CDATA[{#$count} Benutzer haben auf {if LANGUAGE_USE_INFORMAL_VARIANT}deinen{else}Ihren{/if} Kommentar reagiert (To-do)]]></item>
+            <item name="todolist.comment.like.notification.message"><![CDATA[<strong>{$author}</strong> hat auf {if LANGUAGE_USE_INFORMAL_VARIANT}deinen{else}Ihren{/if} Kommentar zum To-do <a href="{link application='todolist' controller='Todo' object=$todo}#commentsTab/comment{@$commentID}{/link}">{$todo->getTitle()}</a> reagiert ({@$__wcf->getReactionHandler()->renderInlineList($reactions)}).]]></item>
+            <item name="todolist.comment.like.notification.message.stacked"><![CDATA[{if $count < 4}{@$authors[0]->getAnchorTag()}{if $count == 2} und {else}, {/if}{@$authors[1]->getAnchorTag()}{if $count == 3} und {@$authors[2]->getAnchorTag()}{/if}{else}{@$authors[0]->getAnchorTag()} und {#$others} weitere{/if} haben auf {if LANGUAGE_USE_INFORMAL_VARIANT}deinen{else}Ihren{/if} Kommentar zum To-do <a href="{link application='todolist' controller='Todo' object=$todo}#commentsTab/comment{@$commentID}{/link}">{$todo->getTitle()}</a> reagiert ({@$__wcf->getReactionHandler()->renderInlineList($reactions)}).]]></item>
+        
+            <item name="todolist.comment.notification.title"><![CDATA[Neuer Kommentar (To-Do)]]></item>
+            <item name="todolist.comment.notification.title.stacked"><![CDATA[{#$timesTriggered} neue Kommentare (To-Do)]]></item>
+            <item name="todolist.comment.notification.message"><![CDATA[{if $author->userID}<strong>{$author}</strong>{else}Ein Gast{/if} hat einen Kommentar zu {if LANGUAGE_USE_INFORMAL_VARIANT}deinem{else}Ihrem{/if} To-do <a href="{link application='todolist' controller='Todo' object=$todo}#commentsTab/comment{@$commentID}{/link}">{$todo->getTitle()}</a> verfasst.]]></item>
+            <item name="todolist.comment.notification.message.stacked"><![CDATA[{if $count < 4}{@$authors[0]->getAnchorTag()}{if $count != 1}{if $count == 2 && !$guestTimesTriggered} und {else}, {/if}{@$authors[1]->getAnchorTag()}{if $count == 3}{if !$guestTimesTriggered} und {else}, {/if} {@$authors[2]->getAnchorTag()}{/if}{/if}{if $guestTimesTriggered} und {if $guestTimesTriggered == 1}ein Gast{else}Gäste{/if}{/if}{else}{@$authors[0]->getAnchorTag()}{if $guestTimesTriggered},{else} und{/if} {#$others} weitere Benutzer {if $guestTimesTriggered}und {if $guestTimesTriggered == 1}ein Gast{else}Gäste{/if}{/if}{/if} haben Kommentare zu {if LANGUAGE_USE_INFORMAL_VARIANT}deinem{else}Ihrem{/if} To-do <a href="{link application='todolist' controller='Todo' object=$todo}#comments{/link}">{$todo->getTitle()}</a> verfasst.]]></item>
+            <item name="todolist.comment.notification.mail.plaintext"><![CDATA[{@$authorList} {if $count == 1 && $guestTimesTriggered < 2 && (!$event->getAuthor()->userID || $guestTimesTriggered == 0)}hat einen Kommentar{else}haben Kommentare{/if} zu {if LANGUAGE_USE_INFORMAL_VARIANT}deinem{else}Ihrem{/if} To-do „{@$todo->getTitle()}“ [URL:{link application='todolist' controller='Todo' object=$todo isEmail=true}#commentsTab/comment{@$commentID}{/link}] verfasst{if $count == 1 && !$guestTimesTriggered}:{else}.{/if}]]></item>
+            <item name="todolist.comment.notification.mail.html"><![CDATA[<p>{@$authorList} {if $count == 1 && $guestTimesTriggered < 2 && (!$event->getAuthor()->userID || $guestTimesTriggered == 0)}hat einen Kommentar{else}haben Kommentare{/if} zu {if LANGUAGE_USE_INFORMAL_VARIANT}deinem{else}Ihrem{/if} To-do <a href="{link application='todolist' controller='Todo' object=$todo isHtmlEmail=true}#commentsTab/comment{@$commentID}{/link}">{$todo->getTitle()}</a> verfasst:</p>]]></item>
+            
+            <item name="todolist.comment.response.like.notification.title"><![CDATA[Reaktion auf eine Antwort auf einen Kommentar (To-Do)]]></item>
+            <item name="todolist.comment.response.like.notification.title.stacked"><![CDATA[{#$count} Benutzer haben auf {if LANGUAGE_USE_INFORMAL_VARIANT}deine{else}Ihre{/if} Antwort auf einen Kommentar reagiert (To-Do)]]></item>
+            <item name="todolist.comment.response.like.notification.message"><![CDATA[<strong>{$author}</strong> hat auf {if LANGUAGE_USE_INFORMAL_VARIANT}deine{else}Ihre{/if} Antwort auf einen Kommentar zum To-do <a href="{link application='todolist' controller='Todo' object=$todo}#commentsTab/comment{@$commentID}/response{@$responseID}{/link}">{$todo->getTitle()}</a> reagiert ({@$__wcf->getReactionHandler()->renderInlineList($reactions)}).]]></item>
+            <item name="todolist.comment.response.like.notification.message.stacked"><![CDATA[{if $count < 4}{@$authors[0]->getAnchorTag()}{if $count == 2} und {else}, {/if}{@$authors[1]->getAnchorTag()}{if $count == 3} und {@$authors[2]->getAnchorTag()}{/if}{else}{@$authors[0]->getAnchorTag()} und {#$others} weitere{/if} haben auf {if LANGUAGE_USE_INFORMAL_VARIANT}deine{else}Ihre{/if} Antwort auf einen Kommentar zum To-do <a href="{link application='todolist' controller='Todo' object=$todo}#commentsTab/comment{@$commentID}/response{@$responseID}{/link}">{$todo->getTitle()}</a> reagiert ({@$__wcf->getReactionHandler()->renderInlineList($reactions)}).]]></item>
+            
+            <item name="todolist.comment.response.notification.title"><![CDATA[Neue Antwort (To-Do)]]></item>
+            <item name="todolist.comment.response.notification.title.stacked"><![CDATA[{#$timesTriggered} neue Antworten (To-Do)]]></item>
+            <item name="todolist.comment.response.notification.message"><![CDATA[{if $author->userID}<strong>{$author}</strong>{else}Ein Gast{/if} hat eine Antwort zu {if LANGUAGE_USE_INFORMAL_VARIANT}deinem{else}Ihrem{/if} Kommentar zum To-do <a href="{link application='todolist' controller='Todo' object=$todo}#commentsTab/comment{@$commentID}/response{@$responseID}{/link}">{$todo->getTitle()}</a> verfasst.]]></item>
+            <item name="todolist.comment.response.notification.message.stacked"><![CDATA[{if $count < 4}{@$authors[0]->getAnchorTag()}{if $count != 1}{if $count == 2 && !$guestTimesTriggered} und {else}, {/if}{@$authors[1]->getAnchorTag()}{if $count == 3}{if !$guestTimesTriggered} und {else}, {/if} {@$authors[2]->getAnchorTag()}{/if}{/if}{if $guestTimesTriggered} und {if $guestTimesTriggered == 1}ein Gast{else}Gäste{/if}{/if}{else}{@$authors[0]->getAnchorTag()}{if $guestTimesTriggered},{else} und{/if} {#$others} weitere Benutzer {if $guestTimesTriggered}und {if $guestTimesTriggered == 1}ein Gast{else}Gäste{/if}{/if}{/if} haben Antworten zu {if LANGUAGE_USE_INFORMAL_VARIANT}deinem{else}Ihrem{/if} Kommentar zum To-do <a href="{link application='todolist' controller='Todo' object=$todo}#commentsTab/comment{@$commentID}{/link}">{$todo->getTitle()}</a> verfasst.]]></item>
+            <item name="todolist.comment.response.notification.mail.plaintext"><![CDATA[{@$authorList} {if $count == 1 && $guestTimesTriggered < 2 && (!$event->getAuthor()->userID || $guestTimesTriggered == 0)}hat eine Antwort{else}haben Antworten{/if} auf {if LANGUAGE_USE_INFORMAL_VARIANT}deinen{else}Ihren{/if} Kommentar zum To-do „{@$todo->getTitle()}“ [URL:{link application='todolist' controller='Todo' object=$todo isEmail=true}#commentsTab/comment{@$commentID}/response{@$responseID}{/link}] verfasst{if $count == 1 && !$guestTimesTriggered}:{else}.{/if}]]></item>
+            <item name="todolist.comment.response.notification.mail.html"><![CDATA[<p>{@$authorList} {if $count == 1 && $guestTimesTriggered < 2 && (!$event->getAuthor()->userID || $guestTimesTriggered == 0)}hat eine Antwort{else}haben Antworten{/if} zu {if LANGUAGE_USE_INFORMAL_VARIANT}deinem{else}Ihrem{/if} Kommentar zum To-do <a href="{link application='todolist' controller='Todo' object=$todo isHtmlEmail=true}#commentsTab/comment{@$commentID}/response{@$responseID}{/link}">{$todo->getTitle()}</a> verfasst:</p>]]></item>
+            
+            <item name="todolist.comment.responseOwner.notification.title"><![CDATA[Neue Antwort (To-Do)]]></item>
+            <item name="todolist.comment.responseOwner.notification.title.stacked"><![CDATA[{#$timesTriggered} neue Antworten (To-Do)]]></item>
+            <item name="todolist.comment.responseOwner.notification.message"><![CDATA[{if $author->userID}<strong>{$author}</strong>{else}Ein Gast{/if} hat eine Antwort zum Kommentar von {$commentAuthor->username} zu {if LANGUAGE_USE_INFORMAL_VARIANT}deinem{else}Ihrem{/if} To-do <a href="{link application='todolist' controller='Todo' object=$todo}#commentsTab/comment{@$commentID}/response{@$responseID}{/link}">{$todo->getTitle()}</a> verfasst.]]></item>
+            <item name="todolist.comment.responseOwner.notification.message.stacked"><![CDATA[{if $count < 4}{@$authors[0]->getAnchorTag()}{if $count != 1}{if $count == 2 && !$guestTimesTriggered} und {else}, {/if}{@$authors[1]->getAnchorTag()}{if $count == 3}{if !$guestTimesTriggered} und {else}, {/if} {@$authors[2]->getAnchorTag()}{/if}{/if}{if $guestTimesTriggered} und {if $guestTimesTriggered == 1}ein Gast{else}Gäste{/if}{/if}{else}{@$authors[0]->getAnchorTag()}{if $guestTimesTriggered},{else} und{/if} {#$others} weitere Benutzer {if $guestTimesTriggered}und {if $guestTimesTriggered == 1}ein Gast{else}Gäste{/if}{/if}{/if} haben Antworten zum Kommentar {if $author->userID}von <a href="{link controller='User' object=$author}{/link}" class="userLink" data-user-id="{@$author->userID}">{$author->username}</a>{else}{$author->username}{/if} zu {if LANGUAGE_USE_INFORMAL_VARIANT}deinem{else}Ihrem{/if} To-do <a href="{link application='todolist' controller='Todo' object=$todo}#commentsTab/comment{@$commentID}{/link}">{$todo->getTitle()}</a> verfasst.]]></item>
+            <item name="todolist.comment.responseOwner.notification.mail.plaintext"><![CDATA[{@$authorList} {if $count == 1 && $guestTimesTriggered < 2 && (!$event->getAuthor()->userID || $guestTimesTriggered == 0)}hat eine Antwort{else}haben Antworten{/if} zum Kommentar von {@$notificationContent[variables][commentAuthor]->username}{if $notificationContent[variables][commentAuthor]->userID} [URL:{link controller='User' object=$notificationContent[variables][commentAuthor] isEmail=true}{/link}]{/if} zu {if LANGUAGE_USE_INFORMAL_VARIANT}deinem{else}Ihrem{/if} To-do „{@$todo->getTitle()}“ [URL:{link application='todolist' controller='Todo' object=$todo isEmail=true}#commentsTab/comment{@$commentID}/response{@$responseID}{/link}] verfasst{if $count == 1 && !$guestTimesTriggered}:{else}.{/if}]]></item>
+            <item name="todolist.comment.responseOwner.notification.mail.html"><![CDATA[<p>{@$authorList} {if $count == 1 && $guestTimesTriggered < 2 && (!$event->getAuthor()->userID || $guestTimesTriggered == 0)}hat eine Antwort{else}haben Antworten{/if} zum Kommentar von {if $notificationContent[variables][commentAuthor]->userID}<a href="{link controller='User' object=$notificationContent[variables][commentAuthor] isHtmlEmail=true}{/link}">{$notificationContent[variables][commentAuthor]->username}</a>{else}{$notificationContent[variables][commentAuthor]->username}{/if} zu {if LANGUAGE_USE_INFORMAL_VARIANT}deinem{else}Ihrem{/if} To-do <a href="{link application='todolist' controller='Todo' object=$todo isHtmlEmail=true}#commentsTab/comment{@$commentID}/response{@$responseID}{/link}">{$todo->getTitle()}</a> verfasst:</p>]]></item>
+        
+            <item name="todolist.comment.recentActivity.todoComment"><![CDATA[Hat einen Kommentar zum To-do <a href="{$todo->getLink()}#commentsTab/comment{@$commentID}" data-object-id="{@$todo->todoID}">{$todo->getTitle()}</a> geschrieben.]]></item>
+            <item name="todolist.comment.recentActivity.todoCommentResponse"><![CDATA[Hat auf einen Kommentar von <a href="{link controller='User' object=$commentAuthor}{/link}">{$commentAuthor->username}</a> zum To-do <a href="{$todo->getLink()}#commentsTab/comment{@$commentID}/response{@$responseID}" data-object-id="{@$todo->todoID}">{$todo->getTitle()}</a> geantwortet.]]></item>
+        </category>
     
-    <category name="wcf.like">
-        <item name="wcf.like.objectType.de.julian-pfeil.todolist.likeableThowodo"><![CDATA[To-do]]></item>
+        <category name="wcf.like">
+            <item name="wcf.like.title.de.julian-pfeil.todolist.todoComment"><![CDATA[Hat mit {@$like->render()} auf den Kommentar {if $commentAuthor}von <a href="{link controller='User' object=$commentAuthor}{/link}">{$commentAuthor->username}</a>{else}eines Gasts{/if} zum To-do <a href="{$comment->getLink()}" class="todoLink" data-todo-id="{@$todo->todoID}">{$todo->getTitle()}</a> reagiert.]]></item>
+            <item name="wcf.like.title.de.julian-pfeil.todolist.todoComment.response"><![CDATA[Hat mit {@$like->render()} auf die Antwort {if $responseAuthor}von <a href="{link controller='User' object=$responseAuthor}{/link}">{$responseAuthor->username}</a>{else}eines Gasts{/if} zum Kommentar {if $commentAuthor}von <a href="{link controller='User' object=$commentAuthor}{/link}">{$commentAuthor->username}</a>{else}eines Gasts{/if} zum To-do <a href="{$response->getLink()}" class="todoLink" data-todo-id="{@$todo->todoID}">{$todo->getTitle()}</a> reagiert.]]></item>
+        </category>
 
-        <item name="wcf.like.title.de.julian-pfeil.todolist.likeableTodo"><![CDATA[Hat mit {@$like->render()} auf das To-do <a href="{link application='todolist' controller='Todo' object=$todo}{/link}" class="todoLink" data-todo-id="{@$todo->todoID}">{$todo->getTitle()}</a> reagiert.]]></item>
-    </category>
-    
-    <category name="wcf.page">
-        <item name="wcf.page.onlineLocation.de.julian-pfeil.todolist.Todo"><![CDATA[To-do {anchor object=$todo}]]></item>
-    </category>
-    
-    <category name="wcf.search">
-		<item name="wcf.search.type.de.julian-pfeil.todolist.todo"><![CDATA[To-dos]]></item>
-		<item name="wcf.search.object.de.julian-pfeil.todolist.todo"><![CDATA[To-do]]></item>
-    </category>
-    
-    <category name="todolist.action">
-        <item name="todolist.action.add"><![CDATA[To-do hinzufügen]]></item>
-        <item name="todolist.action.edit"><![CDATA[To-do bearbeiten]]></item>
-        <item name="todolist.action.markAsDone"><![CDATA[Als erledigt markieren]]></item>
-        <item name="todolist.action.markAsUndone"><![CDATA[Als unerledigt markieren]]></item>
-        <item name="todolist.action.confirmDelete"><![CDATA[{if LANGUAGE_USE_INFORMAL_VARIANT}Willst du{else}Wollen Sie{/if} dieses To-do wirklich löschen?]]></item>
+        <category name="wcf.user.notification">
+            <item name="wcf.user.notification.de.julian-pfeil.todolist.todoComment.notification.comment"><![CDATA[Neuer Kommentar zu {if LANGUAGE_USE_INFORMAL_VARIANT}deinem{else}Ihrem{/if} To-do]]></item>
+            <item name="wcf.user.notification.de.julian-pfeil.todolist.todoComment.response.notification.commentResponse"><![CDATA[Neue Antwort auf einen Kommentar von {if LANGUAGE_USE_INFORMAL_VARIANT}dir{else}Ihnen{/if}]]></item>
+            <item name="wcf.user.notification.de.julian-pfeil.todolist.todoComment.response.notification.commentResponseOwner"><![CDATA[Neue Antwort auf einen Kommentar zu {if LANGUAGE_USE_INFORMAL_VARIANT}deinem{else}Ihrem{/if} To-do]]></item>
+            <item name="wcf.user.notification.de.julian-pfeil.todolist.todoComment.like.notification.like"><![CDATA[Reaktion auf {if LANGUAGE_USE_INFORMAL_VARIANT}deinen{else}Ihren{/if} Kommentar]]></item>
+            <item name="wcf.user.notification.de.julian-pfeil.todolist.todoComment.response.like.notification.like"><![CDATA[Reaktion auf {if LANGUAGE_USE_INFORMAL_VARIANT}deine{else}Ihre{/if} Antwort auf einen Kommentar]]></item>
+        </category>
 
-        <item name="todolist.action.notification.title"><![CDATA[To-do geändert]]></item>
-        <item name="todolist.action.notification.message"><![CDATA[<strong>{$author}</strong> hat das To-do <a href="{link application='todolist' controller='Todo' object=$todo}{/link}">{$todo->getTitle()}</a> geändert.]]></item>
-        <item name="todolist.action.notification.mail.plaintext"><![CDATA[{if $event->getAuthor()->userID}{@$event->getAuthor()->username} [URL:{link controller='User' object=$event->getAuthor() isEmail=true}{/link}]{else}ein Gast{/if} hat das To-do „{@$event->getUserNotificationObject()->getTitle()}“ [URL:{link application='todolist' controller='Todo' object=$event->getUserNotificationObject() isEmail=true}{/link}] geändert:]]></item>
-        <item name="todolist.action.notification.mail.html"><![CDATA[<p>{if $event->getAuthor()->userID}<a href="{link controller='User' object=$event->getAuthor() isHtmlEmail=true}{/link}">{$event->getAuthor()->username}</a>{else}ein Gast{/if} hat das To-do <a href="{link application='todolist' controller='Todo' object=$event->getUserNotificationObject() isHtmlEmail=true}{/link}">{$event->getUserNotificationObject()->getTitle()}</a> geändert:</p>]]></item>
-    </category>
-    
-    <category name="todolist.acp">
-        <item name="todolist.acp.menu.link.todo.category.add"><![CDATA[Kategorie hinzufügen]]></item>
-        <item name="todolist.acp.menu.link.todo.category"><![CDATA[Kategorien]]></item>
-        <item name="todolist.acp.menu.link"><![CDATA[To-do-Liste]]></item>
-    </category>
+        <category name="wcf.user.recentActivity">
+            <item name="wcf.user.recentActivity.de.julian-pfeil.todolist.todoComment.response.recentActivityEvent"><![CDATA[Antwort (To-do-Kommentar)]]></item>
+            <item name="wcf.user.recentActivity.de.julian-pfeil.todolist.todoComment.recentActivityEvent"><![CDATA[Kommentar (To-do)]]></item>
+        </category>
 
-    <category name="todolist.column">
-        <item name="todolist.column.todoName"><![CDATA[Titel]]></item>
-        <item name="todolist.column.time"><![CDATA[Erstellungsdatum]]></item>
-        <item name="todolist.column.description"><![CDATA[Beschreibung]]></item>
-        <item name="todolist.column.isDone"><![CDATA[Erledigt?]]></item>
-        <item name="todolist.column.views"><![CDATA[{plural value=$todo->views 1='Aufruf' other='Aufrufe'}]]></item>
-        <item name="todolist.column.lastEditTime"><![CDATA[Zuletzt geändert]]></item>
-    </category>
+        <category name="wcf.acp.group">
+            <item name="wcf.acp.group.option.category.user.todolist.comments"><![CDATA[Kommentare]]></item>
+            <item name="wcf.acp.group.option.category.mod.todolist.comments"><![CDATA[Kommentare]]></item>
+            <item name="wcf.acp.group.option.mod.todolist.comments.canDeleteComments"><![CDATA[Kann Kommentare löschen]]></item>
+            <item name="wcf.acp.group.option.mod.todolist.comments.canEditComments"><![CDATA[Kann Kommentare bearbeiten]]></item>
+            <item name="wcf.acp.group.option.mod.todolist.comments.canModerateComments"><![CDATA[Kann Kommentare moderieren]]></item>
+            <item name="wcf.acp.group.option.user.todolist.comments.canAddComments"><![CDATA[Kann Kommentare erstellen]]></item>
+            <item name="wcf.acp.group.option.user.todolist.comments.canAddCommentsWithoutModeration"><![CDATA[Kann Kommentare ohne Moderation erstellen]]></item>
+            <item name="wcf.acp.group.option.user.todolist.comments.canDeleteComments"><![CDATA[Kann eigene Kommentare löschen]]></item>
+            <item name="wcf.acp.group.option.user.todolist.comments.canEditComments"><![CDATA[Kann eigene Kommentare bearbeiten]]></item>
+        </category>
+    </import>
+    <delete>
+		<item name="wcf.acp.group.option.user.todolist.general.canSeeTodos"/>
+		<item name="wcf.acp.group.option.user.todolist.general.canAddTodos"/>
+		<item name="wcf.acp.group.option.user.todolist.general.canDeleteOwnTodos"/>
+		<item name="wcf.acp.group.option.user.todolist.general.canEditOwnTodos"/>
+		<item name="wcf.acp.group.option.mod.todolist.general.canEditTodos"/>
+		<item name="wcf.acp.group.option.mod.todolist.general.canDeleteTodos"/>
+
+		<item name="wcf.acp.group.option.category.user.todolist.comments"/>
+		<item name="wcf.acp.group.option.category.mod.todolist.comments"/>
+
+		<item name="wcf.acp.option.category.module.community.todolist"/>
+
+		<item name="wcf.acp.option.module_todolist_reactions"><![CDATA[Reaktionen]]></item>
+		<item name="wcf.acp.option.module_todolist_comments"/>
     
-    <category name="todolist.category">
-        <item name="todolist.category.title"><![CDATA[Kategorie]]></item>
-        <item name="todolist.category.all"><![CDATA[Alle Kategorien]]></item>
-        <item name="todolist.category.notification.title"><![CDATA[Neues To-do]]></item>
-		<item name="todolist.category.notification.message"><![CDATA[<strong>{$author}</strong> hat das To-do <a href="{link application='todolist' controller='Todo' object=$todo}{/link}">{$todo->getTitle()}</a> hinzugefügt.]]></item>
-		<item name="todolist.category.notification.mail.plaintext"><![CDATA[{if $event->getAuthor()->userID}{@$event->getAuthor()->username} [URL:{link controller='User' object=$event->getAuthor() isEmail=true}{/link}]{else}ein Gast{/if} hat das To-do „{@$event->getUserNotificationObject()->getTitle()}“ [URL:{link application='todolist' controller='Todo' object=$event->getUserNotificationObject() isEmail=true}{/link}] hinzugefügt:]]></item>
-		<item name="todolist.category.notification.mail.html"><![CDATA[<p>{if $event->getAuthor()->userID}<a href="{link controller='User' object=$event->getAuthor() isHtmlEmail=true}{/link}">{$event->getAuthor()->username}</a>{else}ein Gast{/if} hat das To-do <a href="{link application='todolist' controller='Todo' object=$event->getUserNotificationObject() isHtmlEmail=true}{/link}">{$event->getUserNotificationObject()->getTitle()}</a> hinzugefügt:</p>]]></item>
-        <item name="todolist.category.info.noCategories"><![CDATA[{if LANGUAGE_USE_INFORMAL_VARIANT}Du musst{else}Sie müssen{/if} zuerst mindestens eine <a href="{link controller='TodoCategoryAdd' isACP=true}{/link}">Kategorie anlegen</a>, um To-dos erstellen zu können.]]></item>
-    </category>
-    
-    <category name="todolist.general">
-        <item name="todolist.general.title"><![CDATA[Allgemein]]></item>
-        <item name="todolist.general.todo"><![CDATA[To-do: {$todo}]]></item>
-        <item name="todolist.general.list"><![CDATA[To-do-Liste]]></item>
-        <item name="todolist.general.info"><![CDATA[Informationen]]></item>
-        <item name="todolist.general.recentActivity.todo"><![CDATA[Hat das To-do {anchor object=$todo} hinzugefügt.]]></item>
-        <item name="todolist.general.isDone"><![CDATA[erledigt]]></item>
-        <item name="todolist.general.isUndone"><![CDATA[unerledigt]]></item>
-        <item name="todolist.general.copyright"><![CDATA[<a href="https://julian-pfeil.de" rel="nofollow"{if EXTERNAL_LINK_TARGET_BLANK} target="_blank"{/if}><strong>To-do-Liste{if SHOW_VERSION_NUMBER} {@PACKAGE_VERSION}{/if}</strong> (von <strong>julian-pfeil.de</strong>)</a>]]></item>
-    </category>
-    
-    <category name="todolist.like">
-        <item name="todolist.like.notification.title"><![CDATA[Reaktion auf {if LANGUAGE_USE_INFORMAL_VARIANT}dein{else}Ihr{/if} To-do]]></item>
-        <item name="todolist.like.notification.title.stacked"><![CDATA[{#$count} Benutzer haben auf {if LANGUAGE_USE_INFORMAL_VARIANT}dein{else}Ihr{/if} To-do reagiert]]></item>
-        <item name="todolist.like.notification.message"><![CDATA[<strong>{$author}</strong> hat auf {if LANGUAGE_USE_INFORMAL_VARIANT}dein{else}Ihr{/if} To-do <a href="{link application='todolist' controller='Todo' object=$todo}{/link}">{$todo->getTitle()}</a> reagiert ({@$__wcf->getReactionHandler()->renderInlineList($reactions)}).]]></item>
-        <item name="todolist.like.notification.message.stacked"><![CDATA[{if $count < 4}{@$authors[0]->getAnchorTag()}{if $count == 2} und {else}, {/if}{@$authors[1]->getAnchorTag()}{if $count == 3} und {@$authors[2]->getAnchorTag()}{/if}{else}{@$authors[0]->getAnchorTag()} und {#$others} weitere{/if} haben auf {if LANGUAGE_USE_INFORMAL_VARIANT}dein{else}Ihr{/if} To-do <a href="{link application='todolist' controller='Todo' object=$todo}{/link}">{$todo->getTitle()}</a> reagiert ({@$__wcf->getReactionHandler()->renderInlineList($reactions)}).]]></item>
-    </category>
+		<item name="todolist.column.creationDate"/>
+		<item name="todolist.column.done"/>
+        
+		<item name="todolist.general.done"/>
+		<item name="todolist.general.undone"/>
+    </delete>
 </language>

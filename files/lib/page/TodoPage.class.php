@@ -7,6 +7,7 @@ use todolist\data\todo\category\TodoCategoryNodeTree;
 use todolist\data\todo\TodoEditor;
 use todolist\data\todo\ViewableTodo;
 use wcf\page\AbstractPage;
+use wcf\system\comment\CommentHandler;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\message\embedded\object\MessageEmbeddedObjectManager;
 use wcf\system\reaction\ReactionHandler;
@@ -48,6 +49,24 @@ class TodoPage extends AbstractPage
     public $category;
 
     /**
+     * list of comments
+     * @var StructuredCommentList
+     */
+    public $commentList;
+
+    /**
+     * todo comment manager object
+     * @var TodoCommentManager
+     */
+    public $commentManager;
+
+    /**
+     * id of the todo comment object type
+     * @var int
+     */
+    public $commentObjectTypeID = 0;
+
+    /**
      * @inheritDoc
      */
     public function assignVariables()
@@ -55,6 +74,11 @@ class TodoPage extends AbstractPage
         parent::assignVariables();
 
         WCF::getTPL()->assign([
+            'commentCanAdd' => WCF::getSession()->getPermission('user.todolist.comment.canAddComment'),
+            'commentList' => $this->commentList,
+            'commentObjectTypeID' => $this->commentObjectTypeID,
+            'lastCommentTime' => $this->commentList ? $this->commentList->getMinCommentTime() : 0,
+            'likeData' => MODULE_LIKE && $this->commentList ? $this->commentList->getLikeData() : [],
             'todo' => $this->todo,
             'category' => $this->category,
             'canAddTodoInAnyCategory' => $this->canAddTodoInAnyCategory,
@@ -103,6 +127,13 @@ class TodoPage extends AbstractPage
     public function readData()
     {
         parent::readData();
+
+        /* comments */
+        if ($this->todo->enableComments) {
+            $this->commentObjectTypeID = CommentHandler::getInstance()->getObjectTypeID('de.julian-pfeil.todolist.todoComment');
+            $this->commentManager = CommentHandler::getInstance()->getObjectType($this->commentObjectTypeID)->getProcessor();
+            $this->commentList = CommentHandler::getInstance()->getCommentList($this->commentManager, $this->commentObjectTypeID, $eventObj->todo->todoID);
+        }
 
         //set canAddTodoInAnyCategory
         $categoryNodeTree = new TodoCategoryNodeTree(TodoCategory::OBJECT_TYPE_NAME, 0, false);

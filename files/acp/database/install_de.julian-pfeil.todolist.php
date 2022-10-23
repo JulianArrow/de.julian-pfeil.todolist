@@ -10,6 +10,7 @@
  */
 
 use wcf\system\database\table\column\DefaultFalseBooleanDatabaseTableColumn;
+use wcf\system\database\table\column\DefaultTrueBooleanDatabaseTableColumn;
 use wcf\system\database\table\column\IntDatabaseTableColumn;
 use wcf\system\database\table\column\NotNullInt10DatabaseTableColumn;
 use wcf\system\database\table\column\NotNullVarchar255DatabaseTableColumn;
@@ -47,6 +48,18 @@ return [
                 ->length(5)
                 ->notNull()
                 ->defaultValue(0),
+            DefaultTrueBooleanDatabaseTableColumn::create('enableComments'),
+            SmallintDatabaseTableColumn::create('comments')
+                ->length(5)
+                ->notNull()
+                ->defaultValue(0),
+            NotNullInt10DatabaseTableColumn::create('lastCommentTime')
+                ->defaultValue(0),
+            IntDatabaseTableColumn::create('lastCommentUserID')
+                ->defaultValue(null)
+                ->length(10),
+            NotNullVarchar255DatabaseTableColumn::create('lastCommentUsername')
+                ->defaultValue(''),
         ])
         ->indices([
             DatabaseTablePrimaryIndex::create()
@@ -55,6 +68,11 @@ return [
         ->foreignKeys([
             DatabaseTableForeignKey::create()
                 ->columns(['userID'])
+                ->referencedTable('wcf1_user')
+                ->referencedColumns(['userID'])
+                ->onDelete('SET NULL'),
+            DatabaseTableForeignKey::create()
+                ->columns(['lastCommentUserID'])
                 ->referencedTable('wcf1_user')
                 ->referencedColumns(['userID'])
                 ->onDelete('SET NULL'),

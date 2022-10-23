@@ -204,6 +204,9 @@ class TodoAction extends AbstractDatabaseObjectAction
         }
 
         if (!empty($todoIDs)) {
+            // delete comments
+            CommentHandler::getInstance()->deleteObjects('de.julian-pfeil.todolist.todoComment', $todoIDs);
+            
             // delete like data
             LikeHandler::getInstance()->removeLikes('de.julian-pfeil.todolist.likeableTodo', $todoIDs);
 
@@ -218,6 +221,12 @@ class TodoAction extends AbstractDatabaseObjectAction
 
             // delete todo notifications
             UserNotificationHandler::getInstance()->markAsConfirmed('entry', 'de.julian-pfeil.todolist.todo', [], $todoIDs);
+        
+            // delete comment notifications
+            UserNotificationHandler::getInstance()->markAsConfirmed('entry', 'de.julian-pfeil.todolist.todoComment.notification', [], $todoIDs);
+            UserNotificationHandler::getInstance()->markAsConfirmed('entry', 'de.julian-pfeil.todolist.todoComment.response.notification', [], $todoIDs);
+            UserNotificationHandler::getInstance()->markAsConfirmed('entry', 'de.julian-pfeil.todolist.todoComment.like.notification', [], $todoIDs);
+            UserNotificationHandler::getInstance()->markAsConfirmed('entry', 'de.julian-pfeil.todolist.todoComment.response.like.notification', [], $todoIDs);
         }
 
         return $this->getTodoData();

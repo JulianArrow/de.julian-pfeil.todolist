@@ -49,7 +49,7 @@ class TodoListPage extends SortablePage
     /**
      * @inheritDoc
      */
-    public $validSortFields = ['todoName', 'time'];
+    public $validSortFields = ['todoName', 'time', 'comments'];
 
     /**
      * 0 if undone, 1 if done, empty if not set

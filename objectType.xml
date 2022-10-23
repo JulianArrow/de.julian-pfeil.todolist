@@ -82,22 +82,48 @@
             <definitionname>com.woltlab.wcf.user.recentActivityEvent</definitionname>
             <classname>todolist\system\user\activity\event\LikeableTodoUserActivityEvent</classname>
         </type>
-    </import>
-	<delete>
-        <type name="de.julian-pfeil.todolist.todoComment">
+
+        <!-- comments -->
+        <type>
+            <name>de.julian-pfeil.todolist.todoComment</name>
             <definitionname>com.woltlab.wcf.comment.commentableContent</definitionname>
+            <classname>todolist\system\comment\manager\TodoCommentManager</classname>
         </type>
-		<type name="de.julian-pfeil.todolist.todoComment.notification">
-			<definitionname>com.woltlab.wcf.notification.objectType</definitionname>
-		</type>
-		<type name="de.julian-pfeil.todolist.todoComment.response.notification">
-			<definitionname>com.woltlab.wcf.notification.objectType</definitionname>
-		</type>
-		<type name="de.julian-pfeil.todolist.todoComment.like.notification">
-			<definitionname>com.woltlab.wcf.notification.objectType</definitionname>
-		</type>
-		<type name="de.julian-pfeil.todolist.todoComment.response.like.notification">
-			<definitionname>com.woltlab.wcf.notification.objectType</definitionname>
-		</type>
-	</delete>
+        <type>
+            <name>de.julian-pfeil.todolist.todoComment.notification</name>
+            <definitionname>com.woltlab.wcf.notification.objectType</definitionname>
+            <classname>todolist\system\user\notification\object\type\TodoCommentUserNotificationObjectType</classname>
+            <category>de.julian-pfeil.todolist</category>
+        </type>
+        <type>
+            <name>de.julian-pfeil.todolist.todoComment.response.notification</name>
+            <definitionname>com.woltlab.wcf.notification.objectType</definitionname>
+            <classname>todolist\system\user\notification\object\type\TodoCommentResponseUserNotificationObjectType</classname>
+            <category>de.julian-pfeil.todolist</category>
+        </type>
+        <type>
+            <name>de.julian-pfeil.todolist.todoComment.like.notification</name>
+            <definitionname>com.woltlab.wcf.notification.objectType</definitionname>
+            <classname>wcf\system\user\notification\object\type\LikeUserNotificationObjectType</classname>
+            <category>de.julian-pfeil.todolist</category>
+            <supportsReactions>1</supportsReactions>
+        </type>
+        <type>
+            <name>de.julian-pfeil.todolist.todoComment.response.like.notification</name>
+            <definitionname>com.woltlab.wcf.notification.objectType</definitionname>
+            <classname>wcf\system\user\notification\object\type\LikeUserNotificationObjectType</classname>
+            <category>de.julian-pfeil.todolist</category>
+            <supportsReactions>1</supportsReactions>
+        </type>
+        <type>
+            <name>de.julian-pfeil.todolist.todoComment.recentActivityEvent</name>
+            <definitionname>com.woltlab.wcf.user.recentActivityEvent</definitionname>
+            <classname>todolist\system\user\activity\event\TodoCommentUserActivityEvent</classname>
+        </type>
+        <type>
+            <name>de.julian-pfeil.todolist.todoComment.response.recentActivityEvent</name>
+            <definitionname>com.woltlab.wcf.user.recentActivityEvent</definitionname>
+            <classname>todolist\system\user\activity\event\TodoCommentResponseUserActivityEvent</classname>
+        </type>
+    </import>
 </data>

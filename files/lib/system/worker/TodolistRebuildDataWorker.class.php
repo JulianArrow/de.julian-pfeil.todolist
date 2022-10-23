@@ -66,11 +66,23 @@ class TodolistRebuildDataWorker extends AbstractRebuildDataWorker
         $statement = WCF::getDB()->prepareStatement($sql);
         $statement->execute($conditions->getParameters());
         $cumulativeLikes = $statement->fetchMap('objectID', 'cumulativeLikes');
-
+        
+        // prepare statements
+        $commentObjectType = ObjectTypeCache::getInstance()->getObjectTypeByName('com.woltlab.wcf.comment.commentableContent', 'de.julian-pfeil.todolist.todoComment');
+        $sql = "SELECT	COUNT(*) AS comments, SUM(responses) AS responses
+                FROM	wcf" . WCF_N . "_comment
+                WHERE	objectTypeID = ? AND objectID = ?";
+        $commentStatement = WCF::getDB()->prepareStatement($sql);
+        WCF::getDB()->beginTransaction();
         foreach ($this->objectList as $todo) {
             $editor = new TodoEditor($todo);
             $data = [];
-
+            
+            // count comments
+            $commentStatement->execute([$commentObjectType->objectTypeID, $todo->todoID]);
+            $row = $commentStatement->fetchSingleRow();
+            $data['comments'] = $row['comments'] + $row['responses'];
+            
             // update cumulative likes
             $data['cumulativeLikes'] = $cumulativeLikes[$todo->todoID] ?? 0;
 
@@ -91,6 +103,7 @@ class TodolistRebuildDataWorker extends AbstractRebuildDataWorker
 
             SearchIndexManager::getInstance()->set('de.julian-pfeil.todolist.todo', $todo->todoID, $description, $todo->subject, $todo->time, $todo->userID, $todo->username, $todo->languageID);
         }
+        WCF::getDB()->commitTransaction();
     }
 
     /**
