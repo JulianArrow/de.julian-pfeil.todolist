@@ -508,7 +508,7 @@ Todolist.Todo.UpdateHandler = Class.extend({
      */
     watch: function (todoID) {
         if (this._todos[todoID] && this._todos[todoID].data('canMarkAsDone')) {
-            this._todos[todoID].find('.jsMarkAsDone').data('todoID', todoID).css('cursor', 'pointer').click($.proxy(this._click, this));
+            this._todos[todoID].find('.jsMarkAsDone').data('todoID', todoID).click($.proxy(this._click, this));
         }
     },
     /**
