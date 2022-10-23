@@ -4,10 +4,10 @@ namespace todolist\data\todo;
 
 use todolist\system\user\notification\object\TodoUserNotificationObject;
 use wcf\data\AbstractDatabaseObjectAction;
+use wcf\system\comment\CommentHandler;
 use wcf\system\exception\PermissionDeniedException;
 use wcf\system\exception\UserInputException;
 use wcf\system\language\LanguageFactory;
-use wcf\system\comment\CommentHandler;
 use wcf\system\like\LikeHandler;
 use wcf\system\message\embedded\object\MessageEmbeddedObjectManager;
 use wcf\system\request\LinkHandler;
