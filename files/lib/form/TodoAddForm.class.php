@@ -130,7 +130,6 @@ class TodoAddForm extends AbstractFormBuilderForm
         /* wysiwygContainer */
         $wysiwygContainer = TodoWysiwygFormContainer::create('description')
             ->label('todolist.column.description')
-            ->required()
             ->messageObjectType('de.julian-pfeil.todolist.todo.content')
             ->supportMentions(true)
             ->addSettingsNode(

@@ -7,6 +7,7 @@ use wcf\data\AbstractDatabaseObjectAction;
 use wcf\system\exception\PermissionDeniedException;
 use wcf\system\exception\UserInputException;
 use wcf\system\language\LanguageFactory;
+use wcf\system\comment\CommentHandler;
 use wcf\system\like\LikeHandler;
 use wcf\system\message\embedded\object\MessageEmbeddedObjectManager;
 use wcf\system\request\LinkHandler;
@@ -104,6 +105,16 @@ class TodoAction extends AbstractDatabaseObjectAction
             $objectIDs[] = $todoEditor->todoID;
 
             $todo = new Todo($todoEditor->todoID);
+
+            if (WCF::getUser()->userID != $todo->userID) {
+                $recipientIDs = [$todo->userID];
+                UserNotificationHandler::getInstance()->fireEvent(
+                    'todo', // event name
+                    'de.julian-pfeil.todolist.todo', // event object type name
+                    new TodoUserNotificationObject(new Todo($todo->todoID)),
+                    $recipientIDs
+                );
+            }
 
             $this->setSearchIndex($todo);
 
@@ -220,13 +231,14 @@ class TodoAction extends AbstractDatabaseObjectAction
             UserActivityEventHandler::getInstance()->removeEvents('de.julian-pfeil.todolist.recentActivityEvent.todo', $todoIDs);
 
             // delete todo notifications
-            UserNotificationHandler::getInstance()->markAsConfirmed('entry', 'de.julian-pfeil.todolist.todo', [], $todoIDs);
+            UserNotificationHandler::getInstance()->markAsConfirmed('todo', 'de.julian-pfeil.todolist.todo', [], $todoIDs);
 
             // delete comment notifications
-            UserNotificationHandler::getInstance()->markAsConfirmed('entry', 'de.julian-pfeil.todolist.todoComment.notification', [], $todoIDs);
-            UserNotificationHandler::getInstance()->markAsConfirmed('entry', 'de.julian-pfeil.todolist.todoComment.response.notification', [], $todoIDs);
-            UserNotificationHandler::getInstance()->markAsConfirmed('entry', 'de.julian-pfeil.todolist.todoComment.like.notification', [], $todoIDs);
-            UserNotificationHandler::getInstance()->markAsConfirmed('entry', 'de.julian-pfeil.todolist.todoComment.response.like.notification', [], $todoIDs);
+            UserNotificationHandler::getInstance()->markAsConfirmed('comment', 'de.julian-pfeil.todolist.todoComment.notification', [], $todoIDs);
+            UserNotificationHandler::getInstance()->markAsConfirmed('commentResponse', 'de.julian-pfeil.todolist.todoComment.response.notification', [], $todoIDs);
+            UserNotificationHandler::getInstance()->markAsConfirmed('commentResponseOwner', 'de.julian-pfeil.todolist.todoComment.response.notification', [], $todoIDs);
+            UserNotificationHandler::getInstance()->markAsConfirmed('like', 'de.julian-pfeil.todolist.todoComment.like.notification', [], $todoIDs);
+            UserNotificationHandler::getInstance()->markAsConfirmed('like', 'de.julian-pfeil.todolist.todoComment.response.like.notification', [], $todoIDs);
         }
 
         return $this->getTodoData();

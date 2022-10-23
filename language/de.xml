@@ -10,7 +10,7 @@
             <item name="wcf.acp.group.option.category.mod.todolist.general"><![CDATA[Allgemein]]></item>
             <item name="wcf.acp.group.option.category.admin.todolist.general"><![CDATA[Allgemein]]></item>
             <item name="wcf.acp.group.option.user.todolist.general.canViewTodoList"><![CDATA[Kann To-do-Liste sehen]]></item>
-            <item name="wcf.acp.group.option.user.todolist.general.canViewTodoInEveryCategory"><![CDATA[Kann To-dos in jeder Kategorie sehen]]></item>
+            <item name="wcf.acp.group.option.user.todolist.general.canViewEveryCategory"><![CDATA[Kann To-dos in jeder Kategorie sehen]]></item>
             <item name="wcf.acp.group.option.user.todolist.general.canAddTodoInEveryCategory"><![CDATA[Kann To-dos in jeder Kategorie hinzufügen]]></item>
             <item name="wcf.acp.group.option.user.todolist.general.canDeleteOwnTodoInEveryCategory"><![CDATA[Kann eigene To-dos in jeder Kategorie löschen]]></item>
             <item name="wcf.acp.group.option.user.todolist.general.canEditOwnTodoInEveryCategory"><![CDATA[Kann eigene To-dos in jeder Kategorie bearbeiten]]></item>
@@ -117,6 +117,7 @@
             <item name="todolist.general.recentActivity.todo"><![CDATA[Hat das To-do {anchor object=$todo} hinzugefügt.]]></item>
             <item name="todolist.general.isDone"><![CDATA[erledigt]]></item>
             <item name="todolist.general.isUndone"><![CDATA[unerledigt]]></item>
+            <item name="todolist.general.noDescription"><![CDATA[This to-do has no description.]]></item>
             <item name="todolist.general.copyright"><![CDATA[<a href="https://julian-pfeil.de" rel="nofollow"{if EXTERNAL_LINK_TARGET_BLANK} target="_blank"{/if}><strong>To-do-Liste{if SHOW_VERSION_NUMBER} {@PACKAGE_VERSION}{/if}</strong> (von <strong>julian-pfeil.de</strong>)</a>]]></item>
         </category>
         
