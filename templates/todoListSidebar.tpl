@@ -40,13 +40,13 @@
             <dd>
                 <select id="sortField" name="sortField">
                     <option value="time"{if $sortField == 'time'} selected{/if}>{lang}todolist.column.time{/lang}</option>
-                    <option value="todoName"{if $sortField == 'todoName'} selected{/if}>{lang}todolist.column.todoName{/lang}</option>
-                    
+                    <option value="lastEditTime"{if $sortField == 'lastEditTime'} selected{/if}>{lang}todolist.column.lastEditTime{/lang}</option>
+                    <option value="views"{if $sortField == 'views'} selected{/if}>{lang}todolist.column.views.plural{/lang}</option>
+                    <option value="comments"{if $sortField == 'comments'} selected{/if}>{lang}todolist.comment.plural{/lang}</option>
                     {if MODULE_LIKE}
                         <option value="cumulativeLikes"{if $sortField == 'cumulativeLikes'} selected{/if}>{lang}wcf.like.cumulativeLikes{/lang}</option>
                     {/if}
-
-                <option value="comments"{if $sortField == 'comments'} selected{/if}>{lang}todolist.comment.plural{/lang}</option>
+                    <option value="todoName"{if $sortField == 'todoName'} selected{/if}>{lang}todolist.column.todoName{/lang}</option>
 
                     {event name='sortField'}
                 </select>

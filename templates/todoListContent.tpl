@@ -42,6 +42,11 @@
                                     {/if}
                                 </small>
 
+                                <small class="separatorLeft">
+                                    <span class="icon icon16 fa-eye"></span>
+                                    {$todo->views} {lang}todolist.column.views{/lang}
+                                </small>       
+
                                 {if MODULE_LIKE && $__wcf->getSession()->getPermission('user.like.canViewLike') && $todo->cumulativeLikes} 
                                     <small class="separatorLeft">
                                         {include file='__topReaction' cachedReactions=$todo->cachedReactions render='tiny'}
@@ -53,7 +58,7 @@
                                         <span class="icon icon16 fa-comments"></span> 
                                         {lang}todolist.comment.metaData{/lang}
                                     </small>
-                                {/if}                                
+                                {/if}
                                 
                                 {event name='containerHeadline'}
                             </h3>

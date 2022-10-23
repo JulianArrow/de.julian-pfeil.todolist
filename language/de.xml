@@ -95,6 +95,7 @@
             <item name="todolist.column.description"><![CDATA[Beschreibung]]></item>
             <item name="todolist.column.isDone"><![CDATA[Erledigt?]]></item>
             <item name="todolist.column.views"><![CDATA[{plural value=$todo->views 1='Aufruf' other='Aufrufe'}]]></item>
+            <item name="todolist.column.views.plural"><![CDATA[Aufrufe]]></item>
             <item name="todolist.column.lastEditTime"><![CDATA[Zuletzt geändert]]></item>
         </category>
         
