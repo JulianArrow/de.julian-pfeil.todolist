@@ -111,13 +111,14 @@
         
         <category name="todolist.general">
             <item name="todolist.general.title"><![CDATA[General]]></item>
+            <item name="todolist.general.all"><![CDATA[all]]></item>
             <item name="todolist.general.todo"><![CDATA[To-do: {$todo}]]></item>
             <item name="todolist.general.list"><![CDATA[To-do list]]></item>
             <item name="todolist.general.info"><![CDATA[Information]]></item>
             <item name="todolist.general.recentActivity.todo"><![CDATA[Added the to-do {/if}{anchor object=$todo}.]]></item>
             <item name="todolist.general.isDone"><![CDATA[done]]></item>
             <item name="todolist.general.isUndone"><![CDATA[undone]]></item>
-            <item name="todolist.general.noDescription"><![CDATA[Dieses To-do hat keine Beschreibung.]]></item>
+            <item name="todolist.general.noDescription"><![CDATA[This to-do has no description.]]></item>
             <item name="todolist.general.copyright"><![CDATA[<a href="https://julian-pfeil.de" rel="nofollow"{if EXTERNAL_LINK_TARGET_BLANK} target="_blank"{/if}><strong>To-do list{if SHOW_VERSION_NUMBER} {@PACKAGE_VERSION}{/if}</strong> (by <strong>julian-pfeil.de</strong>)</a>]]></item>
         </category>
 

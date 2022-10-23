@@ -148,7 +148,11 @@ class TodoListPage extends SortablePage
         }
 
         if (isset($_REQUEST['isDone'])) {
-            $this->requestDone = \intval($_REQUEST['isDone']);
+            if ($_REQUEST['isDone'] == '') {
+                $this->requestDone = '';
+            } else {
+                $this->requestDone = \intval($_REQUEST['isDone']);
+            }
         } else {
             $this->requestDone = '0';
         }
