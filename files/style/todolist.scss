@@ -31,3 +31,7 @@ p.todoTitle {
 .todoList .topReactionTiny > .reactionType {
     vertical-align: middle;
 }
+
+.jsMarkAsDone, .jsMarkAsDone .icon {
+    cursor: pointer;
+}
