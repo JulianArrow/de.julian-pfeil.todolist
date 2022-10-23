@@ -48,6 +48,13 @@
                                     </small>
                                 {/if}
                                 
+                                {if $todo->enableComments && $todo->comments > 0}
+                                    <small class="separatorLeft">
+                                        <span class="icon icon16 fa-comments"></span> 
+                                        {lang}todolist.comment.metaData{/lang}
+                                    </small>
+                                {/if}                                
+                                
                                 {event name='containerHeadline'}
                             </h3>
                         </div>

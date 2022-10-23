@@ -16,6 +16,22 @@
                 ">{lang}todolist.general.title{/lang}</a></li>
 
                 {content}
+                    {if $todo->enableComments}
+                        {if $commentList|count || $commentCanAdd}
+                            <li>
+                                <a href="
+                                {if $pageFrom == 'todo'}
+                                    {@$__wcf->getAnchor('commentsTab')}
+                                {else}
+                                    {$todo->getLink()}#commentsTab
+                                {/if}
+                                ">
+                                {lang}todolist.comment.plural{/lang}{if $todo->comments} <span class="badge">{#$todo->comments}</span>{/if}
+                                </a>
+                            </li>
+                        {/if}
+                    {/if}
+                
                     {event name='tabMenuTabs'}
                 {/content}
             </ul>

@@ -48,4 +48,6 @@
 </div>
 {* End - Tab 1 *}
 
+{include file='__todoComments' application='todolist'}
+
 {event name='tabMenuContents'}

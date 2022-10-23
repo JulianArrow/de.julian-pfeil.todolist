@@ -132,7 +132,7 @@ class TodoPage extends AbstractPage
         if ($this->todo->enableComments) {
             $this->commentObjectTypeID = CommentHandler::getInstance()->getObjectTypeID('de.julian-pfeil.todolist.todoComment');
             $this->commentManager = CommentHandler::getInstance()->getObjectType($this->commentObjectTypeID)->getProcessor();
-            $this->commentList = CommentHandler::getInstance()->getCommentList($this->commentManager, $this->commentObjectTypeID, $eventObj->todo->todoID);
+            $this->commentList = CommentHandler::getInstance()->getCommentList($this->commentManager, $this->commentObjectTypeID, $this->todo->todoID);
         }
 
         //set canAddTodoInAnyCategory

@@ -41,6 +41,13 @@
                     <span class="icon icon16 fa-eye"></span>
                     {$todo->views} {lang}todolist.column.views{/lang}
                 </li>
+
+            {if $todo->enableComments}
+                <li>
+                    <span class="icon icon16 fa-comments"></span> 
+                    {lang}todolist.comment.metaData{/lang}
+                </li>
+            {/if}
                 
                 {event name='afterMetaData'}
                 

@@ -46,6 +46,8 @@
                         <option value="cumulativeLikes"{if $sortField == 'cumulativeLikes'} selected{/if}>{lang}wcf.like.cumulativeLikes{/lang}</option>
                     {/if}
 
+                <option value="comments"{if $sortField == 'comments'} selected{/if}>{lang}todolist.comment.plural{/lang}</option>
+
                     {event name='sortField'}
                 </select>
 

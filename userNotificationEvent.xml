@@ -25,5 +25,39 @@
             <preset>1</preset>
             <options>module_todolist_reactions</options>
         </event>
+
+        <!-- comments -->
+        <event>
+            <name>comment</name>
+            <objecttype>de.julian-pfeil.todolist.todoComment.notification</objecttype>
+            <classname>todolist\system\user\notification\event\TodoCommentUserNotificationEvent</classname>
+            <preset>1</preset>
+        </event>
+        <event>
+            <name>commentResponse</name>
+            <objecttype>de.julian-pfeil.todolist.todoComment.response.notification</objecttype>
+            <classname>todolist\system\user\notification\event\TodoCommentResponseUserNotificationEvent</classname>
+            <preset>1</preset>
+        </event>
+        <event>
+            <name>commentResponseOwner</name>
+            <objecttype>de.julian-pfeil.todolist.todoComment.response.notification</objecttype>
+            <classname>todolist\system\user\notification\event\TodoCommentResponseOwnerUserNotificationEvent</classname>
+            <preset>1</preset>
+        </event>
+        <event>
+            <name>like</name>
+            <objecttype>de.julian-pfeil.todolist.todoComment.like.notification</objecttype>
+            <classname>todolist\system\user\notification\event\TodoCommentLikeUserNotificationEvent</classname>
+            <preset>1</preset>
+            <options>module_like</options>
+        </event>
+        <event>
+            <name>like</name>
+            <objecttype>de.julian-pfeil.todolist.todoComment.response.like.notification</objecttype>
+            <classname>todolist\system\user\notification\event\TodoCommentResponseLikeUserNotificationEvent</classname>
+            <preset>1</preset>
+            <options>module_like</options>
+        </event>
     </import>
 </data>
