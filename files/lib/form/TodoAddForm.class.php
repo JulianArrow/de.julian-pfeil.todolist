@@ -186,6 +186,11 @@ class TodoAddForm extends AbstractFormBuilderForm
             $categoryField->value($this->categoryID);
         }
 
+        //set category when only one selectable
+        if (\count($categoryField->getOptions()) == 1) {
+            $categoryField->value(\array_keys($categoryField->getOptions())[0]);
+        }
+
         /* append data, info & categorySelection to form */
         $this->form->appendChildren([
             $dataContainer,
