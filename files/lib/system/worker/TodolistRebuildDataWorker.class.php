@@ -87,8 +87,8 @@ class TodolistRebuildDataWorker extends AbstractRebuildDataWorker
             $data['cumulativeLikes'] = $cumulativeLikes[$todo->todoID] ?? 0;
 
             // update description
-            $this->getHtmlInputProcessor()->reprocess($todo->message, 'de.julian-pfeil.todolist.todo', $todo->todoID);
-            $data['message'] = $this->getHtmlInputProcessor()->getHtml();
+            $this->getHtmlInputProcessor()->reprocess($todo->message, 'de.julian-pfeil.todolist.todo.content', $todo->todoID);
+            $data['description'] = $this->getHtmlInputProcessor()->getHtml();
             if (MessageEmbeddedObjectManager::getInstance()->registerObjects($this->getHtmlInputProcessor())) {
                 $data['hasEmbeddedObjects'] = 1;
             } else {
@@ -97,11 +97,20 @@ class TodolistRebuildDataWorker extends AbstractRebuildDataWorker
 
             $editor->update($data);
             $description = $todo->getPlainMessage();
+
             if (\mb_strlen($description) > 10000000) {
                 $description = \substr($description, 0, 10000000);
             }
 
-            SearchIndexManager::getInstance()->set('de.julian-pfeil.todolist.todo', $todo->todoID, $description, $todo->subject, $todo->time, $todo->userID, $todo->username, $todo->languageID);
+            SearchIndexManager::getInstance()->set(
+                'de.julian-pfeil.todolist.todo',
+                $todo->todoID,
+                $description,
+                $todo->getTitle(),
+                $todo->time,
+                $todo->userID,
+                $todo->username
+            );
         }
         WCF::getDB()->commitTransaction();
     }
