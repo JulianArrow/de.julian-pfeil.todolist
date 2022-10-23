@@ -148,4 +148,22 @@
             </option>
         </options>
     </import>
+    <delete>
+        <option name="user.todolist.general.canSeeTodos"/>
+        <option name="user.todolist.general.canAddTodos"/>
+        <option name="user.todolist.general.canEditOwnTodos"/>
+        <option name="user.todolist.general.canDeleteOwnTodos"/>
+        
+        <option name="mod.todolist.general.canEditTodos"/>
+        <option name="mod.todolist.general.canDeleteTodos"/>
+
+        <!-- comments -->
+        <option name="mod.todolist.comments.canModerateComments"/>
+        <option name="mod.todolist.comments.canEditComments"/>
+        <option name="mod.todolist.comments.canDeleteComments"/>
+        <option name="user.todolist.comments.canAddComments"/>
+        <option name="user.todolist.comments.canAddCommentsWithoutModeration"/>
+        <option name="user.todolist.comments.canEditComments"/>
+        <option name="user.todolist.comments.canDeleteComments"/>
+    </delete>
 </data>
