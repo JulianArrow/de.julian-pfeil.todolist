@@ -18,9 +18,9 @@
         
         <div class="formSubmit">
             <input type="submit" value="{lang}wcf.global.button.submit{/lang}" accesskey="s">
-            {if $isDone}<input type="hidden" name="isDone" value="{$isDone}">{/if}
-            {if $sortField}<input type="hidden" name="sortField" value="{$sortField}">{/if}
-            {if $sortOrder}<input type="hidden" name="sortOrder" value="{$sortOrder}">{/if}
+            {if $isDone|isset}<input type="hidden" name="isDone" value="{$isDone}">{/if}
+            {if $sortField|isset}<input type="hidden" name="sortField" value="{$sortField}">{/if}
+            {if $sortOrder|isset}<input type="hidden" name="sortOrder" value="{$sortOrder}">{/if}
 
             {event name='afterCategoryHiddenFields'}
         </div>
@@ -60,8 +60,8 @@
         
         <div class="formSubmit">
             <input type="submit" value="{lang}wcf.global.button.submit{/lang}" accesskey="s">
-            {if $categoryID}<input type="hidden" name="categoryID" value="{$categoryID}">{/if}
-            {if $isDone}<input type="hidden" name="isDone" value="{$isDone}">{/if}
+            {if $categoryID|isset}<input type="hidden" name="categoryID" value="{$categoryID}">{/if}
+            {if $isDone|isset}<input type="hidden" name="isDone" value="{$isDone}">{/if}
 
             {event name='afterSortingHiddenFields'}
         </div>
