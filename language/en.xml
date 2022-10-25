@@ -17,6 +17,16 @@
             <item name="wcf.acp.group.option.mod.todolist.general.canEditTodoInEveryCategory"><![CDATA[Can edit all to-dos in every category]]></item>
             <item name="wcf.acp.group.option.mod.todolist.general.canDeleteTodoInEveryCategory"><![CDATA[Can delete all to-dos in every category]]></item>
             <item name="wcf.acp.group.option.admin.todolist.general.canManageCategory"><![CDATA[Can manage categories]]></item>
+            
+            <item name="wcf.acp.group.option.category.user.todolist.comment"><![CDATA[Comments]]></item>
+            <item name="wcf.acp.group.option.category.mod.todolist.comment"><![CDATA[Comments]]></item>
+            <item name="wcf.acp.group.option.mod.todolist.comment.canDeleteComment"><![CDATA[Can delete comments]]></item>
+            <item name="wcf.acp.group.option.mod.todolist.comment.canEditComment"><![CDATA[Can edit comments]]></item>
+            <item name="wcf.acp.group.option.mod.todolist.comment.canModerateComment"><![CDATA[Can moderate comments]]></item>
+            <item name="wcf.acp.group.option.user.todolist.comment.canAddComment"><![CDATA[Can create comments]]></item>
+            <item name="wcf.acp.group.option.user.todolist.comment.canAddCommentWithoutModeration"><![CDATA[Can create comments without approval]]></item>
+            <item name="wcf.acp.group.option.user.todolist.comment.canDeleteOwnComment"><![CDATA[Can delete their comments]]></item>
+            <item name="wcf.acp.group.option.user.todolist.comment.canEditOwnComment"><![CDATA[Can edit their comments]]></item>
         </category>
 
         <category name="wcf.acp.rebuildData">

@@ -45,12 +45,12 @@ class TodoCommentManager extends AbstractCommentManager implements IViewableLike
     /**
          * @inheritDoc
          */
-    protected $permissionDelete = 'user.todolist.comment.canDeleteComment';
+    protected $permissionDelete = 'user.todolist.comment.canDeleteOwnComment';
 
     /**
          * @inheritDoc
          */
-    protected $permissionEdit = 'user.todolist.comment.canEditComment';
+    protected $permissionEdit = 'user.todolist.comment.canEditOwnComment';
 
     /**
          * @inheritDoc

@@ -22,10 +22,10 @@
                 <parent>admin.todolist</parent>
             </category>
 
-            <category name="user.todolist.comments">
+            <category name="user.todolist.comment">
                 <parent>user.todolist</parent>
             </category>
-            <category name="mod.todolist.comments">
+            <category name="mod.todolist.comment">
                 <parent>mod.todolist</parent>
             </category>
         </categories>
@@ -134,7 +134,7 @@
                 <excludedInTinyBuild>1</excludedInTinyBuild>
             </option>
             <option name="user.todolist.comment.canEditOwnComment">
-                <categoryname>user.todolist.comments</categoryname>
+                <categoryname>user.todolist.comment</categoryname>
                 <optiontype>boolean</optiontype>
                 <defaultvalue>1</defaultvalue>
                 <usersonly>1</usersonly>
