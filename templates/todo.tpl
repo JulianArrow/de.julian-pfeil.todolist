@@ -7,16 +7,24 @@
 {/capture}
 
 {capture assign='contentInteractionButtons'}
-    {if $todo->canEdit()}
-        <a href="{link application='todolist' controller='TodoEdit' id=$todo->todoID}{/link}" class="contentInteractionButton small button jsTodoInlineEditor" id="todoEditButton">
-            <span class="icon icon16 fa-pencil"></span>
-            <span>{lang}wcf.global.button.edit{/lang}</span>
-        </a>
-    {/if}
-
-    {include file='todoAddButton' application='todolist' classes='small contentInteractionButton'}
-
-    {event name='afterContentInteractionButtons'}
+    {hascontent}
+        <ul class="buttonList">
+            {content}
+                {if $todo->canEdit()}
+                    <li class="jsTodoInlineEditorContainer" data-todo-id="{@$todo->todoID}">
+                        <a href="{link application='todolist' controller='TodoEdit' id=$todo->todoID}{/link}" class="contentInteractionButton small button jsTodoInlineEditor" id="todoEditButton">
+                            <span class="icon icon16 fa-pencil"></span>
+                            <span>{lang}wcf.global.button.edit{/lang}</span>
+                        </a>
+                    </li>
+                {/if}
+            
+                {include file='todoAddButton' application='todolist' listItem=true classes='small contentInteractionButton'}
+            
+                {event name='afterContentInteractionButtons'}
+            {/content}
+        </ul>
+    {/hascontent}
 {/capture}
 
 {include file='header'}
