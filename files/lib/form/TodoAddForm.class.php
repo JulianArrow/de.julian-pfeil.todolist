@@ -5,7 +5,7 @@ namespace todolist\form;
 use todolist\data\todo\category\TodoCategory;
 use todolist\data\todo\category\TodoCategoryNodeTree;
 use todolist\data\todo\TodoAction;
-use todolist\system\form\builder\container\wysiwyg\TodoWysiwygFormContainer;
+use wcf\system\form\builder\container\wysiwyg\WysiwygFormContainer;
 use wcf\form\AbstractFormBuilderForm;
 use wcf\system\exception\PermissionDeniedException;
 use wcf\system\form\builder\container\FormContainer;
@@ -128,7 +128,7 @@ class TodoAddForm extends AbstractFormBuilderForm
             ->label('wcf.global.form.data');
 
         /* wysiwygContainer */
-        $wysiwygContainer = TodoWysiwygFormContainer::create('description')
+        $wysiwygContainer = WysiwygFormContainer::create('description')
             ->label('todolist.column.description')
             ->messageObjectType('de.julian-pfeil.todolist.todo.content')
             ->supportMentions(true)
