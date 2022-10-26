@@ -28,17 +28,6 @@
             <div class="section">
                 <ul class="todoButtons buttonList smallButtons jsTodoInlineEditorContainer" data-todo-id="{@$todo->todoID}">
                     {content}
-                        {if $todo->canEdit()}
-                            <li>
-                                <a href="{link application='todolist' controller='TodoEdit' id=$todo->todoID}{/link}" class="small button jsTodoInlineEditor" id="todoEditButton">
-                                    <span class="icon icon16 fa-pencil"></span>
-                                    <span>{lang}wcf.global.button.edit{/lang}</span>
-                                </a>
-                            </li>
-                        {/if}
-                        
-                        {include file='todoAddButton' application='todolist'}
-
                         {if MODULE_LIKE}
                             {include file='todoReactButton' application='todolist'}
                         {/if}

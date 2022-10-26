@@ -6,6 +6,17 @@
     {include file='todoHeader' application='todolist'}
 {/capture}
 
+{capture assign='contentInteractionButtons'}
+    {if $todo->canEdit()}
+        <a href="{link application='todolist' controller='TodoEdit' id=$todo->todoID}{/link}" class="contentInteractionButton small button jsTodoInlineEditor" id="todoEditButton">
+            <span class="icon icon16 fa-pencil"></span>
+            <span>{lang}wcf.global.button.edit{/lang}</span>
+        </a>
+    {/if}
+
+    {include file='todoAddButton' application='todolist' smallAddButton=true}
+{/capture}
+
 {include file='header'}
 
 {include file='todoStructure' application='todolist' pageFrom='todo'}
