@@ -31,7 +31,7 @@ $sql = "SELECT  categoryID
 $limit = 1;
 $statement = WCF::getDB()->prepareStatement($sql, $limit);
 $statement->execute($conditionBuilder->getParameters());
-$categoryID = $statement->fetchAll(\PDO::FETCH_COLUMN)[0];
+$categoryID = $statement->fetchSingleColumn();;
 
 // set every todos category to default
 $sql = "UPDATE  todolist" . WCF_N . "_todo todo
