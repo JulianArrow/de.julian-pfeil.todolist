@@ -66,7 +66,7 @@
         </category>
         
         <category name="wcf.like">
-            <item name="wcf.like.objectType.de.julian-pfeil.todolist.likeableThowodo"><![CDATA[To-do]]></item>
+            <item name="wcf.like.objectType.de.julian-pfeil.todolist.likeableTodo"><![CDATA[To-do]]></item>
 
             <item name="wcf.like.title.de.julian-pfeil.todolist.likeableTodo"><![CDATA[Hat mit {@$like->render()} auf das To-do <a href="{link application='todolist' controller='Todo' object=$todo}{/link}" class="todoLink" data-todo-id="{@$todo->todoID}">{$todo->getTitle()}</a> reagiert.]]></item>
         </category>
