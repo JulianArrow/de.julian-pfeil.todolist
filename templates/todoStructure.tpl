@@ -3,30 +3,18 @@
 {hascontent}
     {assign var=tabMenu value='1'}
 
-    <div class="section{if $pageFrom == 'todo'} tabMenuContainer{/if}">
+    <div class="section tabMenuContainer">
 
         <nav class="tabMenu">
             <ul>
-                <li><a href="
-                {if $pageFrom == 'todo'}
-                    {@$__wcf->getAnchor('generalTab')}
-                {else}
-                    {$todo->getLink()}#generalTab
-                {/if}
-                ">{lang}todolist.general.title{/lang}</a></li>
+                <li><a href="{@$__wcf->getAnchor('generalTab')}">{lang}todolist.general.title{/lang}</a></li>
 
                 {content}
                     {if $todo->enableComments}
                         {if $commentList|count || $commentCanAdd}
                             <li>
-                                <a href="
-                                {if $pageFrom == 'todo'}
-                                    {@$__wcf->getAnchor('commentsTab')}
-                                {else}
-                                    {$todo->getLink()}#commentsTab
-                                {/if}
-                                ">
-                                {lang}todolist.comment.plural{/lang}{if $todo->comments} <span class="badge">{#$todo->comments}</span>{/if}
+                                <a href="{@$__wcf->getAnchor('commentsTab')}">
+                                    {lang}todolist.comment.plural{/lang}{if $todo->comments} <span class="badge">{#$todo->comments}</span>{/if}
                                 </a>
                             </li>
                         {/if}
@@ -38,9 +26,7 @@
         </nav>
 {/hascontent}
 
-{if $pageFrom == 'todo'}
-    {include file='todoContent' application='todolist'}
-{/if}
+{include file='todoContent' application='todolist'}
 
 {event name='pageContents'}
 
