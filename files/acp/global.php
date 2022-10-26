@@ -15,7 +15,7 @@
  * include config
  * @noinspection PhpIncludeInspection
  */
-require_once \dirname(__FILE__, 2) . '/config.inc.php';
+require_once \dirname(__FILE__, 2) . '/app.config.inc.php';
 /*
  * include wcf
  */
