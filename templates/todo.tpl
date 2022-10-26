@@ -14,7 +14,9 @@
         </a>
     {/if}
 
-    {include file='todoAddButton' application='todolist' smallAddButton=true}
+    {include file='todoAddButton' application='todolist' classes='small contentInteractionButton'}
+
+    {event name='afterContentInteractionButtons'}
 {/capture}
 
 {include file='header'}

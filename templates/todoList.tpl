@@ -19,7 +19,7 @@
 {/capture}
 
 {capture assign='contentHeaderNavigation'}
-    {include file='todoAddButton' application='todolist'}
+    {include file='todoAddButton' application='todolist' listItem=true}
 {/capture}
 
 {capture assign='sidebarRight'}
@@ -66,7 +66,7 @@
         <nav class="contentFooterNavigation">
             <ul>
                 {content}
-                    {include file='todoAddButton' application='todolist'}
+                    {include file='todoAddButton' application='todolist' listItem=true}
 
                     {event name='contentFooterNavigation'}
                 {/content}
