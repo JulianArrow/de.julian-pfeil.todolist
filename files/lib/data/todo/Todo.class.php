@@ -186,6 +186,14 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     }
 
     /**
+     * @inheritDoc
+     */
+    public function getPlainExcerpt()
+    {
+        return StringUtil::truncate($this->getPlainMessage());
+    }
+
+    /**
      * Returns the category of this todo.
      */
     public function getCategory()

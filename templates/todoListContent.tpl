@@ -20,7 +20,7 @@
                                 {/if}
                                 
                             
-                                <a href="{$todo->getLink()}" title="{$todo->getExcerpt()}">{$todo->getTitle()}</a>
+                                <a href="{$todo->getLink()}" title="{$todo->getPlainExcerpt()}">{$todo->getTitle()}</a>
                             
                                 <small class="separatorLeft">
                                     <span class="icon icon16 fa-user"></span>
