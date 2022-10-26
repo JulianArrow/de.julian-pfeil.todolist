@@ -63,7 +63,7 @@ class TodolistRebuildDataWorker extends AbstractRebuildDataWorker
         $sql = "SELECT	objectID, cumulativeLikes
                 FROM	wcf" . WCF_N . "_like_object
                 " . $conditions;
-        $statement = WCF::getDB()->prepareStatement($sql);
+        $statement = WCF::getDB()->prepare($sql);
         $statement->execute($conditions->getParameters());
         $cumulativeLikes = $statement->fetchMap('objectID', 'cumulativeLikes');
 
@@ -72,7 +72,7 @@ class TodolistRebuildDataWorker extends AbstractRebuildDataWorker
         $sql = "SELECT	COUNT(*) AS comments, SUM(responses) AS responses
                 FROM	wcf" . WCF_N . "_comment
                 WHERE	objectTypeID = ? AND objectID = ?";
-        $commentStatement = WCF::getDB()->prepareStatement($sql);
+        $commentStatement = WCF::getDB()->prepare($sql);
         WCF::getDB()->beginTransaction();
         foreach ($this->objectList as $todo) {
             $editor = new TodoEditor($todo);

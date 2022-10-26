@@ -45,7 +45,7 @@ class TodoCategoryCache extends SingletonFactory
         $sql = "SELECT   COUNT(*) AS count, categoryID
                 FROM     todolist" . WCF_N . "_todo todos
                 GROUP BY todos.categoryID";
-        $statement = WCF::getDB()->prepareStatement($sql);
+        $statement = WCF::getDB()->prepare($sql);
         $statement->execute();
         $todos = $statement->fetchMap('categoryID', 'count');
 
@@ -108,7 +108,7 @@ class TodoCategoryCache extends SingletonFactory
         $sql = "SELECT   *
                 FROM     todolist" . WCF_N . "_todo todos
                 ORDER BY todos.time DESC";
-        $statement = WCF::getDB()->prepareStatement($sql);
+        $statement = WCF::getDB()->prepare($sql);
         $statement->execute($conditionBuilder->getParameters());
         while ($row = $statement->fetchArray()) {
             if (!isset($this->lastEntry[$row['categoryID']])) {

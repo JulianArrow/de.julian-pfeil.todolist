@@ -47,7 +47,7 @@ class TodoCommentUserNotificationObjectType extends AbstractUserNotificationObje
                 LEFT JOIN	todolist" . WCF_N . "_todo todo
                 ON			(todo.todoID = comment.objectID)
                 WHERE		comment.commentID = ?";
-        $statement = WCF::getDB()->prepareStatement($sql);
+        $statement = WCF::getDB()->prepare($sql);
         $statement->execute([$objectID]);
 
         return $statement->fetchSingleColumn() ?: 0;
