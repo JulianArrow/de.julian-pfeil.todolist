@@ -41,6 +41,6 @@ class TodoCategoryUserObjectWatch extends AbstractObjectTypeProcessor implements
      */
     public function resetUserStorage(array $userIDs)
     {
-        UserStorageHandler::getInstance()->reset($userIDs, 'showSubscribedCategories');
+        UserStorageHandler::getInstance()->reset($userIDs, TodoCategory::USER_STORAGE_SUBSCRIBED_CATEGORIES);
     }
 }

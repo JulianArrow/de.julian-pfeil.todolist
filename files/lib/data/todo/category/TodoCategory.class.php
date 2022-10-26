@@ -83,7 +83,7 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
             self::$subscribedCategories = [];
 
             if (WCF::getUser()->userID) {
-                $data = UserStorageHandler::getInstance()->getField('showSubscribedCategories');
+                $data = UserStorageHandler::getInstance()->getField(self::USER_STORAGE_SUBSCRIBED_CATEGORIES);
 
                 // cache does not exist or is outdated
                 if ($data === null) {
@@ -92,12 +92,12 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
                     $sql = "SELECT	objectID
 							FROM	wcf" . WCF_N . "_user_object_watch
 							WHERE	objectTypeID = ? AND userID = ?";
-                    $statement = WCF::getDB()->prepare($sql);
+                    $statement = WCF::getDB()->prepareStatement($sql);
                     $statement->execute([$objectTypeID, WCF::getUser()->userID]);
                     self::$subscribedCategories = $statement->fetchAll(\PDO::FETCH_COLUMN);
 
                     // update storage data
-                    UserStorageHandler::getInstance()->update(WCF::getUser()->userID, 'showSubscribedCategories', \serialize(self::$subscribedCategories));
+                    UserStorageHandler::getInstance()->update(WCF::getUser()->userID, self::USER_STORAGE_SUBSCRIBED_CATEGORIES, \serialize(self::$subscribedCategories));
                 } else {
                     self::$subscribedCategories = \unserialize($data);
                 }
