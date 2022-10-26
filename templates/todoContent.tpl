@@ -26,7 +26,7 @@
 
         {hascontent}
             <div class="section">
-                <ul class="todoButtons buttonList smallButtons jsTodoInlineEditorContainer" data-todo-id="{@$todo->todoID}">
+                <ul class="todoButtons buttonList" data-todo-id="{@$todo->todoID}">
                     {content}
                         {if MODULE_LIKE}
                             {include file='todoReactButton' application='todolist'}
