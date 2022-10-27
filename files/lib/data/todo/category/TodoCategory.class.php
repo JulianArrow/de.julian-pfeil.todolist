@@ -35,6 +35,11 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
     public const OBJECT_TYPE_NAME = 'de.julian-pfeil.todolist.todo.category';
 
     /**
+     * subscribed categories field name
+     */
+    public const USER_STORAGE_SUBSCRIBED_CATEGORIES = self::class . "\0subscribedCategories";
+
+    /**
      * ACL permissions of this category grouped by the id of the user they belong to
      *
      * @var        array
