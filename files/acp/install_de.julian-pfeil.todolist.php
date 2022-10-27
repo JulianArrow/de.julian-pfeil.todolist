@@ -25,7 +25,7 @@ CategoryEditor::create([
 $conditionBuilder = new PreparedStatementConditionBuilder();
 $conditionBuilder->add('objectTypeID = ?', [$categoryObjectTypeID]);
 $sql = "SELECT  categoryID
-        FROM    wcf" . WCF_N . "_category category
+        FROM    wcf1_category category
         " . $conditionBuilder . "
         ORDER BY category.categoryID DESC";
 $limit = 1;
@@ -34,13 +34,13 @@ $statement->execute($conditionBuilder->getParameters());
 $categoryID = $statement->fetchSingleColumn();
 
 // set every todos category to default
-$sql = "UPDATE  todolist" . WCF_N . "_todo todo
+$sql = "UPDATE  todolist1_todo todo
         SET     todo.categoryID = ?";
 $statement = WCF::getDB()->prepare($sql);
 $statement->execute([$categoryID]);
 
 // set lastEditTime = time
-$sql = "UPDATE  todolist" . WCF_N . "_todo todo
+$sql = "UPDATE  todolist1_todo todo
         SET     todo.lastEditTime = todo.time";
 $statement = WCF::getDB()->prepare($sql);
 $statement->execute();

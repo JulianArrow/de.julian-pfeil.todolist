@@ -43,8 +43,8 @@ class TodoCommentUserNotificationObjectType extends AbstractUserNotificationObje
     public function getOwnerID($objectID)
     {
         $sql = "SELECT		todo.userID
-                FROM		wcf" . WCF_N . "_comment comment
-                LEFT JOIN	todolist" . WCF_N . "_todo todo
+                FROM		wcf1_comment comment
+                LEFT JOIN	todolist1_todo todo
                 ON			(todo.todoID = comment.objectID)
                 WHERE		comment.commentID = ?";
         $statement = WCF::getDB()->prepare($sql);

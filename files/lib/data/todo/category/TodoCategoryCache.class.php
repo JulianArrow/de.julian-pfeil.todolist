@@ -43,7 +43,7 @@ class TodoCategoryCache extends SingletonFactory
         $this->todos = [];
 
         $sql = "SELECT   COUNT(*) AS count, categoryID
-                FROM     todolist" . WCF_N . "_todo todos
+                FROM     todolist1_todo todos
                 GROUP BY todos.categoryID";
         $statement = WCF::getDB()->prepare($sql);
         $statement->execute();
@@ -106,7 +106,7 @@ class TodoCategoryCache extends SingletonFactory
         $this->lastTodo = [];
 
         $sql = "SELECT   *
-                FROM     todolist" . WCF_N . "_todo todos
+                FROM     todolist1_todo todos
                 ORDER BY todos.time DESC";
         $statement = WCF::getDB()->prepare($sql);
         $statement->execute($conditionBuilder->getParameters());

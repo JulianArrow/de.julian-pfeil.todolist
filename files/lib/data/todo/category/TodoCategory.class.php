@@ -95,9 +95,9 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
                     $objectTypeID = UserObjectWatchHandler::getInstance()->getObjectTypeID('de.julian-pfeil.todolist.todo.category');
 
                     $sql = "SELECT	objectID
-							FROM	wcf" . WCF_N . "_user_object_watch
+							FROM	wcf1_user_object_watch
 							WHERE	objectTypeID = ? AND userID = ?";
-                    $statement = WCF::getDB()->prepareStatement($sql);
+                    $statement = WCF::getDB()->prepare($sql);
                     $statement->execute([$objectTypeID, WCF::getUser()->userID]);
                     self::$subscribedCategories = $statement->fetchAll(\PDO::FETCH_COLUMN);
 
