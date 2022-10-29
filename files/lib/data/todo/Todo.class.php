@@ -124,6 +124,14 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     }
 
     /**
+     * @inheritDoc
+     */
+    public function getSubject()
+    {
+        return $this->getTitle();
+    }
+
+    /**
      * @inheritdoc
      */
     public function getMessage()

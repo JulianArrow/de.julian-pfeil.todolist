@@ -4,10 +4,9 @@ namespace todolist\system\search;
 
 use todolist\data\todo\category\TodoCategory;
 use todolist\data\todo\category\TodoCategoryNodeTree;
-use todolist\data\todo\SearchResultTodoList;
+use todolist\data\todo\list\SearchResultTodoList;
 use wcf\data\search\ISearchResultObject;
 use wcf\system\database\util\PreparedStatementConditionBuilder;
-use wcf\system\language\LanguageFactory;
 use wcf\system\search\AbstractSearchProvider;
 use wcf\system\WCF;
 
@@ -76,8 +75,6 @@ final class TodoSearch extends AbstractSearchProvider
         $this->readParameters($parameters);
         $conditionBuilder = new PreparedStatementConditionBuilder();
         $this->initCategoryCondition($conditionBuilder);
-        $this->initMiscConditions($conditionBuilder);
-        $this->initLanguageCondition($conditionBuilder);
 
         return $conditionBuilder;
     }
@@ -112,19 +109,6 @@ final class TodoSearch extends AbstractSearchProvider
         }
 
         return $categoryIDs;
-    }
-
-    private function initMiscConditions(PreparedStatementConditionBuilder $conditionBuilder): void
-    {
-        $conditionBuilder->add($this->getTableName() . '.isDisabled = 0');
-        $conditionBuilder->add($this->getTableName() . '.isDeleted = 0');
-    }
-
-    private function initLanguageCondition(PreparedStatementConditionBuilder $conditionBuilder): void
-    {
-        if (LanguageFactory::getInstance()->multilingualismEnabled() && \count(WCF::getUser()->getLanguageIDs())) {
-            $conditionBuilder->add('(' . $this->getTableName() . '.languageID IN (?) OR ' . $this->getTableName() . '.languageID IS NULL)', [WCF::getUser()->getLanguageIDs()]);
-        }
     }
 
     /**
