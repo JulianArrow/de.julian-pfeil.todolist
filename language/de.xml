@@ -119,6 +119,10 @@
             <item name="todolist.category.info.noCategories"><![CDATA[{if LANGUAGE_USE_INFORMAL_VARIANT}Du musst{else}Sie müssen{/if} zuerst mindestens eine <a href="{link controller='TodoCategoryAdd' isACP=true}{/link}">Kategorie anlegen</a>, um To-dos erstellen zu können.]]></item>
         </category>
         
+        <category name="todolist.search">
+            <item name="todolist.search.categories"><![CDATA[To-do-Kategorie]]></item>
+        </category>
+        
         <category name="todolist.general">
             <item name="todolist.general.title"><![CDATA[Allgemein]]></item>
             <item name="todolist.general.all"><![CDATA[alle]]></item>

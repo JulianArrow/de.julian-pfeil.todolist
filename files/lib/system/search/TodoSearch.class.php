@@ -46,6 +46,14 @@ final class TodoSearch extends AbstractSearchProvider
     /**
      * @inheritDoc
      */
+    public function getSubjectFieldName(): string
+    {
+        return $this->getTableName() . '.todoName';
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getObject(int $objectID): ?ISearchResultObject
     {
         return $this->messageCache[$objectID] ?? null;

@@ -119,6 +119,10 @@
             <item name="todolist.category.info.noCategories"><![CDATA[You need to <a href="{link controller='TodoCategoryAdd' isACP=true}{/link}">add a category</a> before you can add to-dos.]]></item>
         </category>
         
+        <category name="todolist.search">
+            <item name="todolist.search.categories"><![CDATA[To-do category]]></item>
+        </category>
+        
         <category name="todolist.general">
             <item name="todolist.general.title"><![CDATA[General]]></item>
             <item name="todolist.general.all"><![CDATA[all]]></item>

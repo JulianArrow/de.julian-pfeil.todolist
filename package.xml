@@ -44,6 +44,11 @@
         <instruction type="userNotificationEvent" />
     </instructions>
 
+    <instructions type="update" fromversion="2.0.0">
+        <instruction type="file" />
+        <instruction type="language" />
+    </instructions>
+
     <instructions type="update" fromversion="*">
         <instruction type="file" />
         <instruction type="objectType" />

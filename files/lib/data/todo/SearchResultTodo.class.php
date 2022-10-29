@@ -45,6 +45,14 @@ class SearchResultTodo extends ViewableTodo implements ISearchResultObject
    /**
     * @inheritDoc
     */
+   public function getSubject()
+   {
+       return $this->getTitle();
+   }
+
+   /**
+    * @inheritDoc
+    */
    public function getObjectTypeName()
    {
        return 'de.julian-pfeil.todolist.todo';
