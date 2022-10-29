@@ -17,60 +17,60 @@ use wcf\system\search\SearchResultTextParser;
  * @subpackage data.todo
  */
 class SearchResultTodo extends ViewableTodo implements ISearchResultObject
-{    
-   /**
-    * @inheritDoc
-    */
-   public function getFormattedMessage()
-   {
-       return SearchResultTextParser::getInstance()->parse($this->getDecoratedObject()->getSimplifiedFormattedMessage());
-   }
+{
+    /**
+     * @inheritDoc
+     */
+    public function getFormattedMessage()
+    {
+        return SearchResultTextParser::getInstance()->parse($this->getDecoratedObject()->getSimplifiedFormattedMessage());
+    }
 
-   /**
-    * @inheritDoc
-    */
-   public function getLink($query = '')
-   {
-       return $this->getDecoratedObject()->getLink();
-   }
+    /**
+     * @inheritDoc
+     */
+    public function getLink($query = '')
+    {
+        return $this->getDecoratedObject()->getLink();
+    }
 
-   /**
-    * @inheritDoc
-    */
-   public function getTime()
-   {
-       return $this->time;
-   }
+    /**
+     * @inheritDoc
+     */
+    public function getTime()
+    {
+        return $this->time;
+    }
 
-   /**
-    * @inheritDoc
-    */
-   public function getSubject()
-   {
-       return $this->getTitle();
-   }
+    /**
+     * @inheritDoc
+     */
+    public function getSubject()
+    {
+        return $this->getTitle();
+    }
 
-   /**
-    * @inheritDoc
-    */
-   public function getObjectTypeName()
-   {
-       return 'de.julian-pfeil.todolist.todo';
-   }
+    /**
+     * @inheritDoc
+     */
+    public function getObjectTypeName()
+    {
+        return 'de.julian-pfeil.todolist.todo';
+    }
 
-   /**
-    * @inheritDoc
-    */
-   public function getContainerTitle()
-   {
-       return '';
-   }
+    /**
+     * @inheritDoc
+     */
+    public function getContainerTitle()
+    {
+        return '';
+    }
 
-   /**
-    * @inheritDoc
-    */
-   public function getContainerLink()
-   {
-       return '';
-   }
+    /**
+     * @inheritDoc
+     */
+    public function getContainerLink()
+    {
+        return '';
+    }
 }
