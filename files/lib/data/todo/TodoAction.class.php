@@ -8,7 +8,7 @@ use wcf\system\comment\CommentHandler;
 use wcf\system\exception\PermissionDeniedException;
 use wcf\system\exception\UserInputException;
 use wcf\system\language\LanguageFactory;
-use wcf\system\like\LikeHandler;
+use wcf\system\reaction\ReactionHandler;
 use wcf\system\message\embedded\object\MessageEmbeddedObjectManager;
 use wcf\system\request\LinkHandler;
 use wcf\system\search\SearchIndexManager;
@@ -217,7 +217,7 @@ class TodoAction extends AbstractDatabaseObjectAction
             CommentHandler::getInstance()->deleteObjects('de.julian-pfeil.todolist.todoComment', $todoIDs);
 
             // delete like data
-            LikeHandler::getInstance()->removeLikes('de.julian-pfeil.todolist.likeableTodo', $todoIDs);
+            ReactionHandler::getInstance()->removeReactions('de.julian-pfeil.todolist.likeableTodo', $todoIDs);
 
             // delete todo from search index
             SearchIndexManager::getInstance()->delete('de.julian-pfeil.todolist.todo', $todoIDs);
