@@ -8,8 +8,8 @@ use wcf\system\comment\CommentHandler;
 use wcf\system\exception\PermissionDeniedException;
 use wcf\system\exception\UserInputException;
 use wcf\system\language\LanguageFactory;
-use wcf\system\reaction\ReactionHandler;
 use wcf\system\message\embedded\object\MessageEmbeddedObjectManager;
+use wcf\system\reaction\ReactionHandler;
 use wcf\system\request\LinkHandler;
 use wcf\system\search\SearchIndexManager;
 use wcf\system\user\activity\event\UserActivityEventHandler;
@@ -209,8 +209,8 @@ class TodoAction extends AbstractDatabaseObjectAction
 
             $todoEditor->delete();
 
-        	$this->addTodoData($todoEditor->getDecoratedObject(), 'deleted', LinkHandler::getInstance()->getLink('TodoList', ['application' => 'todolist']));
-		}
+            $this->addTodoData($todoEditor->getDecoratedObject(), 'deleted', LinkHandler::getInstance()->getLink('TodoList', ['application' => 'todolist']));
+        }
 
         if (!empty($todoIDs)) {
             // delete comments
