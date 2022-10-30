@@ -8,6 +8,7 @@ use todolist\data\todo\TodoEditor;
 use todolist\data\todo\ViewableTodo;
 use wcf\page\AbstractPage;
 use wcf\system\comment\CommentHandler;
+use wcf\system\exception\PermissionDeniedException;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\message\embedded\object\MessageEmbeddedObjectManager;
 use wcf\system\reaction\ReactionHandler;

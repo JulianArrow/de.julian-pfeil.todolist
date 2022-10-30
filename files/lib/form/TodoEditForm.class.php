@@ -7,6 +7,7 @@ use todolist\data\todo\Todo;
 use todolist\system\user\notification\object\TodoUserNotificationObject;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\request\LinkHandler;
+use wcf\system\exception\PermissionDeniedException;
 use wcf\system\user\notification\UserNotificationHandler;
 use wcf\system\WCF;
 use wcf\util\HeaderUtil;

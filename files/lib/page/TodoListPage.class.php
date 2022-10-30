@@ -5,6 +5,7 @@ namespace todolist\page;
 use todolist\data\todo\category\TodoCategory;
 use todolist\data\todo\category\TodoCategoryNodeTree;
 use todolist\data\todo\list\AccessibleTodoList;
+use wcf\system\exception\PermissionDeniedException;
 use wcf\page\SortablePage;
 use wcf\system\WCF;
 
