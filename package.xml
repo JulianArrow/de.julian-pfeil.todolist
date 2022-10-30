@@ -45,6 +45,7 @@
     </instructions>
 
     <instructions type="update" fromversion="2.0.1">
+        <instruction type="file" />
         <instruction type="page" />
         <instruction type="menuItem" />
     </instructions>
