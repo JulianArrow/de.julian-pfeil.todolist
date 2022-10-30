@@ -13,6 +13,7 @@
             <content language="en">
                 <title>To-do list</title>
             </content>
+            <permissions>user.todolist.general.canViewTodoList</permissions>
         </page>
         <page identifier="de.julian-pfeil.todolist.Todo">
             <pageType>system</pageType>

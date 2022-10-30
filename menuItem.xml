@@ -6,6 +6,7 @@
 			<title language="de">To-do-Liste</title>
 			<title language="en">To-do list</title>
 			<page>de.julian-pfeil.todolist.TodoList</page>
+            <permissions>user.todolist.general.canViewTodoList</permissions>
 		</item>
 	</import>
     <delete>
