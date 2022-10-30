@@ -209,10 +209,8 @@ class TodoAction extends AbstractDatabaseObjectAction
 
             $todoEditor->delete();
 
-            $todo = new Todo($todoEditor->todoID);
-
-            $this->addTodoData($todo, 'deleted', LinkHandler::getInstance()->getLink('TodoList', ['application' => 'todolist']));
-        }
+        	$this->addTodoData($todoEditor->getDecoratedObject(), 'deleted', LinkHandler::getInstance()->getLink('TodoList', ['application' => 'todolist']));
+		}
 
         if (!empty($todoIDs)) {
             // delete comments
