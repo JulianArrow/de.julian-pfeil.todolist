@@ -37,15 +37,15 @@ class ViewableTodoList extends TodoList
             $this->sqlSelects .= ',';
         }
         $this->sqlSelects .= "user_avatar.*, user_table.*";
-        $this->sqlJoins .= " LEFT JOIN wcf1_user user_table ON (user_table.userID = todo.userID)";
-        $this->sqlJoins .= " LEFT JOIN wcf1_user_avatar user_avatar ON (user_avatar.avatarID = user_table.avatarID)";
+        $this->sqlJoins .= " LEFT JOIN wcf" . WCF_N ."_user user_table ON (user_table.userID = todo.userID)";
+        $this->sqlJoins .= " LEFT JOIN wcf" . WCF_N ."_user_avatar user_avatar ON (user_avatar.avatarID = user_table.avatarID)";
 
         if (MODULE_LIKE) {
             if (!empty($this->sqlSelects)) {
                 $this->sqlSelects .= ',';
             }
             $this->sqlSelects .= "like_object.cachedReactions";
-            $this->sqlJoins .= " LEFT JOIN wcf1_like_object like_object ON (like_object.objectTypeID = " . ReactionHandler::getInstance()->getObjectType('de.julian-pfeil.todolist.likeableTodo')->objectTypeID . " AND like_object.objectID = todo.todoID)";
+            $this->sqlJoins .= " LEFT JOIN wcf" . WCF_N ."_like_object like_object ON (like_object.objectTypeID = " . ReactionHandler::getInstance()->getObjectType('de.julian-pfeil.todolist.likeableTodo')->objectTypeID . " AND like_object.objectID = todo.todoID)";
         }
     }
 
