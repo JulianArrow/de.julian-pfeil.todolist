@@ -31,7 +31,7 @@ class TodoAddForm extends AbstractFormBuilderForm
     /**
      * @inheritDoc
      */
-    public $activeMenuItem = 'de.julian-pfeil.todolist.AddTodo';
+    public $activeMenuItem = 'de.julian-pfeil.todolist.TodoList';
 
     /**
      * @inheritDoc
