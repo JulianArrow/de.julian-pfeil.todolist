@@ -2,7 +2,7 @@
 
 namespace todolist\system\user\activity\event;
 
-use todolist\data\todo\list\ViewableTodoList;
+use todolist\data\todo\ViewableTodoList;
 use wcf\data\comment\CommentList;
 use wcf\system\SingletonFactory;
 use wcf\system\user\activity\event\IUserActivityEvent;

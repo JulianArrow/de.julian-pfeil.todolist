@@ -2,7 +2,7 @@
 
 namespace todolist\system\message\embedded\object;
 
-use todolist\data\todo\list\AccessibleTodoList;
+use todolist\data\todo\AccessibleTodoList;
 use wcf\system\html\input\HtmlInputProcessor;
 use wcf\system\message\embedded\object\AbstractMessageEmbeddedObjectHandler;
 use wcf\util\ArrayUtil;

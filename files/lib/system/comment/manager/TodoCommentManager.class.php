@@ -2,7 +2,7 @@
 
 namespace todolist\system\comment\manager;
 
-use todolist\data\todo\list\ViewableTodoList;
+use todolist\data\todo\ViewableTodoList;
 use todolist\data\todo\Todo;
 use todolist\data\todo\TodoEditor;
 use todolist\system\cache\runtime\ViewableTodoRuntimeCache;

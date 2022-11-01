@@ -2,7 +2,7 @@
 
 namespace todolist\system\user\activity\event;
 
-use todolist\data\todo\list\TodoList;
+use todolist\data\todo\TodoList;
 use wcf\data\comment\CommentList;
 use wcf\data\comment\response\CommentResponseList;
 use wcf\data\user\UserList;

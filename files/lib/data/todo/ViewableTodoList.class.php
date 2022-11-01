@@ -1,6 +1,6 @@
 <?php
 
-namespace todolist\data\todo\list;
+namespace todolist\data\todo;
 
 use todolist\data\todo\ViewableTodo;
 use wcf\system\cache\runtime\UserProfileRuntimeCache;

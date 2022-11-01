@@ -23,6 +23,7 @@
     
     <excludedpackages>
         <excludedpackage version="6.0.0 Alpha 1">com.woltlab.wcf</excludedpackage>
+        <excludedpackage version="1.0.1">de.julian-pfeil.todolist.pro</excludedpackage>
     </excludedpackages>
     
     <instructions type="install">
@@ -44,36 +45,10 @@
         <instruction type="userNotificationEvent" />
     </instructions>
 
-    <instructions type="update" fromversion="2.0.1">
+    <instructions type="update" fromversion="2.0.2">
         <instruction type="file" />
-        <instruction type="page" />
-        <instruction type="menuItem" />
-    </instructions>
-
-    <instructions type="update" fromversion="2.0.0">
-        <instruction type="file" />
-        <instruction type="language" />
-        <instruction type="page" />
-        <instruction type="menuItem" />
-    </instructions>
-
-    <instructions type="update" fromversion="*">
-        <instruction type="file" />
-        <instruction type="objectType" />
-        <instruction type="file" application="wcf">files_wcf.tar</instruction>
-        <instruction type="database">acp/database/update_to_2.0.0_de.julian-pfeil.todolist.php</instruction>
-        <instruction type="database">acp/database/install_de.julian-pfeil.todolist.php</instruction>
-        <instruction type="script">acp/install_de.julian-pfeil.todolist.php</instruction>
-        <instruction type="template" />
-        <instruction type="language" />
-
-        <instruction type="aclOption" />
-        <instruction type="templateListener" />
-        <instruction type="eventListener" />
-        <instruction type="page" />
-        <instruction type="menuItem" />
-        <instruction type="acpMenu" />
+        <instruction type="fileDelete" />
         <instruction type="userGroupOption" />
-        <instruction type="userNotificationEvent" />
+        <instruction type="template" />
     </instructions>
 </package>

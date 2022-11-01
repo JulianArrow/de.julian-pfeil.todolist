@@ -2,7 +2,7 @@
 
 namespace todolist\data\todo;
 
-use todolist\data\todo\list\ViewableTodoList;
+use todolist\data\todo\ViewableTodoList;
 use wcf\data\like\ILikeObjectTypeProvider;
 use wcf\data\like\object\ILikeObject;
 use wcf\system\like\IViewableLikeProvider;

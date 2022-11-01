@@ -1,12 +1,11 @@
 <?php
 
-namespace todolist\data\todo\list;
+namespace todolist\data\todo;
 
-use todolist\data\todo\Todo;
-use wcf\data\DatabaseObjectList;
+use todolist\data\todo\SearchResultTodo;
 
 /**
- * Represents a list of todos.
+ * Represents a list of todolist search results.
  *
  * @author      Julian Pfeil <https://julian-pfeil.de>
  * @link        https://darkwood.design/store/user-file-list/1298-julian-pfeil/
@@ -16,10 +15,10 @@ use wcf\data\DatabaseObjectList;
  * @package    de.julian-pfeil.todolist
  * @subpackage data.todo.list
  */
-class TodoList extends DatabaseObjectList
+class SearchResultTodoList extends ViewableTodoList
 {
     /**
      * @inheritDoc
      */
-    public $className = Todo::class;
+    public $decoratorClassName = SearchResultTodo::class;
 }

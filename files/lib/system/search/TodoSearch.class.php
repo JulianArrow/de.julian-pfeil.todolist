@@ -4,7 +4,7 @@ namespace todolist\system\search;
 
 use todolist\data\todo\category\TodoCategory;
 use todolist\data\todo\category\TodoCategoryNodeTree;
-use todolist\data\todo\list\SearchResultTodoList;
+use todolist\data\todo\SearchResultTodoList;
 use wcf\data\search\ISearchResultObject;
 use wcf\system\database\util\PreparedStatementConditionBuilder;
 use wcf\system\search\AbstractSearchProvider;

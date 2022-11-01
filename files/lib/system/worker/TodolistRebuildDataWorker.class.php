@@ -2,7 +2,7 @@
 
 namespace todolist\system\worker;
 
-use todolist\data\todo\list\TodoList;
+use todolist\data\todo\TodoList;
 use todolist\data\todo\TodoEditor;
 use wcf\data\object\type\ObjectTypeCache;
 use wcf\system\database\util\PreparedStatementConditionBuilder;

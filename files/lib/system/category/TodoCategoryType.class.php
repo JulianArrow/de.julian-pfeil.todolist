@@ -3,7 +3,7 @@
 namespace todolist\system\category;
 
 use todolist\data\todo\category\TodoCategory;
-use todolist\data\todo\list\TodoList;
+use todolist\data\todo\TodoList;
 use todolist\data\todo\TodoAction;
 use wcf\data\category\CategoryEditor;
 use wcf\system\category\AbstractCategoryType;

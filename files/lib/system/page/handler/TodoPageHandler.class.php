@@ -2,7 +2,7 @@
 
 namespace todolist\system\page\handler;
 
-use todolist\data\todo\list\ViewableTodoList;
+use todolist\data\todo\ViewableTodoList;
 use todolist\system\cache\runtime\ViewableTodoRuntimeCache;
 use wcf\data\page\Page;
 use wcf\data\user\online\UserOnline;

@@ -2,7 +2,7 @@
 
 namespace todolist\system\cache\runtime;
 
-use todolist\data\todo\list\ViewableTodoList;
+use todolist\data\todo\ViewableTodoList;
 use wcf\system\cache\runtime\AbstractRuntimeCache;
 
 /**
