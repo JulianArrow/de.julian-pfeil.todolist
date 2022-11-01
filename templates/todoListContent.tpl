@@ -19,48 +19,50 @@
                                     <span class="icon icon16 jsMarkAsDone fa-square-o" data-object-id="{@$todo->todoID}" data-tooltip="{lang}todolist.general.isUndone{/lang}" aria-label="{lang}todolist.general.isUndone{/lang}"></span>
                                 {/if}
                                 
-                            
-                                <a href="{$todo->getLink()}" title="{$todo->getPlainExcerpt()}">{$todo->getTitle()}</a>
-                            
-                                <small class="separatorLeft">
-                                    <span class="icon icon16 fa-user"></span>
-
-                                    {if $todo->userID}
-                                        {user object=$todo->getUserProfile()}
-                                    {else}
-                                        <span>{$todo->username}</span>
-                                    {/if}
-                                </small>
                                 
-                                <small class="separatorLeft">
-                                    {if $todo->time < $todo->lastEditTime}
-                                        <span class="icon icon16 fa-pencil"></span>
-                                        {@$todo->lastEditTime|time}
-                                    {else}
-                                        <span class="icon icon16 fa-clock-o"></span>
-                                        {@$todo->time|time}
-                                    {/if}
-                                </small>
-
-                                <small class="separatorLeft">
-                                    <span class="icon icon16 fa-eye"></span>
-                                    {$todo->views} {lang}todolist.column.views{/lang}
-                                </small>       
-
-                                {if MODULE_LIKE && $__wcf->getSession()->getPermission('user.like.canViewLike') && $todo->cumulativeLikes} 
+                                <div class="todoContainerMetaData">
+                                    <a href="{$todo->getLink()}" title="{$todo->getPlainExcerpt()}">{$todo->getTitle()}</a>
+                                
                                     <small class="separatorLeft">
-                                        {include file='__topReaction' cachedReactions=$todo->cachedReactions render='tiny'}
+                                        <span class="icon icon16 fa-user"></span>
+
+                                        {if $todo->userID}
+                                            {user object=$todo->getUserProfile()}
+                                        {else}
+                                            <span>{$todo->username}</span>
+                                        {/if}
                                     </small>
-                                {/if}
-                                
-                                {if $todo->enableComments && $todo->comments > 0}
+                                    
                                     <small class="separatorLeft">
-                                        <span class="icon icon16 fa-comments"></span> 
-                                        {lang}todolist.comment.metaData{/lang}
+                                        {if $todo->time < $todo->lastEditTime}
+                                            <span class="icon icon16 fa-pencil"></span>
+                                            {@$todo->lastEditTime|time}
+                                        {else}
+                                            <span class="icon icon16 fa-clock-o"></span>
+                                            {@$todo->time|time}
+                                        {/if}
                                     </small>
-                                {/if}
-                                
-                                {event name='containerHeadline'}
+
+                                    <small class="separatorLeft">
+                                        <span class="icon icon16 fa-eye"></span>
+                                        {$todo->views} {lang}todolist.column.views{/lang}
+                                    </small>       
+
+                                    {if MODULE_LIKE && $__wcf->getSession()->getPermission('user.like.canViewLike') && $todo->cumulativeLikes} 
+                                        <small class="separatorLeft">
+                                            {include file='__topReaction' cachedReactions=$todo->cachedReactions render='tiny'}
+                                        </small>
+                                    {/if}
+                                    
+                                    {if $todo->enableComments && $todo->comments > 0}
+                                        <small class="separatorLeft">
+                                            <span class="icon icon16 fa-comments"></span> 
+                                            {lang}todolist.comment.metaData{/lang}
+                                        </small>
+                                    {/if}
+                                    
+                                    {event name='containerHeadline'}
+                                </div>
                             </h3>
                         </div>
                         

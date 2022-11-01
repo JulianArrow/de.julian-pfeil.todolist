@@ -40,3 +40,18 @@ p.todoTitle {
 #todoCommentList {
     margin-top: 10px;
 }
+
+.todo .containerHeadline {
+    display: table;
+    h3 {
+        display: table-row;
+        .jsMarkAsDone {
+            display: table-cell;
+            padding: 0 7px;
+        }
+        .todoContainerMetaData {
+            display: table-cell;
+        }
+    }
+}
+
