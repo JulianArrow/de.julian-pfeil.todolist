@@ -45,7 +45,7 @@
 
                                     <small class="separatorLeft">
                                         <span class="icon icon16 fa-eye"></span>
-                                        {$todo->views} {lang}todolist.column.views{/lang}
+                                        {$todo->views}
                                     </small>       
 
                                     {if MODULE_LIKE && $__wcf->getSession()->getPermission('user.like.canViewLike') && $todo->cumulativeLikes} 
@@ -57,7 +57,7 @@
                                     {if $todo->enableComments && $todo->comments > 0}
                                         <small class="separatorLeft">
                                             <span class="icon icon16 fa-comments"></span> 
-                                            {lang}todolist.comment.metaData{/lang}
+                                            {@$todo->comments|shortUnit}
                                         </small>
                                     {/if}
                                     
