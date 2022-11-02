@@ -50,7 +50,7 @@ class TodoListPage extends SortablePage
     /**
      * @inheritDoc
      */
-    public $validSortFields = ['todoName', 'time', 'comments', 'views', 'lastEditTime'];
+    public $validSortFields = ['todoName', 'time', 'comments', 'views', 'lastEditTime', 'cumulativeLikes'];
 
     /**
      * 0 if undone, 1 if done, empty if not set
@@ -157,8 +157,6 @@ class TodoListPage extends SortablePage
         } else {
             $this->requestDone = '0';
         }
-
-        $this->checkSortFields();
     }
 
     /**
@@ -196,16 +194,6 @@ class TodoListPage extends SortablePage
 
         if ($this->category !== null) {
             $this->objectList->getConditionBuilder()->add('categoryID = ?', [$this->category->categoryID]);
-        }
-    }
-
-    /**
-     * check additional valid sort-fields
-     */
-    protected function checkSortFields()
-    {
-        if (MODULE_LIKE) {
-            $this->validSortFields[] = 'cumulativeLikes';
         }
     }
 }
