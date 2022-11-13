@@ -44,6 +44,10 @@
         <instruction type="userNotificationEvent" />
     </instructions>
 
+    <instructions type="update" fromversion="2.0.3">
+        <instruction type="template" />
+    </instructions>
+
     <instructions type="update" fromversion="2.0.2">
         <instruction type="file" />
         <instruction type="fileDelete" />
