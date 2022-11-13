@@ -9,13 +9,13 @@
 >
     <div class="section">
         <div class="section">
-            <p class="todoDescription htmlContent userMessage">
-            {if $todo->getFormattedMessage() == ''}
-                <p class="info">{lang}todolist.general.noDescription{/lang}</p>
-            {else}
-                {@$todo->getFormattedMessage()}
-            {/if}
-            </p>
+                {if $todo->getFormattedMessage() == ''}
+                    <p class="info">{lang}todolist.general.noDescription{/lang}</p>
+                {else}
+                    <div class="todoDescription htmlContent userMessage">
+                        {@$todo->getFormattedMessage()}
+                    </div>
+                {/if}
         </div>
         
         {event name='afterTodoDescription'}
