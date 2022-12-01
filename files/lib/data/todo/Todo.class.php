@@ -72,12 +72,8 @@ class Todo extends DatabaseObject implements ITitledLinkObject
      * Returns the todo object with the given id.
      */
     public static function getTodo($todoID)
-    {
-        if ($this->todo === null) {
-            $this->todo = new self($this->todoID);
-        }
-
-        return $this->todo;
+    
+        return new self($todoID);
     }
 
     /**
