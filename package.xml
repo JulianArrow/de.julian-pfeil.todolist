@@ -5,8 +5,8 @@
         <packagedescription>To-do list for creating to-dos.</packagedescription>
         <packagename languagecode="de">To-do-Liste</packagename>
         <packagedescription languagecode="de">To-do-Liste für das Erstellen von To-dos.</packagedescription>
-        <version>2.0.4</version>
-        <date>2022-11-13</date>
+        <version>2.0.5</version>
+        <date>2022-12-01</date>
         <packageurl><![CDATA[https://darkwood.design/store/user-file-list/1298-julian-pfeil/]]></packageurl>
         <isapplication>1</isapplication>
         <applicationdirectory>todo</applicationdirectory>
@@ -44,8 +44,13 @@
         <instruction type="userNotificationEvent" />
     </instructions>
 
+    <instructions type="update" fromversion="2.0.4">
+        <instruction type="file" />
+    </instructions>
+
     <instructions type="update" fromversion="2.0.3">
         <instruction type="template" />
+        <instruction type="file" />
     </instructions>
 
     <instructions type="update" fromversion="2.0.2">
