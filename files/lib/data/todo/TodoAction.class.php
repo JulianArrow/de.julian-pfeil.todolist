@@ -149,16 +149,10 @@ class TodoAction extends AbstractDatabaseObjectAction
 
     public function setSearchIndex(Todo $todo)
     {
-        $description = $todo->getPlainMessage();
-
-        if (\mb_strlen($description) > 10000000) {
-            $description = \substr($description, 0, 10000000);
-        }
-
         SearchIndexManager::getInstance()->set(
             'de.julian-pfeil.todolist.todo',
             $todo->todoID,
-            $description,
+            $todo->description,
             $todo->getTitle(),
             $todo->time,
             $todo->userID,
