@@ -2,7 +2,6 @@
 
 namespace todolist\data\todo;
 
-use todolist\data\todo\Todo;
 use wcf\data\DatabaseObjectList;
 
 /**

@@ -2,8 +2,8 @@
 
 namespace todolist\system\worker;
 
-use todolist\data\todo\TodoList;
 use todolist\data\todo\TodoEditor;
+use todolist\data\todo\TodoList;
 use wcf\data\object\type\ObjectTypeCache;
 use wcf\system\database\util\PreparedStatementConditionBuilder;
 use wcf\system\html\input\HtmlInputProcessor;

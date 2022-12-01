@@ -3,8 +3,8 @@
 namespace todolist\system\category;
 
 use todolist\data\todo\category\TodoCategory;
-use todolist\data\todo\TodoList;
 use todolist\data\todo\TodoAction;
+use todolist\data\todo\TodoList;
 use wcf\data\category\CategoryEditor;
 use wcf\system\category\AbstractCategoryType;
 use wcf\system\exception\SystemException;

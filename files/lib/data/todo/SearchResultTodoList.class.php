@@ -2,8 +2,6 @@
 
 namespace todolist\data\todo;
 
-use todolist\data\todo\SearchResultTodo;
-
 /**
  * Represents a list of todolist search results.
  *

@@ -2,9 +2,9 @@
 
 namespace todolist\system\comment\manager;
 
-use todolist\data\todo\ViewableTodoList;
 use todolist\data\todo\Todo;
 use todolist\data\todo\TodoEditor;
+use todolist\data\todo\ViewableTodoList;
 use todolist\system\cache\runtime\ViewableTodoRuntimeCache;
 use wcf\data\comment\CommentList;
 use wcf\data\comment\response\CommentResponseList;

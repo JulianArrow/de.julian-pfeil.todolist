@@ -2,7 +2,6 @@
 
 namespace todolist\data\todo;
 
-use todolist\data\todo\TodoList;
 use wcf\data\object\type\AbstractObjectTypeProvider;
 
 /**
