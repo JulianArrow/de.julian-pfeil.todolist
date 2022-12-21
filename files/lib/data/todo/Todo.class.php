@@ -72,7 +72,7 @@ class Todo extends DatabaseObject implements ITitledLinkObject
      * Returns the todo object with the given id.
      */
     public static function getTodo($todoID)
-    
+    {
         return new self($todoID);
     }
 
