@@ -173,7 +173,7 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
             return false;
         }
 
-        if (WCF::getSession()->getPermission('user.todolist.general.canViewEveryCategory')) { 
+        if (WCF::getSession()->getPermission('user.todolist.general.canViewEveryCategory')) {
             return true;
         }
 

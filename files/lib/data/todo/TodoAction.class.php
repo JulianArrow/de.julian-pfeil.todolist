@@ -99,7 +99,6 @@ class TodoAction extends AbstractDatabaseObjectAction
 
         $activityEvents = [];
         foreach ($this->getObjects() as $todo) {
-
             // send notifications for quotes and mentions
             if ($htmlInputProcessor === null) {
                 $htmlInputProcessor = new HtmlInputProcessor();
@@ -287,7 +286,7 @@ class TodoAction extends AbstractDatabaseObjectAction
                         }
                     }
                 }
-            }   
+            }
         }
     }
 
