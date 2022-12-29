@@ -5,8 +5,8 @@
         <packagedescription>To-do list for creating to-dos.</packagedescription>
         <packagename languagecode="de">To-do-Liste</packagename>
         <packagedescription languagecode="de">To-do-Liste für das Erstellen von To-dos.</packagedescription>
-        <version>2.0.6</version>
-        <date>2022-12-01</date>
+        <version>2.1.0</version>
+        <date>2022-12-29</date>
         <packageurl><![CDATA[https://darkwood.design/store/user-file-list/1298-julian-pfeil/]]></packageurl>
         <isapplication>1</isapplication>
         <applicationdirectory>todo</applicationdirectory>
@@ -44,42 +44,12 @@
         <instruction type="userNotificationEvent" />
     </instructions>
 
-    <instructions type="update" fromversion="2.0.5">
-        <instruction type="file" />
-    </instructions>
-
-    <instructions type="update" fromversion="2.0.4">
-        <instruction type="file" />
-    </instructions>
-
-    <instructions type="update" fromversion="2.0.3">
-        <instruction type="template" />
-        <instruction type="file" />
-    </instructions>
-
-    <instructions type="update" fromversion="2.0.2">
-        <instruction type="file" />
-        <instruction type="fileDelete" />
-        <instruction type="userGroupOption" />
-        <instruction type="template" />
-    </instructions>
-
-    <instructions type="update" fromversion="1.4.1">
+    <instructions type="update" fromversion="2.0.6">
         <instruction type="file" />
         <instruction type="objectType" />
-        <instruction type="file" application="wcf">files_wcf.tar</instruction>
-        <instruction type="database">acp/database/install_de.julian-pfeil.todolist.php</instruction>
-        <instruction type="script">acp/install_de.julian-pfeil.todolist.php</instruction>
         <instruction type="template" />
         <instruction type="language" />
 
-        <instruction type="aclOption" />
-        <instruction type="templateListener" />
-        <instruction type="eventListener" />
-        <instruction type="page" />
-        <instruction type="menuItem" />
-        <instruction type="acpMenu" />
-        <instruction type="userGroupOption" />
         <instruction type="userNotificationEvent" />
     </instructions>
 </package>
