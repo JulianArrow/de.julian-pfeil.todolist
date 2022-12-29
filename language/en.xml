@@ -110,17 +110,17 @@
         </category>
 
         <category name="todolist.todo">
-            <item name="wbb.post.quote.notification.title"><![CDATA[You were quoted]]></item>
-            <item name="wbb.post.quote.notification.message"><![CDATA[{if $author->userID}<strong>{$author}</strong>{else}A guest{/if} quoted content of yours in the to-do <strong>{$userNotificationObject->getTitle()}</strong>.]]></item>
-            <item name="wbb.post.quote.notification.mail.title"><![CDATA[You were quoted in to-do "{@$userNotificationObject->getTitle()}"]]></item>
-            <item name="wbb.post.quote.notification.mail.plaintext"><![CDATA[{@$author} quoted content of yours in the to-do “{@$todo->getTitle()}” [URL:{@$todo->getLink()}] in the category “{@$todo->getCategory()->getTitle()}”.]]></item>
-            <item name="wbb.post.quote.notification.mail.html"><![CDATA[<p><strong>{$author}</strong> quoted one of your posts in a reply to <a href="{@$todo->getLink()}">{$todo->getTitle()}</a> in the category <a href="{$todo->getCategory()->getLink()}">{$todo->getCategory()->getTitle()}</a>.</p>]]></item>
+            <item name="todolist.todo.quote.notification.title"><![CDATA[You were quoted]]></item>
+            <item name="todolist.todo.quote.notification.message"><![CDATA[{if $author->userID}<strong>{$author}</strong>{else}A guest{/if} quoted content of yours in the to-do <strong>{$userNotificationObject->getTitle()}</strong>.]]></item>
+            <item name="todolist.todo.quote.notification.mail.title"><![CDATA[You were quoted in to-do "{@$userNotificationObject->getTitle()}"]]></item>
+            <item name="todolist.todo.quote.notification.mail.plaintext"><![CDATA[{@$author} quoted content of yours in the to-do “{@$todo->getTitle()}” [URL:{@$todo->getLink()}] in the category “{@$todo->getCategory()->getTitle()}”.]]></item>
+            <item name="todolist.todo.quote.notification.mail.html"><![CDATA[<p><strong>{$author}</strong> quoted one of your posts in a reply to <a href="{@$todo->getLink()}">{$todo->getTitle()}</a> in the category <a href="{$todo->getCategory()->getLink()}">{$todo->getCategory()->getTitle()}</a>.</p>]]></item>
             
-            <item name="wbb.post.mention.notification.title"><![CDATA[You were mentioned]]></item>
-            <item name="wbb.post.mention.notification.message"><![CDATA[{if $author->userID}<strong>{$author}</strong>{else}A guest{/if} mentioned you in the to-do <strong>{$userNotificationObject->getTitle()}</strong>.]]></item>
-            <item name="wbb.post.mention.notification.mail.title"><![CDATA[You were mentioned in the to-do "{@$userNotificationObject->getTitle()}"]]></item>
-            <item name="wbb.post.mention.notification.mail.plaintext"><![CDATA[{@$author} mentioned you in the to-do “{@$todo->getTitle()}” [URL:{@$todo->getLink()}] in the category “{@$todo->getCategory()->getTitle()}”.]]></item>
-            <item name="wbb.post.mention.notification.mail.html"><![CDATA[<p><strong>{$author}</strong> mentioned you in the to-do <a href="{$todo->getLink()}">{$todo->getTitle()}</a> in the category <a href="{$todo->getCategory()->getLink()}">{$todo->getCategory()->getTitle()}</a>.</p>]]></item>
+            <item name="todolist.todo.mention.notification.title"><![CDATA[You were mentioned]]></item>
+            <item name="todolist.todo.mention.notification.message"><![CDATA[{if $author->userID}<strong>{$author}</strong>{else}A guest{/if} mentioned you in the to-do <strong>{$userNotificationObject->getTitle()}</strong>.]]></item>
+            <item name="todolist.todo.mention.notification.mail.title"><![CDATA[You were mentioned in the to-do "{@$userNotificationObject->getTitle()}"]]></item>
+            <item name="todolist.todo.mention.notification.mail.plaintext"><![CDATA[{@$author} mentioned you in the to-do “{@$todo->getTitle()}” [URL:{@$todo->getLink()}] in the category “{@$todo->getCategory()->getTitle()}”.]]></item>
+            <item name="todolist.todo.mention.notification.mail.html"><![CDATA[<p><strong>{$author}</strong> mentioned you in the to-do <a href="{$todo->getLink()}">{$todo->getTitle()}</a> in the category <a href="{$todo->getCategory()->getLink()}">{$todo->getCategory()->getTitle()}</a>.</p>]]></item>
 		</category>
 
         <category name="todolist.category">
