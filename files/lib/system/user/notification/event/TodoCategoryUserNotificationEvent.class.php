@@ -6,7 +6,7 @@ use todolist\system\cache\runtime\ViewableTodoRuntimeCache;
 use wcf\system\user\notification\event\AbstractSharedUserNotificationEvent;
 
 /**
- * User notification event for subscribed todos.
+ * User notification event for subscribed categories.
  *
  * @author      Julian Pfeil <https://julian-pfeil.de>
  * @link        https://darkwood.design/store/user-file-list/1298-julian-pfeil/

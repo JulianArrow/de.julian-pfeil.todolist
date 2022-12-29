@@ -7,7 +7,7 @@ use wcf\system\user\notification\event\AbstractSharedUserNotificationEvent;
 use wcf\system\user\object\watch\UserObjectWatchHandler;
 
 /**
- * User notification event for subscribed categories.
+ * User notification event for subscribed todos.
  *
  * @author      Julian Pfeil <https://julian-pfeil.de>
  * @link        https://darkwood.design/store/user-file-list/1298-julian-pfeil/
@@ -17,7 +17,7 @@ use wcf\system\user\object\watch\UserObjectWatchHandler;
  * @package    de.julian-pfeil.todolist
  * @subpackage system.user.notification.event
  */
-class TodoCategoryUserNotificationEvent extends AbstractSharedUserNotificationEvent
+class TodoUserNotificationEvent extends AbstractSharedUserNotificationEvent
 {
     /**
      * @inheritDoc
@@ -71,7 +71,7 @@ class TodoCategoryUserNotificationEvent extends AbstractSharedUserNotificationEv
      */
     public function getMessage()
     {
-        return $this->getLanguage()->getDynamicVariable('todolist.category.notification.message', [
+        return $this->getLanguage()->getDynamicVariable('todolist.action.notification.message', [
             'todo' => $this->userNotificationObject,
             'author' => $this->author,
         ]);
@@ -82,6 +82,6 @@ class TodoCategoryUserNotificationEvent extends AbstractSharedUserNotificationEv
      */
     public function getTitle()
     {
-        return $this->getLanguage()->get('todolist.category.notification.title');
+        return $this->getLanguage()->get('todolist.action.notification.title');
     }
 }
