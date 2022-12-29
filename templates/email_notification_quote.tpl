@@ -1,9 +1,9 @@
 {if $mimeType === 'text/plain'}
-{lang}todolist.action.notification.mail.plaintext{/lang}
+    {lang}todolist.todo.quote.notification.mail.plaintext{/lang}
 
-{@$event->getUserNotificationObject()->getMailText($mimeType)} {* this line ends with a space *}
+    {@$event->getUserNotificationObject()->getMailText($mimeType)} {* this line ends with a space *}
 {else}
-    {lang}todolist.action.notification.mail.html{/lang}
+	{lang}todolist.todo.quote.notification.mail.html{/lang}    
     {assign var='user' value=$event->getAuthor()}
     {assign var='todo' value=$event->getUserNotificationObject()}
     

@@ -2,7 +2,7 @@
 
 namespace todolist\system\user\object\watch;
 
-use todolist\data\todo\category\TodoCategory;
+use todolist\data\todo\Todo;
 use wcf\data\object\type\AbstractObjectTypeProcessor;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\exception\PermissionDeniedException;
@@ -20,18 +20,18 @@ use wcf\system\user\storage\UserStorageHandler;
  * @package    de.julian-pfeil.todolist
  * @subpackage system.user.object.watch
  */
-class TodoCategoryUserObjectWatch extends AbstractObjectTypeProcessor implements IUserObjectWatch
+class TodoUserObjectWatch extends AbstractObjectTypeProcessor implements IUserObjectWatch
 {
     /**
      * @inheritDoc
      */
     public function validateObjectID($objectID)
     {
-        $category = TodoCategory::getCategory($objectID);
-        if ($category === null) {
+        $todo = new Todo($objectID);
+        if ($todo->todoID) {
             throw new IllegalLinkException();
         }
-        if (!$category->isAccessible()) {
+        if (!$todo->canRead()) {
             throw new PermissionDeniedException();
         }
     }
@@ -41,6 +41,6 @@ class TodoCategoryUserObjectWatch extends AbstractObjectTypeProcessor implements
      */
     public function resetUserStorage(array $userIDs)
     {
-        UserStorageHandler::getInstance()->reset($userIDs, TodoCategory::USER_STORAGE_SUBSCRIBED_CATEGORIES);
+        UserStorageHandler::getInstance()->reset($userIDs, Todo::USER_STORAGE_SUBSCRIBED_TODOS);
     }
 }

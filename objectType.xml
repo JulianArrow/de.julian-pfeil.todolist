@@ -53,6 +53,11 @@
 
         <!-- object watch -->
 		<type>
+			<name>de.julian-pfeil.todolist.todo</name>
+			<definitionname>com.woltlab.wcf.user.objectWatch</definitionname>
+			<classname>todolist\system\user\object\watch\TodoUserObjectWatch</classname>
+		</type>
+		<type>
 			<name>de.julian-pfeil.todolist.todo.category</name>
 			<definitionname>com.woltlab.wcf.user.objectWatch</definitionname>
 			<classname>todolist\system\user\object\watch\TodoCategoryUserObjectWatch</classname>

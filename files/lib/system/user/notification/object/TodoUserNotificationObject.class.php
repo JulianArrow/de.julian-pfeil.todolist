@@ -5,7 +5,6 @@ namespace todolist\system\user\notification\object;
 use todolist\data\todo\Todo;
 use wcf\data\DatabaseObjectDecorator;
 use wcf\system\user\notification\object\IUserNotificationObject;
-use wcf\system\WCF;
 
 /**
  * Represents an todo as a notification object.
@@ -30,7 +29,7 @@ class TodoUserNotificationObject extends DatabaseObjectDecorator implements IUse
      */
     public function getAuthorID()
     {
-        return WCF::getUser()->userID;
+        return $this->userID;
     }
 
     /**

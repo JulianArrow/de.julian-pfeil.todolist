@@ -4,6 +4,7 @@ namespace todolist\data\todo;
 
 use todolist\system\user\notification\object\TodoUserNotificationObject;
 use wcf\data\AbstractDatabaseObjectAction;
+use wcf\data\user\UserProfileList;
 use wcf\system\comment\CommentHandler;
 use wcf\system\exception\PermissionDeniedException;
 use wcf\system\exception\UserInputException;
@@ -15,7 +16,9 @@ use wcf\system\search\SearchIndexManager;
 use wcf\system\user\activity\event\UserActivityEventHandler;
 use wcf\system\user\notification\UserNotificationHandler;
 use wcf\system\user\object\watch\UserObjectWatchHandler;
+use wcf\system\user\storage\UserStorageHandler;
 use wcf\system\WCF;
+use wcf\util\MessageUtil;
 use wcf\util\UserUtil;
 
 /**
@@ -65,10 +68,6 @@ class TodoAction extends AbstractDatabaseObjectAction
             $this->setObjects([$todoEditor]);
         }
 
-        // fire activity event
-        $languageID = (!isset($this->parameters['data']['languageID']) || ($this->parameters['data']['languageID'] === null)) ? LanguageFactory::getInstance()->getDefaultLanguageID() : $this->parameters['data']['languageID'];
-        UserActivityEventHandler::getInstance()->fireEvent('de.julian-pfeil.todolist.recentActivityEvent.todo', $todo->todoID, $languageID, $todo->userID, $todo->time);
-
         $this->setSearchIndex($todo);
 
         // save embedded objects
@@ -87,7 +86,91 @@ class TodoAction extends AbstractDatabaseObjectAction
         return $todo;
     }
 
-/**
+    /**
+     * Triggers the publication of to-do.
+     */
+    public function triggerPublication()
+    {
+        if (empty($this->objects)) {
+            $this->readObjects();
+        }
+
+        $htmlInputProcessor = null;
+
+        $activityEvents = [];
+        foreach ($this->getObjects() as $todo) {
+
+            // send notifications for quotes and mentions
+            if ($htmlInputProcessor === null) {
+                $htmlInputProcessor = new HtmlInputProcessor();
+            }
+            $htmlInputProcessor->processIntermediate($todo->description);
+
+            $usernames = MessageUtil::getQuotedUsers($htmlInputProcessor);
+            if (!empty($usernames)) {
+                // get user profiles
+                $userList = new UserProfileList();
+                $userList->getConditionBuilder()->add('user_table.username IN (?)', [$usernames]);
+                if ($todo->userID) {
+                    // ignore self-quoting
+                    $userList->getConditionBuilder()->add('user_table.userID <> ?', [$todo->userID]);
+                }
+                $userList->readObjects();
+                $recipientIDs = [];
+                foreach ($userList as $user) {
+                    if ($todo->category->canView($user)) {
+                        $recipientIDs[] = $user->userID;
+                    }
+                }
+
+                // fire event
+                if (!empty($recipientIDs)) {
+                    UserNotificationHandler::getInstance()->fireEvent(
+                        'quote',
+                        'de.julian-pfeil.todolist.todo',
+                        new TodoUserNotificationObject($todo->getDecoratedObject()),
+                        $recipientIDs
+                    );
+                }
+            }
+
+            // check for mentions
+            $userIDs = MessageUtil::getMentionedUserIDs($htmlInputProcessor);
+            if (!empty($userIDs)) {
+                // get user profiles
+                $userList = new UserProfileList();
+                $userList->getConditionBuilder()->add('user_table.userID IN (?)', [$userIDs]);
+                if ($todo->userID) {
+                    $userList->getConditionBuilder()->add('user_table.userID <> ?', [$todo->userID]);
+                }
+                $userList->readObjects();
+                $recipientIDs = [];
+                foreach ($userList as $user) {
+                    if ($todo->category->canView($user)) {
+                        $recipientIDs[] = $user->userID;
+                    }
+                }
+
+                // fire event
+                if (!empty($recipientIDs)) {
+                    UserNotificationHandler::getInstance()->fireEvent(
+                        'mention',
+                        'de.julian-pfeil.todolist.todo',
+                        new TodoUserNotificationObject($todo->getDecoratedObject()),
+                        $recipientIDs
+                    );
+                }
+            }
+        }
+
+        if (!empty($activityEvents)) {
+            // fire activity event
+            $languageID = LanguageFactory::getInstance()->getDefaultLanguageID();
+            UserActivityEventHandler::getInstance()->fireEvent('de.julian-pfeil.todolist.recentActivityEvent.todo', $todo->todoID, $languageID, $todo->userID, $todo->time);
+        }
+    }
+
+    /**
      * @inheritDoc
      */
     public function update()
@@ -106,19 +189,105 @@ class TodoAction extends AbstractDatabaseObjectAction
 
             $todo = new Todo($todoEditor->todoID);
 
-            if (WCF::getUser()->userID != $todo->userID) {
-                $recipientIDs = [$todo->userID];
-                UserNotificationHandler::getInstance()->fireEvent(
-                    'todo', // event name
-                    'de.julian-pfeil.todolist.todo', // event object type name
-                    new TodoUserNotificationObject(new Todo($todo->todoID)),
-                    $recipientIDs
-                );
-            }
+            // notification for author & non-author edits
+            $this->sendEditNotification($todo);
 
             $this->setSearchIndex($todo);
 
             $this->saveEmbeddedObjects($todoEditor, $todo);
+
+            // handle new mentions / quotes
+            if (!empty($this->parameters['description_htmlInputProcessor'])) {
+                $quotedUsernames = MessageUtil::getQuotedUsers($this->parameters['description_htmlInputProcessor']);
+                $mentionedUserIDs = MessageUtil::getMentionedUserIDs($this->parameters['description_htmlInputProcessor']);
+
+                if (!empty($quotedUsernames) || !empty($mentionedUserIDs)) {
+                    // process old message
+                    $htmlInputProcessor = new HtmlInputProcessor();
+                    $htmlInputProcessor->processIntermediate($todo->message);
+
+                    // Reload todo to get the updated message.
+                    $todo = new Todo($todo->todoID);
+
+                    if (!empty($quotedUsernames)) {
+                        // find users that have not been quoted in this todo before
+                        $existingUsernames = \array_map(
+                            'mb_strtolower',
+                            MessageUtil::getQuotedUsers($htmlInputProcessor)
+                        );
+                        $quotedUsernames = \array_unique(\array_filter(
+                            $quotedUsernames,
+                            static function ($username) use ($existingUsernames) {
+                                return !\in_array(\mb_strtolower($username), $existingUsernames);
+                            }
+                        ));
+
+                        if (!empty($quotedUsernames)) {
+                            // get user profiles
+                            $userList = new UserProfileList();
+                            $userList->getConditionBuilder()->add('user_table.username IN (?)', [$quotedUsernames]);
+                            if ($todo->userID) {
+                                $userList->getConditionBuilder()->add('user_table.userID <> ?', [$todo->userID]);
+                            }
+                            $userList->readObjects();
+                            $recipientIDs = [];
+                            foreach ($userList as $user) {
+                                if ($todo->category->canView($user)) {
+                                    $recipientIDs[] = $user->userID;
+                                }
+                            }
+
+                            // fire event
+                            if (!empty($recipientIDs)) {
+                                UserNotificationHandler::getInstance()->fireEvent(
+                                    'quote',
+                                    'de.julian-pfeil.todolist.todo',
+                                    new TodoUserNotificationObject($todo),
+                                    $recipientIDs
+                                );
+                            }
+                        }
+                    }
+
+                    if (!empty($mentionedUserIDs)) {
+                        // find users that have not been mentioned in this todo before
+                        $existingUserIDs = MessageUtil::getMentionedUserIDs($htmlInputProcessor);
+                        $mentionedUserIDs = \array_unique(\array_filter(
+                            $mentionedUserIDs,
+                            static function ($userID) use ($existingUserIDs) {
+                                return !\in_array($userID, $existingUserIDs);
+                            }
+                        ));
+
+                        if (!empty($mentionedUserIDs)) {
+                            // get user profiles
+                            $userList = new UserProfileList();
+                            $userList->getConditionBuilder()->add('user_table.userID IN (?)', [$mentionedUserIDs]);
+                            if ($todo->userID) {
+                                $userList->getConditionBuilder()->add('user_table.userID <> ?', [$todo->userID]);
+                            }
+
+                            $userList->readObjects();
+                            $recipientIDs = [];
+                            foreach ($userList as $user) {
+                                if ($todo->category->canView($user)) {
+                                    $recipientIDs[] = $user->userID;
+                                }
+                            }
+
+                            // fire event
+                            if (!empty($recipientIDs)) {
+                                UserNotificationHandler::getInstance()->fireEvent(
+                                    'mention',
+                                    'de.julian-pfeil.todolist.todo',
+                                    new TodoUserNotificationObject($todo),
+                                    $recipientIDs
+                                );
+                            }
+                        }
+                    }
+                }
+            }   
         }
     }
 
@@ -157,6 +326,28 @@ class TodoAction extends AbstractDatabaseObjectAction
             $todo->time,
             $todo->userID,
             $todo->username
+        );
+    }
+
+    public function sendEditNotification($todo)
+    {
+        // author notification when edited
+        if (WCF::getUser()->userID != $todo->userID) {
+            UserNotificationHandler::getInstance()->fireEvent(
+                'edit', // event name
+                'de.julian-pfeil.todolist.todo', // event object type name
+                new TodoUserNotificationObject(new Todo($todo->todoID)),
+                [$todo->userID] //recipient
+            );
+        }
+
+        // watched objects
+        UserObjectWatchHandler::getInstance()->updateObject(
+            'de.julian-pfeil.todolist.todo',
+            $todo->todoID,
+            'todo',
+            'de.julian-pfeil.todolist.todo',
+            new TodoUserNotificationObject(new Todo($todo->todoID))
         );
     }
 
@@ -224,6 +415,12 @@ class TodoAction extends AbstractDatabaseObjectAction
 
             // delete todo notifications
             UserNotificationHandler::getInstance()->markAsConfirmed('todo', 'de.julian-pfeil.todolist.todo', [], $todoIDs);
+            UserNotificationHandler::getInstance()->markAsConfirmed('edit', 'de.julian-pfeil.todolist.todo', [], $todoIDs);
+            UserNotificationHandler::getInstance()->markAsConfirmed('quote', 'de.julian-pfeil.todolist.todo', [], $todoIDs);
+            UserNotificationHandler::getInstance()->markAsConfirmed('mention', 'de.julian-pfeil.todolist.todo', [], $todoIDs);
+
+            // delete subscriptions
+            UserObjectWatchHandler::getInstance()->deleteObjects('de.julian-pfeil.todolist.todo', $todoIDs);
 
             // delete comment notifications
             UserNotificationHandler::getInstance()->markAsConfirmed('comment', 'de.julian-pfeil.todolist.todoComment.notification', [], $todoIDs);
@@ -232,6 +429,9 @@ class TodoAction extends AbstractDatabaseObjectAction
             UserNotificationHandler::getInstance()->markAsConfirmed('like', 'de.julian-pfeil.todolist.todoComment.like.notification', [], $todoIDs);
             UserNotificationHandler::getInstance()->markAsConfirmed('like', 'de.julian-pfeil.todolist.todoComment.response.like.notification', [], $todoIDs);
         }
+
+        //reset user storage
+        UserStorageHandler::getInstance()->resetAll(Todo::USER_STORAGE_SUBSCRIBED_TODOS);
 
         return $this->getTodoData();
     }
@@ -260,15 +460,7 @@ class TodoAction extends AbstractDatabaseObjectAction
 
             $todo = $todoEditor->getDecoratedObject();
 
-            if (WCF::getUser()->userID != $todo->userID) {
-                $recipientIDs = [$todo->userID];
-                UserNotificationHandler::getInstance()->fireEvent(
-                    'todo', // event name
-                    'de.julian-pfeil.todolist.todo', // event object type name
-                    new TodoUserNotificationObject(new Todo($todo->todoID)),
-                    $recipientIDs
-                );
-            }
+            $this->sendEditNotification($todo);
 
             $this->addTodoData($todoEditor->getDecoratedObject(), 'isDone', 1);
         }
@@ -294,15 +486,7 @@ class TodoAction extends AbstractDatabaseObjectAction
 
             $todo = $todoEditor->getDecoratedObject();
 
-            if (WCF::getUser()->userID != $todo->userID) {
-                $recipientIDs = [$todo->userID];
-                UserNotificationHandler::getInstance()->fireEvent(
-                    'todo', // event name
-                    'de.julian-pfeil.todolist.todo', // event object type name
-                    new TodoUserNotificationObject(new Todo($todo->todoID)),
-                    $recipientIDs
-                );
-            }
+            $this->sendEditNotification($todo);
 
             $this->addTodoData($todoEditor->getDecoratedObject(), 'isDone', 0);
         }
@@ -330,21 +514,5 @@ class TodoAction extends AbstractDatabaseObjectAction
         return [
             'todoData' => $this->todoData,
         ];
-    }
-
-    /**
-     * Sends todo-edit user notification
-     */
-    public function sendNotification()
-    {
-        if (WCF::getUser()->userID != $this->formObject->userID) {
-            $recipientIDs = [$this->formObject->userID];
-            UserNotificationHandler::getInstance()->fireEvent(
-                'todo', // event name
-                'de.julian-pfeil.todolist.todo', // event object type name
-                new TodoUserNotificationObject(new Todo($this->formObject->todoID)),
-                $recipientIDs
-            );
-        }
     }
 }

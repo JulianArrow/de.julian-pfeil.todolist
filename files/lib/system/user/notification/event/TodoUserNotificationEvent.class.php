@@ -2,12 +2,12 @@
 
 namespace todolist\system\user\notification\event;
 
-use wcf\system\request\LinkHandler;
-use wcf\system\user\notification\event\AbstractUserNotificationEvent;
-use wcf\system\WCF;
+use todolist\system\cache\runtime\ViewableTodoRuntimeCache;
+use wcf\system\user\notification\event\AbstractSharedUserNotificationEvent;
+use wcf\system\user\object\watch\UserObjectWatchHandler;
 
 /**
- * Notification event for new todos.
+ * User notification event for subscribed categories.
  *
  * @author      Julian Pfeil <https://julian-pfeil.de>
  * @link        https://darkwood.design/store/user-file-list/1298-julian-pfeil/
@@ -17,14 +17,33 @@ use wcf\system\WCF;
  * @package    de.julian-pfeil.todolist
  * @subpackage system.user.notification.event
  */
-class TodoUserNotificationEvent extends AbstractUserNotificationEvent
+class TodoCategoryUserNotificationEvent extends AbstractSharedUserNotificationEvent
 {
+    /**
+     * @inheritDoc
+     */
+    protected function prepare()
+    {
+        ViewableTodoRuntimeCache::getInstance()->cacheObjectID($this->getUserNotificationObject()->todoID);
+    }
+
     /**
      * @inheritDoc
      */
     public function checkAccess()
     {
-        return WCF::getSession()->getPermission('user.todolist.general.canViewTodoList');
+        if (!$this->getUserNotificationObject()->canRead()) {
+            // remove subscription
+            UserObjectWatchHandler::getInstance()->deleteObjects(
+                'de.julian-pfeil.todolist.todo',
+                [$this->getUserNotificationObject()->todoID],
+                [WCF::getUser()->userID]
+            );
+
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -34,7 +53,7 @@ class TodoUserNotificationEvent extends AbstractUserNotificationEvent
     {
         return [
             'message-id' => 'de.julian-pfeil.todolist.todo/' . $this->getUserNotificationObject()->todoID,
-            'template' => 'email_notification_todo',
+            'template' => 'email_notification_edit',
             'application' => 'todolist',
         ];
     }
@@ -44,10 +63,7 @@ class TodoUserNotificationEvent extends AbstractUserNotificationEvent
      */
     public function getLink()
     {
-        return LinkHandler::getInstance()->getLink('Todo', [
-            'application' => 'todolist',
-            'object' => $this->getUserNotificationObject(),
-        ]);
+        return $this->getUserNotificationObject()->getLink();
     }
 
     /**
@@ -55,7 +71,7 @@ class TodoUserNotificationEvent extends AbstractUserNotificationEvent
      */
     public function getMessage()
     {
-        return $this->getLanguage()->getDynamicVariable('todolist.action.notification.message', [
+        return $this->getLanguage()->getDynamicVariable('todolist.category.notification.message', [
             'todo' => $this->userNotificationObject,
             'author' => $this->author,
         ]);
@@ -66,6 +82,6 @@ class TodoUserNotificationEvent extends AbstractUserNotificationEvent
      */
     public function getTitle()
     {
-        return $this->getLanguage()->get('todolist.action.notification.title');
+        return $this->getLanguage()->get('todolist.category.notification.title');
     }
 }

@@ -2,11 +2,11 @@
 
 namespace todolist\system\user\notification\event;
 
-use todolist\system\cache\runtime\ViewableTodoRuntimeCache;
-use wcf\system\user\notification\event\AbstractSharedUserNotificationEvent;
+use wcf\system\user\notification\event\AbstractUserNotificationEvent;
+use wcf\system\WCF;
 
 /**
- * User notification event for subscribed todos.
+ * Notification event for todo-edits.
  *
  * @author      Julian Pfeil <https://julian-pfeil.de>
  * @link        https://darkwood.design/store/user-file-list/1298-julian-pfeil/
@@ -16,22 +16,14 @@ use wcf\system\user\notification\event\AbstractSharedUserNotificationEvent;
  * @package    de.julian-pfeil.todolist
  * @subpackage system.user.notification.event
  */
-class TodoCategoryUserNotificationEvent extends AbstractSharedUserNotificationEvent
+class EditUserNotificationEvent extends AbstractUserNotificationEvent
 {
-    /**
-     * @inheritDoc
-     */
-    protected function prepare()
-    {
-        ViewableTodoRuntimeCache::getInstance()->cacheObjectID($this->getUserNotificationObject()->todoID);
-    }
-
     /**
      * @inheritDoc
      */
     public function checkAccess()
     {
-        return $this->getUserNotificationObject()->canRead();
+        return WCF::getSession()->getPermission('user.todolist.general.canViewTodoList');
     }
 
     /**
@@ -41,7 +33,7 @@ class TodoCategoryUserNotificationEvent extends AbstractSharedUserNotificationEv
     {
         return [
             'message-id' => 'de.julian-pfeil.todolist.todo/' . $this->getUserNotificationObject()->todoID,
-            'template' => 'email_notification_category',
+            'template' => 'email_notification_edit',
             'application' => 'todolist',
         ];
     }
@@ -59,7 +51,7 @@ class TodoCategoryUserNotificationEvent extends AbstractSharedUserNotificationEv
      */
     public function getMessage()
     {
-        return $this->getLanguage()->getDynamicVariable('todolist.category.notification.message', [
+        return $this->getLanguage()->getDynamicVariable('todolist.action.notification.message', [
             'todo' => $this->userNotificationObject,
             'author' => $this->author,
         ]);
@@ -70,6 +62,6 @@ class TodoCategoryUserNotificationEvent extends AbstractSharedUserNotificationEv
      */
     public function getTitle()
     {
-        return $this->getLanguage()->get('todolist.category.notification.title');
+        return $this->getLanguage()->get('todolist.action.notification.title');
     }
 }

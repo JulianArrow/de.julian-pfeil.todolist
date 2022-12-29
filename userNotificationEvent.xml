@@ -8,6 +8,28 @@
             <classname>todolist\system\user\notification\event\TodoUserNotificationEvent</classname>
             <preset>1</preset>
         </event>
+        <event>
+            <name>edit</name>
+            <objecttype>de.julian-pfeil.todolist.todo</objecttype>
+            <classname>todolist\system\user\notification\event\EditUserNotificationEvent</classname>
+            <preset>1</preset>
+        </event>
+
+        <!-- mention -->
+        <event>
+            <name>mention</name>
+            <objecttype>de.julian-pfeil.todolist.todo</objecttype>
+            <classname>todolist\system\user\notification\event\MentionUserNotificationEvent</classname>
+            <preset>1</preset>
+        </event>
+
+        <!-- quote -->
+        <event>
+            <name>quote</name>
+            <objecttype>de.julian-pfeil.todolist.todo</objecttype>
+            <classname>todolist\system\user\notification\event\QuoteUserNotificationEvent</classname>
+            <preset>1</preset>
+        </event>
 
         <!-- subscribed category -->
 		<event>

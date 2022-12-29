@@ -11,6 +11,8 @@ use wcf\system\cache\runtime\UserProfileRuntimeCache;
 use wcf\system\html\output\HtmlOutputProcessor;
 use wcf\system\message\embedded\object\MessageEmbeddedObjectManager;
 use wcf\system\request\LinkHandler;
+use wcf\system\user\object\watch\UserObjectWatchHandler;
+use wcf\system\user\storage\UserStorageHandler;
 use wcf\system\WCF;
 use wcf\util\StringUtil;
 
@@ -47,6 +49,16 @@ class Todo extends DatabaseObject implements ITitledLinkObject
      * true if embedded objects have already been loaded
      */
     protected $embeddedObjectsLoaded = false;
+
+    /**
+     * subscribed todos field name
+     */
+    public const USER_STORAGE_SUBSCRIBED_TODOS = self::class . "\0subscribedTodos";
+
+    /**
+     * ids of subscribed todos
+     */
+    protected static $subscribedTodos;
 
     /**
      * @inheritDoc
@@ -98,6 +110,47 @@ class Todo extends DatabaseObject implements ITitledLinkObject
 
             $this->embeddedObjectsLoaded = true;
         }
+    }
+
+    /**
+     * Returns subscribed todo IDs.
+     */
+    public static function getSubscribedTodoIDs()
+    {
+        if (self::$subscribedTodos === null) {
+            self::$subscribedTodos = [];
+
+            if (WCF::getUser()->userID) {
+                $data = UserStorageHandler::getInstance()->getField(self::USER_STORAGE_SUBSCRIBED_TODOS);
+
+                // cache does not exist or is outdated
+                if ($data === null) {
+                    $objectTypeID = UserObjectWatchHandler::getInstance()->getObjectTypeID('de.julian-pfeil.todolist.todo');
+
+                    $sql = "SELECT	objectID
+							FROM	wcf1_user_object_watch
+							WHERE	objectTypeID = ? AND userID = ?";
+                    $statement = WCF::getDB()->prepare($sql);
+                    $statement->execute([$objectTypeID, WCF::getUser()->userID]);
+                    self::$subscribedTodos = $statement->fetchAll(\PDO::FETCH_COLUMN);
+
+                    // update storage data
+                    UserStorageHandler::getInstance()->update(WCF::getUser()->userID, self::USER_STORAGE_SUBSCRIBED_TODOS, \serialize(self::$subscribedTodos));
+                } else {
+                    self::$subscribedTodos = \unserialize($data);
+                }
+            }
+        }
+
+        return self::$subscribedTodos;
+    }
+
+    /**
+     * Returns true if the active user has subscribed to this todo.
+     */
+    public function isSubscribed()
+    {
+        return \in_array($this->todoID, self::getSubscribedTodoIDs());
     }
 
     /**

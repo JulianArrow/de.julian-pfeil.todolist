@@ -108,6 +108,20 @@
             <item name="todolist.column.views.plural"><![CDATA[Aufrufe]]></item>
             <item name="todolist.column.lastEditTime"><![CDATA[Zuletzt geändert]]></item>
         </category>
+
+        <category name="todolist.todo">
+            <item name="todolist.todo.quote.notification.title"><![CDATA[{if LANGUAGE_USE_INFORMAL_VARIANT}Du wurdest{else}Sie wurden{/if} zitiert]]></item>
+            <item name="todolist.todo.quote.notification.message"><![CDATA[{if $author->userID}<strong>{$author}</strong>{else}Ein Gast{/if} hat {if LANGUAGE_USE_INFORMAL_VARIANT}dich{else}Sie{/if} im To-do <strong>{$userNotificationObject->getTitle()}</strong> zitiert.]]></item>
+            <item name="todolist.todo.quote.notification.mail.title"><![CDATA[{if LANGUAGE_USE_INFORMAL_VARIANT}Du wurdest{else}Sie wurden{/if} im To-do "{@$userNotificationObject->getTitle()}" zitiert]]></item>
+            <item name="todolist.todo.quote.notification.mail.plaintext"><![CDATA[{@$author} hat {if LANGUAGE_USE_INFORMAL_VARIANT}dich{else}Sie{/if} im To-do „{@$todo->getTitle()}“ [URL:{@$todo->getLink()}] in der Kategorie „{@$todo->getCategory()->getTitle()}“ zitiert.]]></item>
+            <item name="todolist.todo.quote.notification.mail.html"><![CDATA[<p><strong>{$author}</strong> hat {if LANGUAGE_USE_INFORMAL_VARIANT}dich{else}Sie{/if} im To-do <a href="{$todo->getLink()}">{$todo->getTitle()}</a> in der Kategorie <a href="{$todo->getCategory()->getLink()}">{$todo->getCategory()->getTitle()}</a> zitiert.</p>]]></item>
+            
+            <item name="todolist.todo.mention.notification.title"><![CDATA[{if LANGUAGE_USE_INFORMAL_VARIANT}Du wurdest{else}Sie wurden{/if} erwähnt]]></item>
+            <item name="todolist.todo.mention.notification.message"><![CDATA[{if $author->userID}<strong>{$author}</strong>{else}Ein Gast{/if} hat {if LANGUAGE_USE_INFORMAL_VARIANT}dich{else}Sie{/if} im To-do <strong>{$userNotificationObject->getTitle()}</strong> erwähnt.]]></item>
+            <item name="todolist.todo.mention.notification.mail.title"><![CDATA[{if LANGUAGE_USE_INFORMAL_VARIANT}Du wurdest{else}Sie wurden{/if} im To-do "{@$userNotificationObject->getTitle()}" erwähnt]]></item>
+            <item name="todolist.todo.mention.notification.mail.plaintext"><![CDATA[{@$author} hat {if LANGUAGE_USE_INFORMAL_VARIANT}dich{else}Sie{/if} im To-do „{@$todo->getTitle()}“ [URL:{@$todo->getLink()}] in der Kategorie „{@$todo->getCategory()->getTitle()}“ erwähnt.]]></item>
+            <item name="todolist.todo.mention.notification.mail.html"><![CDATA[<p><strong>{$author}</strong> hat {if LANGUAGE_USE_INFORMAL_VARIANT}dich{else}Sie{/if} im To-do <a href="{$todo->getLink()}">{$todo->getTitle()}</a> in der Kategorie <a href="{$todo->getCategory()->getLink()}">{$todo->getCategory()->getTitle()}</a> erwähnt.</p>]]></item>
+		</category>
         
         <category name="todolist.category">
             <item name="todolist.category.title"><![CDATA[Kategorie]]></item>
