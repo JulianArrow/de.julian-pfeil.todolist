@@ -12,8 +12,10 @@
             {content}
                 
                 {if $__wcf->user->userID && $__wcf->user->userID != $todo->userID}
-                    <a href="#" class="contentInteractionButton jsSubscribeButton jsOnly button small{if $todo->isSubscribed()} active{/if}" data-object-type="de.julian-pfeil.todolist.todo" data-object-id="{@$todo->todoID}"><span class="icon icon16 fa-bookmark{if !$todo->isSubscribed()}-o{/if}"></span> <span>{lang}wcf.user.objectWatch.button.subscribe{/lang}</span></a>
-                
+                    <li>
+                        <a href="#" class="contentInteractionButton jsSubscribeButton jsOnly button small{if $todo->isSubscribed()} active{/if}" data-object-type="de.julian-pfeil.todolist.todo" data-object-id="{@$todo->todoID}"><span class="icon icon16 fa-bookmark{if !$todo->isSubscribed()}-o{/if}"></span> <span>{lang}wcf.user.objectWatch.button.subscribe{/lang}</span></a>
+                    </li>
+
                     <script data-relocate="true">
                     $(function() {
                         WCF.Language.addObject({

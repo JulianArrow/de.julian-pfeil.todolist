@@ -34,7 +34,7 @@ class QuoteUserNotificationEvent extends AbstractSharedUserNotificationEvent
      */
     public function getTitle()
     {
-        return $this->getLanguage()->getDynamicVariable('todolist.quote.notification.title');
+        return $this->getLanguage()->getDynamicVariable('todolist.todo.quote.notification.title');
     }
 
     /**
@@ -42,7 +42,7 @@ class QuoteUserNotificationEvent extends AbstractSharedUserNotificationEvent
      */
     public function getMessage()
     {
-        return $this->getLanguage()->getDynamicVariable('todolist.quote.notification.message', [
+        return $this->getLanguage()->getDynamicVariable('todolist.todo.quote.notification.message', [
             'userNotificationObject' => $this->getUserNotificationObject(),
             'author' => $this->author,
         ]);
@@ -72,7 +72,7 @@ class QuoteUserNotificationEvent extends AbstractSharedUserNotificationEvent
      */
     public function getEmailTitle()
     {
-        return $this->getLanguage()->getDynamicVariable('todolist.quote.notification.mail.title', [
+        return $this->getLanguage()->getDynamicVariable('todolist.todo.quote.notification.mail.title', [
             'userNotificationObject' => $this->getUserNotificationObject(),
         ]);
     }

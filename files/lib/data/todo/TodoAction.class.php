@@ -8,6 +8,7 @@ use wcf\data\user\UserProfileList;
 use wcf\system\comment\CommentHandler;
 use wcf\system\exception\PermissionDeniedException;
 use wcf\system\exception\UserInputException;
+use wcf\system\html\input\HtmlInputProcessor;
 use wcf\system\language\LanguageFactory;
 use wcf\system\message\embedded\object\MessageEmbeddedObjectManager;
 use wcf\system\reaction\ReactionHandler;
@@ -116,7 +117,8 @@ class TodoAction extends AbstractDatabaseObjectAction
                 }
                 $userList->readObjects();
                 $recipientIDs = [];
-                foreach ($userList as $user) {
+                foreach ($userList as $userProfile) {
+                    $user = $userProfile->getDecoratedObject();
                     if ($todo->category->canView($user)) {
                         $recipientIDs[] = $user->userID;
                     }
@@ -144,7 +146,8 @@ class TodoAction extends AbstractDatabaseObjectAction
                 }
                 $userList->readObjects();
                 $recipientIDs = [];
-                foreach ($userList as $user) {
+                foreach ($userList as $userProfile) {
+                    $user = $userProfile->getDecoratedObject();
                     if ($todo->category->canView($user)) {
                         $recipientIDs[] = $user->userID;
                     }
@@ -230,7 +233,9 @@ class TodoAction extends AbstractDatabaseObjectAction
                             }
                             $userList->readObjects();
                             $recipientIDs = [];
-                            foreach ($userList as $user) {
+                            
+                            foreach ($userList as $userProfile) {
+                                $user = $userProfile->getDecoratedObject();
                                 if ($todo->category->canView($user)) {
                                     $recipientIDs[] = $user->userID;
                                 }
@@ -268,7 +273,9 @@ class TodoAction extends AbstractDatabaseObjectAction
 
                             $userList->readObjects();
                             $recipientIDs = [];
-                            foreach ($userList as $user) {
+                            
+                            foreach ($userList as $userProfile) {
+                                $user = $userProfile->getDecoratedObject();
                                 if ($todo->category->canView($user)) {
                                     $recipientIDs[] = $user->userID;
                                 }

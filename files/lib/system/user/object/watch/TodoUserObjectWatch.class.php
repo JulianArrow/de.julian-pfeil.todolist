@@ -28,7 +28,7 @@ class TodoUserObjectWatch extends AbstractObjectTypeProcessor implements IUserOb
     public function validateObjectID($objectID)
     {
         $todo = new Todo($objectID);
-        if ($todo->todoID) {
+        if (!$todo->todoID) {
             throw new IllegalLinkException();
         }
         if (!$todo->canRead()) {
