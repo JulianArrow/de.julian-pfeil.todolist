@@ -12,6 +12,7 @@ use wcf\system\form\builder\container\wysiwyg\WysiwygFormContainer;
 use wcf\system\form\builder\field\BooleanFormField;
 use wcf\system\form\builder\field\SingleSelectionFormField;
 use wcf\system\form\builder\field\TextFormField;
+use wcf\system\page\PageLocationManager;
 use wcf\system\request\LinkHandler;
 use wcf\system\WCF;
 
@@ -64,6 +65,17 @@ class TodoAddForm extends AbstractFormBuilderForm
      * category id
      */
     public $categoryID = 0;
+
+    /**
+     * @inheritDoc
+     */
+    public function readData()
+    {
+        parent::readData();
+
+        /* breadcrumbs */
+        PageLocationManager::getInstance()->addParentLocation('de.julian-pfeil.todolist.TodoList');
+    }
 
     /**
     * @inheritDoc

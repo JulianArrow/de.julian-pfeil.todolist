@@ -11,6 +11,7 @@ use wcf\system\comment\CommentHandler;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\exception\PermissionDeniedException;
 use wcf\system\message\embedded\object\MessageEmbeddedObjectManager;
+use wcf\system\page\PageLocationManager;
 use wcf\system\reaction\ReactionHandler;
 use wcf\system\WCF;
 
@@ -157,5 +158,9 @@ class TodoPage extends AbstractPage
 
         $this->todo->loadEmbeddedObjects();
         MessageEmbeddedObjectManager::getInstance()->setActiveMessage('de.julian-pfeil.todolist.todo', $this->todoID);
+
+        /* breadcrumbs */
+        PageLocationManager::getInstance()->addParentLocation('de.julian-pfeil.todolist.TodoList', $this->todo->categoryID, $this->todo->getDecoratedObject()->category);
+        PageLocationManager::getInstance()->addParentLocation('de.julian-pfeil.todolist.TodoList');
     }
 }

@@ -7,6 +7,7 @@ use todolist\data\todo\category\TodoCategory;
 use todolist\data\todo\category\TodoCategoryNodeTree;
 use wcf\page\SortablePage;
 use wcf\system\exception\PermissionDeniedException;
+use wcf\system\page\PageLocationManager;
 use wcf\system\WCF;
 
 /**
@@ -60,7 +61,7 @@ class TodoListPage extends SortablePage
     /**
      * category id
      */
-    public $categoryID = '';
+    public $categoryID = 0;
 
     /**
      * @var TodoCategory[]
@@ -115,7 +116,12 @@ class TodoListPage extends SortablePage
     {
         parent::readData();
 
-        $this->loadCategoryList();
+        $this->loadCategoryList();        
+        
+        /* breadcrumbs */
+        if ($this->categoryID > 0) {
+            PageLocationManager::getInstance()->addParentLocation('de.julian-pfeil.todolist.TodoList', $this->categoryID, $this->category);
+        }
     }
 
     /**
@@ -166,7 +172,7 @@ class TodoListPage extends SortablePage
     {
         parent::checkPermissions();
 
-        if ($this->categoryID) {
+        if ($this->categoryID > 0) {
             if (!$this->category->canView()) {
                 throw new PermissionDeniedException();
             }

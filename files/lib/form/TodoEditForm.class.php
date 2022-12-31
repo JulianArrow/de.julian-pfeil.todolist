@@ -7,6 +7,7 @@ use todolist\data\todo\Todo;
 use todolist\system\user\notification\object\TodoUserNotificationObject;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\exception\PermissionDeniedException;
+use wcf\system\page\PageLocationManager;
 use wcf\system\request\LinkHandler;
 use wcf\system\user\notification\UserNotificationHandler;
 use wcf\system\WCF;
@@ -41,6 +42,19 @@ class TodoEditForm extends TodoAddForm
       * @var int;
       */
     public $todoID;
+
+    /**
+     * @inheritDoc
+     */
+    public function readData()
+    {
+        parent::readData();
+
+        /* breadcrumbs */
+        PageLocationManager::getInstance()->addParentLocation('de.julian-pfeil.todolist.Todo', $this->formObject->todoID, $this->formObject);
+        PageLocationManager::getInstance()->addParentLocation('de.julian-pfeil.todolist.TodoList', $this->formObject->categoryID, $this->formObject->category);
+        PageLocationManager::getInstance()->addParentLocation('de.julian-pfeil.todolist.TodoList');
+    }
 
     /**
      * @inheritDoc
