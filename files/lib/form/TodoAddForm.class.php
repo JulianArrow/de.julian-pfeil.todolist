@@ -74,7 +74,12 @@ class TodoAddForm extends AbstractFormBuilderForm
         parent::readData();
 
         /* breadcrumbs */
-        PageLocationManager::getInstance()->addParentLocation('de.julian-pfeil.todolist.TodoList');
+        if ($this->formAction == 'create') {
+            if ($this->categoryID != 0) {
+                PageLocationManager::getInstance()->addParentLocation('de.julian-pfeil.todolist.TodoList', $this->categoryID, $this->category);
+            }
+            PageLocationManager::getInstance()->addParentLocation('de.julian-pfeil.todolist.TodoList');
+        }
     }
 
     /**

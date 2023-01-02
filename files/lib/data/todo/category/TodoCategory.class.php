@@ -122,7 +122,7 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
     {
         return LinkHandler::getInstance()->getLink('TodoList', [
             'application' => 'todolist',
-            'id' => $this->categoryID,
+            'categoryID' => $this->categoryID,
         ]);
     }
 
