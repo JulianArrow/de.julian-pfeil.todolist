@@ -47,6 +47,7 @@
     <instructions type="update" fromversion="2.0.6">
         <instruction type="file" />
         <instruction type="objectType" />
+        <instruction type="database">acp/database/install_de.julian-pfeil.todolist.php</instruction>
         <instruction type="template" />
         <instruction type="language" />
 
