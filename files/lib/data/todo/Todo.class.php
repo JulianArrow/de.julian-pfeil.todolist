@@ -275,6 +275,18 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     }
 
     /**
+     * Returns the user profile of the user who is set as current editor.
+     */
+    public function getCurrentEditorProfile(): UserProfile
+    {
+        if ($this->currentEditor) {
+            return UserProfileRuntimeCache::getInstance()->getObject($this->currentEditor);
+        }
+
+        return null;
+    }
+
+    /**
      * Returns `true` if the active user can delete this todo and `false` otherwise.
      */
     public function canDelete(): bool

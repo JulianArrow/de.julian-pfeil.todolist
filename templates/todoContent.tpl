@@ -9,13 +9,21 @@
 >
     <div class="section">
         <div class="section">
-                {if $todo->getFormattedMessage() == ''}
-                    <p class="info">{lang}todolist.general.noDescription{/lang}</p>
-                {else}
-                    <div class="todoDescription htmlContent userMessage">
-                        {@$todo->getFormattedMessage()}
-                    </div>
-                {/if}
+            {if $todo->currentEditor}
+                <dl>
+                    <dt>{lang}todolist.column.currentEditor{/lang}</dt>
+                    <dd itemprop="author" itemscope itemtype="http://schema.org/Person">{user object=$todo->getCurrentEditorProfile()}</dd>
+                </dl>
+
+                <h2 class="messageSectionTitle">{lang}todolist.column.description{/lang}</h2>
+            {/if}
+            {if $todo->getFormattedMessage() == ''}
+                <p class="info">{lang}todolist.general.noDescription{/lang}</p>
+            {else}
+                <div class="todoDescription htmlContent userMessage">
+                    {@$todo->getFormattedMessage()}
+                </div>
+            {/if}
         </div>
         
         {event name='afterTodoDescription'}
