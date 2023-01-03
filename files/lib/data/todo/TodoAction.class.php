@@ -50,6 +50,10 @@ class TodoAction extends AbstractDatabaseObjectAction
             $this->parameters['data']['username'] = WCF::getUser()->username;
         }
 
+        if (!isset($this->parameters['data']['currentEditor']) || empty($this->parameters['data']['currentEditor'])) {
+            $this->parameters['data']['currentEditor'] = null;
+        }
+
         if (LOG_IP_ADDRESS) {
             if (!isset($this->parameters['data']['ipAddress'])) {
                 $this->parameters['data']['ipAddress'] = UserUtil::getIpAddress();
@@ -102,7 +106,7 @@ class TodoAction extends AbstractDatabaseObjectAction
         foreach ($this->getObjects() as $todo) {
             // send notification for current editor
             $recipientIDs = [];
-            if ($todo->currentEditor !== null) {
+            if ($todo->currentEditor !== null && $todo->currentEditor != WCF::getUser()->userID) {
                 $recipientIDs[] = $todo->currentEditor;
             }
 
@@ -197,19 +201,23 @@ class TodoAction extends AbstractDatabaseObjectAction
 
         $this->parameters['data']['description'] = $this->loadDescriptionHtmlInputProcessor($this->parameters['description_htmlInputProcessor']);
         
+        if (empty($this->parameters['data']['currentEditor'])) {
+            $this->parameters['data']['currentEditor'] = null;
+        }
+
         foreach ($this->getObjects() as $todoEditor) {
             if (\intval($this->parameters['data']['currentEditor']) != $todoEditor->currentEditor && \intval($this->parameters['data']['currentEditor']) > 0) {
                 // send notification for current editor
                 $recipientIDs = [];
-                if ($todo->currentEditor !== null) {
-                    $recipientIDs[] = $todo->currentEditor;
+                if (\intval($this->parameters['data']['currentEditor']) != WCF::getUser()->userID) {
+                    $recipientIDs[] = \intval($this->parameters['data']['currentEditor']);
                 }
 
                 if (!empty($recipientIDs)) {
                     UserNotificationHandler::getInstance()->fireEvent(
                         'editor',
                         'de.julian-pfeil.todolist.todo',
-                        new TodoUserNotificationObject($todo->getDecoratedObject()),
+                        new TodoUserNotificationObject($todoEditor->getDecoratedObject()),
                         $recipientIDs
                     );
                 }
