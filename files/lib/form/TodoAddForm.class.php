@@ -12,6 +12,7 @@ use wcf\system\form\builder\container\wysiwyg\WysiwygFormContainer;
 use wcf\system\form\builder\field\BooleanFormField;
 use wcf\system\form\builder\field\SingleSelectionFormField;
 use wcf\system\form\builder\field\TextFormField;
+use wcf\system\form\builder\field\user\UserFormField;
 use wcf\system\page\PageLocationManager;
 use wcf\system\request\LinkHandler;
 use wcf\system\WCF;
@@ -22,7 +23,7 @@ use wcf\system\WCF;
  * @author      Julian Pfeil <https://julian-pfeil.de>
  * @link        https://darkwood.design/store/user-file-list/1298-julian-pfeil/
  * @copyright   2022 Julian Pfeil Websites & Co.
- * @license     Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
+ * @license     Creative Commons <by-nd> <https://creativecommons.org/licenses/by-nd/4.0/legalcode>
  *
  * @package    de.julian-pfeil.todolist
  * @subpackage form
@@ -163,6 +164,12 @@ class TodoAddForm extends AbstractFormBuilderForm
                 ->required()
                 ->autoFocus()
                 ->maximumLength(255)
+        );
+
+        /* current editor */
+        $dataContainer->appendChild(
+            UserFormField::create('currentEditor')
+                ->label('todolist.column.currentEditor')
         );
 
         /* infoContainer */

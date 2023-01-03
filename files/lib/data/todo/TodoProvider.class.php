@@ -9,7 +9,7 @@ use wcf\data\object\type\AbstractObjectTypeProvider;
  *
  * @author  Julian Pfeil <https://julian-pfeil.de>
  * @copyright   2022 Julian Pfeil Websites & Co.
- * @license Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
+ * @license Creative Commons <by-nd> <https://creativecommons.org/licenses/by-nd/4.0/legalcode>
  * @package WoltLabSuite\Core\Page
  */
 class TodoProvider extends AbstractObjectTypeProvider

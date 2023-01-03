@@ -9,7 +9,7 @@ use wcf\system\user\object\watch\UserObjectWatchHandler;
 use wcf\system\WCF;
 
 /**
- * Notification event for quotes in todos.
+ * Notification event for editors.
  *
  * @author      Julian Pfeil <https://julian-pfeil.de>
  * @link        https://darkwood.design/store/user-file-list/1298-julian-pfeil/
@@ -19,7 +19,7 @@ use wcf\system\WCF;
  * @package    de.julian-pfeil.todolist
  * @subpackage system.user.notification.event
  */
-class QuoteUserNotificationEvent extends AbstractSharedUserNotificationEvent
+class EditorUserNotificationEvent extends AbstractSharedUserNotificationEvent
 {
     /**
      * @inheritDoc
@@ -34,7 +34,7 @@ class QuoteUserNotificationEvent extends AbstractSharedUserNotificationEvent
      */
     public function getTitle()
     {
-        return $this->getLanguage()->getDynamicVariable('todolist.todo.quote.notification.title');
+        return $this->getLanguage()->getDynamicVariable('todolist.todo.editor.notification.title');
     }
 
     /**
@@ -42,7 +42,7 @@ class QuoteUserNotificationEvent extends AbstractSharedUserNotificationEvent
      */
     public function getMessage()
     {
-        return $this->getLanguage()->getDynamicVariable('todolist.todo.quote.notification.message', [
+        return $this->getLanguage()->getDynamicVariable('todolist.todo.editor.notification.message', [
             'userNotificationObject' => $this->getUserNotificationObject(),
             'author' => $this->author,
         ]);
@@ -57,7 +57,7 @@ class QuoteUserNotificationEvent extends AbstractSharedUserNotificationEvent
 
         return [
             'message-id' => 'de.julian-pfeil.todolist.todo/' . $this->getUserNotificationObject()->todoID,
-            'template' => 'email_notification_quote',
+            'template' => 'email_notification_editor',
             'application' => 'todolist',
             'variables' => [
                 'todo' => $this->getUserNotificationObject(),
@@ -72,7 +72,7 @@ class QuoteUserNotificationEvent extends AbstractSharedUserNotificationEvent
      */
     public function getEmailTitle()
     {
-        return $this->getLanguage()->getDynamicVariable('todolist.todo.quote.notification.mail.title', [
+        return $this->getLanguage()->getDynamicVariable('todolist.todo.editor.notification.mail.title', [
             'userNotificationObject' => $this->getUserNotificationObject(),
         ]);
     }

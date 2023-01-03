@@ -49,6 +49,11 @@
             <item name="wcf.user.notification.de.julian-pfeil.todolist"><![CDATA[To-do list]]></item>
             
             <item name="wcf.user.notification.de.julian-pfeil.todolist.todo.todo"><![CDATA[Notify me when someoned edited my to-do]]></item>
+            <item name="wcf.user.notification.de.julian-pfeil.todolist.todo.edit"><![CDATA[Notify me when someoned edited a subscribed to-do]]></item>
+            <item name="wcf.user.notification.de.julian-pfeil.todolist.todo.quote"><![CDATA[Notify me when someone quoted you in a to-do]]></item>
+            <item name="wcf.user.notification.de.julian-pfeil.todolist.todo.mention"><![CDATA[Notify me when someone mentioned you in a to-do]]></item>
+            <item name="wcf.user.notification.de.julian-pfeil.todolist.todo.editor"><![CDATA[Notify me when I get set as current editor in a to-do]]></item>
+            
             <item name="wcf.user.notification.de.julian-pfeil.todolist.todo.category"><![CDATA[New to-do in subscribed category]]></item>
             
             <item name="wcf.user.notification.de.julian-pfeil.todolist.likeableTodo.notification.like"><![CDATA[Notify me when someone reacted to my to-dos]]></item>
@@ -101,6 +106,7 @@
         
         <category name="todolist.column">
             <item name="todolist.column.todoName"><![CDATA[Title]]></item>
+            <item name="todolist.column.currentEditor"><![CDATA[Current editor]]></item>
             <item name="todolist.column.time"><![CDATA[Creation date]]></item>
             <item name="todolist.column.description"><![CDATA[Description]]></item>
             <item name="todolist.column.isDone"><![CDATA[Done?]]></item>
@@ -121,6 +127,12 @@
             <item name="todolist.todo.mention.notification.mail.title"><![CDATA[You were mentioned in the to-do "{@$userNotificationObject->getTitle()}"]]></item>
             <item name="todolist.todo.mention.notification.mail.plaintext"><![CDATA[{@$author} mentioned you in the to-do “{@$todo->getTitle()}” [URL:{@$todo->getLink()}] in the category “{@$todo->getCategory()->getTitle()}”.]]></item>
             <item name="todolist.todo.mention.notification.mail.html"><![CDATA[<p><strong>{$author}</strong> mentioned you in the to-do <a href="{$todo->getLink()}">{$todo->getTitle()}</a> in the category <a href="{$todo->getCategory()->getLink()}">{$todo->getCategory()->getTitle()}</a>.</p>]]></item>
+		
+            <item name="todolist.todo.editor.notification.title"><![CDATA[You were set as current editor]]></item>
+            <item name="todolist.todo.editor.notification.message"><![CDATA[{if $author->userID}<strong>{$author}</strong>{else}A guest{/if} set you as current editor in the to-do <strong>{$userNotificationObject->getTitle()}</strong>.]]></item>
+            <item name="todolist.todo.editor.notification.mail.title"><![CDATA[You were mentioned in the to-do "{@$userNotificationObject->getTitle()}"]]></item>
+            <item name="todolist.todo.editor.notification.mail.plaintext"><![CDATA[{@$author} set you as current editor in the to-do “{@$todo->getTitle()}” [URL:{@$todo->getLink()}] in the category “{@$todo->getCategory()->getTitle()}”.]]></item>
+            <item name="todolist.todo.editor.notification.mail.html"><![CDATA[<p><strong>{$author}</strong> set you as current editor in the to-do <a href="{$todo->getLink()}">{$todo->getTitle()}</a> in the category <a href="{$todo->getCategory()->getLink()}">{$todo->getCategory()->getTitle()}</a>.</p>]]></item>
 		</category>
 
         <category name="todolist.category">

@@ -13,7 +13,7 @@ use wcf\system\WCF;
  * @author      Julian Pfeil <https://julian-pfeil.de>
  * @link        https://darkwood.design/store/user-file-list/1298-julian-pfeil/
  * @copyright   2022 Julian Pfeil Websites & Co.
- * @license     Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
+ * @license     Creative Commons <by-nd> <https://creativecommons.org/licenses/by-nd/4.0/legalcode>
  *
  * @package    de.julian-pfeil.todolist
  * @subpackage data.todo.category
@@ -43,7 +43,7 @@ class TodoCategoryCache extends SingletonFactory
         $this->todos = [];
 
         $sql = "SELECT   COUNT(*) AS count, categoryID
-                FROM     todolist1_todo todos
+                FROM     todolist" . WCF_N . "_todo todos
                 GROUP BY todos.categoryID";
         $statement = WCF::getDB()->prepare($sql);
         $statement->execute();
@@ -106,7 +106,7 @@ class TodoCategoryCache extends SingletonFactory
         $this->lastTodo = [];
 
         $sql = "SELECT   *
-                FROM     todolist1_todo todos
+                FROM     todolist" . WCF_N . "_todo todos
                 ORDER BY todos.time DESC";
         $statement = WCF::getDB()->prepare($sql);
         $statement->execute($conditionBuilder->getParameters());

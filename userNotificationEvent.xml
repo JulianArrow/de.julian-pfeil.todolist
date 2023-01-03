@@ -15,6 +15,14 @@
             <preset>1</preset>
         </event>
 
+        <!-- editor -->
+        <event>
+            <name>editor</name>
+            <objecttype>de.julian-pfeil.todolist.todo</objecttype>
+            <classname>todolist\system\user\notification\event\EditorUserNotificationEvent</classname>
+            <preset>1</preset>
+        </event>
+
         <!-- mention -->
         <event>
             <name>mention</name>

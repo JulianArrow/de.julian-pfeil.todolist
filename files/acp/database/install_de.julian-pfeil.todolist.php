@@ -4,7 +4,7 @@
  * @author      Julian Pfeil <https://julian-pfeil.de>
  * @link        https://darkwood.design/store/user-file-list/1298-julian-pfeil/
  * @copyright   2022 Julian Pfeil Websites & Co.
- * @license     Creative Commons <by> <https://creativecommons.org/licenses/by/4.0/legalcode>
+ * @license     Creative Commons <by-nd> <https://creativecommons.org/licenses/by-nd/4.0/legalcode>
  *
  * @package    de.julian-pfeil.todolist
  */
@@ -32,6 +32,8 @@ return [
             NotNullInt10DatabaseTableColumn::create('time'),
             NotNullInt10DatabaseTableColumn::create('lastEditTime'),
             IntDatabaseTableColumn::create('userID')
+                ->length(10),
+            IntDatabaseTableColumn::create('currentEditor')
                 ->length(10),
             NotNullVarchar255DatabaseTableColumn::create('username'),
             VarcharDatabaseTableColumn::create('ipAddress')
@@ -68,6 +70,11 @@ return [
         ->foreignKeys([
             DatabaseTableForeignKey::create()
                 ->columns(['userID'])
+                ->referencedTable('wcf1_user')
+                ->referencedColumns(['userID'])
+                ->onDelete('SET NULL'),
+            DatabaseTableForeignKey::create()
+                ->columns(['currentEditor'])
                 ->referencedTable('wcf1_user')
                 ->referencedColumns(['userID'])
                 ->onDelete('SET NULL'),

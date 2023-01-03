@@ -49,6 +49,11 @@
             <item name="wcf.user.notification.de.julian-pfeil.todolist"><![CDATA[To-do-Liste]]></item>
 
             <item name="wcf.user.notification.de.julian-pfeil.todolist.todo.todo"><![CDATA[{if LANGUAGE_USE_INFORMAL_VARIANT}Dein{else}Ihr{/if} To-do wurde bearbeitet]]></item>
+            <item name="wcf.user.notification.de.julian-pfeil.todolist.todo.edit"><![CDATA[{if LANGUAGE_USE_INFORMAL_VARIANT}Dein{else}Ihr{/if} abonniertes To-do wurde bearbeitet]]></item>
+            <item name="wcf.user.notification.de.julian-pfeil.todolist.todo.quote"><![CDATA[{if LANGUAGE_USE_INFORMAL_VARIANT}Du wurdest{else}Sie wurden{/if} in einem To-do zitiert]]></item>
+            <item name="wcf.user.notification.de.julian-pfeil.todolist.todo.mention"><![CDATA[{if LANGUAGE_USE_INFORMAL_VARIANT}Du wurdest{else}Sie wurden{/if} in einem To-do erwähnt]]></item>
+            <item name="wcf.user.notification.de.julian-pfeil.todolist.todo.editor"><![CDATA[{if LANGUAGE_USE_INFORMAL_VARIANT}Du wurdest{else}Sie wurden{/if} in einem To-do als aktueller Bearbeiter gesetzt]]></item>
+            
             <item name="wcf.user.notification.de.julian-pfeil.todolist.todo.category"><![CDATA[Neues To-do in abonnierter Kategorie]]></item>
 
             <item name="wcf.user.notification.de.julian-pfeil.todolist.likeableTodo.notification.like"><![CDATA[Reaktion auf {if LANGUAGE_USE_INFORMAL_VARIANT}deinen{else}Ihren{/if} To-do]]></item>
@@ -101,6 +106,7 @@
 
         <category name="todolist.column">
             <item name="todolist.column.todoName"><![CDATA[Titel]]></item>
+            <item name="todolist.column.currentEditor"><![CDATA[Aktueller Bearbeiter]]></item>
             <item name="todolist.column.time"><![CDATA[Erstellungsdatum]]></item>
             <item name="todolist.column.description"><![CDATA[Beschreibung]]></item>
             <item name="todolist.column.isDone"><![CDATA[Erledigt?]]></item>
@@ -121,6 +127,12 @@
             <item name="todolist.todo.mention.notification.mail.title"><![CDATA[{if LANGUAGE_USE_INFORMAL_VARIANT}Du wurdest{else}Sie wurden{/if} im To-do "{@$userNotificationObject->getTitle()}" erwähnt]]></item>
             <item name="todolist.todo.mention.notification.mail.plaintext"><![CDATA[{@$author} hat {if LANGUAGE_USE_INFORMAL_VARIANT}dich{else}Sie{/if} im To-do „{@$todo->getTitle()}“ [URL:{@$todo->getLink()}] in der Kategorie „{@$todo->getCategory()->getTitle()}“ erwähnt.]]></item>
             <item name="todolist.todo.mention.notification.mail.html"><![CDATA[<p><strong>{$author}</strong> hat {if LANGUAGE_USE_INFORMAL_VARIANT}dich{else}Sie{/if} im To-do <a href="{$todo->getLink()}">{$todo->getTitle()}</a> in der Kategorie <a href="{$todo->getCategory()->getLink()}">{$todo->getCategory()->getTitle()}</a> erwähnt.</p>]]></item>
+		
+            <item name="todolist.todo.editor.notification.title"><![CDATA[{if LANGUAGE_USE_INFORMAL_VARIANT}Du wurdest{else}Sie wurden{/if} als aktueller Bearbeiter gesetzt]]></item>
+            <item name="todolist.todo.editor.notification.message"><![CDATA[{if $author->userID}<strong>{$author}</strong>{else}Ein Gast{/if} hat {if LANGUAGE_USE_INFORMAL_VARIANT}dich{else}Sie{/if} im To-do <strong>{$userNotificationObject->getTitle()}</strong> als aktueller Bearbeiter gesetzt.]]></item>
+            <item name="todolist.todo.editor.notification.mail.title"><![CDATA[{if LANGUAGE_USE_INFORMAL_VARIANT}Du wurdest{else}Sie wurden{/if} im To-do "{@$userNotificationObject->getTitle()}" als aktueller Bearbeiter gesetzt]]></item>
+            <item name="todolist.todo.editor.notification.mail.plaintext"><![CDATA[{@$author} hat {if LANGUAGE_USE_INFORMAL_VARIANT}dich{else}Sie{/if} im To-do „{@$todo->getTitle()}“ [URL:{@$todo->getLink()}] in der Kategorie „{@$todo->getCategory()->getTitle()}“ als aktueller Bearbeiter gesetzt.]]></item>
+            <item name="todolist.todo.editor.notification.mail.html"><![CDATA[<p><strong>{$author}</strong> hat {if LANGUAGE_USE_INFORMAL_VARIANT}dich{else}Sie{/if} im To-do <a href="{$todo->getLink()}">{$todo->getTitle()}</a> in der Kategorie <a href="{$todo->getCategory()->getLink()}">{$todo->getCategory()->getTitle()}</a> als aktueller Bearbeiter gesetzt.</p>]]></item>
 		</category>
         
         <category name="todolist.category">
