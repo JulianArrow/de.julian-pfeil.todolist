@@ -116,7 +116,7 @@ class TodoListPage extends SortablePage
     {
         parent::readData();
 
-        $this->loadCategoryList();        
+        $this->loadCategoryList();
         
         /* breadcrumbs */
         if ($this->categoryID > 0) {
