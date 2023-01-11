@@ -44,6 +44,29 @@
     {/hascontent}
 {/capture}
 
+{capture assign='sidebarRight'}
+    {hascontent}
+        <section class="box">
+            <h2 class="boxTitle">{lang}todolist.general.info{/lang}</h2>
+        
+            <div class="boxContent">
+                {content}
+                    {if $todo->currentEditor}
+                        <dl>
+                            <dt>{lang}todolist.column.currentEditor{/lang}</dt>
+                            <dd itemprop="author" itemscope itemtype="http://schema.org/Person">{user object=$todo->getCurrentEditorProfile()}</dd>
+                        </dl>
+                    {/if}
+     
+                    {event name='todoInfoBox'}
+                {/content}
+            </div>
+        </section>
+    {/hascontent}
+
+    {event name='todoSidebarBoxes'}
+{/capture}
+
 {include file='header'}
 
 {include file='todoStructure' application='todolist' pageFrom='todo'}
