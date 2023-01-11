@@ -68,6 +68,10 @@
             <item name="wcf.user.objectWatch.subscribe.de.julian-pfeil.todolist.todo.category"><![CDATA[Kategorie abonnieren]]></item>
             <item name="wcf.user.objectWatch.enableNotification.de.julian-pfeil.todolist.todo.category"><![CDATA[Benachrichtigung über neue To-dos in dieser Kategorie aktivieren]]></item>
             <item name="wcf.user.objectWatch.unsubscribe.de.julian-pfeil.todolist.todo.category"><![CDATA[Kategorie nicht abonnieren]]></item>
+
+            <item name="wcf.user.objectWatch.subscribe.de.julian-pfeil.todolist.todo"><![CDATA[To-do abonnieren]]></item>
+            <item name="wcf.user.objectWatch.enableNotification.de.julian-pfeil.todolist.todo"><![CDATA[Benachrichtigung über Änderungen dieses To-dos aktivieren]]></item>
+            <item name="wcf.user.objectWatch.unsubscribe.de.julian-pfeil.todolist.todo"><![CDATA[To-do nicht abonnieren]]></item>
         </category>
         
         <category name="wcf.like">
