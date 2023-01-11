@@ -56,6 +56,10 @@ p.todoTitle {
     }
 }
 
+.todoContainerMetaData > small > .icon {
+    vertical-align: middle;
+}
+
 .todoContent .messageSectionTitle {
     margin-top: 10px;
 }

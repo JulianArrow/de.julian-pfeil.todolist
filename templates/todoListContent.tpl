@@ -60,7 +60,15 @@
                                             {@$todo->comments|shortUnit}
                                         </small>
                                     {/if}
-                                    
+
+                                    {if $todo->currentEditor}
+                                        <small class="separatorLeft">
+                                            <span class="icon icon16 fa-briefcase"></span>
+
+                                            {user object=$todo->getCurrentEditorProfile()}
+                                        </small>
+                                    {/if}
+
                                     {event name='containerHeadline'}
                                 </div>
                             </h3>

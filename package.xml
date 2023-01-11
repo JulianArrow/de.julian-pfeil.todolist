@@ -7,7 +7,7 @@
         <packagedescription languagecode="de">To-do-Liste für das Erstellen von To-dos.</packagedescription>
         <version>2.1.0</version>
         <date>2022-12-29</date>
-        <packageurl><![CDATA[https://darkwood.design/store/user-file-list/1298-julian-pfeil/]]></packageurl>
+        <packageurl><![CDATA[https://julian-pfeil.de/r/plugins/]]></packageurl>
         <isapplication>1</isapplication>
         <applicationdirectory>todo</applicationdirectory>
     </packageinformation>
