@@ -52,7 +52,7 @@ class TodoUserNotificationEvent extends AbstractSharedUserNotificationEvent
     public function getEmailMessage($notificationType = 'instant')
     {
         return [
-            'message-id' => 'de.julian-pfeil.todolist.todo/' . $this->getUserNotificationObject()->todoID,
+            'message-id' => 'de.julian-pfeil.todolist.todo/subscribed#' . $this->getUserNotificationObject()->todoID,
             'template' => 'email_notification_edit',
             'application' => 'todolist',
         ];

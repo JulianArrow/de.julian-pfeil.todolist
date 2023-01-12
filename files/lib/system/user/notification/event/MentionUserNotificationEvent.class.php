@@ -53,10 +53,8 @@ class MentionUserNotificationEvent extends AbstractSharedUserNotificationEvent
      */
     public function getEmailMessage($notificationType = 'instant')
     {
-        $messageID = '<de.julian-pfeil.todolist.todo/' . $this->getUserNotificationObject()->todoID . '@' . Email::getHost() . '>';
-
         return [
-            'message-id' => 'de.julian-pfeil.todolist.todo/' . $this->getUserNotificationObject()->todoID,
+            'message-id' => 'de.julian-pfeil.todolist.todo/mention#' . $this->getUserNotificationObject()->todoID,
             'template' => 'email_notification_mention',
             'application' => 'todolist',
             'variables' => [
