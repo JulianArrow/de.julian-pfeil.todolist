@@ -54,7 +54,7 @@ class QuoteUserNotificationEvent extends AbstractSharedUserNotificationEvent
     public function getEmailMessage($notificationType = 'instant')
     {
         return [
-            'message-id' => 'de.julian-pfeil.todolist.todo/quote#' . $this->getUserNotificationObject()->todoID,
+            'message-id' => 'de.julian-pfeil.todolist.todo/' . $this->getUserNotificationObject()->todoID . '/' . TIME_NOW . '/' . \bin2hex(\random_bytes(8)),
             'template' => 'email_notification_quote',
             'application' => 'todolist',
             'variables' => [
