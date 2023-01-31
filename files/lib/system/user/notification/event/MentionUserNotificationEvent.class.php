@@ -3,7 +3,6 @@
 namespace todolist\system\user\notification\event;
 
 use todolist\system\cache\runtime\ViewableTodoRuntimeCache;
-use wcf\system\email\Email;
 use wcf\system\user\notification\event\AbstractSharedUserNotificationEvent;
 use wcf\system\user\object\watch\UserObjectWatchHandler;
 use wcf\system\WCF;
