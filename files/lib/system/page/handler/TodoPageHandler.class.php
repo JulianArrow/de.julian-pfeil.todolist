@@ -16,7 +16,7 @@ use wcf\system\WCF;
  * Page handler implementation for todo page.
  *
  * @author      Julian Pfeil <https://julian-pfeil.de>
- * @link        https://darkwood.design/store/user-file-list/1298-julian-pfeil/
+ * @link        https://julian-pfeil.de/r/plugins
  * @copyright   2022 Julian Pfeil Websites & Co.
  * @license     Creative Commons <by-nd> <https://creativecommons.org/licenses/by-nd/4.0/legalcode>
  *
