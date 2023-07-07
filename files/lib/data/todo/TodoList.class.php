@@ -12,8 +12,8 @@ use wcf\data\DatabaseObjectList;
  * @copyright   2022 Julian Pfeil Websites & Co.
  * @license     Creative Commons <by-nd> <https://creativecommons.org/licenses/by-nd/4.0/legalcode>
  *
- * @package    de.julian-pfeil.todolist
- * @subpackage data.todo.list
+ * @package     de.julian-pfeil.todolist
+ * @subpackage  data.todo.list
  */
 class TodoList extends DatabaseObjectList
 {

@@ -18,8 +18,8 @@ use wcf\system\WCF;
  * @copyright   2022 Julian Pfeil Websites & Co.
  * @license     Creative Commons <by-nd> <https://creativecommons.org/licenses/by-nd/4.0/legalcode>
  *
- * @package    de.julian-pfeil.todolist
- * @subpackage data.todo
+ * @package     de.julian-pfeil.todolist
+ * @subpackage  data.todo
  */
 class LikeableTodo extends AbstractLikeObject implements IReactionObject
 {

@@ -17,8 +17,8 @@ use wcf\system\WCF;
  * @copyright   2022 Julian Pfeil Websites & Co.
  * @license     License for Commercial Plugins <https://julian-pfeil.de/lizenz/>
  *
- * @package    de.julian-pfeil.todolist
- * @subpackage system.user.notification.object.type
+ * @package     de.julian-pfeil.todolist
+ * @subpackage  system.user.notification.object.type
  */
 class TodoCommentUserNotificationObjectType extends AbstractUserNotificationObjectType implements ICommentUserNotificationObjectType
 {

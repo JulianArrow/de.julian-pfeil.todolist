@@ -19,8 +19,8 @@ use wcf\system\WCF;
  * @copyright   2022 Julian Pfeil Websites & Co.
  * @license     License for Commercial Plugins <https://julian-pfeil.de/lizenz/>
  *
- * @package    de.julian-pfeil.todolist
- * @subpackage system.user.notification.event
+ * @package     de.julian-pfeil.todolist
+ * @subpackage  system.user.notification.event
  */
 class TodoCommentResponseOwnerUserNotificationEvent extends AbstractSharedUserNotificationEvent
 {

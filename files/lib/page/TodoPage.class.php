@@ -23,8 +23,8 @@ use wcf\system\WCF;
  * @copyright   2022 Julian Pfeil Websites & Co.
  * @license     Creative Commons <by-nd> <https://creativecommons.org/licenses/by-nd/4.0/legalcode>
  *
- * @package    de.julian-pfeil.todolist
- * @subpackage page
+ * @package     de.julian-pfeil.todolist
+ * @subpackage  page
  */
 class TodoPage extends AbstractPage
 {

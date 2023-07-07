@@ -16,8 +16,8 @@ use wcf\system\WCF;
  * @copyright   2022 Julian Pfeil Websites & Co.
  * @license     Creative Commons <by-nd> <https://creativecommons.org/licenses/by-nd/4.0/legalcode>
  *
- * @package    de.julian-pfeil.todolist
- * @subpackage system.user.notification.event
+ * @package     de.julian-pfeil.todolist
+ * @subpackage  system.user.notification.event
  */
 class TodoLikeUserNotificationEvent extends AbstractSharedUserNotificationEvent
 {

@@ -13,8 +13,8 @@ use wcf\acp\form\AbstractCategoryAddForm;
  * @copyright   2022 Julian Pfeil Websites & Co.
  * @license     Creative Commons <by-nd> <https://creativecommons.org/licenses/by-nd/4.0/legalcode>
  *
- * @package    de.julian-pfeil.todolist
- * @subpackage acp.form
+ * @package     de.julian-pfeil.todolist
+ * @subpackage  acp.form
  */
 class CategoryAddForm extends AbstractCategoryAddForm
 {

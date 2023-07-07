@@ -13,8 +13,8 @@ use wcf\data\category\CategoryNodeTree;
  * @copyright   2022 Julian Pfeil Websites & Co.
  * @license     Creative Commons <by-nd> <https://creativecommons.org/licenses/by-nd/4.0/legalcode>
  *
- * @package    de.julian-pfeil.todolist
- * @subpackage data.todo.category
+ * @package     de.julian-pfeil.todolist
+ * @subpackage  data.todo.category
  */
 class TodoCategoryNodeTree extends CategoryNodeTree
 {

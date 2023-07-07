@@ -20,8 +20,8 @@ use wcf\system\worker\AbstractRebuildDataWorker;
  * @copyright   2022 Julian Pfeil Websites & Co.
  * @license     Creative Commons <by-nd> <https://creativecommons.org/licenses/by-nd/4.0/legalcode>
  *
- * @package    de.julian-pfeil.todolist
- * @subpackage system.worker
+ * @package     de.julian-pfeil.todolist
+ * @subpackage  system.worker
  */
 
 class TodolistRebuildDataWorker extends AbstractRebuildDataWorker
