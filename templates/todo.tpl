@@ -6,6 +6,10 @@
     {include file='todoHeader' application='todolist'}
 {/capture}
 
+{capture assign='contentHeaderNavigation'}
+    {include file='todoAddButton' application='todolist' listItem=true}
+{/capture}
+
 {capture assign='contentInteractionButtons'}
     {hascontent}
         <ul class="buttonList">
@@ -14,23 +18,35 @@
                 {if $__wcf->user->userID != $todo->userID}
                     {include file='__userObjectWatchButton' isSubscribed=$todo->isSubscribed() objectType='de.julian-pfeil.todolist.todo' objectID=$todo->todoID}
                 {/if}
-
-                {if $todo->canEdit()}
-                    <li class="jsTodoInlineEditorContainer" data-todo-id="{@$todo->todoID}">
-                        <a href="{link application='todolist' controller='TodoEdit' id=$todo->todoID}{/link}" class="contentInteractionButton small button jsTodoInlineEditor" id="todoEditButton">
-                            {icon name='pencil'}
-                            <span>{lang}wcf.global.button.edit{/lang}</span>
-                        </a>
-                    </li>
-                {/if}
-            
-                {include file='todoAddButton' application='todolist' listItem=true classes='small contentInteractionButton'}
             
                 {event name='afterContentInteractionButtons'}
             {/content}
         </ul>
     {/hascontent}
 {/capture}
+
+{hascontent}
+    {capture assign='contentInteractionDropdownItems'}
+            {content}
+                {if $todo->canEdit()}
+                    <li>
+                        <a href="{link application='todolist' controller='TodoEdit' object=$todo}{/link}" title="{lang}wcf.global.button.edit{/lang}" class="jsTooltip">
+                            {icon name='pencil'}
+                            <span class="invisible">{lang}wcf.global.button.edit{/lang}</span>
+                        </a>
+                    </li>
+                {/if}
+                {if $todo->canDelete()}
+                    <li class="jsOnly">
+                        <a href="#" title="{lang}wcf.global.button.delete{/lang}" class="jsTooltip jsDelete">
+                            {icon name='xmark'}
+                            <span class="invisible">{lang}wcf.global.button.delete{/lang}</span>
+                        </a>
+                    </li>
+                {/if}
+            {/content}
+    {/capture}
+{/hascontent}
 
 {capture assign='sidebarRight'}
     {hascontent}
@@ -93,6 +109,22 @@
             canMarkAsDone:		{if $todo->canEdit()}1{else}0{/if}
         });
     });
+
+    
+    require(['JulianPfeil/Todolist/Ui/Todo/Action/Handler/Delete'], ({ Delete }) => {
+        const deleteUser = document.querySelector(".jsDelete");
+        if (deleteUser !== null) {
+            // We cannot use the DeleteAction, because the Delete Action is only usable for
+            // dropdown menues.
+            deleteUser.addEventListener("click", (event) => {
+                const deleteAction = new Delete([{#$todo->todoID}], () => {
+                    window.location.href = "{link application='todolist' controller='TodoList' encode=false}{/link}";
+                });
+
+                deleteAction.delete();
+            });
+        }      
+	});
 </script>
 
 {if MODULE_LIKE && $__wcf->getUser()->userID && $__wcf->getSession()->getPermission('user.like.canViewLike')}

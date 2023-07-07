@@ -77,7 +77,7 @@
                         <nav class="jsMobileNavigation buttonGroupNavigation">
                             <ul class="buttonList iconList">
                                 {if $todo->canEdit()}
-                                    <li class="jsOnly">
+                                    <li>
                                         <a href="{link application='todolist' controller='TodoEdit' object=$todo}{/link}" title="{lang}wcf.global.button.edit{/lang}" class="jsEditInformation jsTooltip">
                                             {icon name='pencil'}
                                             <span class="invisible">{lang}wcf.global.button.edit{/lang}</span>
@@ -86,10 +86,7 @@
                                 {/if}
                                 {if $todo->canDelete()}
                                     <li class="jsOnly">
-                                        <a href="#" title="{lang}wcf.global.button.delete{/lang}" class="jsObjectAction jsTooltip" data-object-action="delete" data-confirm-message="{lang}todolist.action.confirmDelete{/lang}">
-                                            {icon name='xmark'}
-                                            <span class="invisible">{lang}wcf.global.button.delete{/lang}</span>
-                                        </a>
+                                        {objectAction action="delete" objectTitle=$todo->getTitle()}
                                     </li>
                                 {/if}
                                 

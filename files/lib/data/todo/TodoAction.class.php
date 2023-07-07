@@ -30,8 +30,8 @@ use wcf\util\UserUtil;
  * @copyright   2022 Julian Pfeil Websites & Co.
  * @license     Creative Commons <by-nd> <https://creativecommons.org/licenses/by-nd/4.0/legalcode>
  *
- * @package    de.julian-pfeil.todolist
- * @subpackage data.todo
+ * @package     de.julian-pfeil.todolist
+ * @subpackage  data.todo
  */
 class TodoAction extends AbstractDatabaseObjectAction
 {
@@ -480,64 +480,6 @@ class TodoAction extends AbstractDatabaseObjectAction
 
         //reset user storage
         UserStorageHandler::getInstance()->resetAll(Todo::USER_STORAGE_SUBSCRIBED_TODOS);
-
-        return $this->getTodoData();
-    }
-
-    /**
-     * Validates parameters to mark todos as done.
-     */
-    public function validateMarkAsDone()
-    {
-        $this->loadTodos();
-
-        foreach ($this->getObjects() as $todoEditor) {
-            if (!$todoEditor->canEdit()) {
-                throw new PermissionDeniedException();
-            }
-        }
-    }
-
-    /**
-     * Marks todos as done.
-     */
-    public function markAsDone()
-    {
-        foreach ($this->getObjects() as $todoEditor) {
-            $todoEditor->update(['isDone' => 1]);
-
-            $todo = $todoEditor->getDecoratedObject();
-
-            $this->sendEditNotification($todo);
-
-            $this->addTodoData($todoEditor->getDecoratedObject(), 'isDone', 1);
-        }
-
-        return $this->getTodoData();
-    }
-
-    /**
-     * Validates parameters to mark todos as undone.
-     */
-    public function validateMarkAsUndone()
-    {
-        $this->validateMarkAsDone();
-    }
-
-    /**
-     * Marks todos as undone.
-     */
-    public function markAsUndone()
-    {
-        foreach ($this->getObjects() as $todoEditor) {
-            $todoEditor->update(['isDone' => 0]);
-
-            $todo = $todoEditor->getDecoratedObject();
-
-            $this->sendEditNotification($todo);
-
-            $this->addTodoData($todoEditor->getDecoratedObject(), 'isDone', 0);
-        }
 
         return $this->getTodoData();
     }
