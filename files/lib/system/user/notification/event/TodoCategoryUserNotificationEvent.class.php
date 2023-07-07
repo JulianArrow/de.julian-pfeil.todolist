@@ -49,7 +49,7 @@ class TodoCategoryUserNotificationEvent extends AbstractSharedUserNotificationEv
     /**
      * @inheritDoc
      */
-    public function getLink()
+    public function getLink(): string
     {
         return $this->getUserNotificationObject()->getLink();
     }
@@ -68,7 +68,7 @@ class TodoCategoryUserNotificationEvent extends AbstractSharedUserNotificationEv
     /**
      * @inheritDoc
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->getLanguage()->get('todolist.category.notification.title');
     }

@@ -41,7 +41,7 @@ class TodoCategoryNodeTree extends CategoryNodeTree
     /**
      * @inheritDoc
      */
-    public function isIncluded(CategoryNode $categoryNode)
+    public function isIncluded(CategoryNode $categoryNode): bool
     {
         /** @var TodoCategoryNode $categoryNode */
         return parent::isIncluded($categoryNode) && $categoryNode->isAccessible();

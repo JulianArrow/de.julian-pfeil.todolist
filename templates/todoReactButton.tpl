@@ -5,7 +5,7 @@
             title="{lang}wcf.reactions.react{/lang}" 
             data-reaction-type-id="{if $todoLikeData[$todo->todoID]|isset && $todoLikeData[$todo->todoID]->reactionTypeID}{$todoLikeData[$todo->todoID]->reactionTypeID}{else}0{/if}
         ">
-            <span class="icon icon16 fa-smile-o"></span>
+            {icon name='smile'}
             <span class="invisible">{lang}wcf.reactions.react{/lang}</span>
         </a>
     </li>

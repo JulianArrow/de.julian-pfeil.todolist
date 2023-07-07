@@ -4,7 +4,7 @@
         <!-- javascript -->
         <templatelistener name="javascriptInclude">
             <environment>user</environment>
-            <templatename>headInclude</templatename>
+            <templatename>headIncludeJavaScript</templatename>
             <eventname>javascriptInclude</eventname>
             <templatecode><![CDATA[{include file='__javascriptInclude' application='todolist'}]]></templatecode>
         </templatelistener>

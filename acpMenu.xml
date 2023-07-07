@@ -17,7 +17,7 @@
             <controller>todolist\acp\form\CategoryAddForm</controller>
             <parent>todolist.acp.menu.link.todo.category</parent>
             <permissions>admin.todolist.general.canManageCategory</permissions>
-            <icon>fa-plus</icon>
+            <icon>plus</icon>
         </acpmenuitem>
     </import>
 </data>

@@ -21,12 +21,49 @@
             {if $isDone|isset}<input type="hidden" name="isDone" value="{$isDone}">{/if}
             {if $sortField|isset}<input type="hidden" name="sortField" value="{$sortField}">{/if}
             {if $sortOrder|isset}<input type="hidden" name="sortOrder" value="{$sortOrder}">{/if}
+            {if $currentEditor|isset}<input type="hidden" name="currentEditor" value="{$currentEditor}">{/if}
 
             {event name='afterCategoryHiddenFields'}
         </div>
     </div>
 </form>
 </section>
+
+<section class="box">
+<form method="post" action="{link application='todolist' controller='TodoList'}{/link}">
+    <h2 class="boxTitle">{lang}wcf.global.filter{/lang}</h2>
+    
+    <div class="boxContent">
+        <dl>
+            <dt></dt>
+            <dd>
+                <input type="text" id="currentEditor" name="currentEditor" value="{$currentEditor}" placeholder="{lang}todolist.column.currentEditor{/lang}" autocomplete="off" />
+            </dd>
+        </dl>
+        
+        <div class="formSubmit">
+            <input type="submit" value="{lang}wcf.global.button.submit{/lang}" accesskey="s">
+            {if $isDone|isset}<input type="hidden" name="isDone" value="{$isDone}">{/if}
+            {if $sortField|isset}<input type="hidden" name="sortField" value="{$sortField}">{/if}
+            {if $sortOrder|isset}<input type="hidden" name="sortOrder" value="{$sortOrder}">{/if}
+            {if $categoryID|isset}<input type="hidden" name="categoryID" value="{$categoryID}">{/if}
+
+            {event name='afterCurrentEditorHiddenFields'}
+        </div>
+    </div>
+</form>
+</section>
+
+<script data-relocate="true">
+	$(function() {
+		require(['WoltLabSuite/Core/Ui/User/Search/Input'], function(UiUserSearchInput) {
+			new UiUserSearchInput(elById('currentEditor'), {
+				includeUserGroups: false,
+				preventSubmit: true
+			});
+		});
+	});
+</script>
 
 {event name='sidebarBoxes'}
 
@@ -62,6 +99,7 @@
             <input type="submit" value="{lang}wcf.global.button.submit{/lang}" accesskey="s">
             {if $categoryID|isset}<input type="hidden" name="categoryID" value="{$categoryID}">{/if}
             {if $isDone|isset}<input type="hidden" name="isDone" value="{$isDone}">{/if}
+            {if $currentEditor|isset}<input type="hidden" name="currentEditor" value="{$currentEditor}">{/if}
 
             {event name='afterSortingHiddenFields'}
         </div>

@@ -14,9 +14,9 @@
                         <div class="containerHeadline">
                             <h3>
                                 {if $todo->isDone()}
-                                    <span class="icon icon16 jsMarkAsDone fa-check-square-o" data-object-id="{@$todo->todoID}" data-tooltip="{lang}todolist.general.isDone{/lang}" aria-label="{lang}todolist.general.isDone{/lang}"></span>
+                                    <span class="jsMarkAsDone" data-object-id="{@$todo->todoID}" data-tooltip="{lang}todolist.general.isDone{/lang}" aria-label="{lang}todolist.general.isDone{/lang}">{icon name='check-square'}</span>
                                 {else}
-                                    <span class="icon icon16 jsMarkAsDone fa-square-o" data-object-id="{@$todo->todoID}" data-tooltip="{lang}todolist.general.isUndone{/lang}" aria-label="{lang}todolist.general.isUndone{/lang}"></span>
+                                    <span class="jsMarkAsDone" data-object-id="{@$todo->todoID}" data-tooltip="{lang}todolist.general.isUndone{/lang}" aria-label="{lang}todolist.general.isUndone{/lang}">{icon name='square'}</span>
                                 {/if}
                                 
                                 
@@ -24,7 +24,7 @@
                                     <a href="{$todo->getLink()}" title="{$todo->getPlainExcerpt()}">{$todo->getTitle()}</a>
                                 
                                     <small class="separatorLeft">
-                                        <span class="icon icon16 fa-user"></span>
+                                        {icon name='user'}
 
                                         {if $todo->userID}
                                             {user object=$todo->getUserProfile()}
@@ -35,16 +35,16 @@
                                     
                                     <small class="separatorLeft">
                                         {if $todo->time < $todo->lastEditTime}
-                                            <span class="icon icon16 fa-pencil"></span>
+                                            {icon name='pencil'}
                                             {@$todo->lastEditTime|time}
                                         {else}
-                                            <span class="icon icon16 fa-clock-o"></span>
+                                            {icon name='clock'}
                                             {@$todo->time|time}
                                         {/if}
                                     </small>
 
                                     <small class="separatorLeft">
-                                        <span class="icon icon16 fa-eye"></span>
+                                        {icon name='eye'}
                                         {$todo->views}
                                     </small>       
 
@@ -56,14 +56,14 @@
                                     
                                     {if $todo->enableComments && $todo->comments > 0}
                                         <small class="separatorLeft">
-                                            <span class="icon icon16 fa-comments"></span> 
+                                            {icon name='comments'}
                                             {@$todo->comments|shortUnit}
                                         </small>
                                     {/if}
 
                                     {if $todo->currentEditor}
                                         <small class="separatorLeft">
-                                            <span class="icon icon16 fa-briefcase"></span>
+                                            {icon name='briefcase'}
 
                                             {user object=$todo->getCurrentEditorProfile()}
                                         </small>
@@ -79,7 +79,7 @@
                                 {if $todo->canEdit()}
                                     <li class="jsOnly">
                                         <a href="{link application='todolist' controller='TodoEdit' object=$todo}{/link}" title="{lang}wcf.global.button.edit{/lang}" class="jsEditInformation jsTooltip">
-                                            <span class="icon icon16 fa-pencil"></span>
+                                            {icon name='pencil'}
                                             <span class="invisible">{lang}wcf.global.button.edit{/lang}</span>
                                         </a>
                                     </li>
@@ -87,7 +87,7 @@
                                 {if $todo->canDelete()}
                                     <li class="jsOnly">
                                         <a href="#" title="{lang}wcf.global.button.delete{/lang}" class="jsObjectAction jsTooltip" data-object-action="delete" data-confirm-message="{lang}todolist.action.confirmDelete{/lang}">
-                                            <span class="icon icon16 fa-times"></span>
+                                            {icon name='xmark'}
                                             <span class="invisible">{lang}wcf.global.button.delete{/lang}</span>
                                         </a>
                                     </li>

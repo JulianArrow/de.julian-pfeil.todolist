@@ -7,7 +7,7 @@
                 {link application='todolist' controller='TodoAdd'}{/link}
             {/if}
         " class="button{if $classes|isset && $classes} {$classes}{/if}" id="todoAddButton">
-            <span class="icon icon16 fa-plus"></span>
+            {icon name='plus'}
             <span>{lang}todolist.action.add{/lang}</span>
         </a>
     {if $listItem|isset && $listItem}</li>{/if}

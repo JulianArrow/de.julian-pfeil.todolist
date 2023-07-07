@@ -2,20 +2,20 @@
 
 {assign var='additionalLinkParameters' value=''}
 {if $categoryID}{capture append='additionalLinkParameters'}categoryID={$categoryID}&{/capture}{/if}
-{if $isDone}{capture append='additionalLinkParameters'}isDone={$isDone}&{/capture}{/if}
 {if $sortField}{capture append='additionalLinkParameters'}sortField={$sortField}&{/capture}{/if}
 {if $sortOrder}{capture append='additionalLinkParameters'}sortOrder={$sortOrder}&{/capture}{/if}
+{if $currentEditor}{capture append='additionalLinkParameters'}currentEditor={$currentEditor}&{/capture}{/if}
 {event name='additionalLinkParameters'}
 {assign var=additionalLinkParameters value=$additionalLinkParameters|substr:0:-1}
 
 {capture assign='headContent'}
     {if $pageNo < $pages}
-        <link rel="next" href="{link application='todolist' controller='TodoList'}pageNo={@$pageNo+1}{@$additionalLinkParameters}{/link}">
+        <link rel="next" href="{link application='todolist' controller='TodoList'}pageNo={@$pageNo+1}{@$additionalLinkParameters}{if $isDone}&isDone={$isDone}{/if}{/link}">
     {/if}
     {if $pageNo > 1}
-        <link rel="prev" href="{link application='todolist' controller='TodoList'}{if $pageNo > 2}pageNo={@$pageNo-1}{/if}{@$additionalLinkParameters}{/link}">
+        <link rel="prev" href="{link application='todolist' controller='TodoList'}{if $pageNo > 2}pageNo={@$pageNo-1}{/if}{@$additionalLinkParameters}{if $isDone}&isDone={$isDone}{/if}{/link}">
     {/if}
-    <link rel="canonical" href="{link application='todolist' controller='TodoList'}{if $pageNo > 1}pageNo={@$pageNo}{/if}{@$additionalLinkParameters}{/link}">
+    <link rel="canonical" href="{link application='todolist' controller='TodoList'}{if $pageNo > 1}pageNo={@$pageNo}{/if}{@$additionalLinkParameters}{if $isDone}&isDone={$isDone}{/if}{/link}">
 {/capture}
 
 {capture assign='contentHeaderNavigation'}
@@ -27,26 +27,20 @@
 {/capture}
 
 {capture assign='contentInteractionButtons'}
-    {if $__wcf->user->userID && $categoryID|isset && $categoryID > 0}
-        <a href="#" class="contentInteractionButton jsSubscribeButton jsOnly button small{if $category->isSubscribed()} active{/if}" data-object-type="de.julian-pfeil.todolist.todo.category" data-object-id="{@$category->categoryID}"><span class="icon icon16 fa-bookmark{if !$category->isSubscribed()}-o{/if}"></span> <span>{lang}wcf.user.objectWatch.button.subscribe{/lang}</span></a>
-        <script data-relocate="true">
-            $(function() {
-                WCF.Language.addObject({
-                    'wcf.user.objectWatch.manageSubscription': '{jslang}wcf.user.objectWatch.manageSubscription{/jslang}'
-                });
-                
-                new WCF.User.ObjectWatch.Subscribe();
-            });
-        </script>
+    {if $categoryID|isset && $categoryID > 0}
+        {include file='__userObjectWatchButton' isSubscribed=$category->isSubscribed() objectType='de.julian-pfeil.todolist.todo.category' objectID=$category->categoryID}
     {/if}
 {/capture}
 
 {include file='header'}
 
+{assign var='pagesLinkString' value="pageNo=%d$additionalLinkParameters"}
+{if $isDone}{capture append='pagesLinkString'}&isDone={$isDone}{/capture}{/if}
+
 {hascontent}
     <div class="paginationTop">
         {content}
-            {pages print=true assign=pagesLinks application='todolist' controller='TodoList' link="pageNo=%d$additionalLinkParameters"}
+            {pages print=true assign=pagesLinks application='todolist' controller='TodoList' link="$pagesLinkString"}
         {/content}
     </div>
 {/hascontent}

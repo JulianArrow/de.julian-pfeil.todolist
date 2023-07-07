@@ -31,7 +31,7 @@ class MentionUserNotificationEvent extends AbstractSharedUserNotificationEvent
     /**
      * @inheritDoc
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->getLanguage()->getDynamicVariable('todolist.todo.mention.notification.title');
     }
@@ -77,7 +77,7 @@ class MentionUserNotificationEvent extends AbstractSharedUserNotificationEvent
     /**
      * @inheritDoc
      */
-    public function getLink()
+    public function getLink(): string
     {
         return $this->getUserNotificationObject()->getLink();
     }

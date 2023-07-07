@@ -63,7 +63,7 @@ class TodoCommentLikeUserNotificationEvent extends AbstractSharedUserNotificatio
     /**
      * @inheritDoc
      */
-    public function getLink()
+    public function getLink(): string
     {
         $todo = TodoDataHandler::getInstance()->getTodo($this->additionalData['objectID']);
 
@@ -105,7 +105,7 @@ class TodoCommentLikeUserNotificationEvent extends AbstractSharedUserNotificatio
     /**
      * @inheritDoc
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         $count = \count($this->getAuthors());
         if ($count > 1) {

@@ -28,13 +28,6 @@
             <definitionname>com.woltlab.wcf.user.recentActivityEvent</definitionname>
             <classname>todolist\system\user\activity\event\TodoUserActivityEvent</classname>
         </type>
-
-        <!-- rebuild data workers -->
-        <type>
-            <name>de.julian-pfeil.todolist.todo</name>
-            <definitionname>com.woltlab.wcf.rebuildData</definitionname>
-            <classname>todolist\system\worker\TodolistRebuildDataWorker</classname>
-        </type>
         
         <!-- search -->
         <type>

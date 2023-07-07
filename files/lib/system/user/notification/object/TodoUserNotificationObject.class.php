@@ -43,7 +43,7 @@ class TodoUserNotificationObject extends DatabaseObjectDecorator implements IUse
     /**
      * @inheritDoc
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->getDecoratedObject()->getTitle();
     }

@@ -41,7 +41,7 @@ class EditUserNotificationEvent extends AbstractUserNotificationEvent
     /**
      * @inheritDoc
      */
-    public function getLink()
+    public function getLink(): string
     {
         return $this->getUserNotificationObject()->getLink();
     }
@@ -60,7 +60,7 @@ class EditUserNotificationEvent extends AbstractUserNotificationEvent
     /**
      * @inheritDoc
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->getLanguage()->get('todolist.action.notification.title');
     }

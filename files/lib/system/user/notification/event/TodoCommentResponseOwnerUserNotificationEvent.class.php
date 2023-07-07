@@ -78,7 +78,7 @@ class TodoCommentResponseOwnerUserNotificationEvent extends AbstractSharedUserNo
     /**
      * @inheritDoc
      */
-    public function getLink()
+    public function getLink(): string
     {
         $todo = TodoDataHandler::getInstance()->getTodo($this->additionalData['objectID']);
 
@@ -131,7 +131,7 @@ class TodoCommentResponseOwnerUserNotificationEvent extends AbstractSharedUserNo
     /**
      * @inheritDoc
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         $count = \count($this->getAuthors());
         if ($count > 1) {

@@ -118,7 +118,7 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
      * @return        string
      * @throws SystemException
      */
-    public function getLink()
+    public function getLink(): string
     {
         return LinkHandler::getInstance()->getLink('TodoList', [
             'application' => 'todolist',
@@ -131,7 +131,7 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
      *
      * @return        string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return WCF::getLanguage()->get($this->title);
     }

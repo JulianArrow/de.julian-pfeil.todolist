@@ -156,7 +156,7 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     /**
      * @inheritDoc
      */
-    public function getLink()
+    public function getLink(): string
     {
         return LinkHandler::getInstance()->getControllerLink(TodoPage::class, [
             'id' => $this->todoID,
@@ -167,7 +167,7 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     /**
      * @inheritDoc
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->todoName;
     }

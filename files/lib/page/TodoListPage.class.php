@@ -5,8 +5,10 @@ namespace todolist\page;
 use todolist\data\todo\AccessibleTodoList;
 use todolist\data\todo\category\TodoCategory;
 use todolist\data\todo\category\TodoCategoryNodeTree;
+use wcf\data\user\User;
 use wcf\page\SortablePage;
 use wcf\system\exception\PermissionDeniedException;
+use wcf\system\exception\IllegalLinkException;
 use wcf\system\page\PageLocationManager;
 use wcf\system\WCF;
 
@@ -64,6 +66,16 @@ class TodoListPage extends SortablePage
     public $categoryID = 0;
 
     /**
+     * current editors username
+     */
+    public $currentEditor = '';
+
+    /**
+     * current editors user id
+     */
+    public $currentEditorID = 0;
+
+    /**
      * @var TodoCategory[]
      */
     public $categoryList = [];
@@ -94,6 +106,7 @@ class TodoListPage extends SortablePage
 
         WCF::getTPL()->assign([
             'isDone' => $this->requestDone,
+            'currentEditor' => $this->currentEditor,
             'categoryID' => $this->categoryID,
             'validSortFields' => $this->validSortFields,
             'viewableCategoryList' => $this->viewableCategoryList,
@@ -163,6 +176,14 @@ class TodoListPage extends SortablePage
         } else {
             $this->requestDone = '0';
         }
+
+        if (isset(($_REQUEST['currentEditor']))) {
+            if (!User::getUserByUsername($_REQUEST['currentEditor'])->userID) {
+                throw new IllegalLinkException();
+            }
+            $this->currentEditor = $_REQUEST['currentEditor'];
+            $this->currentEditorID = User::getUserByUsername($_REQUEST['currentEditor'])->userID;
+        }
     }
 
     /**
@@ -200,6 +221,10 @@ class TodoListPage extends SortablePage
 
         if ($this->category !== null) {
             $this->objectList->getConditionBuilder()->add('categoryID = ?', [$this->category->categoryID]);
+        }
+
+        if ($this->currentEditorID > 0) {
+            $this->objectList->getConditionBuilder()->add('currentEditor = ?', [$this->currentEditorID]);
         }
     }
 }
