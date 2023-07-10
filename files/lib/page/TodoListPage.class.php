@@ -7,8 +7,8 @@ use todolist\data\todo\category\TodoCategory;
 use todolist\data\todo\category\TodoCategoryNodeTree;
 use wcf\data\user\User;
 use wcf\page\SortablePage;
-use wcf\system\exception\PermissionDeniedException;
 use wcf\system\exception\IllegalLinkException;
+use wcf\system\exception\PermissionDeniedException;
 use wcf\system\page\PageLocationManager;
 use wcf\system\WCF;
 

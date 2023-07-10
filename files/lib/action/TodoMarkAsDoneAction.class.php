@@ -2,7 +2,6 @@
 
 namespace todolist\action;
 
-
 use CuyZ\Valinor\Mapper\MappingError;
 use Laminas\Diactoros\Response\EmptyResponse;
 use Laminas\Diactoros\Response\TextResponse;
@@ -36,6 +35,7 @@ final class TodoMarkAsDoneAction implements RequestHandlerInterface
             id: positive-int
         }
         EOT;
+
     private const BODY_PARAMETERS = <<<'EOT'
         array {
             markAsDone: boolean

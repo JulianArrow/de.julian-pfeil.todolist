@@ -55,7 +55,7 @@ define(["require", "exports", "tslib", "WoltLabSuite/Core/Language", "WoltLabSui
                     if (data.markAsDone == true) {
                         todosButtons.forEach((todoButton) => {
                             todoButton.setAttribute("data-is-done", "1");
-                            if (todoButton.tagName == 'a') {
+                            if (todoButton.tagName == 'A') {
                                 todoButton.querySelector("span").innerHTML = Language.getPhrase('todolist.action.markAsUndone');
                             }
                             else {
@@ -75,7 +75,7 @@ define(["require", "exports", "tslib", "WoltLabSuite/Core/Language", "WoltLabSui
                     else {
                         todosButtons.forEach((todoButton) => {
                             todoButton.setAttribute("data-is-done", "0");
-                            if (todoButton.tagName == 'a') {
+                            if (todoButton.tagName == 'A') {
                                 todoButton.querySelector("span").innerHTML = Language.getPhrase('todolist.action.markAsDone');
                             }
                             else {
