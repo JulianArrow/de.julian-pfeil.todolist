@@ -13,11 +13,18 @@
                     <div class="commentContent">
                         <div class="containerHeadline">
                             <h3>
-                                {if $todo->isDone()}
-                                    <span class="jsMarkAsDone" data-object-id="{@$todo->todoID}" data-tooltip="{lang}todolist.general.isDone{/lang}" aria-label="{lang}todolist.general.isDone{/lang}">{icon name='check-square'}</span>
-                                {else}
-                                    <span class="jsMarkAsDone" data-object-id="{@$todo->todoID}" data-tooltip="{lang}todolist.general.isUndone{/lang}" aria-label="{lang}todolist.general.isUndone{/lang}">{icon name='square'}</span>
-                                {/if}
+                                <button
+                                    class="jsMarkAsDone"
+                                    data-endpoint="{link application='todolist' controller='TodoMarkAsDone' object=$todo}{/link}"
+                                    data-is-done="{if $todo->isDone()}1{else}0{/if}"
+                                    data-object-id="{@$todo->todoID}"
+                                >
+                                    {if $todo->isDone()}
+                                        <span data-tooltip="{lang}todolist.general.isDone{/lang}" aria-label="{lang}todolist.general.isDone{/lang}">{icon name='check-square'}</span>
+                                    {else}
+                                        <span data-tooltip="{lang}todolist.general.isUndone{/lang}" aria-label="{lang}todolist.general.isUndone{/lang}">{icon name='square'}</span>
+                                    {/if}
+                                </button>
                                 
                                 
                                 <div class="todoContainerMetaData">

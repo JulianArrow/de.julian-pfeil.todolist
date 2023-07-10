@@ -2,12 +2,12 @@
 
 {capture assign='contentTitle'}{lang}todolist.general.todo{/lang}{/capture}
 
-{capture assign='contentHeader'}
-    {include file='todoHeader' application='todolist'}
-{/capture}
-
 {capture assign='contentHeaderNavigation'}
     {include file='todoAddButton' application='todolist' listItem=true}
+{/capture}
+
+{capture assign='contentHeader'}
+    {include file='todoHeader' application='todolist'}
 {/capture}
 
 {capture assign='contentInteractionButtons'}
@@ -17,6 +17,14 @@
 
                 {if $__wcf->user->userID != $todo->userID}
                     {include file='__userObjectWatchButton' isSubscribed=$todo->isSubscribed() objectType='de.julian-pfeil.todolist.todo' objectID=$todo->todoID}
+                {/if}
+                {if $todo->canEdit()}
+                    <li>
+                        <a href="{link application='todolist' controller='TodoEdit' object=$todo}{/link}" title="{lang}wcf.global.button.edit{/lang}" class="jsTooltip button">
+                            {icon name='pencil'}
+                            <span class="invisible">{lang}wcf.global.button.edit{/lang}</span>
+                        </a>
+                    </li>
                 {/if}
             
                 {event name='afterContentInteractionButtons'}
@@ -30,17 +38,27 @@
             {content}
                 {if $todo->canEdit()}
                     <li>
-                        <a href="{link application='todolist' controller='TodoEdit' object=$todo}{/link}" title="{lang}wcf.global.button.edit{/lang}" class="jsTooltip">
-                            {icon name='pencil'}
-                            <span class="invisible">{lang}wcf.global.button.edit{/lang}</span>
+                        <a 
+                            href="#"
+                            class="jsMarkAsDone"
+                            data-endpoint="{link application='todolist' controller='TodoMarkAsDone' object=$todo}{/link}"
+                            data-is-done="{if $todo->isDone()}1{else}0{/if}"
+                            data-object-id="{@$todo->todoID}"
+                        >
+                            <span>
+                                {if $todo->isDone()}
+                                    {lang}todolist.action.markAsUndone{/lang}
+                                {else}
+                                    {lang}todolist.action.markAsDone{/lang}
+                                {/if}
+                            </span>
                         </a>
                     </li>
                 {/if}
                 {if $todo->canDelete()}
                     <li class="jsOnly">
-                        <a href="#" title="{lang}wcf.global.button.delete{/lang}" class="jsTooltip jsDelete">
-                            {icon name='xmark'}
-                            <span class="invisible">{lang}wcf.global.button.delete{/lang}</span>
+                        <a href="#" class="jsDelete">
+                            <span>{lang}wcf.global.button.delete{/lang}</span>
                         </a>
                     </li>
                 {/if}
@@ -88,29 +106,6 @@
 </footer>
 
 <script data-relocate="true">
-    $(function() {
-        WCF.Language.addObject({	
-            'todolist.action.markAsDone':					'{jslang}todolist.action.markAsDone{/jslang}',
-            'todolist.action.markAsUndone':					'{jslang}todolist.action.markAsUndone{/jslang}',
-            'todolist.action.confirmDelete':				'{jslang}todolist.action.confirmDelete{/jslang}',
-            'todolist.general.isDone':						'{jslang}todolist.general.isDone{/jslang}',
-            'todolist.general.isUndone':						'{jslang}todolist.general.isUndone{/jslang}'
-        });
-        
-        var $updateHandler = new Todolist.Todo.UpdateHandler.Todo();
-        
-        new Todolist.Todo.MarkAsDone($updateHandler);
-        
-        var $inlineEditor = new Todolist.Todo.InlineEditor('.jsTodoInlineEditorContainer');
-        $inlineEditor.setRedirectURL('{link application='todolist' controller='TodoList' encode=false}{/link}');
-        $inlineEditor.setUpdateHandler($updateHandler);
-        $inlineEditor.setPermissions({
-            canDeleteTodo:		{if $todo->canDelete()}1{else}0{/if},
-            canMarkAsDone:		{if $todo->canEdit()}1{else}0{/if}
-        });
-    });
-
-    
     require(['JulianPfeil/Todolist/Ui/Todo/Action/Handler/Delete'], ({ Delete }) => {
         const deleteUser = document.querySelector(".jsDelete");
         if (deleteUser !== null) {

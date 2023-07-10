@@ -24,9 +24,9 @@ export class Delete {
   public delete(): void {
     Ajax.apiOnce({
         data: {
-        actionName: "delete",
-        className: "wcf\\data\\todo\\TodoAction",
-        objectIDs: this.todoIDs,
+            actionName: "delete",
+            className: "todolist\\data\\todo\\TodoAction",
+            objectIDs: this.todoIDs,
         },
         success: this.successCallback,
     });

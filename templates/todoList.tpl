@@ -70,14 +70,13 @@
 </footer>
 
 <script data-relocate="true">
-    $(function() {
-        WCF.Language.addObject({	
-            'todolist.general.isDone':						'{jslang}todolist.general.isDone{/jslang}',
-            'todolist.general.isUndone':						'{jslang}todolist.general.isUndone{/jslang}'
+    require(['JulianPfeil/Todolist/Ui/Todo/MarkAsDone', 'Language'], ({ MarkAsDone }, Language) => {
+        new MarkAsDone();
+
+        Language.addObject({	
+            'todolist.general.isDone':'     {jslang}todolist.general.isDone{/jslang}',
+            'todolist.general.isUndone':'   {jslang}todolist.general.isUndone{/jslang}'
         });
-        var $updateHandler = new Todolist.Todo.UpdateHandler.Todolist();
-        
-        new Todolist.Todo.MarkAsDone($updateHandler);
     });
 </script>
 

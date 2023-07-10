@@ -51,14 +51,21 @@
                 
                 {event name='afterMetaData'}
                 
-                <li class="jsMarkAsDone" data-object-id="{@$todo->todoID}">
-                    {if $todo->isDone()}
-                        <span data-tooltip="{lang}todolist.general.isDone{/lang}" aria-label="{lang}todolist.general.isDone{/lang}">{icon name='check-square'}</span>
-                        <span class="doneTitle">{lang}todolist.general.isDone{/lang}</span>
-                    {else}
-                        <span data-tooltip="{lang}todolist.general.isUndone{/lang}" aria-label="{lang}todolist.general.isUndone{/lang}">{icon name='square'}</span>
-                        <span class="doneTitle">{lang}todolist.general.isUndone{/lang}</span>
-                    {/if}
+                <li>
+                    <button
+                        class="jsMarkAsDone"
+                        data-endpoint="{link application='todolist' controller='TodoMarkAsDone' object=$todo}{/link}"
+                        data-is-done="{if $todo->isDone()}1{else}0{/if}" 
+                        data-object-id="{@$todo->todoID}"
+                    >
+                        {if $todo->isDone()}
+                            <span data-tooltip="{lang}todolist.general.isDone{/lang}" aria-label="{lang}todolist.general.isDone{/lang}">{icon name='check-square'}</span>
+                            <span class="doneTitle">{lang}todolist.general.isDone{/lang}</span>
+                        {else}
+                            <span data-tooltip="{lang}todolist.general.isUndone{/lang}" aria-label="{lang}todolist.general.isUndone{/lang}">{icon name='square'}</span>
+                            <span class="doneTitle">{lang}todolist.general.isUndone{/lang}</span>
+                        {/if}
+                    </button>
                 </li>
             </ul>
         </div>
@@ -75,3 +82,16 @@
             </nav>
         {/hascontent}
     </header>
+
+    <script data-relocate="true">
+        require(['JulianPfeil/Todolist/Ui/Todo/MarkAsDone', 'Language'], ({ MarkAsDone }, Language) => {
+            new MarkAsDone();
+
+            Language.addObject({	
+                'todolist.action.markAsDone':'  {jslang}todolist.action.markAsDone{/jslang}',
+                'todolist.action.markAsUndone':'{jslang}todolist.action.markAsUndone{/jslang}',
+                'todolist.general.isDone':'     {jslang}todolist.general.isDone{/jslang}',
+                'todolist.general.isUndone':'   {jslang}todolist.general.isUndone{/jslang}'
+            });
+        });
+    </script>
