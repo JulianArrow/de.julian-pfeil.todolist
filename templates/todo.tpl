@@ -62,6 +62,8 @@
                         </a>
                     </li>
                 {/if}
+
+                {event name='afterDropdownItems'}
             {/content}
     {/capture}
 {/hascontent}

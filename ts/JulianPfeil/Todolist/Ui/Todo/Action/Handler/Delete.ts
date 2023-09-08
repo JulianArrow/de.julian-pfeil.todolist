@@ -16,7 +16,7 @@ export class Delete {
   private todoIDs: number[];
   private successCallback: CallbackSuccess;
 
-  public constructor(todoIDs: number[], successCallback: CallbackSuccess, deleteMessage: string) {
+  public constructor(todoIDs: number[], successCallback: CallbackSuccess) {
     this.todoIDs = todoIDs;
     this.successCallback = successCallback;
   }

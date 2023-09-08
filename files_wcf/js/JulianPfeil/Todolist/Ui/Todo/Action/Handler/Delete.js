@@ -16,7 +16,7 @@ define(["require", "exports", "tslib", "WoltLabSuite/Core/Ajax"], function (requ
     class Delete {
         todoIDs;
         successCallback;
-        constructor(todoIDs, successCallback, deleteMessage) {
+        constructor(todoIDs, successCallback) {
             this.todoIDs = todoIDs;
             this.successCallback = successCallback;
         }
