@@ -32,7 +32,7 @@
                 {if $todo->time != $todo->lastEditTime}
                     <li class="jsTooltip" title="{lang}todolist.column.lastEditTime{/lang}">
                         {icon name='pencil'}
-                        <span><a href="{link controller='Todo' object=$todo}{/link}" class="permalink">{@$todo->lastEditTime|time}</a></span>
+                        <span>{@$todo->lastEditTime|time}</span>
                         <meta itemprop="dateModified" content="{@$todo->lastEditTime|date:'c'}">
                     </li>
                 {/if}
