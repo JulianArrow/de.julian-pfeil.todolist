@@ -79,6 +79,8 @@ class TodoListPage extends SortablePage
      * @var TodoCategory[]
      */
     public $categoryList = [];
+    
+    public $categoryNodeTree;
 
     /**
      * @var TodoCategory[]
@@ -177,7 +179,7 @@ class TodoListPage extends SortablePage
             $this->requestDone = '0';
         }
 
-        if (isset(($_REQUEST['currentEditor']))) {
+        if (isset(($_REQUEST['currentEditor'])) && !empty($_REQUEST['currentEditor'])) {
             if (!User::getUserByUsername($_REQUEST['currentEditor'])->userID) {
                 throw new IllegalLinkException();
             }

@@ -52,6 +52,12 @@ p.todoTitle {
         .todoContainerMetaData {
             display: table-cell;
             padding-right: 24px;
+            .separatorLeft fa-icon {
+                margin-left: 5px;
+                margin-right: -5px;
+                --font-size: 1em;
+                --icon-size: 12px;
+            }
         }
     }
 }
