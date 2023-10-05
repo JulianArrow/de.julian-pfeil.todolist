@@ -35,6 +35,8 @@ use wcf\util\UserUtil;
  */
 class TodoAction extends AbstractDatabaseObjectAction
 {
+    public $todoData;
+
     /**
      * @inheritDoc
      */

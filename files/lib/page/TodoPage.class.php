@@ -68,6 +68,9 @@ class TodoPage extends AbstractPage
      */
     public $commentObjectTypeID = 0;
 
+    public $canAddTodoInAnyCategory;
+    public $todoLikeData;
+
     /**
      * @inheritDoc
      */
@@ -115,7 +118,7 @@ class TodoPage extends AbstractPage
             $this->todoID = \intval($_REQUEST['id']);
         }
         $this->todo = ViewableTodo::getTodo($this->todoID);
-        if (!$this->todo->todoID) {
+        if (!$this->todo || $this->todo->todoID) {
             throw new IllegalLinkException();
         }
 

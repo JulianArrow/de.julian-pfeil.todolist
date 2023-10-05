@@ -70,6 +70,11 @@ class TodoAddForm extends AbstractFormBuilderForm
     public $categoryID = 0;
 
     /**
+     * todo id
+     */
+    public $todoID = 0;
+
+    /**
      * @inheritDoc
      */
     public function readData()

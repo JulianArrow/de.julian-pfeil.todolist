@@ -263,18 +263,6 @@ class Todo extends DatabaseObject implements ITitledLinkObject
     }
 
     /**
-     * Returns the user profile of the user who added the todo.
-     */
-    public function getUserProfile(): UserProfile
-    {
-        if ($this->userID) {
-            return UserProfileRuntimeCache::getInstance()->getObject($this->userID);
-        } else {
-            return UserProfile::getGuestUserProfile($this->username);
-        }
-    }
-
-    /**
      * Returns the user profile of the user who is set as current editor.
      */
     public function getCurrentEditorProfile(): UserProfile

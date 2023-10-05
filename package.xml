@@ -5,8 +5,8 @@
         <packagedescription>To-do list for creating to-dos.</packagedescription>
         <packagename languagecode="de">To-do-Liste</packagename>
         <packagedescription languagecode="de">To-do-Liste für das Erstellen von To-dos.</packagedescription>
-        <version>6.0.0 RC 1</version>
-        <date>2023-09-08</date>
+        <version>6.0.0 RC 3</version>
+        <date>2023-10-05</date>
         <packageurl><![CDATA[https://julian-pfeil.de/r/plugins/]]></packageurl>
         <isapplication>1</isapplication>
         <applicationdirectory>todo</applicationdirectory>
@@ -44,25 +44,7 @@
         <instruction type="userNotificationEvent" />
     </instructions>
 
-    <instructions type="update" fromversion="2.1.1">
+    <instructions type="update" fromversion="6.0.0 RC 2">
         <instruction type="file" />
-        <instruction type="objectType" />
-        <instruction type="file" application="wcf">files_wcf.tar</instruction>
-        <instruction type="template" />
-        <instruction type="language" />
-        
-        <instruction type="templateListener" />
-        <instruction type="acpMenu" />
-    </instructions>
-
-    <instructions type="update" fromversion="2.1.0">
-        <instruction type="file" />
-        <instruction type="objectType" />
-        <instruction type="file" application="wcf">files_wcf.tar</instruction>
-        <instruction type="template" />
-        <instruction type="language" />
-        
-        <instruction type="templateListener" />
-        <instruction type="acpMenu" />
     </instructions>
 </package>
