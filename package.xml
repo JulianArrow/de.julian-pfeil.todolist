@@ -6,7 +6,7 @@
         <packagename languagecode="de">To-do-Liste</packagename>
         <packagedescription languagecode="de">To-do-Liste für das Erstellen von To-dos.</packagedescription>
         <version>6.0.0 RC 3</version>
-        <date>2023-10-05</date>
+        <date>2023-10-06</date>
         <packageurl><![CDATA[https://julian-pfeil.de/r/plugins/]]></packageurl>
         <isapplication>1</isapplication>
         <applicationdirectory>todo</applicationdirectory>
@@ -18,7 +18,7 @@
     </authorinformation>
     
     <requiredpackages>
-        <requiredpackage minversion="6.0.0 Beta 4">com.woltlab.wcf</requiredpackage>
+        <requiredpackage minversion="6.0.0 RC 2">com.woltlab.wcf</requiredpackage>
     </requiredpackages>
     
     <excludedpackages>
@@ -46,5 +46,6 @@
 
     <instructions type="update" fromversion="6.0.0 RC 2">
         <instruction type="file" />
+        <instruction type="language" />
     </instructions>
 </package>

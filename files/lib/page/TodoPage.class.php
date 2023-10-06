@@ -118,7 +118,7 @@ class TodoPage extends AbstractPage
             $this->todoID = \intval($_REQUEST['id']);
         }
         $this->todo = ViewableTodo::getTodo($this->todoID);
-        if (!$this->todo || $this->todo->todoID) {
+        if ($this->todo === null) {
             throw new IllegalLinkException();
         }
 

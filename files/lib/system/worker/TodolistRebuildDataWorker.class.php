@@ -88,10 +88,14 @@ class TodolistRebuildDataWorker extends AbstractRebuildDataWorker
             $data['cumulativeLikes'] = $cumulativeLikes[$todo->todoID] ?? 0;
 
             // update description
-            $this->getHtmlInputProcessor()->reprocess($todo->message, 'de.julian-pfeil.todolist.todo.content', $todo->todoID);
-            $data['description'] = $this->getHtmlInputProcessor()->getHtml();
-            if (MessageEmbeddedObjectManager::getInstance()->registerObjects($this->getHtmlInputProcessor())) {
-                $data['hasEmbeddedObjects'] = 1;
+            if ($todo->message != '') {
+                $this->getHtmlInputProcessor()->reprocess($todo->message, 'de.julian-pfeil.todolist.todo.content', $todo->todoID);
+                $data['description'] = $this->getHtmlInputProcessor()->getHtml();
+                if (MessageEmbeddedObjectManager::getInstance()->registerObjects($this->getHtmlInputProcessor())) {
+                    $data['hasEmbeddedObjects'] = 1;
+                } else {
+                    $data['hasEmbeddedObjects'] = 0;
+                }
             } else {
                 $data['hasEmbeddedObjects'] = 0;
             }

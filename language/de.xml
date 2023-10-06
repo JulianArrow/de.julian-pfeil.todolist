@@ -30,8 +30,8 @@
         </category>
 
         <category name="wcf.acp.rebuildData">
-            <item name="wcf.acp.rebuildData.de.julian-pfeil.todolist.todo"><![CDATA[To-dos aktualisieren]]></item>
-            <item name="wcf.acp.rebuildData.de.julian-pfeil.todolist.todo.description"><![CDATA[Aktualisiert To-dos]]></item>
+            <item name="wcf.acp.rebuildData.todolist_system_worker_TodolistRebuildDataWorker"><![CDATA[To-dos aktualisieren]]></item>
+            <item name="wcf.acp.rebuildData.todolist_system_worker_TodolistRebuildDataWorker.description"><![CDATA[Aktualisiert To-dos]]></item>
         </category>
 
         <category name="wcf.acl.option">
@@ -268,5 +268,8 @@
         
 		<item name="todolist.general.done"/>
 		<item name="todolist.general.undone"/>
+        
+		<item name="wcf.acp.rebuildData.de.julian-pfeil.todolist.todo"/>
+		<item name="wcf.acp.rebuildData.de.julian-pfeil.todolist.todo.description"/>
     </delete>
 </language>
