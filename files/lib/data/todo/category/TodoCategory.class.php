@@ -161,14 +161,6 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
      */
     public function canView(?User $user = null)
     {
-        if ($user === null) {
-            $user = WCF::getUser();
-        }
-
-        if (!$user->userID) {
-            return false;
-        }
-
         if (!$this->isAccessible()) {
             return false;
         }
@@ -177,7 +169,7 @@ class TodoCategory extends AbstractDecoratedCategory implements IAccessibleObjec
             return true;
         }
 
-        return $this->getPermission('canViewCategory', $user);
+        return $this->getPermission('canViewCategory');
     }
 
     /**
