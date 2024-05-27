@@ -5,8 +5,8 @@
         <packagedescription>To-do list for creating to-dos.</packagedescription>
         <packagename languagecode="de">To-do-Liste</packagename>
         <packagedescription languagecode="de">To-do-Liste für das Erstellen von To-dos.</packagedescription>
-        <version>6.0.0</version>
-        <date>2023-10-17</date>
+        <version>6.0.2</version>
+        <date>2024-03-29</date>
         <packageurl><![CDATA[https://julian-pfeil.de/r/plugins/]]></packageurl>
         <isapplication>1</isapplication>
         <applicationdirectory>todo</applicationdirectory>
@@ -18,7 +18,7 @@
     </authorinformation>
     
     <requiredpackages>
-        <requiredpackage minversion="6.0.0">com.woltlab.wcf</requiredpackage>
+        <requiredpackage minversion="6.0.9">com.woltlab.wcf</requiredpackage>
     </requiredpackages>
     
     <excludedpackages>
@@ -44,7 +44,18 @@
         <instruction type="userNotificationEvent" />
     </instructions>
 
-    <instructions type="update" fromversion="6.0.0 RC 3">
+    <instructions type="update" fromversion="6.0.1">
+        <instruction type="template" />
+    </instructions>
+
+    <instructions type="update" fromversion="2.1.*">
         <instruction type="file" />
+        <instruction type="objectType" />
+        <instruction type="file" application="wcf">files_wcf.tar</instruction>
+        <instruction type="template" />
+        <instruction type="language" />
+        
+        <instruction type="templateListener" />
+        <instruction type="acpMenu" />
     </instructions>
 </package>
