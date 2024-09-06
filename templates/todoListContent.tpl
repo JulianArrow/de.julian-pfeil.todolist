@@ -1,35 +1,31 @@
 <ul class="commentList containerList todoList jsObjectActionContainer jsReloadPageWhenEmpty" {*
-    *}data-object-action-class-name="todolist\data\todo\TodoAction"{*
+    *}data-object-action-class-name="todolist\data\todo\TodoAction" {*
 *}>
     {foreach from=$objects item=todo}
-        <li class="comment todo jsObjectActionObject todoHeader" 
-            data-object-id="{@$todo->todoID}"
-            data-todo-id="{@$todo->todoID}"
-            data-is-done="{if $todo->isDone()}true{else}false{/if}"
-            data-can-mark-as-done="{if $todo->canEdit()}1{else}0{/if}"
-        >
+        <li class="comment todo jsObjectActionObject todoHeader" data-object-id="{@$todo->todoID}"
+            data-todo-id="{@$todo->todoID}" data-is-done="{if $todo->isDone()}true{else}false{/if}"
+            data-can-mark-as-done="{if $todo->canEdit()}1{else}0{/if}">
             <div class="box48{if $__wcf->getUserProfileHandler()->isIgnoredUser($todo->userID, 2)} ignoredUserContent{/if}">
                 <div class="commentContentContainer">
                     <div class="commentContent">
                         <div class="containerHeadline">
                             <h3>
-                                <button
-                                    class="jsMarkAsDone"
+                                <button class="jsMarkAsDone"
                                     data-endpoint="{link application='todolist' controller='TodoMarkAsDone' object=$todo}{/link}"
-                                    data-is-done="{if $todo->isDone()}1{else}0{/if}"
-                                    data-object-id="{@$todo->todoID}"
-                                >
+                                    data-is-done="{if $todo->isDone()}1{else}0{/if}" data-object-id="{@$todo->todoID}">
                                     {if $todo->isDone()}
-                                        <span data-tooltip="{lang}todolist.general.isDone{/lang}" aria-label="{lang}todolist.general.isDone{/lang}">{icon name='check-square'}</span>
+                                        <span data-tooltip="{lang}todolist.general.isDone{/lang}"
+                                            aria-label="{lang}todolist.general.isDone{/lang}">{icon name='check-square'}</span>
                                     {else}
-                                        <span data-tooltip="{lang}todolist.general.isUndone{/lang}" aria-label="{lang}todolist.general.isUndone{/lang}">{icon name='square'}</span>
+                                        <span data-tooltip="{lang}todolist.general.isUndone{/lang}"
+                                            aria-label="{lang}todolist.general.isUndone{/lang}">{icon name='square'}</span>
                                     {/if}
                                 </button>
-                                
-                                
+
+
                                 <div class="todoContainerMetaData">
                                     <a href="{$todo->getLink()}" title="{$todo->getPlainExcerpt()}">{$todo->getTitle()}</a>
-                                
+
                                     <small class="separatorLeft">
                                         {icon name='user'}
 
@@ -39,7 +35,7 @@
                                             <span>{$todo->username}</span>
                                         {/if}
                                     </small>
-                                    
+
                                     <small class="separatorLeft">
                                         {if $todo->time < $todo->lastEditTime}
                                             {icon name='pencil'}
@@ -53,14 +49,14 @@
                                     <small class="separatorLeft">
                                         {icon name='eye'}
                                         {$todo->views}
-                                    </small>       
+                                    </small>
 
-                                    {if MODULE_LIKE && $__wcf->getSession()->getPermission('user.like.canViewLike') && $todo->cumulativeLikes} 
+                                    {if MODULE_LIKE && $__wcf->getSession()->getPermission('user.like.canViewLike') && $todo->cumulativeLikes}
                                         <small class="separatorLeft">
                                             {include file='__topReaction' cachedReactions=$todo->cachedReactions render='tiny'}
                                         </small>
                                     {/if}
-                                    
+
                                     {if $todo->enableComments && $todo->comments > 0}
                                         <small class="separatorLeft">
                                             {icon name='comments'}
@@ -80,12 +76,15 @@
                                 </div>
                             </h3>
                         </div>
-                        
+
+                        {hascontent}
                         <nav class="jsMobileNavigation buttonGroupNavigation">
                             <ul class="buttonList iconList">
+                                {content}
                                 {if $todo->canEdit()}
                                     <li>
-                                        <a href="{link application='todolist' controller='TodoEdit' object=$todo}{/link}" title="{lang}wcf.global.button.edit{/lang}" class="jsEditInformation jsTooltip">
+                                        <a href="{link application='todolist' controller='TodoEdit' object=$todo}{/link}"
+                                            title="{lang}wcf.global.button.edit{/lang}" class="jsEditInformation jsTooltip">
                                             {icon name='pencil'}
                                             <span class="invisible">{lang}wcf.global.button.edit{/lang}</span>
                                         </a>
@@ -93,13 +92,19 @@
                                 {/if}
                                 {if $todo->canDelete()}
                                     <li class="jsOnly">
-                                        {objectAction action="delete" objectTitle=$todo->getTitle()}
+                                        <a href="#" class="jsDelete jsTooltip" data-todo-id="{$todo->todoID}"
+                                            title="{lang}wcf.global.button.delete{/lang}">
+                                            {icon name='xmark'}
+                                            <span class="invisible">{lang}wcf.global.button.delete{/lang}</span>
+                                        </a>
                                     </li>
                                 {/if}
-                                
+
                                 {event name='informationOptions'}
+                                {/content}
                             </ul>
                         </nav>
+                        {/hascontent}
                     </div>
                 </div>
             </div>

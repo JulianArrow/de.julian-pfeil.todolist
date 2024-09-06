@@ -75,19 +75,3 @@ p.todoTitle {
         left: 0 !important;
     }
 }
-
-@include screen-md-down {
-    .containerList>li .buttonGroupNavigation>.buttonList li>button {
-        clear: both;
-        cursor: pointer;
-        display: block;
-        max-width: 350px;
-        overflow: hidden;
-        padding: 6px 12px;
-        text-decoration: none;
-        text-overflow: ellipsis;
-        user-select: none;
-        white-space: nowrap;
-        word-wrap: normal;
-    }
-}

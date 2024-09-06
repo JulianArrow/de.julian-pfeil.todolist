@@ -70,13 +70,27 @@
 </footer>
 
 <script data-relocate="true">
-    require(['JulianPfeil/Todolist/Ui/Todo/MarkAsDone', 'Language'], ({ MarkAsDone }, Language) => {
+    require(['JulianPfeil/Todolist/Ui/Todo/MarkAsDone', 'Language', 'JulianPfeil/Todolist/Ui/Todo/Action/Handler/Delete'], ({ MarkAsDone }, Language, { Delete }) => {
         new MarkAsDone();
 
         Language.addObject({	
             'todolist.general.isDone':'     {jslang}todolist.general.isDone{/jslang}',
             'todolist.general.isUndone':'   {jslang}todolist.general.isUndone{/jslang}'
         });
+
+        const deleteUser = document.querySelector(".jsDelete");
+        if (deleteUser !== null) {
+            // We cannot use the DeleteAction, because the Delete Action is only usable for
+            // dropdown menues.
+            deleteUser.addEventListener("click", (event) => {
+                const todoId = parseInt(event.target.dataset.todoId);
+                const deleteAction = new Delete([todoId], () => {
+                    document.querySelector(".todo[data-object-id=\"" + todoId + "\"]").remove();
+                });
+
+                deleteAction.delete();
+            });
+        }      
     });
 </script>
 
