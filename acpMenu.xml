@@ -1,23 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/5.4/acpMenu.xsd">
-    <import>
-        <!-- parent -->
-        <acpmenuitem name="todolist.acp.menu.link">
-            <parent>wcf.acp.menu.link.application</parent>
-        </acpmenuitem>
-        
-        <!-- category -->
-        <acpmenuitem name="todolist.acp.menu.link.todo.category">
-            <controller>todolist\acp\page\CategoryListPage</controller>
-            <parent>todolist.acp.menu.link</parent>
-            <permissions>admin.todolist.general.canManageCategory</permissions>
-            <showorder>0</showorder>
-        </acpmenuitem>
-        <acpmenuitem name="todolist.acp.menu.link.todo.category.add">
-            <controller>todolist\acp\form\CategoryAddForm</controller>
-            <parent>todolist.acp.menu.link.todo.category</parent>
-            <permissions>admin.todolist.general.canManageCategory</permissions>
-            <icon>plus</icon>
-        </acpmenuitem>
-    </import>
+    <delete>
+		<acpmenuitem name="todolist.acp.menu.link"/>
+		<acpmenuitem name="todolist.acp.menu.link.todo.category"/>
+		<acpmenuitem name="todolist.acp.menu.link.todo.category.add"/>
+	</delete>
 </data>
