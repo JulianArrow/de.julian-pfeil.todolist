@@ -1,20 +1,20 @@
 <?php
 
+use todolist\acp\form\CategoryAddForm;
+use todolist\acp\page\CategoryListPage;
 use wcf\event\acp\menu\item\ItemCollecting;
+use wcf\event\worker\RebuildWorkerCollecting;
 use wcf\system\event\EventHandler;
 use wcf\system\menu\acp\AcpMenuItem;
-use wcf\event\worker\RebuildWorkerCollecting;
 use wcf\system\request\LinkHandler;
 use wcf\system\style\FontAwesomeIcon;
-use todolist\acp\page\CategoryListPage;
-use todolist\acp\form\CategoryAddForm;
 use wcf\system\WCF;
 
 return static function (): void {
     $eventHandler = EventHandler::getInstance();
 
     $eventHandler->register(RebuildWorkerCollecting::class, static function (RebuildWorkerCollecting $event) {
-        $event->register(\todolist\system\worker\TodolistRebuildDataWorker::class, 0);
+        $event->register(todolist\system\worker\TodolistRebuildDataWorker::class, 0);
     });
 
     $eventHandler->register(ItemCollecting::class, static function (ItemCollecting $event) {

@@ -69,6 +69,7 @@ class TodoPage extends AbstractPage
     public $commentObjectTypeID = 0;
 
     public $canAddTodoInAnyCategory;
+
     public $todoLikeData;
 
     /**
