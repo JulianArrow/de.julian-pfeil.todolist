@@ -250,7 +250,7 @@ class TodoAction extends AbstractDatabaseObjectAction
                 if (!empty($quotedUsernames) || !empty($mentionedUserIDs)) {
                     // process old message
                     $htmlInputProcessor = new HtmlInputProcessor();
-                    $htmlInputProcessor->processIntermediate($todo->message);
+                    $htmlInputProcessor->processIntermediate($todo->description);
 
                     // Reload todo to get the updated message.
                     $todo = new Todo($todo->todoID);
